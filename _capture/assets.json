@@ -21,7 +21,7 @@
  },
  "https://www.harlowgroup.com/wp-content/plugins/elementor-pro/assets/css/conditionals/transitions.min.css?ver=4.2.2": {
   "path": "_source/wp-content/plugins/elementor-pro/assets/css/conditionals/transitions.min.css",
-  "status": 200,
+  "status": "cached",
   "bytes": 7256
  },
  "https://www.harlowgroup.com/wp-content/plugins/elementor-pro/assets/css/modules/motion-fx.min.css?ver=4.2.2": {
@@ -31,7 +31,7 @@
  },
  "https://www.harlowgroup.com/wp-content/plugins/elementor-pro/assets/css/widget-gallery.min.css?ver=4.2.2": {
   "path": "_source/wp-content/plugins/elementor-pro/assets/css/widget-gallery.min.css",
-  "status": 200,
+  "status": "cached",
   "bytes": 5945
  },
  "https://www.harlowgroup.com/wp-content/plugins/elementor-pro/assets/css/widget-loop-carousel.min.css?ver=4.2.2": {
@@ -71,7 +71,7 @@
  },
  "https://www.harlowgroup.com/wp-content/plugins/elementor-pro/assets/js/gallery.cca2358f59857ce6f62f.bundle.min.js": {
   "path": "_source/wp-content/plugins/elementor-pro/assets/js/gallery.cca2358f59857ce6f62f.bundle.min.js",
-  "status": 200,
+  "status": "cached",
   "bytes": 5897
  },
  "https://www.harlowgroup.com/wp-content/plugins/elementor-pro/assets/js/load-more.7c4417f8a727b79f546f.bundle.min.js": {
@@ -116,7 +116,7 @@
  },
  "https://www.harlowgroup.com/wp-content/plugins/elementor/assets/css/conditionals/dialog.min.css?ver=4.3.2": {
   "path": "_source/wp-content/plugins/elementor/assets/css/conditionals/dialog.min.css",
-  "status": 200,
+  "status": "cached",
   "bytes": 16528
  },
  "https://www.harlowgroup.com/wp-content/plugins/elementor/assets/css/conditionals/e-swiper.min.css?ver=4.3.2": {
@@ -126,7 +126,7 @@
  },
  "https://www.harlowgroup.com/wp-content/plugins/elementor/assets/css/conditionals/lightbox.min.css?ver=4.3.2": {
   "path": "_source/wp-content/plugins/elementor/assets/css/conditionals/lightbox.min.css",
-  "status": 200,
+  "status": "cached",
   "bytes": 11305
  },
  "https://www.harlowgroup.com/wp-content/plugins/elementor/assets/css/frontend.min.css?ver=4.3.2": {
@@ -136,7 +136,7 @@
  },
  "https://www.harlowgroup.com/wp-content/plugins/elementor/assets/css/widget-accordion.min.css?ver=4.3.2": {
   "path": "_source/wp-content/plugins/elementor/assets/css/widget-accordion.min.css",
-  "status": 200,
+  "status": "cached",
   "bytes": 1744
  },
  "https://www.harlowgroup.com/wp-content/plugins/elementor/assets/css/widget-divider.min.css?ver=4.3.2": {
@@ -171,7 +171,7 @@
  },
  "https://www.harlowgroup.com/wp-content/plugins/elementor/assets/js/chunks/accordion.min.js?ver=4.3.2": {
   "path": "_source/wp-content/plugins/elementor/assets/js/chunks/accordion.min.js",
-  "status": 200,
+  "status": "cached",
   "bytes": 27640
  },
  "https://www.harlowgroup.com/wp-content/plugins/elementor/assets/js/chunks/background-slideshow.min.js?ver=4.3.2": {
@@ -186,7 +186,7 @@
  },
  "https://www.harlowgroup.com/wp-content/plugins/elementor/assets/js/chunks/lightbox-lightbox.min.js?ver=4.3.2": {
   "path": "_source/wp-content/plugins/elementor/assets/js/chunks/lightbox-lightbox.min.js",
-  "status": 200,
+  "status": "cached",
   "bytes": 78316
  },
  "https://www.harlowgroup.com/wp-content/plugins/elementor/assets/js/chunks/text-editor.min.js?ver=4.3.2": {
@@ -226,12 +226,12 @@
  },
  "https://www.harlowgroup.com/wp-content/plugins/elementor/assets/lib/animations/styles/fadeInLeft.min.css?ver=4.3.2": {
   "path": "_source/wp-content/plugins/elementor/assets/lib/animations/styles/fadeInLeft.min.css",
-  "status": 200,
+  "status": "cached",
   "bytes": 137
  },
  "https://www.harlowgroup.com/wp-content/plugins/elementor/assets/lib/animations/styles/fadeInRight.min.css?ver=4.3.2": {
   "path": "_source/wp-content/plugins/elementor/assets/lib/animations/styles/fadeInRight.min.css",
-  "status": 200,
+  "status": "cached",
   "bytes": 139
  },
  "https://www.harlowgroup.com/wp-content/plugins/elementor/assets/lib/animations/styles/fadeInUp.min.css?ver=4.3.2": {
@@ -251,12 +251,12 @@
  },
  "https://www.harlowgroup.com/wp-content/plugins/elementor/assets/lib/dialog/dialog.min.js?ver=4.9.3": {
   "path": "_source/wp-content/plugins/elementor/assets/lib/dialog/dialog.min.js",
-  "status": 200,
+  "status": "cached",
   "bytes": 11622
  },
  "https://www.harlowgroup.com/wp-content/plugins/elementor/assets/lib/e-gallery/css/e-gallery.min.css?ver=1.2.0": {
   "path": "_source/wp-content/plugins/elementor/assets/lib/e-gallery/css/e-gallery.min.css",
-  "status": 200,
+  "status": "cached",
   "bytes": 3303
  },
  "https://www.harlowgroup.com/wp-content/plugins/elementor/assets/lib/e-gallery/js/e-gallery.min.js?ver=1.2.0": {
@@ -266,7 +266,7 @@
  },
  "https://www.harlowgroup.com/wp-content/plugins/elementor/assets/lib/share-link/share-link.min.js?ver=4.3.2": {
   "path": "_source/wp-content/plugins/elementor/assets/lib/share-link/share-link.min.js",
-  "status": 200,
+  "status": "cached",
   "bytes": 2752
  },
  "https://www.harlowgroup.com/wp-content/plugins/elementor/assets/lib/swiper/v8/css/swiper.min.css?ver=8.4.5": {
@@ -554,30 +554,60 @@
   "status": "cached",
   "bytes": 463
  },
+ "https://www.harlowgroup.com/wp-content/uploads/2024/06/133091713753315774DSC_4259-1024x681.jpeg": {
+  "path": "assets/uploads/2024/06/133091713753315774DSC_4259-1024x681.jpeg",
+  "status": 200,
+  "bytes": 111655
+ },
  "https://www.harlowgroup.com/wp-content/uploads/2024/06/133091713753315774DSC_4259.jpeg": {
   "path": "assets/uploads/2024/06/133091713753315774DSC_4259.jpeg",
   "status": "cached",
   "bytes": 811120
+ },
+ "https://www.harlowgroup.com/wp-content/uploads/2024/06/133091713753315774image-1024x536.jpeg": {
+  "path": "assets/uploads/2024/06/133091713753315774image-1024x536.jpeg",
+  "status": 200,
+  "bytes": 62887
  },
  "https://www.harlowgroup.com/wp-content/uploads/2024/06/133091713753315774image-scaled.jpeg": {
   "path": "assets/uploads/2024/06/133091713753315774image-scaled.jpeg",
   "status": "cached",
   "bytes": 280657
  },
+ "https://www.harlowgroup.com/wp-content/uploads/2024/06/133091713753472027DSC00455-1024x768.jpg": {
+  "path": "assets/uploads/2024/06/133091713753472027DSC00455-1024x768.jpg",
+  "status": 200,
+  "bytes": 87828
+ },
  "https://www.harlowgroup.com/wp-content/uploads/2024/06/133091713753472027DSC00455-scaled.jpg": {
   "path": "assets/uploads/2024/06/133091713753472027DSC00455-scaled.jpg",
   "status": "cached",
   "bytes": 522854
+ },
+ "https://www.harlowgroup.com/wp-content/uploads/2024/06/133091713753472027DSC00464-1024x768.jpg": {
+  "path": "assets/uploads/2024/06/133091713753472027DSC00464-1024x768.jpg",
+  "status": 200,
+  "bytes": 91388
  },
  "https://www.harlowgroup.com/wp-content/uploads/2024/06/133091713753472027DSC00464-scaled.jpg": {
   "path": "assets/uploads/2024/06/133091713753472027DSC00464-scaled.jpg",
   "status": "cached",
   "bytes": 509874
  },
+ "https://www.harlowgroup.com/wp-content/uploads/2024/06/133091713753628292DSC00026-1024x768.jpg": {
+  "path": "assets/uploads/2024/06/133091713753628292DSC00026-1024x768.jpg",
+  "status": 200,
+  "bytes": 102785
+ },
  "https://www.harlowgroup.com/wp-content/uploads/2024/06/133091713753628292DSC00026-scaled.jpg": {
   "path": "assets/uploads/2024/06/133091713753628292DSC00026-scaled.jpg",
   "status": "cached",
   "bytes": 500100
+ },
+ "https://www.harlowgroup.com/wp-content/uploads/2024/06/133091713753628292DSC00437-1024x768.jpg": {
+  "path": "assets/uploads/2024/06/133091713753628292DSC00437-1024x768.jpg",
+  "status": 200,
+  "bytes": 154913
  },
  "https://www.harlowgroup.com/wp-content/uploads/2024/06/133091713753628292DSC00437-scaled.jpg": {
   "path": "assets/uploads/2024/06/133091713753628292DSC00437-scaled.jpg",
@@ -591,7 +621,7 @@
  },
  "https://www.harlowgroup.com/wp-content/uploads/2024/06/133116078506171098Blogs.jpg": {
   "path": "assets/uploads/2024/06/133116078506171098Blogs.jpg",
-  "status": 200,
+  "status": "cached",
   "bytes": 66471
  },
  "https://www.harlowgroup.com/wp-content/uploads/2024/06/133116721139490326careers-at-harlow.jpg": {
@@ -601,12 +631,12 @@
  },
  "https://www.harlowgroup.com/wp-content/uploads/2024/06/133116740388411546Group-Policies.jpg": {
   "path": "assets/uploads/2024/06/133116740388411546Group-Policies.jpg",
-  "status": 200,
+  "status": "cached",
   "bytes": 121005
  },
  "https://www.harlowgroup.com/wp-content/uploads/2024/06/133129818766222552ttttt.png": {
   "path": "assets/uploads/2024/06/133129818766222552ttttt.png",
-  "status": 200,
+  "status": "cached",
   "bytes": 117720
  },
  "https://www.harlowgroup.com/wp-content/uploads/2024/06/133210226607388367testi1.png": {
@@ -636,7 +666,7 @@
  },
  "https://www.harlowgroup.com/wp-content/uploads/2024/06/133216147158444517alrasheed1-1024x680.jpg": {
   "path": "assets/uploads/2024/06/133216147158444517alrasheed1-1024x680.jpg",
-  "status": 200,
+  "status": "cached",
   "bytes": 131995
  },
  "https://www.harlowgroup.com/wp-content/uploads/2024/06/133216147158444517alrasheed1.jpg": {
@@ -646,7 +676,7 @@
  },
  "https://www.harlowgroup.com/wp-content/uploads/2024/06/133216160975090272Hallways-1024x686.jpg": {
   "path": "assets/uploads/2024/06/133216160975090272Hallways-1024x686.jpg",
-  "status": 200,
+  "status": "cached",
   "bytes": 107573
  },
  "https://www.harlowgroup.com/wp-content/uploads/2024/06/133216160975090272Hallways.jpg": {
@@ -656,7 +686,7 @@
  },
  "https://www.harlowgroup.com/wp-content/uploads/2024/06/133216162043443065Interior-1024x686.jpg": {
   "path": "assets/uploads/2024/06/133216162043443065Interior-1024x686.jpg",
-  "status": 200,
+  "status": "cached",
   "bytes": 161029
  },
  "https://www.harlowgroup.com/wp-content/uploads/2024/06/133216162043443065Interior.jpg": {
@@ -666,7 +696,7 @@
  },
  "https://www.harlowgroup.com/wp-content/uploads/2024/06/133216163466332735Watchtower-construction-1024x686.jpg": {
   "path": "assets/uploads/2024/06/133216163466332735Watchtower-construction-1024x686.jpg",
-  "status": 200,
+  "status": "cached",
   "bytes": 120362
  },
  "https://www.harlowgroup.com/wp-content/uploads/2024/06/133216163466332735Watchtower-construction.jpg": {
@@ -676,7 +706,7 @@
  },
  "https://www.harlowgroup.com/wp-content/uploads/2024/06/133216164389856145Watchtower-base-construction-1024x686.jpg": {
   "path": "assets/uploads/2024/06/133216164389856145Watchtower-base-construction-1024x686.jpg",
-  "status": 200,
+  "status": "cached",
   "bytes": 179865
  },
  "https://www.harlowgroup.com/wp-content/uploads/2024/06/133216164389856145Watchtower-base-construction.jpg": {
@@ -686,7 +716,7 @@
  },
  "https://www.harlowgroup.com/wp-content/uploads/2024/06/133216165035519982Riverside-room-1024x686.jpg": {
   "path": "assets/uploads/2024/06/133216165035519982Riverside-room-1024x686.jpg",
-  "status": 200,
+  "status": "cached",
   "bytes": 97283
  },
  "https://www.harlowgroup.com/wp-content/uploads/2024/06/133216165035519982Riverside-room.jpg": {
@@ -696,7 +726,7 @@
  },
  "https://www.harlowgroup.com/wp-content/uploads/2024/06/133216165544684431VIP-Lobby-1024x686.jpg": {
   "path": "assets/uploads/2024/06/133216165544684431VIP-Lobby-1024x686.jpg",
-  "status": 200,
+  "status": "cached",
   "bytes": 149138
  },
  "https://www.harlowgroup.com/wp-content/uploads/2024/06/133216165544684431VIP-Lobby.jpg": {
@@ -706,7 +736,7 @@
  },
  "https://www.harlowgroup.com/wp-content/uploads/2024/06/133216166053072913Meeting-Room-1024x686.jpg": {
   "path": "assets/uploads/2024/06/133216166053072913Meeting-Room-1024x686.jpg",
-  "status": 200,
+  "status": "cached",
   "bytes": 91574
  },
  "https://www.harlowgroup.com/wp-content/uploads/2024/06/133216166053072913Meeting-Room.jpg": {
@@ -714,10 +744,20 @@
   "status": "cached",
   "bytes": 57136
  },
+ "https://www.harlowgroup.com/wp-content/uploads/2024/06/133224984806904646Britsh-Embassy-2-1024x683.jpg": {
+  "path": "assets/uploads/2024/06/133224984806904646Britsh-Embassy-2-1024x683.jpg",
+  "status": 200,
+  "bytes": 121886
+ },
  "https://www.harlowgroup.com/wp-content/uploads/2024/06/133224984806904646Britsh-Embassy-2.jpg": {
   "path": "assets/uploads/2024/06/133224984806904646Britsh-Embassy-2.jpg",
   "status": "cached",
   "bytes": 108035
+ },
+ "https://www.harlowgroup.com/wp-content/uploads/2024/06/133224984806904646Britsh-Embassy-3-1024x680.jpg": {
+  "path": "assets/uploads/2024/06/133224984806904646Britsh-Embassy-3-1024x680.jpg",
+  "status": 200,
+  "bytes": 186146
  },
  "https://www.harlowgroup.com/wp-content/uploads/2024/06/133224984806904646Britsh-Embassy-3.jpg": {
   "path": "assets/uploads/2024/06/133224984806904646Britsh-Embassy-3.jpg",
@@ -726,7 +766,7 @@
  },
  "https://www.harlowgroup.com/wp-content/uploads/2024/06/133224992951210169133091706762338042DSC02507-1024x768.jpg": {
   "path": "assets/uploads/2024/06/133224992951210169133091706762338042DSC02507-1024x768.jpg",
-  "status": 200,
+  "status": "cached",
   "bytes": 135488
  },
  "https://www.harlowgroup.com/wp-content/uploads/2024/06/133224992951210169133091706762338042DSC02507.jpg": {
@@ -734,10 +774,20 @@
   "status": "cached",
   "bytes": 495515
  },
+ "https://www.harlowgroup.com/wp-content/uploads/2024/06/133225573834439662133091706762494290DSC02720-1024x768.jpg": {
+  "path": "assets/uploads/2024/06/133225573834439662133091706762494290DSC02720-1024x768.jpg",
+  "status": 200,
+  "bytes": 123750
+ },
  "https://www.harlowgroup.com/wp-content/uploads/2024/06/133225573834439662133091706762494290DSC02720.jpg": {
   "path": "assets/uploads/2024/06/133225573834439662133091706762494290DSC02720.jpg",
   "status": "cached",
   "bytes": 142266
+ },
+ "https://www.harlowgroup.com/wp-content/uploads/2024/06/133226717739353287133091706762494290DSC00520-1024x768.jpg": {
+  "path": "assets/uploads/2024/06/133226717739353287133091706762494290DSC00520-1024x768.jpg",
+  "status": 200,
+  "bytes": 157038
  },
  "https://www.harlowgroup.com/wp-content/uploads/2024/06/133226717739353287133091706762494290DSC00520.jpg": {
   "path": "assets/uploads/2024/06/133226717739353287133091706762494290DSC00520.jpg",
@@ -746,13 +796,23 @@
  },
  "https://www.harlowgroup.com/wp-content/uploads/2024/06/133228379131114597factory-g82c2609f1_1280-1024x682.jpg": {
   "path": "assets/uploads/2024/06/133228379131114597factory-g82c2609f1_1280-1024x682.jpg",
-  "status": 200,
+  "status": "cached",
   "bytes": 188833
  },
  "https://www.harlowgroup.com/wp-content/uploads/2024/06/133228379131114597factory-g82c2609f1_1280.jpg": {
   "path": "assets/uploads/2024/06/133228379131114597factory-g82c2609f1_1280.jpg",
   "status": "cached",
   "bytes": 481658
+ },
+ "https://www.harlowgroup.com/wp-content/uploads/2024/06/133229907097057667Alrasheed-1024x683.jpg": {
+  "path": "assets/uploads/2024/06/133229907097057667Alrasheed-1024x683.jpg",
+  "status": 200,
+  "bytes": 110553
+ },
+ "https://www.harlowgroup.com/wp-content/uploads/2024/06/133229907097057667Alrasheed-2-1024x645.jpg": {
+  "path": "assets/uploads/2024/06/133229907097057667Alrasheed-2-1024x645.jpg",
+  "status": 200,
+  "bytes": 172537
  },
  "https://www.harlowgroup.com/wp-content/uploads/2024/06/133229907097057667Alrasheed-2.jpg": {
   "path": "assets/uploads/2024/06/133229907097057667Alrasheed-2.jpg",
@@ -764,20 +824,40 @@
   "status": "cached",
   "bytes": 488956
  },
+ "https://www.harlowgroup.com/wp-content/uploads/2024/06/133229908183711001133226732498887064Al-Rasheed-6-1024x683.jpg": {
+  "path": "assets/uploads/2024/06/133229908183711001133226732498887064Al-Rasheed-6-1024x683.jpg",
+  "status": 200,
+  "bytes": 143686
+ },
  "https://www.harlowgroup.com/wp-content/uploads/2024/06/133229908183711001133226732498887064Al-Rasheed-6-scaled.jpg": {
   "path": "assets/uploads/2024/06/133229908183711001133226732498887064Al-Rasheed-6-scaled.jpg",
   "status": "cached",
   "bytes": 644223
+ },
+ "https://www.harlowgroup.com/wp-content/uploads/2024/06/133229908183711001Alrasheed-3-1024x683.jpg": {
+  "path": "assets/uploads/2024/06/133229908183711001Alrasheed-3-1024x683.jpg",
+  "status": 200,
+  "bytes": 125890
  },
  "https://www.harlowgroup.com/wp-content/uploads/2024/06/133229908183711001Alrasheed-3-scaled.jpg": {
   "path": "assets/uploads/2024/06/133229908183711001Alrasheed-3-scaled.jpg",
   "status": "cached",
   "bytes": 558521
  },
+ "https://www.harlowgroup.com/wp-content/uploads/2024/06/133229908183711001Alrasheed-4-1024x683.jpg": {
+  "path": "assets/uploads/2024/06/133229908183711001Alrasheed-4-1024x683.jpg",
+  "status": 200,
+  "bytes": 130508
+ },
  "https://www.harlowgroup.com/wp-content/uploads/2024/06/133229908183711001Alrasheed-4-scaled.jpg": {
   "path": "assets/uploads/2024/06/133229908183711001Alrasheed-4-scaled.jpg",
   "status": "cached",
   "bytes": 610799
+ },
+ "https://www.harlowgroup.com/wp-content/uploads/2024/06/133229908183711001Alrasheed5-1024x680.jpg": {
+  "path": "assets/uploads/2024/06/133229908183711001Alrasheed5-1024x680.jpg",
+  "status": 200,
+  "bytes": 150728
  },
  "https://www.harlowgroup.com/wp-content/uploads/2024/06/133229908183711001Alrasheed5.jpg": {
   "path": "assets/uploads/2024/06/133229908183711001Alrasheed5.jpg",
@@ -786,7 +866,7 @@
  },
  "https://www.harlowgroup.com/wp-content/uploads/2024/06/133229977128612078P1-1024x768.jpg": {
   "path": "assets/uploads/2024/06/133229977128612078P1-1024x768.jpg",
-  "status": 200,
+  "status": "cached",
   "bytes": 124749
  },
  "https://www.harlowgroup.com/wp-content/uploads/2024/06/133229977128612078P1.jpg": {
@@ -796,7 +876,7 @@
  },
  "https://www.harlowgroup.com/wp-content/uploads/2024/06/133229977128612078P2-1024x768.jpg": {
   "path": "assets/uploads/2024/06/133229977128612078P2-1024x768.jpg",
-  "status": 200,
+  "status": "cached",
   "bytes": 119412
  },
  "https://www.harlowgroup.com/wp-content/uploads/2024/06/133229977128612078P2.jpg": {
@@ -804,20 +884,40 @@
   "status": "cached",
   "bytes": 237347
  },
+ "https://www.harlowgroup.com/wp-content/uploads/2024/06/133229977128768329P3-1024x768.jpg": {
+  "path": "assets/uploads/2024/06/133229977128768329P3-1024x768.jpg",
+  "status": 200,
+  "bytes": 146310
+ },
  "https://www.harlowgroup.com/wp-content/uploads/2024/06/133229977128768329P3-scaled.jpg": {
   "path": "assets/uploads/2024/06/133229977128768329P3-scaled.jpg",
   "status": "cached",
   "bytes": 624936
+ },
+ "https://www.harlowgroup.com/wp-content/uploads/2024/06/133229977128768329P4-1024x768.jpg": {
+  "path": "assets/uploads/2024/06/133229977128768329P4-1024x768.jpg",
+  "status": 200,
+  "bytes": 186872
  },
  "https://www.harlowgroup.com/wp-content/uploads/2024/06/133229977128768329P4-scaled.jpg": {
   "path": "assets/uploads/2024/06/133229977128768329P4-scaled.jpg",
   "status": "cached",
   "bytes": 864296
  },
+ "https://www.harlowgroup.com/wp-content/uploads/2024/06/133229977128768329P5-1024x768.jpg": {
+  "path": "assets/uploads/2024/06/133229977128768329P5-1024x768.jpg",
+  "status": 200,
+  "bytes": 221291
+ },
  "https://www.harlowgroup.com/wp-content/uploads/2024/06/133229977128768329P5-scaled.jpg": {
   "path": "assets/uploads/2024/06/133229977128768329P5-scaled.jpg",
   "status": "cached",
   "bytes": 978581
+ },
+ "https://www.harlowgroup.com/wp-content/uploads/2024/06/133229977129237075P6-1024x768.jpg": {
+  "path": "assets/uploads/2024/06/133229977129237075P6-1024x768.jpg",
+  "status": 200,
+  "bytes": 229445
  },
  "https://www.harlowgroup.com/wp-content/uploads/2024/06/133229977129237075P6-scaled.jpg": {
   "path": "assets/uploads/2024/06/133229977129237075P6-scaled.jpg",
@@ -916,7 +1016,7 @@
  },
  "https://www.harlowgroup.com/wp-content/uploads/2024/06/Basmaiya-2-1-1024x686.jpg": {
   "path": "assets/uploads/2024/06/Basmaiya-2-1-1024x686.jpg",
-  "status": 200,
+  "status": "cached",
   "bytes": 113419
  },
  "https://www.harlowgroup.com/wp-content/uploads/2024/06/Basmaiya-2-1.jpg": {
@@ -926,7 +1026,7 @@
  },
  "https://www.harlowgroup.com/wp-content/uploads/2024/06/Basmaiya-3-1-1024x686.jpg": {
   "path": "assets/uploads/2024/06/Basmaiya-3-1-1024x686.jpg",
-  "status": 200,
+  "status": "cached",
   "bytes": 91097
  },
  "https://www.harlowgroup.com/wp-content/uploads/2024/06/Basmaiya-3-1.jpg": {
@@ -1061,7 +1161,7 @@
  },
  "https://www.harlowgroup.com/wp-content/uploads/2024/06/Suwayrah-Air-Base-Work-Progress-1024x686.jpg": {
   "path": "assets/uploads/2024/06/Suwayrah-Air-Base-Work-Progress-1024x686.jpg",
-  "status": 200,
+  "status": "cached",
   "bytes": 136530
  },
  "https://www.harlowgroup.com/wp-content/uploads/2024/06/Suwayrah-Air-Base-Work-Progress.jpg": {
@@ -1071,7 +1171,7 @@
  },
  "https://www.harlowgroup.com/wp-content/uploads/2024/06/Suwayrah-air-base-1024x686.jpg": {
   "path": "assets/uploads/2024/06/Suwayrah-air-base-1024x686.jpg",
-  "status": 200,
+  "status": "cached",
   "bytes": 128591
  },
  "https://www.harlowgroup.com/wp-content/uploads/2024/06/Suwayrah-air-base.jpg": {
@@ -1161,7 +1261,7 @@
  },
  "https://www.harlowgroup.com/wp-content/uploads/2024/06/bg.png": {
   "path": "assets/uploads/2024/06/bg.png",
-  "status": 200,
+  "status": "cached",
   "bytes": 1655702
  },
  "https://www.harlowgroup.com/wp-content/uploads/2024/06/blue-arrow.png": {
@@ -1196,7 +1296,7 @@
  },
  "https://www.harlowgroup.com/wp-content/uploads/2024/06/innerbanner.jpg": {
   "path": "assets/uploads/2024/06/innerbanner.jpg",
-  "status": 200,
+  "status": "cached",
   "bytes": 44368
  },
  "https://www.harlowgroup.com/wp-content/uploads/2024/06/kyc-1086x1536.jpg": {
@@ -1231,7 +1331,7 @@
  },
  "https://www.harlowgroup.com/wp-content/uploads/2024/06/najaf-cement-silo-1024x680.jpg": {
   "path": "assets/uploads/2024/06/najaf-cement-silo-1024x680.jpg",
-  "status": 200,
+  "status": "cached",
   "bytes": 165552
  },
  "https://www.harlowgroup.com/wp-content/uploads/2024/06/najaf-cement-silo.jpg": {
@@ -1241,7 +1341,7 @@
  },
  "https://www.harlowgroup.com/wp-content/uploads/2024/06/najaf-cement-workshop-1024x686.jpg": {
   "path": "assets/uploads/2024/06/najaf-cement-workshop-1024x686.jpg",
-  "status": 200,
+  "status": "cached",
   "bytes": 141747
  },
  "https://www.harlowgroup.com/wp-content/uploads/2024/06/najaf-cement-workshop.jpg": {
@@ -1506,7 +1606,7 @@
  },
  "https://www.harlowgroup.com/wp-content/uploads/2024/12/download-min-3.jpg": {
   "path": "assets/uploads/2024/12/download-min-3.jpg",
-  "status": 200,
+  "status": "cached",
   "bytes": 107594
  },
  "https://www.harlowgroup.com/wp-content/uploads/2024/12/download-min-300x140.png": {
@@ -1541,7 +1641,7 @@
  },
  "https://www.harlowgroup.com/wp-content/uploads/2024/12/group-polices.jpg": {
   "path": "assets/uploads/2024/12/group-polices.jpg",
-  "status": 200,
+  "status": "cached",
   "bytes": 98669
  },
  "https://www.harlowgroup.com/wp-content/uploads/2024/12/guard-264x300.jpg": {
@@ -2091,7 +2191,7 @@
  },
  "https://www.harlowgroup.com/wp-content/uploads/elementor/css/post-1208.css?ver=1792997539": {
   "path": "_source/wp-content/uploads/elementor/css/post-1208.css",
-  "status": 200,
+  "status": "cached",
   "bytes": 6849
  },
  "https://www.harlowgroup.com/wp-content/uploads/elementor/css/post-1212.css?ver=1792997254": {
@@ -2121,12 +2221,12 @@
  },
  "https://www.harlowgroup.com/wp-content/uploads/elementor/css/post-2473.css?ver=1792997074": {
   "path": "_source/wp-content/uploads/elementor/css/post-2473.css",
-  "status": 200,
+  "status": "cached",
   "bytes": 6471
  },
  "https://www.harlowgroup.com/wp-content/uploads/elementor/css/post-2590.css?ver=1792997688": {
   "path": "_source/wp-content/uploads/elementor/css/post-2590.css",
-  "status": 200,
+  "status": "cached",
   "bytes": 11178
  },
  "https://www.harlowgroup.com/wp-content/uploads/elementor/css/post-2847.css?ver=1792997528": {
@@ -2176,17 +2276,17 @@
  },
  "https://www.harlowgroup.com/wp-content/uploads/elementor/css/post-4152.css?ver=1792997711": {
   "path": "_source/wp-content/uploads/elementor/css/post-4152.css",
-  "status": 200,
+  "status": "cached",
   "bytes": 12743
  },
  "https://www.harlowgroup.com/wp-content/uploads/elementor/css/post-4330.css?ver=1792997679": {
   "path": "_source/wp-content/uploads/elementor/css/post-4330.css",
-  "status": 200,
+  "status": "cached",
   "bytes": 14635
  },
  "https://www.harlowgroup.com/wp-content/uploads/elementor/css/post-4955.css?ver=1792997363": {
   "path": "_source/wp-content/uploads/elementor/css/post-4955.css",
-  "status": 200,
+  "status": "cached",
   "bytes": 12457
  },
  "https://www.harlowgroup.com/wp-content/uploads/elementor/css/post-5043.css?ver=1792997351": {
@@ -2211,12 +2311,12 @@
  },
  "https://www.harlowgroup.com/wp-content/uploads/elementor/css/post-5584.css?ver=1792997381": {
   "path": "_source/wp-content/uploads/elementor/css/post-5584.css",
-  "status": 200,
+  "status": "cached",
   "bytes": 6770
  },
  "https://www.harlowgroup.com/wp-content/uploads/elementor/css/post-6254.css?ver=1792997375": {
   "path": "_source/wp-content/uploads/elementor/css/post-6254.css",
-  "status": 200,
+  "status": "cached",
   "bytes": 40984
  },
  "https://www.harlowgroup.com/wp-content/uploads/elementor/css/post-9.css?ver=1792997073": {

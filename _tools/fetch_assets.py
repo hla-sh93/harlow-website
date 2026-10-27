@@ -92,7 +92,7 @@ ASCII_WS = "[ \t\n\r\f]+"  # srcset and URLs: file names here contain U+202F, wh
 def raw_refs(text):
     """Asset URLs written in the server HTML: src, srcset, poster, href to files, url()."""
     out = set()
-    for m in re.finditer(r'\s(?:src|data-src|poster|href)="([^"]+)"', text):
+    for m in re.finditer(r'\s(?:src|data-src|poster|href|data-thumbnail|preloader-image-url)="([^"]+)"', text):
         out.add(m.group(1))
     for m in re.finditer(r'\s(?:srcset|data-srcset)="([^"]+)"', text):
         for cand in re.split("," + ASCII_WS, m.group(1)):

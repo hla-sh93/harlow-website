@@ -41,7 +41,9 @@ async () => {
     new Promise(r => { i.onload = i.onerror = r; setTimeout(r, 8000); })));
   await document.fonts.ready;
   await wait(1500);                                           // entrance animations end
+  document.documentElement.style.scrollBehavior = 'auto';     // html is scroll-behavior: smooth
   window.scrollTo(0, 0);
+  document.documentElement.style.scrollBehavior = '';
   window.dispatchEvent(new Event('scroll'));
   await wait(1200);                                           // header returns to its top state
   return {

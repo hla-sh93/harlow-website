@@ -31,6 +31,19 @@ TOLERANCE = 1.0
 IN_SLIDE = """
 () => [...document.querySelectorAll('[data-id]')].map(e => !!e.closest('.swiper-slide, .swiper-wrapper'))
 """
+# The data-id of the position:fixed container each element sits in (or null). Fixed boxes
+# move with scrollY, so they are compared relative to that container's own top.
+FIXED_ROOT = """
+() => [...document.querySelectorAll('[data-id]')].map(e => {
+  for (let a = e; a && a !== document.body; a = a.parentElement) {
+    if (getComputedStyle(a).position === 'fixed') {
+      const root = a.closest('[data-id]') || a;
+      return root.dataset ? root.dataset.id : null;
+    }
+  }
+  return null;
+})
+"""
 
 
 def index_boxes(geo, skip):
@@ -57,8 +70,26 @@ async def measure(ctx, url):
     await page.evaluate(SETTLE)
     geo = await page.evaluate(GEOMETRY)
     skip = await page.evaluate(IN_SLIDE)
+    fixed = await page.evaluate(FIXED_ROOT)
     await page.close()
-    return geo, skip, errors
+    return geo, skip, fixed, errors
+
+
+def relative_to_fixed(boxes, roots):
+    """Top of each box in a fixed container, measured from that container's top."""
+    tops = {}
+    for key, el in boxes.items():
+        if key[1] == 0:
+            tops.setdefault(el["id"], el["box"][1])
+    out = {}
+    for key, el in boxes.items():
+        root = roots.get(key)
+        if root and root in tops:
+            box = list(el["box"])
+            box[1] = round(box[1] - tops[root], 1)
+            el = {**el, "box": box}
+        out[key] = el
+    return out
 
 
 async def run(items):
@@ -76,12 +107,18 @@ async def run(items):
                 for it in items:
                     live = json.loads((CAPTURE / "geometry" / f"{it['name']}.json").read_text(encoding="utf-8"))[str(w)]
                     url = f"http://127.0.0.1:{PORT}/{it['name']}.html"
-                    geo, skip, errors = await measure(ctx, url)
+                    geo, skip, fixed, errors = await measure(ctx, url)
                     # the live list has the same order; mark its in-slide elements from the clone's ids
                     slide_ids = {el["id"] for el, s in zip(geo["els"], skip) if s}
                     lskip = [el["id"] in slide_ids for el in live["els"]]
                     a = index_boxes(live, lskip)
                     b = index_boxes(geo, skip)
+                    seen = defaultdict(int)
+                    roots = {}
+                    for el, r in zip(geo["els"], fixed):
+                        roots[(el["id"], seen[el["id"]])] = r
+                        seen[el["id"]] += 1
+                    a, b = relative_to_fixed(a, roots), relative_to_fixed(b, roots)
                     diffs = []
                     for key, el in a.items():
                         other = b.get(key)

@@ -1,0 +1,177 @@
+/*
+ * modules.css: hand-written styles for the UI the scripts in assets/js/ create or drive
+ * themselves (the source injected these from its runtime). Loaded after navigation.css.
+ */
+
+/* Page transition (page-transition.js): a white screen with the preloader on top.
+   Durations and the preloader size come from the kit's custom properties. */
+e-page-transition {
+  --preloader-fade-duration: .5s;
+  --preloader-delay: calc(var(--e-page-transition-animation-duration, 0s) + var(--e-preloader-delay, 0s));
+  position: fixed;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  z-index: 10000;
+  background: #fff;
+  animation-fill-mode: both;
+  animation-duration: var(--e-page-transition-animation-duration);
+}
+
+e-page-transition .e-page-transition--preloader {
+  position: absolute;
+  opacity: 0;
+  width: var(--e-preloader-width);
+  max-width: var(--e-preloader-max-width);
+  transform: rotate(var(--e-preloader-rotate, 0deg));
+  animation-name: var(--e-preloader-animation);
+  animation-duration: var(--e-preloader-animation-duration, 1000ms);
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+
+.e-page-transition--entering {
+  animation-name: var(--e-page-transition-entrance-animation);
+  animation-delay: var(--preloader-fade-duration, 0s);
+}
+
+.e-page-transition--entering .e-page-transition--preloader {
+  animation: var(--e-preloader-animation, none) var(--e-preloader-animation-duration, 0s) linear infinite,
+    e-page-transition-fade-out var(--preloader-fade-duration) both;
+  transition: none;
+}
+
+.e-page-transition--exiting {
+  animation-name: var(--e-page-transition-exit-animation);
+}
+
+.e-page-transition--exiting .e-page-transition--preloader {
+  opacity: var(--e-preloader-opacity, 1);
+  transition: var(--preloader-fade-duration) all;
+  transition-delay: var(--preloader-delay, 0s);
+}
+
+.e-page-transition--entered {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  e-page-transition {
+    display: none;
+  }
+}
+
+@keyframes e-page-transition-fade-out {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+/* Lightbox (lightbox.js) */
+.site-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, .9);
+  color: #fff;
+  font-family: "Plus Jakarta Sans", sans-serif;
+}
+
+.site-lightbox--open {
+  display: flex;
+}
+
+.site-lightbox-lock {
+  overflow: hidden;
+}
+
+.site-lightbox__figure {
+  margin: 0;
+  max-width: 85vw;
+  text-align: center;
+}
+
+.site-lightbox__figure img {
+  display: block;
+  max-width: 85vw;
+  max-height: 85vh;
+  margin: 0 auto;
+}
+
+.site-lightbox__figure figcaption {
+  padding-top: 12px;
+  font-size: 14px;
+}
+
+.site-lightbox__counter {
+  position: absolute;
+  top: 16px;
+  left: 20px;
+  font-size: 14px;
+}
+
+.site-lightbox button {
+  position: absolute;
+  border: 0;
+  background: none;
+  color: #fff;
+  cursor: pointer;
+  font-size: 44px;
+  line-height: 1;
+  opacity: .8;
+}
+
+.site-lightbox button:hover {
+  opacity: 1;
+}
+
+.site-lightbox__close {
+  top: 8px;
+  right: 16px;
+}
+
+.site-lightbox__prev {
+  left: 16px;
+}
+
+.site-lightbox__next {
+  right: 16px;
+}
+
+.site-lightbox--single .site-lightbox__prev,
+.site-lightbox--single .site-lightbox__next,
+.site-lightbox--single .site-lightbox__counter {
+  display: none;
+}
+
+/* Cloudflare Turnstile is not loaded in v1; its slot keeps the widget's live height
+   (71px at 1440 and 479) so the form below it does not move. */
+.cf-turnstile-slot {
+  height: 71px;
+}
+
+/* Cookie settings dialog (cookie-bar.js) */
+#moove_gdpr_cookie_modal.cookie-modal-open {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, .6);
+}
+
+#moove_gdpr_cookie_modal.cookie-modal-open .moove-gdpr-modal-content {
+  position: relative;
+  max-width: 860px;
+  width: calc(100% - 32px);
+  max-height: 90vh;
+  overflow: auto;
+  background: #fff;
+}
+
+.cookie-modal-lock {
+  overflow: hidden;
+}

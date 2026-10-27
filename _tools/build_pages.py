@@ -63,6 +63,29 @@ def parse(text):
     return html5lib.parse(text, treebuilder="lxml", namespaceHTMLElements=False)
 
 
+XLINK = "{http://www.w3.org/1999/xlink}"
+XML = "{http://www.w3.org/XML/1998/namespace}"
+
+
+def plain_names(root):
+    """html5lib puts inline SVG/MathML in their namespaces; lxml would print `ns0:svg`,
+    which the browser does not draw. HTML wants bare names (`svg`, `xlink:href`)."""
+    for el in root.iter():
+        if not isinstance(el.tag, str):
+            continue
+        if el.tag.startswith("{"):
+            el.tag = etree.QName(el).localname
+        for name in [a for a in el.attrib if a.startswith("{")]:
+            value = el.attrib.pop(name)
+            if name.startswith(XLINK):
+                el.set("xlink:" + name[len(XLINK):], value)
+            elif name.startswith(XML):
+                el.set("xml:" + name[len(XML):], value)
+            else:
+                el.set(etree.QName(name).localname, value)
+    etree.cleanup_namespaces(root)
+
+
 def known_pages():
     return {p["path"]: p["name"] for p in pages()}
 
@@ -86,7 +109,12 @@ def local_url(url, known, base=SITE + "/"):
     if path.startswith("/wp-content/uploads/"):
         return "assets/uploads/" + quote(path[len("/wp-content/uploads/"):])
     if path.startswith("/wp-content/"):
-        return "assets/vendor/" + quote(path[len("/wp-content/"):])
+        rel = path[len("/wp-content/"):]
+        src, dest = ROOT / "_source" / path.lstrip("/"), ROOT / "assets" / "vendor" / rel
+        if src.exists() and not dest.exists():   # plugin images in the markup (flags, logos)
+            dest.parent.mkdir(parents=True, exist_ok=True)
+            dest.write_bytes(src.read_bytes())
+        return "assets/vendor/" + quote(rel)
     p = path if path.endswith("/") else path + "/"
     if p in known:
         frag = ("#" + parts.fragment) if parts.fragment else ""
@@ -221,9 +249,10 @@ def build(item, source_chrome, known, css_map, report):
     issues = []
     for role, src in source_chrome.items():
         mine = own.get(role)
-        if src is None or mine is None:
-            if (src is None) != (mine is None):
-                issues.append(f"{role} {'missing here' if mine is None else 'not in source'}")
+        if mine is None:
+            continue  # this page has no such part on live either (404, gallery items)
+        if src is None:
+            issues.append(f"{role} not in source")
             continue
         if signature(src) != signature(mine):
             issues.append(f"{role} differs from source")
@@ -277,6 +306,18 @@ def build(item, source_chrome, known, css_map, report):
     body.set("class", " ".join(c for c in body.get("class", "").split()
                                if not RUNTIME_BODY_CLASSES.match(c)))
 
+    # Contact Form 7: its script adds a spinner after the submit button on load. Turnstile
+    # is not loaded in v1 (inventory decision 4); its widget's slot stays, empty, so the
+    # form keeps the live layout (size in modules.css).
+    for btn in body.xpath(".//input[contains(@class,'wpcf7-submit')]"):
+        btn.set("class", btn.get("class") + " has-spinner")
+        spinner = etree.Element("span", {"class": "wpcf7-spinner"})
+        spinner.tail, btn.tail = btn.tail, None
+        btn.addnext(spinner)
+    for box in body.xpath(".//div[contains(concat(' ', @class, ' '), ' cf-turnstile ')]"):
+        if not len(box):
+            etree.SubElement(box, "div", {"class": "cf-turnstile-slot", "aria-hidden": "true"})
+
     # background videos: the source sets src from settings at run time; here it is markup
     for el in body.xpath(".//*[contains(@data-settings,'background_video_link')]"):
         link = json.loads(el.get("data-settings"))["background_video_link"]
@@ -291,7 +332,10 @@ def build(item, source_chrome, known, css_map, report):
     for m in JS_MODULES:
         s = etree.SubElement(body, "script", src=f"assets/js/{m}.js")
         s.set("defer", "")
+    plain_names(root)
     html = lxml_html.tostring(root, method="html", encoding="unicode", doctype="<!DOCTYPE html>")
+    if "ns0:" in html or "xmlns:ns" in html:
+        raise SystemExit(f"{item['name']}: namespaced markup left in the output")
     (ROOT / f"{item['name']}.html").write_text(html + "\n", encoding="utf-8")
 
 

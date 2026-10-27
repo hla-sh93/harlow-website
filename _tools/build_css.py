@@ -167,15 +167,65 @@ def split_selectors(prelude):
 _xpath_cache = {}
 
 
-def to_xpath(sel):
-    if sel in _xpath_cache:
-        return _xpath_cache[sel]
-    s = STATE_PSEUDO.sub("", sel)
+def selector_tokens(s):
+    """Compound selectors and combinators at the top level ('a > b c' -> a > b ' ' c)."""
+    tokens, cur, depth, quote = [], "", 0, None
+    for ch in s:
+        if quote:
+            cur += ch
+            if ch == quote:
+                quote = None
+            continue
+        if ch in "\"'":
+            quote = ch
+        elif ch in "([":
+            depth += 1
+        elif ch in ")]":
+            depth -= 1
+        if depth == 0 and (ch.isspace() or ch in ">+~"):
+            if cur:
+                tokens.append(cur)
+                cur = ""
+            if ch in ">+~":
+                tokens.append(ch)
+            elif tokens and tokens[-1] not in (">", "+", "~", " "):
+                tokens.append(" ")
+            continue
+        cur += ch
+    if cur:
+        tokens.append(cur)
+    # a combinator next to another combinator (or at an end) lost its compound: use *
+    out = []
+    for t in tokens:
+        if t in (">", "+", "~") and out and out[-1] == " ":
+            out.pop()
+        if t in (">", "+", "~", " ") and (not out or out[-1] in (">", "+", "~", " ")):
+            out.append("*")
+        out.append(t)
+    while out and out[-1] == " ":
+        out.pop()
+    if out and out[-1] in (">", "+", "~"):
+        out.append("*")
+    return out
+
+
+def strip_compound(c):
+    """One compound selector without state pseudo-classes and runtime classes; '' -> '*'."""
+    s = STATE_PSEUDO.sub("", c)
     for cls in RUNTIME_CLASSES:
         s = re.sub(r"\." + re.escape(cls) + r"(?![\w-])", "", s)
     s = re.sub(r"\[(open|aria-expanded[^\]]*|aria-hidden[^\]]*|data-e-active[^\]]*)\]", "", s)
-    s = re.sub(r"(^|[\s>+~(,])(?=[\s>+~),]|$)", r"\1*", s).strip()  # orphaned combinators
     s = re.sub(r":not\(\s*\*?\s*\)", "", s)
+    return s or "*"
+
+
+def to_xpath(sel):
+    if sel in _xpath_cache:
+        return _xpath_cache[sel]
+    parts = [t if t in (">", "+", "~", " ") else strip_compound(t) for t in selector_tokens(sel)]
+    s = "".join(f" {t} " if t in (">", "+", "~") else t for t in parts).strip()
+    s = re.sub(r"\s+", " ", s)
+    s = re.sub(r"^(\* )+", "", s)  # a leading "*" descendant step adds nothing
     if not s or s in ("*",) or UNSUPPORTED.search(s):
         _xpath_cache[sel] = True if (not s or s == "*" or UNSUPPORTED.search(s)) else None
         return _xpath_cache[sel]
@@ -220,10 +270,22 @@ def ser(tokens):
     return tinycss2.serialize(tokens).strip()
 
 
+# Design defects on live, fixed on purpose (inventory decision 6) and listed in README:
+# the history slider's mobile rule points at a "-sm" image that is a 404 on live, so the
+# fourth slide has no picture on phones; the full-size image exists.
+LIVE_FIXES = {
+    "/wp-content/uploads/2025/01/harlow-overhauls-prime-minister-office-sm.jpg":
+        "/wp-content/uploads/2025/01/harlow-overhauls-prime-minister-office.jpg",
+}
+
+
 def rewrite_urls(css, src_sid, out_dir):
     """url() relative to the output file, pointing at assets/ copies."""
     def fix(m):
         ref = m.group(2).strip()
+        for bad, good in LIVE_FIXES.items():
+            if unquote(urlsplit(urljoin(SITE + src_sid, ref)).path) == bad:
+                ref = good
         if ref.startswith(("data:", "#")):
             return m.group(0)
         absu = urljoin(SITE + src_sid, ref)
@@ -234,6 +296,11 @@ def rewrite_urls(css, src_sid, out_dir):
             target = ROOT / "assets" / "uploads" / path[len("/wp-content/uploads/"):]
         else:
             target = ROOT / "assets" / "vendor" / path.lstrip("/").replace("wp-content/", "")
+            src = SOURCE / path.lstrip("/")
+            if src.exists() and not target.exists():   # plugin fonts and images the CSS uses
+                target.parent.mkdir(parents=True, exist_ok=True)
+                target.write_bytes(src.read_bytes())
+            VENDOR_REFS.add(str(target.relative_to(ROOT)).replace("\\", "/") + ("" if src.exists() else "  (missing)"))
         rel = Path(_relpath(target, out_dir)).as_posix()
         return f'url("{rel}")'
     return re.sub(r"url\(\s*(['\"]?)([^'\")]+)\1\s*\)", fix, css)
@@ -245,7 +312,8 @@ def _relpath(target, start):
 
 
 class Sheet:
-    """One output file: kept rules in order, media blocks where the source had them."""
+    """One output file: kept rules in order, inside the @media / @supports blocks the
+    source had them in. `wrap` is the tuple of enclosing at-rule headers, outermost first."""
 
     def __init__(self, name, out_dir):
         self.name, self.out_dir, self.parts = name, out_dir, []
@@ -255,39 +323,37 @@ class Sheet:
         self.sources.append(sid)
         self.parts.append(("comment", sid))
 
-    def add(self, media, text):
-        self.parts.append(("rule", media, text))
+    def add(self, wrap, text):
+        self.parts.append(("rule", tuple(wrap or ()), text))
 
     def render(self):
         lines = [f"/* {self.name}: generated by _tools/build_css.py from the live stylesheets."
                  " Do not edit; change the generator. */", ""]
-        cur_media = None
-        pending_comment = None
+        stack = []
+
+        def close_to(depth):
+            while len(stack) > depth:
+                stack.pop()
+                lines.append("  " * len(stack) + "}")
+                lines.append("")
+
         for part in self.parts:
             if part[0] == "comment":
-                pending_comment = part[1]
+                close_to(0)
+                lines.append(f"/* from {part[1]} */")
                 continue
-            _, media, text = part
-            if media != cur_media:
-                if cur_media:
-                    lines.append("}")
-                    lines.append("")
-            if pending_comment:
-                if media == cur_media and cur_media:
-                    lines.append("}")
-                    lines.append("")
-                    cur_media = None
-                lines.append(f"/* from {pending_comment} */")
-                pending_comment = None
-            if media != cur_media:
-                if media:
-                    lines.append(f"@media {media} {{")
-                cur_media = media
-            ind = "  " if media else ""
+            _, wrap, text = part
+            common = 0
+            while common < min(len(stack), len(wrap)) and stack[common] == wrap[common]:
+                common += 1
+            close_to(common)
+            for header in wrap[common:]:
+                lines.append("  " * len(stack) + header + " {")
+                stack.append(header)
+            ind = "  " * len(stack)
             lines.extend(ind + ln for ln in text.splitlines())
             lines.append("")
-        if cur_media:
-            lines.append("}")
+        close_to(0)
         return "\n".join(lines).rstrip() + "\n"
 
 
@@ -305,6 +371,8 @@ def pretty_rule(prelude, content):
 
 
 def walk(rules, docs, media, emit, stats, keep_all=False):
+    """Emit kept rules as (wrap, text); wrap is the tuple of enclosing at-rule headers."""
+    media = tuple(media or ())
     for rule in rules:
         if rule.type == "qualified-rule":
             prelude = ser(rule.prelude)
@@ -320,33 +388,25 @@ def walk(rules, docs, media, emit, stats, keep_all=False):
                 stats["kept"] += 1
         elif rule.type == "at-rule":
             kw = rule.lower_at_keyword
-            if kw == "media":
+            if kw in ("media", "supports"):
                 inner = tinycss2.parse_rule_list(rule.content, skip_comments=True, skip_whitespace=True)
-                m = ser(rule.prelude)
-                walk(inner, docs, f"{media} and {m}" if media else m, emit, stats, keep_all)
-            elif kw in ("keyframes", "-webkit-keyframes", "font-face", "supports", "font-feature-values"):
-                body = ser(rule.content) if rule.content else ""
-                emit(media, f"@{rule.at_keyword} {ser(rule.prelude)} {{\n{_indent_block(body)}\n}}")
+                walk(inner, docs, media + (f"@{kw} {ser(rule.prelude)}",), emit, stats, keep_all)
+            elif kw in ("keyframes", "-webkit-keyframes"):
+                frames = []
+                for fr in tinycss2.parse_rule_list(rule.content, skip_comments=True, skip_whitespace=True):
+                    if fr.type == "qualified-rule":
+                        text = pretty_rule(ser(fr.prelude), fr.content)
+                        if text:
+                            frames.append("\n".join("  " + ln for ln in text.splitlines()))
+                emit(media, f"@{rule.at_keyword} {ser(rule.prelude)} {{\n" + "\n".join(frames) + "\n}")
+            elif kw == "font-face":
+                text = pretty_rule("@font-face", rule.content)
+                if text:
+                    emit(media, text)
             elif kw in ("charset", "import"):
                 continue
             else:
-                emit(media, ser([rule]))
-
-
-def _indent_block(body):
-    out, depth = [], 1
-    for raw in re.split(r"(?<=[{};])", body):
-        piece = raw.strip()
-        if not piece:
-            continue
-        if piece == "}":
-            depth -= 1
-            out.append("  " * depth + "}")
-            continue
-        out.append("  " * depth + piece)
-        if piece.endswith("{"):
-            depth += 1
-    return "\n".join(out)
+                emit(media, ser([rule]))  # any other at-rule, verbatim from the parser
 
 
 def prune_unused(text_by_file, inline_css):
@@ -363,14 +423,16 @@ def prune_unused(text_by_file, inline_css):
         for m in re.finditer(r"font-family\s*:\s*([^;]+);", everything):
             used_fonts |= {f.strip(" '\"").lower() for f in m.group(1).split(",")}
         for name, text in list(text_by_file.items()):
-            new = re.sub(r"^\s*(--[\w-]+)\s*:[^;]*;\n",
+            # indentation is [ \t]*, never \s*: \s would swallow newlines and the next block
+            new = re.sub(r"^[ \t]*(--[\w-]+)\s*:[^;]*;\n",
                          lambda m: m.group(0) if m.group(1) in used_vars else "",
                          text, flags=re.M)
-            new = re.sub(r"(?ms)^(\s*)@(-webkit-)?keyframes\s+([\w-]+)\s*\{.*?^\1\}\n",
+            new = re.sub(r"(?ms)^([ \t]*)@(-webkit-)?keyframes\s+([\w-]+)\s*\{.*?^\1\}\n",
                          lambda m: m.group(0) if m.group(3) in used_anims or m.group(3) in JS_ANIMS else "",
                          new)
-            new = re.sub(r"(?ms)^(\s*)@font-face\s*\{(.*?)^\1\}\n",
-                         lambda m: m.group(0) if _ff_family(m.group(2)) in used_fonts else "",
+            new = re.sub(r"(?ms)^([ \t]*)@font-face\s*\{(.*?)^\1\}\n",
+                         lambda m: m.group(0) if _ff_family(m.group(2)) in used_fonts and (
+                             LOADED is None or _face_key(m.group(2)) in LOADED) else "",
                          new)
             new = re.sub(r"(?m)^([^\n{}@][^{}\n]*\{)\n\}\n", "", new)  # rules left empty
             if new != text:
@@ -384,10 +446,42 @@ def _ff_family(body):
     return m.group(1).strip(" '\"").lower() if m else ""
 
 
+def _ranges(text):
+    """'U+0000-00FF, U+0131' -> ((0, 255), (305, 305)): one spelling for comparison."""
+    out = []
+    for part in re.split(r"\s*,\s*", text.strip()):
+        if not part:
+            continue
+        lo, _, hi = part.upper().replace("U+", "").partition("-")
+        if "?" in lo:
+            hi, lo = lo.replace("?", "F"), lo.replace("?", "0")
+        out.append((int(lo, 16), int(hi or lo, 16)))
+    return tuple(sorted(out))
+
+
+def _face_key(body):
+    get = lambda prop, default: (re.search(rf"{prop}\s*:\s*([^;]+);", body) or [None, default])[1].strip()
+    return (_ff_family(body), re.sub(r"\s+", " ", get("font-weight", "400")),
+            get("font-style", "normal"), _ranges(get("unicode-range", "U+0-10FFFF")))
+
+
+def faces_used():
+    """Faces the live pages really loaded (font_usage.py), or None when not measured."""
+    f = CAPTURE / "fonts_used.json"
+    if not f.exists():
+        return None
+    return {(fam.lower(), re.sub(r"\s+", " ", w), st, _ranges(ur))
+            for fam, w, st, ur in json.loads(f.read_text(encoding="utf-8"))["used"]}
+
+
 JS_ANIMS = set()  # entrance animation names set from data-settings in the markup
+LOADED = None     # font faces live really loads (set in main from fonts_used.json)
+VENDOR_REFS = set()  # plugin files the kept CSS points at, copied to assets/vendor/
 
 
 def main():
+    global LOADED
+    LOADED = faces_used()
     items = [p for p in pages() if (CAPTURE / "dom" / f"{p['name']}.html").exists()]
     missing = len(pages()) - len(items)
     if missing:
@@ -479,6 +573,15 @@ def main():
     for name, text in texts.items():
         (OUT / name).write_text(text, encoding="utf-8")
 
+    # self-check: every written file must parse cleanly, or the browser drops what follows
+    bad = []
+    for name, text in texts.items():
+        errors = [n for n in tinycss2.parse_stylesheet(text, skip_comments=True, skip_whitespace=True)
+                  if n.type == "error"]
+        stripped = re.sub(r"/\*.*?\*/|\"[^\"]*\"|'[^']*'", "", text, flags=re.S)
+        if errors or stripped.count("{") != stripped.count("}"):
+            bad.append(f"{name}: {len(errors)} parse errors, braces {stripped.count('{')}/{stripped.count('}')}")
+
     css_map = {}
     for it in items:
         docs = []
@@ -498,6 +601,9 @@ def main():
           f"in {len(LAYERS)} layers + {len(docs_out)} docs")
     for name in texts:
         print(f"  {name:28} {len(texts[name].splitlines()):6} lines")
+    for b in bad:
+        print("  PARSE PROBLEM", b)
+    print(f"{len(texts)} files written, {len(bad)} with parse errors")
 
 
 if __name__ == "__main__":
