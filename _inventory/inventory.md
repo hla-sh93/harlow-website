@@ -161,6 +161,15 @@ page's own blocks (video hero, history slider, business carousel, news grid).
 - Page heights at 1440 (live, after settling): home 6615, about 5427, smart-metering 3428,
   blog 2555, contact 2663, post 4116, project 2703, gallery item 1870, job 3631.
 
-## Decisions needed before stage B
+## Decisions (Hla, 2026-10-27)
 
-See the questions in the report to Hla; answers are recorded here once given.
+| # | question | answer |
+|---|---|---|
+| 1 | Which languages | **English first**: html site v1 is the 49 English pages. The 49 Arabic pages are kept in `urls.csv` as `later: Arabic`. The header's language link points at the live Arabic page until then. |
+| 2 | Old orphan pages (K4) and everything else | **The current site exactly**: every English page that answers 200 is cloned, K4 included. |
+| 3 | Posts | All of them (7 posts, 5 news); what matters is every page design complete. The unpublished article designs in the parent folder are not part of v1. |
+| 4 | Tracking (GTM, GA4, Clarity) and Turnstile | Left out of v1. Forms keep CF7 markup and field names and do not send. Back in phase 2. |
+| 5 | Cookie bar and page-transition preloader | Rebuilt as small modules; measured with the cookie bar accepted on both sides. |
+| 6 | Upstream gaps | Design defects may be fixed (listed in README as deliberate differences); content gaps wait for later. Cloudflare-obfuscated emails become plain `mailto:` links. |
+
+**In scope for v1: 49 pages** (K1 1, K2 6, K3 1, K4 3, K5 6, K6 6, K7 12, K8 7, K9 5, K10 1, K11 1).

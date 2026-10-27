@@ -91,10 +91,11 @@ def k_of(rec):
 def clone_of(rec):
     """Proposed decision per URL; the reasons are in inventory.md."""
     status = rec.get("status")
+    later = lang_of(rec) == "ar"  # decision 1 (2026-10-27): English first, Arabic later
     if status == 404 and "probe" in rec.get("sources", []):
-        return "yes (404 template)"
+        return "later: Arabic" if later else "yes (404 template)"
     if status == 200:
-        return "yes"
+        return "later: Arabic" if later else "yes"
     if status in (301, 302, 307, 308):
         return "no: redirect"
     return f"no: {status}"

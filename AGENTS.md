@@ -18,6 +18,11 @@ Two phases, each ending in a version that is kept:
    complete content. It stays as the reference every later check measures against.
 2. **The WordPress theme**: starts only after the whole HTML site is approved in words.
 
+## Scope of v1
+
+The 49 English pages marked `yes` in `_inventory/urls.csv` (decisions in
+`_inventory/inventory.md`). The Arabic pages are `later: Arabic`.
+
 ## Phase 1 rules
 
 - HTML code only: `.html` pages, `assets/` (CSS, JS, images, fonts, uploads) and the
@@ -39,7 +44,7 @@ Two phases, each ending in a version that is kept:
 
 | stage | what | state |
 |---|---|---|
-| A | inventory (`_inventory/inventory.md`, `_inventory/urls.csv`) | in review |
+| A | inventory (`_inventory/inventory.md`, `_inventory/urls.csv`) | approved 2026-10-27: English first, 49 pages |
 | B | capture: raw HTML, settled DOM, assets, geometry baseline | not started |
 | C | design system and behaviour | not started |
 | D | home page + one page of each kind by hand | not started |
