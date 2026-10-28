@@ -6,3 +6,6 @@ _capture/shots/
 _vocab/docs/
 _vocab/refcheck.json
 _vocab/designs.json
+.env
+_env/
+vendor/

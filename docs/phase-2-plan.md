@@ -4,7 +4,10 @@ Status: answered by Hla on 2026-10-28 (section 8); the steps and timing are in s
 Stage R done on 2026-10-28 (tag `html-v1.1`): the per-element design is 1,111 classes in
 `assets/css/design/`, the vocabulary is in `_vocab/vocabulary.md`, and the 49 pages match
 html-v1 in every computed property (117,847 elements, 1440/900/479) and live in geometry.
-Next: stage 0 (the local WordPress), after Hla's go.
+Stage 0 done on 2026-10-28 (tag `stage-0`): WordPress 7.1 runs locally at
+http://localhost:8090 with the empty `harlow` theme, Contact Form 7 and Rank Math;
+`_tools/verify_env.py`: 21 checks, 0 failed, after a rebuild from a wiped database.
+Next: stage 1 (skeleton and chrome), after Hla's go.
 
 Starting point: `html-v1` (github.com/hla-sh93/harlow-website), the 49 English pages
 matching live at 1440x900 and 479x900. It stays in the repository as the reference every
@@ -181,7 +184,7 @@ number of one-off styles decides the work.
 | stage | after it, Hla can… | estimate |
 |---|---|---|
 | R | read the site's design as named words (the vocabulary report), and the HTML reference still matches live | 2–3 days |
-| 0 | open WordPress on her machine (`http://localhost:8080`), empty, with the plugins | half a day |
+| 0 | open WordPress on her machine (`http://localhost:8090`), empty, with the plugins | half a day |
 | 1 | change the header and footer menus, logos, offices, social links and brand colours from the dashboard | 1–2 days |
 | 2 | add and edit blog posts, news, projects, gallery items, jobs, testimonials, business models, people and client logos | 2 days |
 | 3 | open every one of the 49 pages in WordPress, looking exactly like the reference, and insert sections from the library | 3–4 days |

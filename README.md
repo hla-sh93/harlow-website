@@ -34,7 +34,21 @@ Any static file server from the project root, then open http://localhost:8000/:
 python -m http.server 8000
 ```
 
-To rebuild after changing a generator:
+### The local WordPress (phase 2)
+
+Needs Docker Desktop running. Build it once (and again whenever you want it fresh from
+the repository):
+
+```bash
+./_tools/env.sh rebuild --yes
+```
+
+Then WordPress is at http://localhost:8090 (admin login in `.env`, written by the first
+rebuild), phpMyAdmin at http://localhost:8091 and every e-mail the site sends at
+http://localhost:8035. `./_tools/env.sh up` and `./_tools/env.sh down` start and stop
+it; `python -u _tools/verify_env.py` proves it works.
+
+To rebuild the static pages after changing a generator:
 
 ```bash
 python -u _tools/build_css.py && python -u _tools/atomize.py && python -u _tools/build_pages.py

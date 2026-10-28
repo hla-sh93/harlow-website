@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<ruleset name="Harlow">
+	<description>The WordPress Coding Standards, as WordPress publishes them, applied to the theme.</description>
+
+	<!--
+		Only the theme is a WordPress product. The static reference pages, the tools under
+		_tools/ and the local-only plugins under _tools/local/ are how the theme is built and
+		checked; they are not shipped.
+	-->
+	<file>theme</file>
+	<exclude-pattern>*/node_modules/*</exclude-pattern>
+	<exclude-pattern>*/vendor/*</exclude-pattern>
+	<exclude-pattern>theme/assets/*</exclude-pattern>
+
+	<arg name="extensions" value="php"/>
+	<arg value="sp"/>
+	<arg name="parallel" value="8"/>
+
+	<!-- The full WordPress ruleset: Core, Docs, Extra and the security sniffs. -->
+	<rule ref="WordPress"/>
+
+	<!-- What the theme promises in style.css, so the sniffs check against the same floor. -->
+	<config name="minimum_wp_version" value="6.7"/>
+	<config name="testVersion" value="8.1-"/>
+	<rule ref="PHPCompatibilityWP"/>
+
+	<!-- Every string a person sees goes through the one text domain. -->
+	<rule ref="WordPress.WP.I18n">
+		<properties>
+			<property name="text_domain" type="array">
+				<element value="harlow"/>
+			</property>
+		</properties>
+	</rule>
+
+	<!-- Everything global carries the theme's name, so it can never collide with a plugin. -->
+	<rule ref="WordPress.NamingConventions.PrefixAllGlobals">
+		<properties>
+			<property name="prefixes" type="array">
+				<element value="harlow"/>
+			</property>
+		</properties>
+	</rule>
+</ruleset>
