@@ -73,9 +73,9 @@ The 49 English pages marked `yes` in `_inventory/urls.csv` (decisions in
 | A | inventory (`_inventory/inventory.md`, `_inventory/urls.csv`) | approved 2026-10-27: English first, 49 pages |
 | B | capture: raw HTML, settled DOM, assets, geometry baseline | done 2026-10-27 |
 | C | design system and behaviour | done 2026-10-27 (stylesheet set, 12 modules) |
-| D | home page + one page of each kind | built and measured 2026-10-27; waiting for approval (tag `stage-d`) |
-| E | generate the rest | not started |
-| F | checks | not started |
+| D | home page + one page of each kind | built and measured 2026-10-27 (tag `stage-d`) |
+| E | generate the rest | done 2026-10-27: all 49 pages, same generator |
+| F | checks | all 49 pages: geometry, computed styles, behaviour, links (`_tools/report.py`) |
 | G | docs, tag `html-v1` | not started |
 
 ## Tools
@@ -94,6 +94,7 @@ The 49 English pages marked `yes` in `_inventory/urls.csv` (decisions in
 | `_tools/style_diff.py <name> [width] [id… / tree:id]` | the same properties for one page, printed by property, or one element's subtree node by node: the tool for finding which rule a difference comes from | (diagnostic, no pass sentence) |
 | `_tools/behaviour.py` | drives each module on the built pages: header on scroll, hover submenu, burger menu, carousel, history slider, entrance animations, gallery, lightbox, cookie bar, page transition, internal link | `N behaviours checked, 0 failed, 0 skipped` |
 | `_tools/links.py` | every local reference in pages and stylesheets exists | `N references in M files checked - 0 broken, 0 pages linked but not built yet` |
+| `_tools/report.py` | the per-page table from the latest compare, style_check and links runs: `_capture/report.md` | `49 pages, 0 with any difference` |
 
 ## Hazards met on this project
 
@@ -123,3 +124,8 @@ The 49 English pages marked `yes` in `_inventory/urls.csv` (decisions in
 | A fresh live session with an explicit user agent sometimes gets images rewritten by Cloudflare at run time (classes `entered exited`, a `noscript`, the milestone icon drawn 300px wide). Not in the server HTML, not in the captured DOM, not in a direct session with or without consent. The capture is the baseline. | style_check: one icon 300px on live against 6.36px. |
 | The history slider changes slide every 9s and the settle takes about that long: it is time-dependent like a carousel. | style_check: slide 0 opacity 1 on one side, 0 on the other. |
 | Plugin images in the markup (language flags, cookie dialog logo) were rewritten to `assets/vendor/` but never copied there; build_pages now copies them from `_source/`. | links.py: 37 broken references. |
+| The history slider sizes the home page's section by the active slide's text, so the page below moves by up to 48px depending on when it is measured. The baseline records which slide showed (`slide` per width in the geometry file); compare stops the clone's long timers (>= 5s) and clicks that slide's thumbnail before measuring; style_check stops the timers on both sides. | compare: home page matched in one run and differed by 48px in the next. |
+| A 0x0 box (an element hidden on every device) reports the scroll offset as its position. compare checks only that such a box is 0x0 on both sides. | 0x0 containers "off" by 3px and 59px at 479. |
+| One inline style id can repeat: photo-gallery has five `<style id="loop-dynamic-2552">`, one per gallery item, each with that item's background image. Keyed by id, only the last survived and four items lost their background. build_css keeps every distinct block under an id. | style_check: `background-image: url(...) -> none` on 4 items. |
+| style_check measures live in real time, and live varies between sessions: the footer logo drawn 350px against 286.9 (seen on a different page in each run, while the clone's footer is one source), entrance animations not yet run, the news post's images handled late. These flags move between pages from run to run; compare against the fixed baseline is the deterministic check. Elements that draw nothing (0x0) are not compared on `visibility`. | Re-measuring the flagged pages: bismayah clean in one run, harlows-people flagged in the other, with the same footer element. |
+| A network drop (`ERR_NAME_NOT_RESOLVED`) or a Cloudflare delay over 90s killed a 30-minute run. style_check retries a page 4 times, 20s apart, and keeps results after every page (`_capture/style_check.partial.json`), resuming from it. compare and style_check runs on a few pages merge into the full results. | Two runs lost to the network. |

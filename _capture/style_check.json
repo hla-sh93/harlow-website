@@ -4,6 +4,31 @@
   "bad": {},
   "examples": {}
  },
+ "al-khairat-thermal-power-plant-iraq@1440": {
+  "elements": 83,
+  "bad": {},
+  "examples": {}
+ },
+ "construction-iraq@1440": {
+  "elements": 104,
+  "bad": {},
+  "examples": {}
+ },
+ "consultancy-iraq@1440": {
+  "elements": 63,
+  "bad": {},
+  "examples": {}
+ },
+ "drc-cement-plant-iraq@1440": {
+  "elements": 67,
+  "bad": {},
+  "examples": {}
+ },
+ "security-services-iraq@1440": {
+  "elements": 65,
+  "bad": {},
+  "examples": {}
+ },
  "smart-metering-iraq@1440": {
   "elements": 74,
   "bad": {},
@@ -19,12 +44,86 @@
   "bad": {},
   "examples": {}
  },
+ "industrial@1440": {
+  "elements": 49,
+  "bad": {},
+  "examples": {}
+ },
+ "security-services@1440": {
+  "elements": 51,
+  "bad": {},
+  "examples": {}
+ },
  "blog@1440": {
   "elements": 117,
   "bad": {},
   "examples": {}
  },
+ "blog-2@1440": {
+  "elements": 62,
+  "bad": {},
+  "examples": {}
+ },
+ "harlows-people@1440": {
+  "elements": 124,
+  "bad": {
+   "inner.width": 3,
+   "inner.height": 3
+  },
+  "examples": {
+   "inner.width": [
+    "d549ec0",
+    "350px",
+    "286.859px"
+   ],
+   "inner.height": [
+    "d549ec0",
+    "92.9688px",
+    "76.1875px"
+   ]
+  }
+ },
+ "latest-news@1440": {
+  "elements": 106,
+  "bad": {},
+  "examples": {}
+ },
+ "photo-gallery@1440": {
+  "elements": 59,
+  "bad": {},
+  "examples": {}
+ },
+ "work-with-us@1440": {
+  "elements": 56,
+  "bad": {},
+  "examples": {}
+ },
+ "application-process@1440": {
+  "elements": 54,
+  "bad": {},
+  "examples": {}
+ },
  "contact-us@1440": {
+  "elements": 83,
+  "bad": {},
+  "examples": {}
+ },
+ "corporate-policies@1440": {
+  "elements": 70,
+  "bad": {},
+  "examples": {}
+ },
+ "faq@1440": {
+  "elements": 48,
+  "bad": {},
+  "examples": {}
+ },
+ "policy@1440": {
+  "elements": 51,
+  "bad": {},
+  "examples": {}
+ },
+ "sitemap@1440": {
   "elements": 83,
   "bad": {},
   "examples": {}
@@ -34,12 +133,125 @@
   "bad": {},
   "examples": {}
  },
+ "al-khairat-thermal-power-plant-a-game-changer-for-iraqs-energy-sector@1440": {
+  "elements": 56,
+  "bad": {},
+  "examples": {}
+ },
+ "al-khairat-thermal-power-plant-pioneering-fgd-technology-for-a-greener-tomorrow-2@1440": {
+  "elements": 56,
+  "bad": {},
+  "examples": {}
+ },
+ "iraq-renaissance-a-new-era-of-comprehensive-advancement@1440": {
+  "elements": 56,
+  "bad": {},
+  "examples": {}
+ },
+ "iraqs-investment-law-al-khairat-thermal-power-plant@1440": {
+  "elements": 56,
+  "bad": {},
+  "examples": {}
+ },
+ "news-commencement-of-civil-and-engineering-activities-of-al-khairat-thermal-power-plant@1440": {
+  "elements": 56,
+  "bad": {},
+  "examples": {}
+ },
+ "news-karbala-refinery-trial-pumping-operations-start@1440": {
+  "elements": 56,
+  "bad": {},
+  "examples": {}
+ },
+ "news-minister-of-electricity-chairs-technical-meeting-with-harlow-international-and-citic-on-al-khairat-thermal-power-plant-project-2800-mw@1440": {
+  "elements": 56,
+  "bad": {
+   "own.height": 6
+  },
+  "examples": {
+   "own.height": [
+    "f4f44d1",
+    "1290.39px",
+    "1257.17px"
+   ]
+  }
+ },
+ "news-the-first-of-its-kind-in-iraq-al-khairat-thermal-power-plant-deploys-best-environmental-practices@1440": {
+  "elements": 56,
+  "bad": {},
+  "examples": {}
+ },
+ "news-unlocking-iraqs-energy-potential-the-crucial-role-of-harlow-group@1440": {
+  "elements": 56,
+  "bad": {},
+  "examples": {}
+ },
+ "supporting-iraqs-energy-future-smart-metering-and-ai-integration@1440": {
+  "elements": 56,
+  "bad": {},
+  "examples": {}
+ },
+ "the-importance-of-infrastructure-investment-in-iraq-a-look-at-harlow-groups-role@1440": {
+  "elements": 56,
+  "bad": {},
+  "examples": {}
+ },
+ "albahoo-project-al-khairat-thermal-power-plant-a-2800-mw-hfo-fired-power-plant@1440": {
+  "elements": 64,
+  "bad": {},
+  "examples": {}
+ },
+ "albahoo-project-al-rasheed-hotel@1440": {
+  "elements": 64,
+  "bad": {},
+  "examples": {}
+ },
+ "albahoo-project-al-suwayrah-air-base@1440": {
+  "elements": 64,
+  "bad": {},
+  "examples": {}
+ },
+ "albahoo-project-bismayah-new-city-project-for-hanwha-ec-the-biggest-housing-project-in-iraqs-recent-history@1440": {
+  "elements": 64,
+  "bad": {},
+  "examples": {}
+ },
  "albahoo-project-british-embassy@1440": {
   "elements": 64,
   "bad": {},
   "examples": {}
  },
+ "albahoo-project-najaf-cement-plant-2-million-per-year-capacity-high-quality-cement-factory@1440": {
+  "elements": 64,
+  "bad": {},
+  "examples": {}
+ },
+ "albahoo-project-prime-ministers-office-the-ziggurat-palace@1440": {
+  "elements": 64,
+  "bad": {},
+  "examples": {}
+ },
  "gallery-item-al-rasheed-hotel@1440": {
+  "elements": 47,
+  "bad": {},
+  "examples": {}
+ },
+ "gallery-item-british-embassy-2@1440": {
+  "elements": 47,
+  "bad": {},
+  "examples": {}
+ },
+ "gallery-item-british-embassy@1440": {
+  "elements": 47,
+  "bad": {},
+  "examples": {}
+ },
+ "gallery-item-riverside-business-center@1440": {
+  "elements": 47,
+  "bad": {},
+  "examples": {}
+ },
+ "gallery-item-suwayrah-air-base@1440": {
   "elements": 47,
   "bad": {},
   "examples": {}
@@ -59,6 +271,31 @@
   "bad": {},
   "examples": {}
  },
+ "al-khairat-thermal-power-plant-iraq@479": {
+  "elements": 83,
+  "bad": {},
+  "examples": {}
+ },
+ "construction-iraq@479": {
+  "elements": 104,
+  "bad": {},
+  "examples": {}
+ },
+ "consultancy-iraq@479": {
+  "elements": 63,
+  "bad": {},
+  "examples": {}
+ },
+ "drc-cement-plant-iraq@479": {
+  "elements": 67,
+  "bad": {},
+  "examples": {}
+ },
+ "security-services-iraq@479": {
+  "elements": 65,
+  "bad": {},
+  "examples": {}
+ },
  "smart-metering-iraq@479": {
   "elements": 74,
   "bad": {},
@@ -74,12 +311,72 @@
   "bad": {},
   "examples": {}
  },
+ "industrial@479": {
+  "elements": 49,
+  "bad": {},
+  "examples": {}
+ },
+ "security-services@479": {
+  "elements": 51,
+  "bad": {},
+  "examples": {}
+ },
  "blog@479": {
   "elements": 117,
   "bad": {},
   "examples": {}
  },
+ "blog-2@479": {
+  "elements": 62,
+  "bad": {},
+  "examples": {}
+ },
+ "harlows-people@479": {
+  "elements": 124,
+  "bad": {},
+  "examples": {}
+ },
+ "latest-news@479": {
+  "elements": 106,
+  "bad": {},
+  "examples": {}
+ },
+ "photo-gallery@479": {
+  "elements": 59,
+  "bad": {},
+  "examples": {}
+ },
+ "work-with-us@479": {
+  "elements": 56,
+  "bad": {},
+  "examples": {}
+ },
+ "application-process@479": {
+  "elements": 54,
+  "bad": {},
+  "examples": {}
+ },
  "contact-us@479": {
+  "elements": 83,
+  "bad": {},
+  "examples": {}
+ },
+ "corporate-policies@479": {
+  "elements": 70,
+  "bad": {},
+  "examples": {}
+ },
+ "faq@479": {
+  "elements": 48,
+  "bad": {},
+  "examples": {}
+ },
+ "policy@479": {
+  "elements": 51,
+  "bad": {},
+  "examples": {}
+ },
+ "sitemap@479": {
   "elements": 83,
   "bad": {},
   "examples": {}
@@ -89,12 +386,139 @@
   "bad": {},
   "examples": {}
  },
+ "al-khairat-thermal-power-plant-a-game-changer-for-iraqs-energy-sector@479": {
+  "elements": 56,
+  "bad": {},
+  "examples": {}
+ },
+ "al-khairat-thermal-power-plant-pioneering-fgd-technology-for-a-greener-tomorrow-2@479": {
+  "elements": 56,
+  "bad": {},
+  "examples": {}
+ },
+ "iraq-renaissance-a-new-era-of-comprehensive-advancement@479": {
+  "elements": 56,
+  "bad": {},
+  "examples": {}
+ },
+ "iraqs-investment-law-al-khairat-thermal-power-plant@479": {
+  "elements": 56,
+  "bad": {},
+  "examples": {}
+ },
+ "news-commencement-of-civil-and-engineering-activities-of-al-khairat-thermal-power-plant@479": {
+  "elements": 56,
+  "bad": {},
+  "examples": {}
+ },
+ "news-karbala-refinery-trial-pumping-operations-start@479": {
+  "elements": 56,
+  "bad": {},
+  "examples": {}
+ },
+ "news-minister-of-electricity-chairs-technical-meeting-with-harlow-international-and-citic-on-al-khairat-thermal-power-plant-project-2800-mw@479": {
+  "elements": 56,
+  "bad": {
+   "own.height": 5
+  },
+  "examples": {
+   "own.height": [
+    "f4f44d1",
+    "2543.16px",
+    "2385.61px"
+   ]
+  }
+ },
+ "news-the-first-of-its-kind-in-iraq-al-khairat-thermal-power-plant-deploys-best-environmental-practices@479": {
+  "elements": 56,
+  "bad": {},
+  "examples": {}
+ },
+ "news-unlocking-iraqs-energy-potential-the-crucial-role-of-harlow-group@479": {
+  "elements": 56,
+  "bad": {},
+  "examples": {}
+ },
+ "supporting-iraqs-energy-future-smart-metering-and-ai-integration@479": {
+  "elements": 56,
+  "bad": {},
+  "examples": {}
+ },
+ "the-importance-of-infrastructure-investment-in-iraq-a-look-at-harlow-groups-role@479": {
+  "elements": 56,
+  "bad": {},
+  "examples": {}
+ },
+ "albahoo-project-al-khairat-thermal-power-plant-a-2800-mw-hfo-fired-power-plant@479": {
+  "elements": 64,
+  "bad": {},
+  "examples": {}
+ },
+ "albahoo-project-al-rasheed-hotel@479": {
+  "elements": 64,
+  "bad": {},
+  "examples": {}
+ },
+ "albahoo-project-al-suwayrah-air-base@479": {
+  "elements": 64,
+  "bad": {},
+  "examples": {}
+ },
+ "albahoo-project-bismayah-new-city-project-for-hanwha-ec-the-biggest-housing-project-in-iraqs-recent-history@479": {
+  "elements": 64,
+  "bad": {
+   "own.visibility": 1,
+   "inner.visibility": 1
+  },
+  "examples": {
+   "own.visibility": [
+    "79f8a1f",
+    "hidden",
+    "visible"
+   ],
+   "inner.visibility": [
+    "79f8a1f",
+    "hidden",
+    "visible"
+   ]
+  }
+ },
  "albahoo-project-british-embassy@479": {
   "elements": 64,
   "bad": {},
   "examples": {}
  },
+ "albahoo-project-najaf-cement-plant-2-million-per-year-capacity-high-quality-cement-factory@479": {
+  "elements": 64,
+  "bad": {},
+  "examples": {}
+ },
+ "albahoo-project-prime-ministers-office-the-ziggurat-palace@479": {
+  "elements": 64,
+  "bad": {},
+  "examples": {}
+ },
  "gallery-item-al-rasheed-hotel@479": {
+  "elements": 47,
+  "bad": {},
+  "examples": {}
+ },
+ "gallery-item-british-embassy-2@479": {
+  "elements": 47,
+  "bad": {},
+  "examples": {}
+ },
+ "gallery-item-british-embassy@479": {
+  "elements": 47,
+  "bad": {},
+  "examples": {}
+ },
+ "gallery-item-riverside-business-center@479": {
+  "elements": 47,
+  "bad": {},
+  "examples": {}
+ },
+ "gallery-item-suwayrah-air-base@479": {
   "elements": 47,
   "bad": {},
   "examples": {}

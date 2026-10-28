@@ -16,6 +16,7 @@ Passing looks like: `done at 1440x900 and 479x900 - 0 of N pages differ`.
 
 import asyncio
 import json
+import re
 import subprocess
 import sys
 import time
@@ -62,12 +63,31 @@ def live_skip(geo):
     return [False] * len(geo["els"])
 
 
-async def measure(ctx, url):
+# Timed parts change the layout: the home page's history slider sizes its section by the
+# active slide's text. Long timers (autoplay, >= 5s) are stopped on the clone, and the
+# slider is put on the slide the live baseline was captured on, by clicking its thumbnail.
+FREEZE_TIMERS = """
+(() => { const real = window.setInterval;
+  window.setInterval = (fn, ms, ...a) => (ms >= 5000 ? 0 : real(fn, ms, ...a)); })();
+"""
+
+
+def baseline_slide(name):
+    """Index of the history slide that was showing when live was captured (or None)."""
+    dom = (CAPTURE / "dom" / f"{name}.html").read_text(encoding="utf-8")
+    shown = re.findall(r'class="history_slide history_slide_(\d+)"[^>]*style="opacity: 1;', dom)
+    return int(shown[0]) if shown else None
+
+
+async def measure(ctx, url, slide=None):
     page = await ctx.new_page()
     errors = []
     page.on("pageerror", lambda e: errors.append(str(e)[:160]))
     await page.goto(url, wait_until="load", timeout=90000)
     await page.evaluate(SETTLE)
+    if slide:
+        await page.evaluate(f"document.querySelectorAll('.thumb-wrapper')[{slide}].click()")
+        await page.wait_for_timeout(2500)   # 1s delay, .7s + .3s text swap, .6s fade
     geo = await page.evaluate(GEOMETRY)
     skip = await page.evaluate(IN_SLIDE)
     fixed = await page.evaluate(FIXED_ROOT)
@@ -104,10 +124,12 @@ async def run(items):
                 ctx = await browser.new_context(viewport={"width": w, "height": HEIGHT},
                                                 device_scale_factor=1)
                 await ctx.add_init_script("try{localStorage.setItem('harlow-cookie-consent','all')}catch(e){}")
+                await ctx.add_init_script(FREEZE_TIMERS)
                 for it in items:
                     live = json.loads((CAPTURE / "geometry" / f"{it['name']}.json").read_text(encoding="utf-8"))[str(w)]
                     url = f"http://127.0.0.1:{PORT}/{it['name']}.html"
-                    geo, skip, fixed, errors = await measure(ctx, url)
+                    slide = live.get("slide", baseline_slide(it["name"]) if w == WIDTHS[0] else None)
+                    geo, skip, fixed, errors = await measure(ctx, url, slide)
                     # the live list has the same order; mark its in-slide elements from the clone's ids
                     slide_ids = {el["id"] for el, s in zip(geo["els"], skip) if s}
                     lskip = [el["id"] in slide_ids for el in live["els"]]
@@ -127,6 +149,9 @@ async def run(items):
                             continue
                         if el["shown"] != other["shown"]:
                             diffs.append((key, "shown", 999))
+                            continue
+                        # a 0x0 box draws nothing; its reported position is only the scroll offset
+                        if el["box"][2:] == [0, 0] and other["box"][2:] == [0, 0]:
                             continue
                         d = max(abs(x - y) for x, y in zip(el["box"], other["box"]))
                         if d > TOLERANCE:
@@ -156,10 +181,12 @@ def main(only):
             differ.add(name)
         print(f"{name[:58]:58} {w:>4} {r['live_h']:>7} {r['clone_h']:>7} {r['compared']:>5} "
               f"{len(r['diffs']):>5} {maxd:>7.1f}{'  errors: ' + '; '.join(r['errors']) if r['errors'] else ''}")
-    (CAPTURE / "compare.json").write_text(json.dumps(
-        {f"{k[0]}@{k[1]}": {**v, "diffs": [[list(d[0]), d[1], d[2]] for d in v["diffs"][:60]],
-                            "extra": [list(e) for e in v["extra"][:30]]}
-         for k, v in res.items()}, indent=1), encoding="utf-8")
+    out_file = CAPTURE / "compare.json"
+    merged = json.loads(out_file.read_text(encoding="utf-8")) if only and out_file.exists() else {}
+    merged.update({f"{k[0]}@{k[1]}": {**v, "diffs": [[list(d[0]), d[1], d[2]] for d in v["diffs"][:60]],
+                                      "extra": [list(e) for e in v["extra"][:30]]}
+                   for k, v in res.items()})   # a run on some pages updates only their rows
+    out_file.write_text(json.dumps(merged, indent=1), encoding="utf-8")
     print(f"\ndone at {' and '.join(f'{w}x{HEIGHT}' for w in WIDTHS)} - "
           f"{len(differ)} of {len(items)} pages differ")
 

@@ -497,7 +497,10 @@ def main():
             sid = s[1] if s[0] == "link" else "inline:" + s[1]
             ids.append(sid)
             if s[0] == "inline":
-                inline_text[sid] = s[2]
+                # one id can carry several blocks (one per loop item): keep every distinct one
+                blocks = inline_text.setdefault(sid, [])
+                if s[2] not in blocks:
+                    blocks.append(s[2])
         seqs.append(ids)
         sheets_by_page[it["name"]] = ids
     order = merge_order(seqs)
@@ -525,7 +528,7 @@ def main():
             report.append((sid, "dropped (lazy loading)", 0, 0))
             continue
         if sid.startswith("inline:"):
-            css = inline_text[sid]
+            css = "\n".join(inline_text[sid])
         else:
             p = local_source(sid)
             if not p.exists():

@@ -2360,12 +2360,32 @@ button.change-settings-button:focus {
 }
 
 /* from inline:loop-dynamic-2552 */
+.e-loop-item-2633 .elementor-element.elementor-element-b2269f0:not(.elementor-motion-effects-element-type-background),
+.e-loop-item-2633 .elementor-element.elementor-element-b2269f0 > .elementor-motion-effects-container > .elementor-motion-effects-layer {
+  background-image: url("../uploads/2024/12/CONSTRUCTION-DEVELOPMENT.jpg");
+}
+
+.e-loop-item-2630 .elementor-element.elementor-element-b2269f0:not(.elementor-motion-effects-element-type-background),
+.e-loop-item-2630 .elementor-element.elementor-element-b2269f0 > .elementor-motion-effects-container > .elementor-motion-effects-layer {
+  background-image: url("../uploads/2024/06/AL-SUWAYRAH-AIR-BASE.jpg");
+}
+
+.e-loop-item-2625 .elementor-element.elementor-element-b2269f0:not(.elementor-motion-effects-element-type-background),
+.e-loop-item-2625 .elementor-element.elementor-element-b2269f0 > .elementor-motion-effects-container > .elementor-motion-effects-layer {
+  background-image: url("../uploads/2024/06/Bismayah-New-City-Project.jpg");
+}
+
+.e-loop-item-2617 .elementor-element.elementor-element-b2269f0:not(.elementor-motion-effects-element-type-background),
+.e-loop-item-2617 .elementor-element.elementor-element-b2269f0 > .elementor-motion-effects-container > .elementor-motion-effects-layer {
+  background-image: url("../uploads/2024/06/AL-RASHEED-HOTEL.jpg");
+}
+
 .e-loop-item-2540 .elementor-element.elementor-element-b2269f0:not(.elementor-motion-effects-element-type-background),
 .e-loop-item-2540 .elementor-element.elementor-element-b2269f0 > .elementor-motion-effects-container > .elementor-motion-effects-layer {
   background-image: url("../uploads/2024/06/Riverside-Business-Center.jpg");
 }
 
-/* from inline:anon-36761773 */
+/* from inline:anon-8539134 */
 #wpdevart_org_chart_container_1 {
   background-image: linear-gradient(to right, #ffffff, #ffffff);
   padding-top: 20px;

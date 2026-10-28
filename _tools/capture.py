@@ -64,8 +64,12 @@ GEOMETRY = """
   const docs = [...document.querySelectorAll('[data-elementor-type]')]
     .filter(d => d.dataset.elementorType !== 'loop-item')
     .map(d => ({ type: d.dataset.elementorType, id: d.dataset.elementorId, box: box(d) }));
+  // the history slider sizes its section by the active slide: record which one showed
+  const slides = [...document.querySelectorAll('.history_slide')];
+  const shown = slides.findIndex(s => getComputedStyle(s).opacity === '1');
   return { height: document.documentElement.scrollHeight,
-           scrollWidth: document.documentElement.scrollWidth, docs, els };
+           scrollWidth: document.documentElement.scrollWidth, docs, els,
+           slide: slides.length ? (shown < 0 ? null : shown) : null };
 }
 """
 

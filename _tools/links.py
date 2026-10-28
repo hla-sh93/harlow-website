@@ -46,23 +46,32 @@ def is_local(ref):
     return ref and not re.match(r"^(https?:|mailto:|tel:|javascript:|data:|#)", ref)
 
 
+def check_page(page, names):
+    """(references checked, broken refs, pending page links) for one built page."""
+    checked, broken, pending = 0, [], set()
+    for ref in local_refs(page):
+        if not is_local(ref):
+            continue
+        checked += 1
+        path = unquote(urlsplit(ref).path)
+        if (ROOT / path).exists():
+            continue
+        if path.endswith(".html") and path[:-5] in names:
+            pending.add(path)
+            continue
+        broken.append(ref)
+    return checked, broken, pending
+
+
 def main():
     names = {p["name"] for p in pages()}
     broken, pending, checked, files = [], set(), 0, 0
     for page in sorted(ROOT.glob("*.html")):
         files += 1
-        for ref in local_refs(page):
-            if not is_local(ref):
-                continue
-            checked += 1
-            path = unquote(urlsplit(ref).path)
-            target = ROOT / path
-            if target.exists():
-                continue
-            if path.endswith(".html") and path[:-5] in names:
-                pending.add(path)
-                continue
-            broken.append(f"{page.name}: {ref}")
+        n, bad, pend = check_page(page, names)
+        checked += n
+        broken += [f"{page.name}: {r}" for r in bad]
+        pending |= pend
     for css in sorted((ROOT / "assets" / "css").rglob("*.css")):
         files += 1
         for ref in re.findall(r"url\(\s*['\"]?([^'\")]+)", css.read_text(encoding="utf-8")):

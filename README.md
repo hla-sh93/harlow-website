@@ -58,8 +58,12 @@ python -u _tools/build_pages.py
 
 ## Known gaps
 
-- Stage D: the home page and one page of each kind are built (11 of 49); the other 38 are
-  generated in stage E.
+- All 49 English pages are built. The 49 Arabic pages come later (decision 1).
+- The latest checks, one row per page, are in `_capture/report.md`: geometry 0 differences
+  on all 49 pages at 1440 and 479, 0 broken links, 13 behaviours passing. The computed-style
+  check, which reads live in real time, flags three pages (harlows-people, one news item,
+  one project) with differences that move between pages from run to run on live's side;
+  see AGENTS.md.
 - The About page's "Group chart" section is hidden on every device on live; its markup is
   kept, the Organization Chart plugin's script is not.
 - Content gaps on live are kept as they are for now (inventory decision 6), for example the

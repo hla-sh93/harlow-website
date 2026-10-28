@@ -21,9 +21,11 @@ from collections import Counter, defaultdict
 from playwright.async_api import async_playwright
 
 from common import CAPTURE, HEIGHT, ROOT, UA, WIDTHS, pages
+from compare import FREEZE_TIMERS
 from style_diff import PROPS, collect
 
 PORT = 8769
+PARTIAL = CAPTURE / "style_check.partial.json"
 PX_TOLERANCE = 0.5          # sub-pixel text metrics differ between runs on both sides
 HEADER_ANIMATED = {"background-color", "width", "height"}   # set by header.js with a transition
 
@@ -54,7 +56,13 @@ async def run(items):
     server = subprocess.Popen([sys.executable, "-m", "http.server", str(PORT), "--bind", "127.0.0.1"],
                               cwd=str(ROOT), stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
     time.sleep(1.5)
+    # results are kept after every page, so a dropped connection resumes where it stopped
     out = {}
+    if PARTIAL.exists():
+        for key, v in json.loads(PARTIAL.read_text(encoding="utf-8")).items():
+            name, w = key.rsplit("@", 1)
+            out[(name, int(w))] = (v[0], Counter(v[1]), v[2])
+        print(f"resuming: {len(out)} page-widths already measured")
     try:
         async with async_playwright() as pw:
             browser = await pw.chromium.launch(channel="chrome")
@@ -68,7 +76,12 @@ async def run(items):
                     pass
                 await first.close()
                 await ctx.add_init_script("try{localStorage.setItem('harlow-cookie-consent','all')}catch(e){}")
+                # both sides: the history slider stays on its first slide (live's own script
+                # and the clone's module both use setInterval 9s)
+                await ctx.add_init_script(FREEZE_TIMERS)
                 for it in items:
+                    if (it["name"], w) in out:
+                        continue
                     live = keyed(await collect(ctx, it["url"], True))
                     clone = keyed(await collect(ctx, f"http://127.0.0.1:{PORT}/{it['name']}.html", False))
                     bad = Counter()
@@ -85,10 +98,17 @@ async def run(items):
                         for part in ("own",) if e.get("innerTimed") else ("own", "inner"):
                             in_header = e["header"] if part == "own" else e.get("innerHeader", False)
                             for p, a, b in zip(PROPS, e[part], o[part]):
+                                # an element that draws nothing: its visibility only says whether
+                                # the entrance-animation observer has run yet (varies on live)
+                                if p == "visibility" and e.get("empty") and o.get("empty"):
+                                    continue
                                 if not same(p, a, b, in_header):
                                     bad[f"{part}.{p}"] += 1
                                     examples.setdefault(f"{part}.{p}", (k[0], a, b))
                     out[(it["name"], w)] = (checked, bad, examples)
+                    PARTIAL.write_text(json.dumps(
+                        {f"{k[0]}@{k[1]}": [v[0], dict(v[1]), v[2]] for k, v in out.items()},
+                        ensure_ascii=False), encoding="utf-8")
                 await ctx.close()
             await browser.close()
     finally:
@@ -108,11 +128,15 @@ def main(only):
             differ.add(name)
         first = "; ".join(f"{p} x{c} ({ex[p][0]}: {ex[p][1]!r} -> {ex[p][2]!r})" for p, c in bad.most_common(2))
         print(f"{name[:58]:58} {w:>4} {n:>5} {sum(bad.values()):>9}  {first[:160]}")
-    (CAPTURE / "style_check.json").write_text(json.dumps(
-        {f"{k[0]}@{k[1]}": {"elements": v[0], "bad": dict(v[1]), "examples": v[2]} for k, v in res.items()},
-        indent=1, ensure_ascii=False), encoding="utf-8")
+    out_file = CAPTURE / "style_check.json"
+    merged = json.loads(out_file.read_text(encoding="utf-8")) if only and out_file.exists() else {}
+    merged.update({f"{k[0]}@{k[1]}": {"elements": v[0], "bad": dict(v[1]), "examples": v[2]}
+                   for k, v in res.items()})   # a run on some pages updates only their rows
+    out_file.write_text(json.dumps(merged, indent=1, ensure_ascii=False), encoding="utf-8")
     print(f"\n{total} elements x {len(PROPS) * 2} properties checked over {len(WIDTHS)} widths - "
           f"{len(differ)} of {len(items)} pages differ")
+    if PARTIAL.exists():
+        PARTIAL.unlink()   # the run completed: the next one starts fresh
 
 
 if __name__ == "__main__":

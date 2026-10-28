@@ -124,6 +124,32 @@ async def page_transition(page):
     return "e-page-transition--entered" in r["cls"] and r["display"] == "none" and r["img"], r
 
 
+async def accordion(page):
+    await page.goto(f"{BASE}/faq.html")
+    state = """() => [...document.querySelectorAll('.elementor-accordion-item')].slice(0, 2).map(i => ({
+        title: i.querySelector('.elementor-tab-title').classList.contains('elementor-active'),
+        shown: getComputedStyle(i.querySelector('.elementor-tab-content')).display }))"""
+    first = await page.evaluate(state)
+    await page.locator(".elementor-accordion-item .elementor-tab-title").nth(1).click()
+    await page.wait_for_timeout(600)
+    after = await page.evaluate(state)
+    ok = (first[0] == {"title": True, "shown": "block"} and first[1]["shown"] == "none"
+          and after[1] == {"title": True, "shown": "block"} and after[0]["shown"] == "none")
+    return ok, {"at load": first, "after click": after}
+
+
+async def people_popup(page):
+    await page.goto(f"{BASE}/harlows-people.html")
+    await page.locator(".harlow-emp").first.click()
+    await page.wait_for_timeout(500)
+    opened = await page.evaluate("""() => ({ popup: getComputedStyle(document.querySelector('.harlow-emp .hp-popup-holder')).display,
+        lock: document.body.style.overflowY })""")
+    await page.locator(".harlow-emp .hp-close").first.click()
+    await page.wait_for_timeout(500)
+    closed = await page.evaluate("getComputedStyle(document.querySelector('.harlow-emp .hp-popup-holder')).display")
+    return opened["popup"] == "flex" and opened["lock"] == "hidden" and closed == "none", {"opened": opened, "closed": closed}
+
+
 async def internal_link(page):
     await page.goto(f"{BASE}/index.html")
     await page.locator("footer a[href='about-us.html']").first.click()
@@ -142,6 +168,8 @@ CHECKS = [
     ("lightbox opens", "gallery-item-al-rasheed-hotel", lightbox),
     ("cookie bar shows and accepts", "index", cookie_bar),
     ("page transition settles", "index", page_transition),
+    ("accordion opens one item at a time", "faq", accordion),
+    ("person popup opens and closes", "harlows-people", people_popup),
     ("internal link follows through the transition", "index", internal_link),
 ]
 

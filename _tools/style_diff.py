@@ -42,6 +42,8 @@ COLLECT = """
            innerTimed: !!inner.closest('#history-slider, .swiper-wrapper'),
            // the header's colour and logo size follow the scroll script through a transition
            header: !!el.closest('#nav-header'),
+           // nothing drawn (closed popup, hidden on this device)
+           empty: (() => { const b = el.getBoundingClientRect(); return b.width === 0 && b.height === 0; })(),
            innerHeader: !!inner.closest('#nav-header') };
 })
 """
@@ -79,7 +81,14 @@ async def collect(ctx, url, block):
     if block:
         await page.route("**/*", lambda r: r.abort() if any(h in r.request.url for h in BLOCK)
                          else r.continue_())
-    await page.goto(url, wait_until="load", timeout=90000)
+    for attempt in range(4):   # live is slow through Cloudflare at times, or the network drops
+        try:
+            await page.goto(url, wait_until="load", timeout=90000)
+            break
+        except Exception:
+            if attempt == 3:
+                raise
+            await page.wait_for_timeout(20000)
     await page.evaluate(SETTLE)
     data = await page.evaluate(COLLECT, PROPS)
     await page.close()
