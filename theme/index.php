@@ -20,4 +20,13 @@ get_header();
 	<p><?php esc_html_e( 'This page gets its sections in stage 3.', 'harlow' ); ?></p>
 </main>
 <?php
+// Whatever blocks a page already has (a list placed by hand or by a check) print after the band.
+if ( is_singular() ) {
+	while ( have_posts() ) {
+		the_post();
+		the_content();
+	}
+}
+?>
+<?php
 get_footer();

@@ -1,0 +1,24 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "harlow/loop",
+	"title": "List of items",
+	"category": "widgets",
+	"icon": "grid-view",
+	"description": "Posts, news, projects, gallery items, jobs, business models, people, testimonials or client logos, as cards, a carousel or plain. Shows the items by itself.",
+	"textdomain": "harlow",
+	"attributes": {
+		"widget": { "type": "string", "default": "" },
+		"classes": { "type": "string", "default": "" },
+		"settings": { "type": "string", "default": "{}" },
+		"layout": { "type": "string", "enum": [ "grid", "carousel", "plain" ], "default": "grid" },
+		"postType": { "type": "string", "default": "post" },
+		"template": { "type": "string", "default": "post-card" },
+		"perPage": { "type": "integer", "default": 6 },
+		"orderby": { "type": "string", "enum": [ "date", "menu_order" ], "default": "date" },
+		"order": { "type": "string", "enum": [ "DESC", "ASC" ], "default": "DESC" },
+		"pagination": { "type": "string", "enum": [ "", "numbers", "prev_next" ], "default": "" }
+	},
+	"supports": { "html": false },
+	"render": "file:../../includes/sections/loop.php"
+}

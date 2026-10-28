@@ -88,6 +88,78 @@ LOCAL_ADMIN = preg_quote(WP + "/wp-admin/")
 LIVE_ADMIN = preg_quote(SITE + "/wp-admin/")
 
 
+UPLOADS = WP + "/wp-content/uploads/"
+URL_ATTRS = ("href", "src", "poster", "preloader-image-url")
+
+# When a picture downloads, not how it looks: WordPress decides these by its own rules
+# (header logo high priority, pictures further down lazy), live by how Elementor rendered
+# each page. Compared and counted apart (README, "Deliberate differences").
+HINTS = ("loading", "decoding", "fetchpriority")
+
+
+def norm_url(value, known):
+    value = unquote(value)   # a U+202F in a file name: written as is, or %E2%80%AF; one address
+    if value.startswith(UPLOADS):
+        return "assets/uploads/" + value[len(UPLOADS):]
+    return as_reference(value, known)
+
+
+def norm_attrs(el, known):
+    """An element's attributes with WordPress's addresses in the reference's form."""
+    out = {}
+    for k, v in el.attrib.items():
+        if k in URL_ATTRS:
+            v = norm_url(v, known)
+        elif k == "srcset":
+            v = ", ".join(" ".join([norm_url(c.strip().split(" ", 1)[0], known)] + c.strip().split(" ", 1)[1:])
+                          for c in v.split(","))
+        elif k == "style":
+            v = re.sub(r'url\((["\']?)([^)"\']+)\1\)', lambda m: f'url({m.group(1)}{norm_url(m.group(2), known)}{m.group(1)})', v)
+        elif k == "exclude":
+            v = v.replace(LOCAL_ADMIN, LIVE_ADMIN)
+        elif k == "class":
+            v = " ".join(sorted(set(v.split())))
+        elif WP in v:
+            v = v.replace(WP, SITE)
+        out[k] = v
+    return out
+
+
+def norm_text(s):
+    # HTML folds runs of its own white space (space, tab, line feed, form feed, return);
+    # a no-break space is a visible space and is kept, unlike Python's \s.
+    return re.sub(r"[ \t\n\f\r]+", " ", s or "")
+
+
+def elements(root):
+    return [e for e in root.iter() if isinstance(e.tag, str)]
+
+
+def compare_trees(wp, ref, known):
+    """Two copies of one piece of a page, element by element: (differences, hint differences)."""
+    a, b = elements(wp), elements(ref)
+    if len(a) != len(b):
+        tags = lambda els: [e.tag for e in els]
+        first = next((i for i, (x, y) in enumerate(zip(tags(a), tags(b))) if x != y), min(len(a), len(b)))
+        return [f"{len(a)} elements, the reference {len(b)}; first different at #{first}: "
+                f"{a[first].tag if first < len(a) else '-'} / {b[first].tag if first < len(b) else '-'}"], []
+    out, hints = [], []
+    for i, (x, y) in enumerate(zip(a, b)):
+        if x.tag != y.tag:
+            out.append(f"#{i}: <{x.tag}> where the reference has <{y.tag}>")
+            continue
+        ax, ay = norm_attrs(x, known), norm_attrs(y, known)
+        for k in sorted(set(ax) | set(ay)):
+            if ax.get(k) != ay.get(k):
+                line = f"#{i} <{x.tag}> {k}: {str(ax.get(k))[:90]!r} / reference {str(ay.get(k))[:90]!r}"
+                (hints if k in HINTS else out).append(line)
+        if norm_text(x.text) != norm_text(y.text):
+            out.append(f"#{i} <{x.tag}> text: {norm_text(x.text)[:60]!r} / reference {norm_text(y.text)[:60]!r}")
+        if i and norm_text(x.tail) != norm_text(y.tail):
+            out.append(f"#{i} </{x.tag}> followed by {norm_text(x.tail)[:40]!r} / reference {norm_text(y.tail)[:40]!r}")
+    return out, hints
+
+
 def wp_cli(*args):
     """WP-CLI in the stack's tools container, as `env.sh wp` runs it; its output."""
     env = dict(os.environ, MSYS_NO_PATHCONV="1")

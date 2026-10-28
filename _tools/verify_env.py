@@ -114,8 +114,10 @@ def main():
           f"log {facts['debug_log']}, mode {facts['dev_mode']}")
     check("Rank Math first screen skipped", facts["rank_math_skip"] == 1, facts["rank_math_skip"])
     site_pages = len(json.loads((ROOT / "theme" / "install" / "site.json").read_text(encoding="utf-8"))["pages"])
-    check(f"no sample content: 0 posts, and the {site_pages} pages of install/site.json",
-          facts["posts"] == 0 and facts["pages"] == site_pages, f"{facts['posts']} posts, {facts['pages']} pages")
+    site_posts = sum(1 for it in json.loads((ROOT / "theme" / "install" / "items.json").read_text(encoding="utf-8"))["items"]
+                     if it["type"] == "post")
+    check(f"no sample content: the {site_posts} posts of install/items.json and the {site_pages} pages of install/site.json",
+          facts["posts"] == site_posts and facts["pages"] == site_pages, f"{facts['posts']} posts, {facts['pages']} pages")
     check("wp_mail() returns true", facts["mail"] is True, facts["mail"])
 
     found = False

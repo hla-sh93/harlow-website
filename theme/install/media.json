@@ -1,0 +1,2539 @@
+{
+ "source": "live REST API of https://www.harlowgroup.com, files in assets/uploads/",
+ "media": [
+  {
+   "id": 60,
+   "file": "2024/05/title-img-1.png",
+   "present": true,
+   "mime": "image/png",
+   "width": 5,
+   "height": 22,
+   "title": "title-img-1",
+   "alt": "",
+   "date": "2024-05-27T10:18:31",
+   "sizes": {}
+  },
+  {
+   "id": 141,
+   "file": "2024/05/title-img.png",
+   "present": true,
+   "mime": "image/png",
+   "width": 5,
+   "height": 22,
+   "title": "title-img",
+   "alt": "",
+   "date": "2024-05-27T11:21:57",
+   "sizes": {}
+  },
+  {
+   "id": 289,
+   "file": "2024/05/132980464797921816client9.png",
+   "present": true,
+   "mime": "image/png",
+   "width": 244,
+   "height": 119,
+   "title": "132980464797921816client9",
+   "alt": "",
+   "date": "2024-05-27T13:09:57",
+   "sizes": {}
+  },
+  {
+   "id": 290,
+   "file": "2024/05/133118610134869596132980464459612466client7.png",
+   "present": true,
+   "mime": "image/png",
+   "width": 244,
+   "height": 119,
+   "title": "133118610134869596132980464459612466client7",
+   "alt": "",
+   "date": "2024-05-27T13:09:57",
+   "sizes": {}
+  },
+  {
+   "id": 291,
+   "file": "2024/05/133118609652797189Exxon_Mobil_Logo.png",
+   "present": true,
+   "mime": "image/png",
+   "width": 182,
+   "height": 90,
+   "title": "133118609652797189Exxon_Mobil_Logo",
+   "alt": "",
+   "date": "2024-05-27T13:09:58",
+   "sizes": {}
+  },
+  {
+   "id": 292,
+   "file": "2024/05/133257702786824982133118613842358880132980464237899785client6.png",
+   "present": true,
+   "mime": "image/png",
+   "width": 250,
+   "height": 120,
+   "title": "133257702786824982133118613842358880132980464237899785client6",
+   "alt": "",
+   "date": "2024-05-27T13:09:58",
+   "sizes": {}
+  },
+  {
+   "id": 293,
+   "file": "2024/05/133257702608443431132980463914111265client5.png",
+   "present": true,
+   "mime": "image/png",
+   "width": 175,
+   "height": 86,
+   "title": "133257702608443431132980463914111265client5",
+   "alt": "",
+   "date": "2024-05-27T13:09:59",
+   "sizes": {}
+  },
+  {
+   "id": 294,
+   "file": "2024/05/133118613056007184citic.png",
+   "present": true,
+   "mime": "image/png",
+   "width": 182,
+   "height": 90,
+   "title": "133118613056007184citic",
+   "alt": "",
+   "date": "2024-05-27T13:09:59",
+   "sizes": {}
+  },
+  {
+   "id": 295,
+   "file": "2024/05/132980463282055113client3.png",
+   "present": true,
+   "mime": "image/png",
+   "width": 185,
+   "height": 90,
+   "title": "132980463282055113client3",
+   "alt": "",
+   "date": "2024-05-27T13:10:00",
+   "sizes": {}
+  },
+  {
+   "id": 296,
+   "file": "2024/05/133117809753436685Hyundai.png",
+   "present": true,
+   "mime": "image/png",
+   "width": 182,
+   "height": 90,
+   "title": "133117809753436685Hyundai",
+   "alt": "",
+   "date": "2024-05-27T13:10:00",
+   "sizes": {}
+  },
+  {
+   "id": 297,
+   "file": "2024/05/132980460472324406client1.png",
+   "present": true,
+   "mime": "image/png",
+   "width": 182,
+   "height": 90,
+   "title": "132980460472324406client1",
+   "alt": "",
+   "date": "2024-05-27T13:10:01",
+   "sizes": {}
+  },
+  {
+   "id": 298,
+   "file": "2024/05/133098541108043280Fichtner.png",
+   "present": true,
+   "mime": "image/png",
+   "width": 182,
+   "height": 90,
+   "title": "133098541108043280Fichtner",
+   "alt": "",
+   "date": "2024-05-27T13:10:01",
+   "sizes": {}
+  },
+  {
+   "id": 458,
+   "file": "2024/05/left-lineimg.png",
+   "present": true,
+   "mime": "image/png",
+   "width": 314,
+   "height": 166,
+   "title": "left-lineimg",
+   "alt": "",
+   "date": "2024-05-28T07:34:16",
+   "sizes": {}
+  },
+  {
+   "id": 459,
+   "file": "2024/05/right-lineimg.png",
+   "present": true,
+   "mime": "image/png",
+   "width": 319,
+   "height": 160,
+   "title": "right-lineimg",
+   "alt": "",
+   "date": "2024-05-28T07:34:17",
+   "sizes": {}
+  },
+  {
+   "id": 556,
+   "file": "2024/05/133098592430306380constructionpre.png",
+   "present": true,
+   "mime": "image/png",
+   "width": 380,
+   "height": 280,
+   "title": "133098592430306380constructionpre",
+   "alt": "",
+   "date": "2024-05-28T08:27:16",
+   "sizes": {}
+  },
+  {
+   "id": 557,
+   "file": "2024/05/133098588155849409Energy.png",
+   "present": true,
+   "mime": "image/png",
+   "width": 380,
+   "height": 280,
+   "title": "133098588155849409Energy",
+   "alt": "",
+   "date": "2024-05-28T08:27:17",
+   "sizes": {}
+  },
+  {
+   "id": 558,
+   "file": "2024/05/133098659500739231consultancy.png",
+   "present": true,
+   "mime": "image/png",
+   "width": 380,
+   "height": 280,
+   "title": "133098659500739231consultancy",
+   "alt": "",
+   "date": "2024-05-28T08:27:17",
+   "sizes": {}
+  },
+  {
+   "id": 560,
+   "file": "2024/05/133098600249350080industrial.png",
+   "present": true,
+   "mime": "image/png",
+   "width": 380,
+   "height": 280,
+   "title": "133098600249350080industrial",
+   "alt": "",
+   "date": "2024-05-28T08:27:19",
+   "sizes": {}
+  },
+  {
+   "id": 561,
+   "file": "2024/05/133098599423686232security.png",
+   "present": true,
+   "mime": "image/png",
+   "width": 380,
+   "height": 280,
+   "title": "133098599423686232security",
+   "alt": "",
+   "date": "2024-05-28T08:27:19",
+   "sizes": {}
+  },
+  {
+   "id": 625,
+   "file": "2024/05/event-boxlogo.png",
+   "present": true,
+   "mime": "image/png",
+   "width": 94,
+   "height": 94,
+   "title": "event-boxlogo",
+   "alt": "",
+   "date": "2024-05-28T09:54:17",
+   "sizes": {}
+  },
+  {
+   "id": 626,
+   "file": "2024/05/133086720156971608A-technician-controlling-a-valve-in-an-oil-facility-in-Iraq.-Photo-AFP-1.jpg",
+   "present": true,
+   "mime": "image/jpeg",
+   "width": 850,
+   "height": 560,
+   "title": "133086720156971608A-technician-controlling-a-valve-in-an-oil-facility-in-Iraq.-Photo-AFP-1",
+   "alt": "",
+   "date": "2024-05-28T09:54:17",
+   "sizes": {}
+  },
+  {
+   "id": 927,
+   "file": "2024/05/ourclient-main-image-1.png",
+   "present": true,
+   "mime": "image/png",
+   "width": 569,
+   "height": 510,
+   "title": "ourclient-main-image",
+   "alt": "",
+   "date": "2024-05-30T09:06:36",
+   "sizes": {}
+  },
+  {
+   "id": 1108,
+   "file": "2024/06/133087364501143877Private-Security.png",
+   "present": true,
+   "mime": "image/png",
+   "width": 26,
+   "height": 22,
+   "title": "133087364501143877Private-Security",
+   "alt": "",
+   "date": "2024-06-02T12:43:57",
+   "sizes": {}
+  },
+  {
+   "id": 1123,
+   "file": "2024/06/133104658423977275Industrial-Sector.png",
+   "present": true,
+   "mime": "image/png",
+   "width": 26,
+   "height": 22,
+   "title": "133104658423977275Industrial-Sector",
+   "alt": "",
+   "date": "2024-06-02T12:56:21",
+   "sizes": {}
+  },
+  {
+   "id": 1127,
+   "file": "2024/06/133087363992284461International-Alliances-and-Business-Consulting.png",
+   "present": true,
+   "mime": "image/png",
+   "width": 26,
+   "height": 22,
+   "title": "133087363992284461International-Alliances-and-Business-Consulting",
+   "alt": "",
+   "date": "2024-06-02T13:05:17",
+   "sizes": {}
+  },
+  {
+   "id": 1130,
+   "file": "2024/06/133087363715641785Construction.png",
+   "present": true,
+   "mime": "image/png",
+   "width": 26,
+   "height": 22,
+   "title": "133087363715641785Construction",
+   "alt": "",
+   "date": "2024-06-02T13:08:17",
+   "sizes": {}
+  },
+  {
+   "id": 1131,
+   "file": "2024/06/133087363372513662Energy-and-Utilities.png",
+   "present": true,
+   "mime": "image/png",
+   "width": 26,
+   "height": 22,
+   "title": "133087363372513662Energy-and-Utilities",
+   "alt": "",
+   "date": "2024-06-02T13:08:19",
+   "sizes": {}
+  },
+  {
+   "id": 1916,
+   "file": "2024/06/chairman_sign-white.png",
+   "present": true,
+   "mime": "image/png",
+   "width": 200,
+   "height": 86,
+   "title": "chairman_sign-white",
+   "alt": "",
+   "date": "2024-06-05T08:24:25",
+   "sizes": {
+    "thumbnail": {
+     "file": "chairman_sign-white-150x86.png",
+     "width": 150,
+     "height": 86,
+     "mime-type": "image/png"
+    },
+    "full": {
+     "file": "chairman_sign-white.png",
+     "width": 200,
+     "height": 86,
+     "mime-type": "image/png"
+    }
+   }
+  },
+  {
+   "id": 2292,
+   "file": "2024/06/133210227908760176hanwha-150x150.png",
+   "present": true,
+   "mime": "image/png",
+   "width": 150,
+   "height": 150,
+   "title": "133210227908760176hanwha-150x150",
+   "alt": "",
+   "date": "2024-06-01T00:00:00",
+   "sizes": {}
+  },
+  {
+   "id": 2305,
+   "file": "2024/06/133210228367885239nic-150x150.png",
+   "present": true,
+   "mime": "image/png",
+   "width": 150,
+   "height": 150,
+   "title": "133210228367885239nic-150x150",
+   "alt": "",
+   "date": "2024-06-01T00:00:00",
+   "sizes": {}
+  },
+  {
+   "id": 2307,
+   "file": "2024/06/133210228790048594c2.png",
+   "present": true,
+   "mime": "image/png",
+   "width": 108,
+   "height": 112,
+   "title": "133210228790048594c2",
+   "alt": "",
+   "date": "2024-06-01T00:00:00",
+   "sizes": {}
+  },
+  {
+   "id": 2309,
+   "file": "2024/06/133210226607388367testi1.png",
+   "present": true,
+   "mime": "image/png",
+   "width": 108,
+   "height": 112,
+   "title": "133210226607388367testi1",
+   "alt": "",
+   "date": "2024-06-01T00:00:00",
+   "sizes": {}
+  },
+  {
+   "id": 2311,
+   "file": "2024/06/133210227409916772c22.png",
+   "present": true,
+   "mime": "image/png",
+   "width": 108,
+   "height": 112,
+   "title": "133210227409916772c22",
+   "alt": "",
+   "date": "2024-06-01T00:00:00",
+   "sizes": {}
+  },
+  {
+   "id": 2495,
+   "file": "2024/06/133281066665792975WhatsApp2.jpg",
+   "present": true,
+   "mime": "image/jpeg",
+   "width": 372,
+   "height": 216,
+   "title": "133281066665792975WhatsApp2",
+   "alt": "",
+   "date": "2024-06-06T10:42:02",
+   "sizes": {
+    "medium": {
+     "file": "133281066665792975WhatsApp2-300x174.jpg",
+     "width": 300,
+     "height": 174,
+     "mime-type": "image/jpeg"
+    },
+    "thumbnail": {
+     "file": "133281066665792975WhatsApp2-150x150.jpg",
+     "width": 150,
+     "height": 150,
+     "mime-type": "image/jpeg"
+    },
+    "full": {
+     "file": "133281066665792975WhatsApp2.jpg",
+     "width": 372,
+     "height": 216,
+     "mime-type": "image/jpeg"
+    }
+   }
+  },
+  {
+   "id": 3549,
+   "file": "2024/06/PowerPlant1.png",
+   "present": true,
+   "mime": "image/png",
+   "width": 794,
+   "height": 246,
+   "title": "PowerPlant1",
+   "alt": "",
+   "date": "2024-06-10T11:51:45",
+   "sizes": {
+    "medium": {
+     "file": "PowerPlant1-300x93.png",
+     "width": 300,
+     "height": 93,
+     "mime-type": "image/png"
+    },
+    "thumbnail": {
+     "file": "PowerPlant1-150x150.png",
+     "width": 150,
+     "height": 150,
+     "mime-type": "image/png"
+    },
+    "medium_large": {
+     "file": "PowerPlant1-768x238.png",
+     "width": 768,
+     "height": 238,
+     "mime-type": "image/png"
+    },
+    "full": {
+     "file": "PowerPlant1.png",
+     "width": 794,
+     "height": 246,
+     "mime-type": "image/png"
+    }
+   }
+  },
+  {
+   "id": 3688,
+   "file": "2024/06/Smart-Meters.png",
+   "present": true,
+   "mime": "image/png",
+   "width": 500,
+   "height": 200,
+   "title": "Smart Meters",
+   "alt": "",
+   "date": "2024-06-10T12:32:50",
+   "sizes": {
+    "medium": {
+     "file": "Smart-Meters-300x120.png",
+     "width": 300,
+     "height": 120,
+     "mime-type": "image/png"
+    },
+    "thumbnail": {
+     "file": "Smart-Meters-150x150.png",
+     "width": 150,
+     "height": 150,
+     "mime-type": "image/png"
+    },
+    "full": {
+     "file": "Smart-Meters.png",
+     "width": 500,
+     "height": 200,
+     "mime-type": "image/png"
+    }
+   }
+  },
+  {
+   "id": 3698,
+   "file": "2024/06/smartmeters.jpg",
+   "present": true,
+   "mime": "image/jpeg",
+   "width": 380,
+   "height": 280,
+   "title": "smartmeters",
+   "alt": "",
+   "date": "2024-06-10T12:34:12",
+   "sizes": {
+    "medium": {
+     "file": "smartmeters-300x221.jpg",
+     "width": 300,
+     "height": 221,
+     "mime-type": "image/jpeg"
+    },
+    "thumbnail": {
+     "file": "smartmeters-150x150.jpg",
+     "width": 150,
+     "height": 150,
+     "mime-type": "image/jpeg"
+    },
+    "full": {
+     "file": "smartmeters.jpg",
+     "width": 380,
+     "height": 280,
+     "mime-type": "image/jpeg"
+    }
+   }
+  },
+  {
+   "id": 3813,
+   "file": "2024/06/security1.jpg",
+   "present": true,
+   "mime": "image/jpeg",
+   "width": 380,
+   "height": 280,
+   "title": "security1",
+   "alt": "",
+   "date": "2024-06-10T13:07:35",
+   "sizes": {
+    "medium": {
+     "file": "security1-300x221.jpg",
+     "width": 300,
+     "height": 221,
+     "mime-type": "image/jpeg"
+    },
+    "thumbnail": {
+     "file": "security1-150x150.jpg",
+     "width": 150,
+     "height": 150,
+     "mime-type": "image/jpeg"
+    },
+    "full": {
+     "file": "security1.jpg",
+     "width": 380,
+     "height": 280,
+     "mime-type": "image/jpeg"
+    }
+   }
+  },
+  {
+   "id": 3853,
+   "file": "2024/06/DRC.png",
+   "present": true,
+   "mime": "image/png",
+   "width": 500,
+   "height": 200,
+   "title": "DRC",
+   "alt": "",
+   "date": "2024-06-10T13:17:39",
+   "sizes": {
+    "medium": {
+     "file": "DRC-300x120.png",
+     "width": 300,
+     "height": 120,
+     "mime-type": "image/png"
+    },
+    "thumbnail": {
+     "file": "DRC-150x150.png",
+     "width": 150,
+     "height": 150,
+     "mime-type": "image/png"
+    },
+    "full": {
+     "file": "DRC.png",
+     "width": 500,
+     "height": 200,
+     "mime-type": "image/png"
+    }
+   }
+  },
+  {
+   "id": 3876,
+   "file": "2024/06/cementfactory.jpg",
+   "present": true,
+   "mime": "image/jpeg",
+   "width": 380,
+   "height": 280,
+   "title": "cementfactory",
+   "alt": "",
+   "date": "2024-06-10T13:20:10",
+   "sizes": {
+    "medium": {
+     "file": "cementfactory-300x221.jpg",
+     "width": 300,
+     "height": 221,
+     "mime-type": "image/jpeg"
+    },
+    "thumbnail": {
+     "file": "cementfactory-150x150.jpg",
+     "width": 150,
+     "height": 150,
+     "mime-type": "image/jpeg"
+    },
+    "full": {
+     "file": "cementfactory.jpg",
+     "width": 380,
+     "height": 280,
+     "mime-type": "image/jpeg"
+    }
+   }
+  },
+  {
+   "id": 3967,
+   "file": "2024/06/Harlow-DMCC.png",
+   "present": true,
+   "mime": "image/png",
+   "width": 500,
+   "height": 500,
+   "title": "Harlow DMCC",
+   "alt": "",
+   "date": "2024-06-10T13:45:50",
+   "sizes": {
+    "medium": {
+     "file": "Harlow-DMCC-300x300.png",
+     "width": 300,
+     "height": 300,
+     "mime-type": "image/png"
+    },
+    "thumbnail": {
+     "file": "Harlow-DMCC-150x150.png",
+     "width": 150,
+     "height": 150,
+     "mime-type": "image/png"
+    },
+    "full": {
+     "file": "Harlow-DMCC.png",
+     "width": 500,
+     "height": 500,
+     "mime-type": "image/png"
+    }
+   }
+  },
+  {
+   "id": 4980,
+   "file": "2024/06/quality_assurance_policy.jpg",
+   "present": true,
+   "mime": "image/jpeg",
+   "width": 1241,
+   "height": 1755,
+   "title": "quality_assurance_policy",
+   "alt": "",
+   "date": "2024-06-23T09:23:19",
+   "sizes": {
+    "medium": {
+     "file": "quality_assurance_policy-212x300.jpg",
+     "width": 212,
+     "height": 300,
+     "mime-type": "image/jpeg"
+    },
+    "large": {
+     "file": "quality_assurance_policy-724x1024.jpg",
+     "width": 724,
+     "height": 1024,
+     "mime-type": "image/jpeg"
+    },
+    "thumbnail": {
+     "file": "quality_assurance_policy-150x150.jpg",
+     "width": 150,
+     "height": 150,
+     "mime-type": "image/jpeg"
+    },
+    "medium_large": {
+     "file": "quality_assurance_policy-768x1086.jpg",
+     "width": 768,
+     "height": 1086,
+     "mime-type": "image/jpeg"
+    },
+    "1536x1536": {
+     "file": "quality_assurance_policy-1086x1536.jpg",
+     "width": 1086,
+     "height": 1536,
+     "mime-type": "image/jpeg"
+    },
+    "full": {
+     "file": "quality_assurance_policy.jpg",
+     "width": 1241,
+     "height": 1755,
+     "mime-type": "image/jpeg"
+    }
+   }
+  },
+  {
+   "id": 4982,
+   "file": "2024/06/anti-bribery.jpg",
+   "present": true,
+   "mime": "image/jpeg",
+   "width": 1241,
+   "height": 1755,
+   "title": "anti-bribery",
+   "alt": "",
+   "date": "2024-06-23T09:32:53",
+   "sizes": {
+    "medium": {
+     "file": "anti-bribery-212x300.jpg",
+     "width": 212,
+     "height": 300,
+     "mime-type": "image/jpeg"
+    },
+    "large": {
+     "file": "anti-bribery-724x1024.jpg",
+     "width": 724,
+     "height": 1024,
+     "mime-type": "image/jpeg"
+    },
+    "thumbnail": {
+     "file": "anti-bribery-150x150.jpg",
+     "width": 150,
+     "height": 150,
+     "mime-type": "image/jpeg"
+    },
+    "medium_large": {
+     "file": "anti-bribery-768x1086.jpg",
+     "width": 768,
+     "height": 1086,
+     "mime-type": "image/jpeg"
+    },
+    "1536x1536": {
+     "file": "anti-bribery-1086x1536.jpg",
+     "width": 1086,
+     "height": 1536,
+     "mime-type": "image/jpeg"
+    },
+    "full": {
+     "file": "anti-bribery.jpg",
+     "width": 1241,
+     "height": 1755,
+     "mime-type": "image/jpeg"
+    }
+   }
+  },
+  {
+   "id": 5001,
+   "file": "2024/06/anti-money-scaled.jpg",
+   "present": true,
+   "mime": "image/jpeg",
+   "width": 1810,
+   "height": 2560,
+   "title": "anti-money",
+   "alt": "",
+   "date": "2024-06-23T09:38:07",
+   "sizes": {
+    "medium": {
+     "file": "anti-money-212x300.jpg",
+     "width": 212,
+     "height": 300,
+     "mime-type": "image/jpeg"
+    },
+    "large": {
+     "file": "anti-money-724x1024.jpg",
+     "width": 724,
+     "height": 1024,
+     "mime-type": "image/jpeg"
+    },
+    "thumbnail": {
+     "file": "anti-money-150x150.jpg",
+     "width": 150,
+     "height": 150,
+     "mime-type": "image/jpeg"
+    },
+    "medium_large": {
+     "file": "anti-money-768x1086.jpg",
+     "width": 768,
+     "height": 1086,
+     "mime-type": "image/jpeg"
+    },
+    "1536x1536": {
+     "file": "anti-money-1086x1536.jpg",
+     "width": 1086,
+     "height": 1536,
+     "mime-type": "image/jpeg"
+    },
+    "2048x2048": {
+     "file": "anti-money-1448x2048.jpg",
+     "width": 1448,
+     "height": 2048,
+     "mime-type": "image/jpeg"
+    },
+    "full": {
+     "file": "anti-money-scaled.jpg",
+     "width": 1810,
+     "height": 2560,
+     "mime-type": "image/jpeg"
+    }
+   }
+  },
+  {
+   "id": 5002,
+   "file": "2024/06/kyc.jpg",
+   "present": true,
+   "mime": "image/jpeg",
+   "width": 1241,
+   "height": 1755,
+   "title": "kyc",
+   "alt": "",
+   "date": "2024-06-23T09:38:31",
+   "sizes": {
+    "medium": {
+     "file": "kyc-212x300.jpg",
+     "width": 212,
+     "height": 300,
+     "mime-type": "image/jpeg"
+    },
+    "large": {
+     "file": "kyc-724x1024.jpg",
+     "width": 724,
+     "height": 1024,
+     "mime-type": "image/jpeg"
+    },
+    "thumbnail": {
+     "file": "kyc-150x150.jpg",
+     "width": 150,
+     "height": 150,
+     "mime-type": "image/jpeg"
+    },
+    "medium_large": {
+     "file": "kyc-768x1086.jpg",
+     "width": 768,
+     "height": 1086,
+     "mime-type": "image/jpeg"
+    },
+    "1536x1536": {
+     "file": "kyc-1086x1536.jpg",
+     "width": 1086,
+     "height": 1536,
+     "mime-type": "image/jpeg"
+    },
+    "full": {
+     "file": "kyc.jpg",
+     "width": 1241,
+     "height": 1755,
+     "mime-type": "image/jpeg"
+    }
+   }
+  },
+  {
+   "id": 5006,
+   "file": "2024/06/vendor_management_policy.jpg",
+   "present": true,
+   "mime": "image/jpeg",
+   "width": 1241,
+   "height": 1755,
+   "title": "vendor_management_policy",
+   "alt": "",
+   "date": "2024-06-23T09:40:17",
+   "sizes": {
+    "medium": {
+     "file": "vendor_management_policy-212x300.jpg",
+     "width": 212,
+     "height": 300,
+     "mime-type": "image/jpeg"
+    },
+    "large": {
+     "file": "vendor_management_policy-724x1024.jpg",
+     "width": 724,
+     "height": 1024,
+     "mime-type": "image/jpeg"
+    },
+    "thumbnail": {
+     "file": "vendor_management_policy-150x150.jpg",
+     "width": 150,
+     "height": 150,
+     "mime-type": "image/jpeg"
+    },
+    "medium_large": {
+     "file": "vendor_management_policy-768x1086.jpg",
+     "width": 768,
+     "height": 1086,
+     "mime-type": "image/jpeg"
+    },
+    "1536x1536": {
+     "file": "vendor_management_policy-1086x1536.jpg",
+     "width": 1086,
+     "height": 1536,
+     "mime-type": "image/jpeg"
+    },
+    "full": {
+     "file": "vendor_management_policy.jpg",
+     "width": 1241,
+     "height": 1755,
+     "mime-type": "image/jpeg"
+    }
+   }
+  },
+  {
+   "id": 5049,
+   "file": "2024/06/Harlow-International.png",
+   "present": true,
+   "mime": "image/png",
+   "width": 500,
+   "height": 200,
+   "title": "Harlow International",
+   "alt": "Harlow International",
+   "date": "2024-06-23T10:05:17",
+   "sizes": {
+    "medium": {
+     "file": "Harlow-International-300x120.png",
+     "width": 300,
+     "height": 120,
+     "mime-type": "image/png"
+    },
+    "thumbnail": {
+     "file": "Harlow-International-150x150.png",
+     "width": 150,
+     "height": 150,
+     "mime-type": "image/png"
+    },
+    "full": {
+     "file": "Harlow-International.png",
+     "width": 500,
+     "height": 200,
+     "mime-type": "image/png"
+    }
+   }
+  },
+  {
+   "id": 5096,
+   "file": "2024/06/Al-Murabit.png",
+   "present": true,
+   "mime": "image/png",
+   "width": 500,
+   "height": 200,
+   "title": "Al Murabit",
+   "alt": "",
+   "date": "2024-06-23T10:19:15",
+   "sizes": {
+    "medium": {
+     "file": "Al-Murabit-300x120.png",
+     "width": 300,
+     "height": 120,
+     "mime-type": "image/png"
+    },
+    "thumbnail": {
+     "file": "Al-Murabit-150x150.png",
+     "width": 150,
+     "height": 150,
+     "mime-type": "image/png"
+    },
+    "full": {
+     "file": "Al-Murabit.png",
+     "width": 500,
+     "height": 200,
+     "mime-type": "image/png"
+    }
+   }
+  },
+  {
+   "id": 7960,
+   "file": "2024/08/New-Harlow-Group-Logo-v01.jpg",
+   "present": true,
+   "mime": "image/jpeg",
+   "width": 1193,
+   "height": 355,
+   "title": "New-Harlow-Group-Logo-v01",
+   "alt": "",
+   "date": "2024-08-05T08:51:35",
+   "sizes": {
+    "medium": {
+     "file": "New-Harlow-Group-Logo-v01-300x89.jpg",
+     "width": 300,
+     "height": 89,
+     "mime-type": "image/jpeg"
+    },
+    "large": {
+     "file": "New-Harlow-Group-Logo-v01-1024x305.jpg",
+     "width": 1024,
+     "height": 305,
+     "mime-type": "image/jpeg"
+    },
+    "thumbnail": {
+     "file": "New-Harlow-Group-Logo-v01-150x150.jpg",
+     "width": 150,
+     "height": 150,
+     "mime-type": "image/jpeg"
+    },
+    "medium_large": {
+     "file": "New-Harlow-Group-Logo-v01-768x229.jpg",
+     "width": 768,
+     "height": 229,
+     "mime-type": "image/jpeg"
+    },
+    "cmplz_banner_image": {
+     "file": "New-Harlow-Group-Logo-v01-350x100.jpg",
+     "width": 350,
+     "height": 100,
+     "mime-type": "image/jpeg"
+    },
+    "full": {
+     "file": "New-Harlow-Group-Logo-v01.jpg",
+     "width": 1193,
+     "height": 355,
+     "mime-type": "image/jpeg"
+    }
+   }
+  },
+  {
+   "id": 8002,
+   "file": "2024/06/New-Harlow-Group-Logo-v01.png",
+   "present": true,
+   "mime": "image/png",
+   "width": 800,
+   "height": 212,
+   "title": "New-Harlow-Group-Logo-v01",
+   "alt": "",
+   "date": "2024-08-05T09:56:00",
+   "sizes": {
+    "medium": {
+     "file": "New-Harlow-Group-Logo-v01-300x80.png",
+     "width": 300,
+     "height": 80,
+     "mime-type": "image/png"
+    },
+    "thumbnail": {
+     "file": "New-Harlow-Group-Logo-v01-150x150.png",
+     "width": 150,
+     "height": 150,
+     "mime-type": "image/png"
+    },
+    "medium_large": {
+     "file": "New-Harlow-Group-Logo-v01-768x204.png",
+     "width": 768,
+     "height": 204,
+     "mime-type": "image/png"
+    },
+    "cmplz_banner_image": {
+     "file": "New-Harlow-Group-Logo-v01-350x100.png",
+     "width": 350,
+     "height": 100,
+     "mime-type": "image/png"
+    },
+    "full": {
+     "file": "New-Harlow-Group-Logo-v01.png",
+     "width": 800,
+     "height": 212,
+     "mime-type": "image/png"
+    }
+   }
+  },
+  {
+   "id": 8215,
+   "file": "2024/10/KPP-3-units-new-scaled.webp",
+   "present": true,
+   "mime": "image/webp",
+   "width": 2560,
+   "height": 1718,
+   "title": "KPP 3 units new",
+   "alt": "",
+   "date": "2024-10-21T08:52:32",
+   "sizes": {
+    "medium": {
+     "file": "KPP-3-units-new-300x201.webp",
+     "width": 300,
+     "height": 201,
+     "mime-type": "image/webp"
+    },
+    "large": {
+     "file": "KPP-3-units-new-1024x687.webp",
+     "width": 1024,
+     "height": 687,
+     "mime-type": "image/webp"
+    },
+    "thumbnail": {
+     "file": "KPP-3-units-new-150x150.webp",
+     "width": 150,
+     "height": 150,
+     "mime-type": "image/webp"
+    },
+    "medium_large": {
+     "file": "KPP-3-units-new-768x515.webp",
+     "width": 768,
+     "height": 515,
+     "mime-type": "image/webp"
+    },
+    "1536x1536": {
+     "file": "KPP-3-units-new-1536x1031.webp",
+     "width": 1536,
+     "height": 1031,
+     "mime-type": "image/webp"
+    },
+    "2048x2048": {
+     "file": "KPP-3-units-new-2048x1375.webp",
+     "width": 2048,
+     "height": 1375,
+     "mime-type": "image/webp"
+    },
+    "cmplz_banner_image": {
+     "file": "KPP-3-units-new-350x100.webp",
+     "width": 350,
+     "height": 100,
+     "mime-type": "image/webp"
+    },
+    "full": {
+     "file": "KPP-3-units-new-scaled.webp",
+     "width": 2560,
+     "height": 1718,
+     "mime-type": "image/webp"
+    }
+   }
+  },
+  {
+   "id": 8632,
+   "file": "2024/12/harlow-who-we-are-min.png",
+   "present": true,
+   "mime": "image/png",
+   "width": 385,
+   "height": 505,
+   "title": "harlow-who-we-are-min",
+   "alt": "",
+   "date": "2024-12-19T07:41:21",
+   "sizes": {
+    "medium": {
+     "file": "harlow-who-we-are-min-229x300.png",
+     "width": 229,
+     "height": 300,
+     "mime-type": "image/png"
+    },
+    "thumbnail": {
+     "file": "harlow-who-we-are-min-150x150.png",
+     "width": 150,
+     "height": 150,
+     "mime-type": "image/png"
+    },
+    "cmplz_banner_image": {
+     "file": "harlow-who-we-are-min-350x100.png",
+     "width": 350,
+     "height": 100,
+     "mime-type": "image/png"
+    },
+    "full": {
+     "file": "harlow-who-we-are-min.png",
+     "width": 385,
+     "height": 505,
+     "mime-type": "image/png"
+    }
+   }
+  },
+  {
+   "id": 8634,
+   "file": "2024/12/harlow-join-our-team-min.png",
+   "present": true,
+   "mime": "image/png",
+   "width": 555,
+   "height": 510,
+   "title": "harlow-join-our-team-min",
+   "alt": "",
+   "date": "2024-12-19T07:41:43",
+   "sizes": {
+    "medium": {
+     "file": "harlow-join-our-team-min-300x276.png",
+     "width": 300,
+     "height": 276,
+     "mime-type": "image/png"
+    },
+    "thumbnail": {
+     "file": "harlow-join-our-team-min-150x150.png",
+     "width": 150,
+     "height": 150,
+     "mime-type": "image/png"
+    },
+    "cmplz_banner_image": {
+     "file": "harlow-join-our-team-min-350x100.png",
+     "width": 350,
+     "height": 100,
+     "mime-type": "image/png"
+    },
+    "full": {
+     "file": "harlow-join-our-team-min.png",
+     "width": 555,
+     "height": 510,
+     "mime-type": "image/png"
+    }
+   }
+  },
+  {
+   "id": 8654,
+   "file": "2024/12/harolow-group-min.png",
+   "present": true,
+   "mime": "image/png",
+   "width": 315,
+   "height": 359,
+   "title": "harolow-group-min",
+   "alt": "",
+   "date": "2024-12-22T06:48:18",
+   "sizes": {
+    "medium": {
+     "file": "harolow-group-min-263x300.png",
+     "width": 263,
+     "height": 300,
+     "mime-type": "image/png"
+    },
+    "thumbnail": {
+     "file": "harolow-group-min-150x150.png",
+     "width": 150,
+     "height": 150,
+     "mime-type": "image/png"
+    },
+    "full": {
+     "file": "harolow-group-min.png",
+     "width": 315,
+     "height": 359,
+     "mime-type": "image/png"
+    }
+   }
+  },
+  {
+   "id": 8656,
+   "file": "2024/12/harlow-group-chairman-min.png",
+   "present": true,
+   "mime": "image/png",
+   "width": 341,
+   "height": 312,
+   "title": "harlow-group-chairman-min",
+   "alt": "",
+   "date": "2024-12-22T06:53:16",
+   "sizes": {
+    "medium": {
+     "file": "harlow-group-chairman-min-300x274.png",
+     "width": 300,
+     "height": 274,
+     "mime-type": "image/png"
+    },
+    "thumbnail": {
+     "file": "harlow-group-chairman-min-150x150.png",
+     "width": 150,
+     "height": 150,
+     "mime-type": "image/png"
+    },
+    "full": {
+     "file": "harlow-group-chairman-min.png",
+     "width": 341,
+     "height": 312,
+     "mime-type": "image/png"
+    }
+   }
+  },
+  {
+   "id": 8662,
+   "file": "2024/12/harlow-our-mission.jpg",
+   "present": true,
+   "mime": "image/jpeg",
+   "width": 526,
+   "height": 383,
+   "title": "harlow-our-mission",
+   "alt": "",
+   "date": "2024-12-22T07:04:29",
+   "sizes": {
+    "medium": {
+     "file": "harlow-our-mission-300x218.jpg",
+     "width": 300,
+     "height": 218,
+     "mime-type": "image/jpeg"
+    },
+    "thumbnail": {
+     "file": "harlow-our-mission-150x150.jpg",
+     "width": 150,
+     "height": 150,
+     "mime-type": "image/jpeg"
+    },
+    "full": {
+     "file": "harlow-our-mission.jpg",
+     "width": 526,
+     "height": 383,
+     "mime-type": "image/jpeg"
+    }
+   }
+  },
+  {
+   "id": 8664,
+   "file": "2024/12/harlow-our-vision.jpg",
+   "present": true,
+   "mime": "image/jpeg",
+   "width": 526,
+   "height": 383,
+   "title": "harlow-our-vision",
+   "alt": "",
+   "date": "2024-12-22T07:07:40",
+   "sizes": {
+    "medium": {
+     "file": "harlow-our-vision-300x218.jpg",
+     "width": 300,
+     "height": 218,
+     "mime-type": "image/jpeg"
+    },
+    "thumbnail": {
+     "file": "harlow-our-vision-150x150.jpg",
+     "width": 150,
+     "height": 150,
+     "mime-type": "image/jpeg"
+    },
+    "full": {
+     "file": "harlow-our-vision.jpg",
+     "width": 526,
+     "height": 383,
+     "mime-type": "image/jpeg"
+    }
+   }
+  },
+  {
+   "id": 8666,
+   "file": "2024/12/harlow-csr.png",
+   "present": true,
+   "mime": "image/png",
+   "width": 580,
+   "height": 660,
+   "title": "harlow-csr",
+   "alt": "",
+   "date": "2024-12-22T07:09:42",
+   "sizes": {
+    "medium": {
+     "file": "harlow-csr-264x300.png",
+     "width": 264,
+     "height": 300,
+     "mime-type": "image/png"
+    },
+    "thumbnail": {
+     "file": "harlow-csr-150x150.png",
+     "width": 150,
+     "height": 150,
+     "mime-type": "image/png"
+    },
+    "full": {
+     "file": "harlow-csr.png",
+     "width": 580,
+     "height": 660,
+     "mime-type": "image/png"
+    }
+   }
+  },
+  {
+   "id": 8677,
+   "file": "2024/12/CONSTRUCTION-DEVELOPMENT.jpg",
+   "present": true,
+   "mime": "image/jpeg",
+   "width": 360,
+   "height": 285,
+   "title": "CONSTRUCTION DEVELOPMENT",
+   "alt": "",
+   "date": "2024-12-22T07:51:00",
+   "sizes": {
+    "medium": {
+     "file": "CONSTRUCTION-DEVELOPMENT-300x238.jpg",
+     "width": 300,
+     "height": 238,
+     "mime-type": "image/jpeg"
+    },
+    "thumbnail": {
+     "file": "CONSTRUCTION-DEVELOPMENT-150x150.jpg",
+     "width": 150,
+     "height": 150,
+     "mime-type": "image/jpeg"
+    },
+    "full": {
+     "file": "CONSTRUCTION-DEVELOPMENT.jpg",
+     "width": 360,
+     "height": 285,
+     "mime-type": "image/jpeg"
+    }
+   }
+  },
+  {
+   "id": 8684,
+   "file": "2024/06/prime-miniter-1.jpg",
+   "present": true,
+   "mime": "image/jpeg",
+   "width": 360,
+   "height": 285,
+   "title": "prime-miniter",
+   "alt": "",
+   "date": "2024-12-22T07:54:04",
+   "sizes": {
+    "medium": {
+     "file": "prime-miniter-1-300x238.jpg",
+     "width": 300,
+     "height": 238,
+     "mime-type": "image/jpeg"
+    },
+    "thumbnail": {
+     "file": "prime-miniter-1-150x150.jpg",
+     "width": 150,
+     "height": 150,
+     "mime-type": "image/jpeg"
+    },
+    "full": {
+     "file": "prime-miniter-1.jpg",
+     "width": 360,
+     "height": 285,
+     "mime-type": "image/jpeg"
+    }
+   }
+  },
+  {
+   "id": 8686,
+   "file": "2024/06/British-Embassy.jpg",
+   "present": true,
+   "mime": "image/jpeg",
+   "width": 360,
+   "height": 285,
+   "title": "British Embassy",
+   "alt": "",
+   "date": "2024-12-22T07:55:36",
+   "sizes": {
+    "medium": {
+     "file": "British-Embassy-300x238.jpg",
+     "width": 300,
+     "height": 238,
+     "mime-type": "image/jpeg"
+    },
+    "thumbnail": {
+     "file": "British-Embassy-150x150.jpg",
+     "width": 150,
+     "height": 150,
+     "mime-type": "image/jpeg"
+    },
+    "full": {
+     "file": "British-Embassy.jpg",
+     "width": 360,
+     "height": 285,
+     "mime-type": "image/jpeg"
+    }
+   }
+  },
+  {
+   "id": 8688,
+   "file": "2024/06/AL-RASHEED-HOTEL.jpg",
+   "present": true,
+   "mime": "image/jpeg",
+   "width": 360,
+   "height": 285,
+   "title": "AL RASHEED HOTEL",
+   "alt": "",
+   "date": "2024-12-22T07:56:19",
+   "sizes": {
+    "medium": {
+     "file": "AL-RASHEED-HOTEL-300x238.jpg",
+     "width": 300,
+     "height": 238,
+     "mime-type": "image/jpeg"
+    },
+    "thumbnail": {
+     "file": "AL-RASHEED-HOTEL-150x150.jpg",
+     "width": 150,
+     "height": 150,
+     "mime-type": "image/jpeg"
+    },
+    "full": {
+     "file": "AL-RASHEED-HOTEL.jpg",
+     "width": 360,
+     "height": 285,
+     "mime-type": "image/jpeg"
+    }
+   }
+  },
+  {
+   "id": 8690,
+   "file": "2024/06/Bismayah-New-City-Project.jpg",
+   "present": true,
+   "mime": "image/jpeg",
+   "width": 360,
+   "height": 285,
+   "title": "Bismayah New City Project",
+   "alt": "",
+   "date": "2024-12-22T07:58:09",
+   "sizes": {
+    "medium": {
+     "file": "Bismayah-New-City-Project-300x238.jpg",
+     "width": 300,
+     "height": 238,
+     "mime-type": "image/jpeg"
+    },
+    "thumbnail": {
+     "file": "Bismayah-New-City-Project-150x150.jpg",
+     "width": 150,
+     "height": 150,
+     "mime-type": "image/jpeg"
+    },
+    "full": {
+     "file": "Bismayah-New-City-Project.jpg",
+     "width": 360,
+     "height": 285,
+     "mime-type": "image/jpeg"
+    }
+   }
+  },
+  {
+   "id": 8692,
+   "file": "2024/06/AL-SUWAYRAH-AIR-BASE.jpg",
+   "present": true,
+   "mime": "image/jpeg",
+   "width": 360,
+   "height": 285,
+   "title": "AL SUWAYRAH AIR BASE",
+   "alt": "",
+   "date": "2024-12-22T07:58:36",
+   "sizes": {
+    "medium": {
+     "file": "AL-SUWAYRAH-AIR-BASE-300x238.jpg",
+     "width": 300,
+     "height": 238,
+     "mime-type": "image/jpeg"
+    },
+    "thumbnail": {
+     "file": "AL-SUWAYRAH-AIR-BASE-150x150.jpg",
+     "width": 150,
+     "height": 150,
+     "mime-type": "image/jpeg"
+    },
+    "full": {
+     "file": "AL-SUWAYRAH-AIR-BASE.jpg",
+     "width": 360,
+     "height": 285,
+     "mime-type": "image/jpeg"
+    }
+   }
+  },
+  {
+   "id": 8704,
+   "file": "2024/12/guard.jpg",
+   "present": true,
+   "mime": "image/jpeg",
+   "width": 580,
+   "height": 660,
+   "title": "guard",
+   "alt": "",
+   "date": "2024-12-22T08:24:48",
+   "sizes": {
+    "medium": {
+     "file": "guard-264x300.jpg",
+     "width": 264,
+     "height": 300,
+     "mime-type": "image/jpeg"
+    },
+    "thumbnail": {
+     "file": "guard-150x150.jpg",
+     "width": 150,
+     "height": 150,
+     "mime-type": "image/jpeg"
+    },
+    "full": {
+     "file": "guard.jpg",
+     "width": 580,
+     "height": 660,
+     "mime-type": "image/jpeg"
+    }
+   }
+  },
+  {
+   "id": 8719,
+   "file": "2024/06/AL-KHAIRAT-THERMAL-POWER-PLANT-1.jpg",
+   "present": true,
+   "mime": "image/jpeg",
+   "width": 365,
+   "height": 365,
+   "title": "AL KHAIRAT THERMAL POWER PLANT",
+   "alt": "",
+   "date": "2024-12-22T08:43:32",
+   "sizes": {
+    "medium": {
+     "file": "AL-KHAIRAT-THERMAL-POWER-PLANT-1-300x300.jpg",
+     "width": 300,
+     "height": 300,
+     "mime-type": "image/jpeg"
+    },
+    "thumbnail": {
+     "file": "AL-KHAIRAT-THERMAL-POWER-PLANT-1-150x150.jpg",
+     "width": 150,
+     "height": 150,
+     "mime-type": "image/jpeg"
+    },
+    "full": {
+     "file": "AL-KHAIRAT-THERMAL-POWER-PLANT-1.jpg",
+     "width": 365,
+     "height": 365,
+     "mime-type": "image/jpeg"
+    }
+   }
+  },
+  {
+   "id": 8762,
+   "file": "2024/12/silver_tower-min.png",
+   "present": true,
+   "mime": "image/png",
+   "width": 478,
+   "height": 1024,
+   "title": "silver_tower-min",
+   "alt": "",
+   "date": "2024-12-22T10:31:32",
+   "sizes": {
+    "medium": {
+     "file": "silver_tower-min-140x300.png",
+     "width": 140,
+     "height": 300,
+     "mime-type": "image/png"
+    },
+    "thumbnail": {
+     "file": "silver_tower-min-150x150.png",
+     "width": 150,
+     "height": 150,
+     "mime-type": "image/png"
+    },
+    "full": {
+     "file": "silver_tower-min.png",
+     "width": 478,
+     "height": 1024,
+     "mime-type": "image/png"
+    }
+   }
+  },
+  {
+   "id": 8766,
+   "file": "2024/12/download-min.png",
+   "present": true,
+   "mime": "image/png",
+   "width": 1024,
+   "height": 478,
+   "title": "download-min",
+   "alt": "",
+   "date": "2024-12-22T10:33:01",
+   "sizes": {
+    "medium": {
+     "file": "download-min-300x140.png",
+     "width": 300,
+     "height": 140,
+     "mime-type": "image/png"
+    },
+    "thumbnail": {
+     "file": "download-min-150x150.png",
+     "width": 150,
+     "height": 150,
+     "mime-type": "image/png"
+    },
+    "medium_large": {
+     "file": "download-min-768x359.png",
+     "width": 768,
+     "height": 359,
+     "mime-type": "image/png"
+    },
+    "full": {
+     "file": "download-min.png",
+     "width": 1024,
+     "height": 478,
+     "mime-type": "image/png"
+    }
+   }
+  },
+  {
+   "id": 8784,
+   "file": "2024/06/Baraa-Mohammed.jpg",
+   "present": true,
+   "mime": "image/jpeg",
+   "width": 382,
+   "height": 554,
+   "title": "Baraa Mohammed",
+   "alt": "",
+   "date": "2024-12-22T11:01:56",
+   "sizes": {
+    "medium": {
+     "file": "Baraa-Mohammed-207x300.jpg",
+     "width": 207,
+     "height": 300,
+     "mime-type": "image/jpeg"
+    },
+    "thumbnail": {
+     "file": "Baraa-Mohammed-150x150.jpg",
+     "width": 150,
+     "height": 150,
+     "mime-type": "image/jpeg"
+    },
+    "full": {
+     "file": "Baraa-Mohammed.jpg",
+     "width": 382,
+     "height": 554,
+     "mime-type": "image/jpeg"
+    }
+   }
+  },
+  {
+   "id": 8786,
+   "file": "2024/06/Kiyoung-Ko.jpg",
+   "present": true,
+   "mime": "image/jpeg",
+   "width": 382,
+   "height": 554,
+   "title": "Kiyoung Ko",
+   "alt": "",
+   "date": "2024-12-22T11:02:37",
+   "sizes": {
+    "medium": {
+     "file": "Kiyoung-Ko-207x300.jpg",
+     "width": 207,
+     "height": 300,
+     "mime-type": "image/jpeg"
+    },
+    "thumbnail": {
+     "file": "Kiyoung-Ko-150x150.jpg",
+     "width": 150,
+     "height": 150,
+     "mime-type": "image/jpeg"
+    },
+    "full": {
+     "file": "Kiyoung-Ko.jpg",
+     "width": 382,
+     "height": 554,
+     "mime-type": "image/jpeg"
+    }
+   }
+  },
+  {
+   "id": 8788,
+   "file": "2024/06/Abdullah-Tariq.jpg",
+   "present": true,
+   "mime": "image/jpeg",
+   "width": 382,
+   "height": 554,
+   "title": "Abdullah Tariq",
+   "alt": "",
+   "date": "2024-12-22T11:03:18",
+   "sizes": {
+    "medium": {
+     "file": "Abdullah-Tariq-207x300.jpg",
+     "width": 207,
+     "height": 300,
+     "mime-type": "image/jpeg"
+    },
+    "thumbnail": {
+     "file": "Abdullah-Tariq-150x150.jpg",
+     "width": 150,
+     "height": 150,
+     "mime-type": "image/jpeg"
+    },
+    "full": {
+     "file": "Abdullah-Tariq.jpg",
+     "width": 382,
+     "height": 554,
+     "mime-type": "image/jpeg"
+    }
+   }
+  },
+  {
+   "id": 8790,
+   "file": "2024/06/Mohammed-Firas.jpg",
+   "present": true,
+   "mime": "image/jpeg",
+   "width": 382,
+   "height": 554,
+   "title": "Mohammed Firas",
+   "alt": "",
+   "date": "2024-12-22T11:03:42",
+   "sizes": {
+    "medium": {
+     "file": "Mohammed-Firas-207x300.jpg",
+     "width": 207,
+     "height": 300,
+     "mime-type": "image/jpeg"
+    },
+    "thumbnail": {
+     "file": "Mohammed-Firas-150x150.jpg",
+     "width": 150,
+     "height": 150,
+     "mime-type": "image/jpeg"
+    },
+    "full": {
+     "file": "Mohammed-Firas.jpg",
+     "width": 382,
+     "height": 554,
+     "mime-type": "image/jpeg"
+    }
+   }
+  },
+  {
+   "id": 8825,
+   "file": "2024/06/Riverside-Business-Center.jpg",
+   "present": true,
+   "mime": "image/jpeg",
+   "width": 364,
+   "height": 275,
+   "title": "Riverside Business Center",
+   "alt": "",
+   "date": "2024-12-22T11:57:59",
+   "sizes": {
+    "medium": {
+     "file": "Riverside-Business-Center-300x227.jpg",
+     "width": 300,
+     "height": 227,
+     "mime-type": "image/jpeg"
+    },
+    "thumbnail": {
+     "file": "Riverside-Business-Center-150x150.jpg",
+     "width": 150,
+     "height": 150,
+     "mime-type": "image/jpeg"
+    },
+    "full": {
+     "file": "Riverside-Business-Center.jpg",
+     "width": 364,
+     "height": 275,
+     "mime-type": "image/jpeg"
+    }
+   }
+  },
+  {
+   "id": 8842,
+   "file": "2024/12/download-min-1.png",
+   "present": true,
+   "mime": "image/png",
+   "width": 1024,
+   "height": 522,
+   "title": "download-min",
+   "alt": "",
+   "date": "2024-12-22T12:23:43",
+   "sizes": {
+    "medium": {
+     "file": "download-min-1-300x153.png",
+     "width": 300,
+     "height": 153,
+     "mime-type": "image/png"
+    },
+    "thumbnail": {
+     "file": "download-min-1-150x150.png",
+     "width": 150,
+     "height": 150,
+     "mime-type": "image/png"
+    },
+    "medium_large": {
+     "file": "download-min-1-768x392.png",
+     "width": 768,
+     "height": 392,
+     "mime-type": "image/png"
+    },
+    "full": {
+     "file": "download-min-1.png",
+     "width": 1024,
+     "height": 522,
+     "mime-type": "image/png"
+    }
+   }
+  },
+  {
+   "id": 9004,
+   "file": "2024/12/470644952_893451099635281_6052839218648569387_n-min.jpg",
+   "present": true,
+   "mime": "image/jpeg",
+   "width": 2048,
+   "height": 985,
+   "title": "470644952_893451099635281_6052839218648569387_n-min",
+   "alt": "",
+   "date": "2024-12-24T11:12:47",
+   "sizes": {
+    "medium": {
+     "file": "470644952_893451099635281_6052839218648569387_n-min-300x144.jpg",
+     "width": 300,
+     "height": 144,
+     "mime-type": "image/jpeg"
+    },
+    "large": {
+     "file": "470644952_893451099635281_6052839218648569387_n-min-1024x493.jpg",
+     "width": 1024,
+     "height": 493,
+     "mime-type": "image/jpeg"
+    },
+    "thumbnail": {
+     "file": "470644952_893451099635281_6052839218648569387_n-min-150x150.jpg",
+     "width": 150,
+     "height": 150,
+     "mime-type": "image/jpeg"
+    },
+    "medium_large": {
+     "file": "470644952_893451099635281_6052839218648569387_n-min-768x369.jpg",
+     "width": 768,
+     "height": 369,
+     "mime-type": "image/jpeg"
+    },
+    "1536x1536": {
+     "file": "470644952_893451099635281_6052839218648569387_n-min-1536x739.jpg",
+     "width": 1536,
+     "height": 739,
+     "mime-type": "image/jpeg"
+    },
+    "full": {
+     "file": "470644952_893451099635281_6052839218648569387_n-min.jpg",
+     "width": 2048,
+     "height": 985,
+     "mime-type": "image/jpeg"
+    }
+   }
+  },
+  {
+   "id": 9377,
+   "file": "2025/01/WhatsApp-Image-2024-12-15-at-7.30.23-PM.jpeg",
+   "present": true,
+   "mime": "image/jpeg",
+   "width": 2560,
+   "height": 1706,
+   "title": "Commencement of Civil and Engineering Activities of Al Khairat Thermal Power plant",
+   "alt": "",
+   "date": "2025-01-22T08:29:22",
+   "sizes": {
+    "medium": {
+     "file": "WhatsApp-Image-2024-12-15-at-7.30.23-PM-300x200.jpeg",
+     "width": 300,
+     "height": 200,
+     "mime-type": "image/jpeg"
+    },
+    "large": {
+     "file": "WhatsApp-Image-2024-12-15-at-7.30.23-PM-1024x682.jpeg",
+     "width": 1024,
+     "height": 682,
+     "mime-type": "image/jpeg"
+    },
+    "thumbnail": {
+     "file": "WhatsApp-Image-2024-12-15-at-7.30.23-PM-150x150.jpeg",
+     "width": 150,
+     "height": 150,
+     "mime-type": "image/jpeg"
+    },
+    "medium_large": {
+     "file": "WhatsApp-Image-2024-12-15-at-7.30.23-PM-768x512.jpeg",
+     "width": 768,
+     "height": 512,
+     "mime-type": "image/jpeg"
+    },
+    "1536x1536": {
+     "file": "WhatsApp-Image-2024-12-15-at-7.30.23-PM-1536x1024.jpeg",
+     "width": 1536,
+     "height": 1024,
+     "mime-type": "image/jpeg"
+    },
+    "2048x2048": {
+     "file": "WhatsApp-Image-2024-12-15-at-7.30.23-PM-2048x1365.jpeg",
+     "width": 2048,
+     "height": 1365,
+     "mime-type": "image/jpeg"
+    },
+    "full": {
+     "file": "WhatsApp-Image-2024-12-15-at-7.30.23-PM.jpeg",
+     "width": 2560,
+     "height": 1706,
+     "mime-type": "image/jpeg"
+    }
+   }
+  },
+  {
+   "id": 9516,
+   "file": "2025/04/Wet-flue-gas-desulfurization-FGD-system.jpg",
+   "present": true,
+   "mime": "image/jpeg",
+   "width": 658,
+   "height": 300,
+   "title": "Wet-flue-gas-desulfurization-FGD-system",
+   "alt": "",
+   "date": "2025-04-10T12:58:08",
+   "sizes": {
+    "medium": {
+     "file": "Wet-flue-gas-desulfurization-FGD-system-300x137.jpg",
+     "width": 300,
+     "height": 137,
+     "mime-type": "image/jpeg"
+    },
+    "thumbnail": {
+     "file": "Wet-flue-gas-desulfurization-FGD-system-150x150.jpg",
+     "width": 150,
+     "height": 150,
+     "mime-type": "image/jpeg"
+    },
+    "full": {
+     "file": "Wet-flue-gas-desulfurization-FGD-system.jpg",
+     "width": 658,
+     "height": 300,
+     "mime-type": "image/jpeg"
+    }
+   }
+  },
+  {
+   "id": 9518,
+   "file": "2025/04/FGD_Process.jpg",
+   "present": true,
+   "mime": "image/jpeg",
+   "width": 1658,
+   "height": 2009,
+   "title": "FGD_Process",
+   "alt": "",
+   "date": "2025-04-10T12:58:13",
+   "sizes": {
+    "medium": {
+     "file": "FGD_Process-248x300.jpg",
+     "width": 248,
+     "height": 300,
+     "mime-type": "image/jpeg"
+    },
+    "large": {
+     "file": "FGD_Process-845x1024.jpg",
+     "width": 845,
+     "height": 1024,
+     "mime-type": "image/jpeg"
+    },
+    "thumbnail": {
+     "file": "FGD_Process-150x150.jpg",
+     "width": 150,
+     "height": 150,
+     "mime-type": "image/jpeg"
+    },
+    "medium_large": {
+     "file": "FGD_Process-768x931.jpg",
+     "width": 768,
+     "height": 931,
+     "mime-type": "image/jpeg"
+    },
+    "1536x1536": {
+     "file": "FGD_Process-1268x1536.jpg",
+     "width": 1268,
+     "height": 1536,
+     "mime-type": "image/jpeg"
+    },
+    "full": {
+     "file": "FGD_Process.jpg",
+     "width": 1658,
+     "height": 2009,
+     "mime-type": "image/jpeg"
+    }
+   }
+  },
+  {
+   "id": 9533,
+   "file": "2025/04/viewpoints-TL-13190-Powering-your-portfolio-with-infrastructure-investing-hero-jhi-1040x425-1.jpg",
+   "present": true,
+   "mime": "image/jpeg",
+   "width": 1040,
+   "height": 425,
+   "title": "The Importance of Infrastructure Investment in Iraq: A Look at Harlow Group’s Role",
+   "alt": "",
+   "date": "2025-04-17T13:39:04",
+   "sizes": {
+    "medium": {
+     "file": "viewpoints-TL-13190-Powering-your-portfolio-with-infrastructure-investing-hero-jhi-1040x425-1-300x123.jpg",
+     "width": 300,
+     "height": 123,
+     "mime-type": "image/jpeg"
+    },
+    "large": {
+     "file": "viewpoints-TL-13190-Powering-your-portfolio-with-infrastructure-investing-hero-jhi-1040x425-1-1024x418.jpg",
+     "width": 1024,
+     "height": 418,
+     "mime-type": "image/jpeg"
+    },
+    "thumbnail": {
+     "file": "viewpoints-TL-13190-Powering-your-portfolio-with-infrastructure-investing-hero-jhi-1040x425-1-150x150.jpg",
+     "width": 150,
+     "height": 150,
+     "mime-type": "image/jpeg"
+    },
+    "medium_large": {
+     "file": "viewpoints-TL-13190-Powering-your-portfolio-with-infrastructure-investing-hero-jhi-1040x425-1-768x314.jpg",
+     "width": 768,
+     "height": 314,
+     "mime-type": "image/jpeg"
+    },
+    "full": {
+     "file": "viewpoints-TL-13190-Powering-your-portfolio-with-infrastructure-investing-hero-jhi-1040x425-1.jpg",
+     "width": 1040,
+     "height": 425,
+     "mime-type": "image/jpeg"
+    }
+   }
+  },
+  {
+   "id": 9554,
+   "file": "2025/04/maxresdefault.webp",
+   "present": true,
+   "mime": "image/webp",
+   "width": 1233,
+   "height": 676,
+   "title": "Iraq Renaissance",
+   "alt": "",
+   "date": "2025-04-27T11:18:22",
+   "sizes": {
+    "medium": {
+     "file": "maxresdefault-300x164.webp",
+     "width": 300,
+     "height": 164,
+     "mime-type": "image/webp"
+    },
+    "large": {
+     "file": "maxresdefault-1024x561.webp",
+     "width": 1024,
+     "height": 561,
+     "mime-type": "image/webp"
+    },
+    "thumbnail": {
+     "file": "maxresdefault-150x150.webp",
+     "width": 150,
+     "height": 150,
+     "mime-type": "image/webp"
+    },
+    "medium_large": {
+     "file": "maxresdefault-768x421.webp",
+     "width": 768,
+     "height": 421,
+     "mime-type": "image/webp"
+    },
+    "full": {
+     "file": "maxresdefault.webp",
+     "width": 1233,
+     "height": 676,
+     "mime-type": "image/webp"
+    }
+   }
+  },
+  {
+   "id": 9566,
+   "file": "2025/04/Screenshot-2025-04-30-at-11.12.04 am-scaled.png",
+   "present": true,
+   "mime": "image/png",
+   "width": 2560,
+   "height": 1657,
+   "title": "ACC Air Cooling Condenser",
+   "alt": "",
+   "date": "2025-04-30T07:13:16",
+   "sizes": {
+    "medium": {
+     "file": "Screenshot-2025-04-30-at-11.12.04 am-300x194.png",
+     "width": 300,
+     "height": 194,
+     "mime-type": "image/png"
+    },
+    "large": {
+     "file": "Screenshot-2025-04-30-at-11.12.04 am-1024x663.png",
+     "width": 1024,
+     "height": 663,
+     "mime-type": "image/png"
+    },
+    "thumbnail": {
+     "file": "Screenshot-2025-04-30-at-11.12.04 am-150x150.png",
+     "width": 150,
+     "height": 150,
+     "mime-type": "image/png"
+    },
+    "medium_large": {
+     "file": "Screenshot-2025-04-30-at-11.12.04 am-768x497.png",
+     "width": 768,
+     "height": 497,
+     "mime-type": "image/png"
+    },
+    "1536x1536": {
+     "file": "Screenshot-2025-04-30-at-11.12.04 am-1536x994.png",
+     "width": 1536,
+     "height": 994,
+     "mime-type": "image/png"
+    },
+    "2048x2048": {
+     "file": "Screenshot-2025-04-30-at-11.12.04 am-2048x1325.png",
+     "width": 2048,
+     "height": 1325,
+     "mime-type": "image/png"
+    },
+    "full": {
+     "file": "Screenshot-2025-04-30-at-11.12.04 am-scaled.png",
+     "width": 2560,
+     "height": 1657,
+     "mime-type": "image/png"
+    }
+   }
+  },
+  {
+   "id": 9570,
+   "file": "2025/04/Screenshot-2025-04-30-at-10.30.50 am-1.png",
+   "present": true,
+   "mime": "image/png",
+   "width": 2476,
+   "height": 1446,
+   "title": "ACC Air Cooling Condenser",
+   "alt": "",
+   "date": "2025-04-30T07:16:09",
+   "sizes": {
+    "medium": {
+     "file": "Screenshot-2025-04-30-at-10.30.50 am-1-300x175.png",
+     "width": 300,
+     "height": 175,
+     "mime-type": "image/png"
+    },
+    "large": {
+     "file": "Screenshot-2025-04-30-at-10.30.50 am-1-1024x598.png",
+     "width": 1024,
+     "height": 598,
+     "mime-type": "image/png"
+    },
+    "thumbnail": {
+     "file": "Screenshot-2025-04-30-at-10.30.50 am-1-150x150.png",
+     "width": 150,
+     "height": 150,
+     "mime-type": "image/png"
+    },
+    "medium_large": {
+     "file": "Screenshot-2025-04-30-at-10.30.50 am-1-768x449.png",
+     "width": 768,
+     "height": 449,
+     "mime-type": "image/png"
+    },
+    "1536x1536": {
+     "file": "Screenshot-2025-04-30-at-10.30.50 am-1-1536x897.png",
+     "width": 1536,
+     "height": 897,
+     "mime-type": "image/png"
+    },
+    "2048x2048": {
+     "file": "Screenshot-2025-04-30-at-10.30.50 am-1-2048x1196.png",
+     "width": 2048,
+     "height": 1196,
+     "mime-type": "image/png"
+    },
+    "full": {
+     "file": "Screenshot-2025-04-30-at-10.30.50 am-1.png",
+     "width": 2476,
+     "height": 1446,
+     "mime-type": "image/png"
+    }
+   }
+  },
+  {
+   "id": 9572,
+   "file": "2025/04/Screenshot-2025-04-30-at-11.18.18 am.png",
+   "present": true,
+   "mime": "image/png",
+   "width": 2326,
+   "height": 1372,
+   "title": "ACC Air Cooling Condenser",
+   "alt": "",
+   "date": "2025-04-30T07:18:37",
+   "sizes": {
+    "medium": {
+     "file": "Screenshot-2025-04-30-at-11.18.18 am-300x177.png",
+     "width": 300,
+     "height": 177,
+     "mime-type": "image/png"
+    },
+    "large": {
+     "file": "Screenshot-2025-04-30-at-11.18.18 am-1024x604.png",
+     "width": 1024,
+     "height": 604,
+     "mime-type": "image/png"
+    },
+    "thumbnail": {
+     "file": "Screenshot-2025-04-30-at-11.18.18 am-150x150.png",
+     "width": 150,
+     "height": 150,
+     "mime-type": "image/png"
+    },
+    "medium_large": {
+     "file": "Screenshot-2025-04-30-at-11.18.18 am-768x453.png",
+     "width": 768,
+     "height": 453,
+     "mime-type": "image/png"
+    },
+    "1536x1536": {
+     "file": "Screenshot-2025-04-30-at-11.18.18 am-1536x906.png",
+     "width": 1536,
+     "height": 906,
+     "mime-type": "image/png"
+    },
+    "2048x2048": {
+     "file": "Screenshot-2025-04-30-at-11.18.18 am-2048x1208.png",
+     "width": 2048,
+     "height": 1208,
+     "mime-type": "image/png"
+    },
+    "full": {
+     "file": "Screenshot-2025-04-30-at-11.18.18 am.png",
+     "width": 2326,
+     "height": 1372,
+     "mime-type": "image/png"
+    }
+   }
+  },
+  {
+   "id": 9584,
+   "file": "2025/05/34396f35-fce0-4bca-8b14-6501e5fa2b54.png",
+   "present": true,
+   "mime": "image/png",
+   "width": 1600,
+   "height": 914,
+   "title": "Harlow Smart Meters",
+   "alt": "",
+   "date": "2025-05-07T07:56:04",
+   "sizes": {
+    "medium": {
+     "file": "34396f35-fce0-4bca-8b14-6501e5fa2b54-300x171.png",
+     "width": 300,
+     "height": 171,
+     "mime-type": "image/png"
+    },
+    "large": {
+     "file": "34396f35-fce0-4bca-8b14-6501e5fa2b54-1024x585.png",
+     "width": 1024,
+     "height": 585,
+     "mime-type": "image/png"
+    },
+    "thumbnail": {
+     "file": "34396f35-fce0-4bca-8b14-6501e5fa2b54-150x150.png",
+     "width": 150,
+     "height": 150,
+     "mime-type": "image/png"
+    },
+    "medium_large": {
+     "file": "34396f35-fce0-4bca-8b14-6501e5fa2b54-768x439.png",
+     "width": 768,
+     "height": 439,
+     "mime-type": "image/png"
+    },
+    "1536x1536": {
+     "file": "34396f35-fce0-4bca-8b14-6501e5fa2b54-1536x877.png",
+     "width": 1536,
+     "height": 877,
+     "mime-type": "image/png"
+    },
+    "full": {
+     "file": "34396f35-fce0-4bca-8b14-6501e5fa2b54.png",
+     "width": 1600,
+     "height": 914,
+     "mime-type": "image/png"
+    }
+   }
+  },
+  {
+   "id": 9586,
+   "file": "2025/05/business-investor-analyzing-stock-market-trend-monitor-trading-capital-profit-exchange-investment-young-broker-investing-funds-using-financial-forex-market-sales-close-up-handheld-shot-scaled.jpg",
+   "present": true,
+   "mime": "image/jpeg",
+   "width": 2560,
+   "height": 1440,
+   "title": "business-investor-analyzing-stock-market-trend-monitor-trading-capital-profit-exchange-investment-young-broker-investing-funds-using-financial-forex-market-sales-close-up-handheld-shot",
+   "alt": "",
+   "date": "2025-05-07T07:58:34",
+   "sizes": {
+    "medium": {
+     "file": "business-investor-analyzing-stock-market-trend-monitor-trading-capital-profit-exchange-investment-young-broker-investing-funds-using-financial-forex-market-sales-close-up-handheld-shot-300x169.jpg",
+     "width": 300,
+     "height": 169,
+     "mime-type": "image/jpeg"
+    },
+    "large": {
+     "file": "business-investor-analyzing-stock-market-trend-monitor-trading-capital-profit-exchange-investment-young-broker-investing-funds-using-financial-forex-market-sales-close-up-handheld-shot-1024x576.jpg",
+     "width": 1024,
+     "height": 576,
+     "mime-type": "image/jpeg"
+    },
+    "thumbnail": {
+     "file": "business-investor-analyzing-stock-market-trend-monitor-trading-capital-profit-exchange-investment-young-broker-investing-funds-using-financial-forex-market-sales-close-up-handheld-shot-150x150.jpg",
+     "width": 150,
+     "height": 150,
+     "mime-type": "image/jpeg"
+    },
+    "medium_large": {
+     "file": "business-investor-analyzing-stock-market-trend-monitor-trading-capital-profit-exchange-investment-young-broker-investing-funds-using-financial-forex-market-sales-close-up-handheld-shot-768x432.jpg",
+     "width": 768,
+     "height": 432,
+     "mime-type": "image/jpeg"
+    },
+    "1536x1536": {
+     "file": "business-investor-analyzing-stock-market-trend-monitor-trading-capital-profit-exchange-investment-young-broker-investing-funds-using-financial-forex-market-sales-close-up-handheld-shot-1536x864.jpg",
+     "width": 1536,
+     "height": 864,
+     "mime-type": "image/jpeg"
+    },
+    "2048x2048": {
+     "file": "business-investor-analyzing-stock-market-trend-monitor-trading-capital-profit-exchange-investment-young-broker-investing-funds-using-financial-forex-market-sales-close-up-handheld-shot-2048x1152.jpg",
+     "width": 2048,
+     "height": 1152,
+     "mime-type": "image/jpeg"
+    },
+    "full": {
+     "file": "business-investor-analyzing-stock-market-trend-monitor-trading-capital-profit-exchange-investment-young-broker-investing-funds-using-financial-forex-market-sales-close-up-handheld-shot-scaled.jpg",
+     "width": 2560,
+     "height": 1440,
+     "mime-type": "image/jpeg"
+    }
+   }
+  },
+  {
+   "id": 9611,
+   "file": "2025/05/Screenshot-2025-05-18-at-1.02.53 pm-scaled.png",
+   "present": true,
+   "mime": "image/png",
+   "width": 2560,
+   "height": 1704,
+   "title": "Screenshot 2025-05-18 at 1.02.53 pm",
+   "alt": "",
+   "date": "2025-05-18T09:09:18",
+   "sizes": {
+    "medium": {
+     "file": "Screenshot-2025-05-18-at-1.02.53 pm-300x200.png",
+     "width": 300,
+     "height": 200,
+     "mime-type": "image/png"
+    },
+    "large": {
+     "file": "Screenshot-2025-05-18-at-1.02.53 pm-1024x682.png",
+     "width": 1024,
+     "height": 682,
+     "mime-type": "image/png"
+    },
+    "thumbnail": {
+     "file": "Screenshot-2025-05-18-at-1.02.53 pm-150x150.png",
+     "width": 150,
+     "height": 150,
+     "mime-type": "image/png"
+    },
+    "medium_large": {
+     "file": "Screenshot-2025-05-18-at-1.02.53 pm-768x511.png",
+     "width": 768,
+     "height": 511,
+     "mime-type": "image/png"
+    },
+    "1536x1536": {
+     "file": "Screenshot-2025-05-18-at-1.02.53 pm-1536x1022.png",
+     "width": 1536,
+     "height": 1022,
+     "mime-type": "image/png"
+    },
+    "2048x2048": {
+     "file": "Screenshot-2025-05-18-at-1.02.53 pm-2048x1363.png",
+     "width": 2048,
+     "height": 1363,
+     "mime-type": "image/png"
+    },
+    "full": {
+     "file": "Screenshot-2025-05-18-at-1.02.53 pm-scaled.png",
+     "width": 2560,
+     "height": 1704,
+     "mime-type": "image/png"
+    }
+   }
+  },
+  {
+   "id": 9629,
+   "file": "2025/09/ARC-Logo-web.webp",
+   "present": true,
+   "mime": "image/webp",
+   "width": 1127,
+   "height": 356,
+   "title": "ARC Logo web",
+   "alt": "",
+   "date": "2025-09-07T09:54:31",
+   "sizes": {
+    "medium": {
+     "file": "ARC-Logo-web-300x95.webp",
+     "width": 300,
+     "height": 95,
+     "mime-type": "image/webp"
+    },
+    "large": {
+     "file": "ARC-Logo-web-1024x323.webp",
+     "width": 1024,
+     "height": 323,
+     "mime-type": "image/webp"
+    },
+    "thumbnail": {
+     "file": "ARC-Logo-web-150x150.webp",
+     "width": 150,
+     "height": 150,
+     "mime-type": "image/webp"
+    },
+    "medium_large": {
+     "file": "ARC-Logo-web-768x243.webp",
+     "width": 768,
+     "height": 243,
+     "mime-type": "image/webp"
+    },
+    "full": {
+     "file": "ARC-Logo-web.webp",
+     "width": 1127,
+     "height": 356,
+     "mime-type": "image/webp"
+    }
+   }
+  },
+  {
+   "id": 9654,
+   "file": "2025/04/AlKhairat-Thermal-Power-Plant.jpg",
+   "present": true,
+   "mime": "image/jpeg",
+   "width": 600,
+   "height": 400,
+   "title": "",
+   "alt": "AlKhairat Thermal Power Plant",
+   "date": "2025-10-07T11:00:45",
+   "sizes": {
+    "medium": {
+     "file": "AlKhairat-Thermal-Power-Plant-300x200.jpg",
+     "width": 300,
+     "height": 200,
+     "mime-type": "image/jpeg"
+    },
+    "thumbnail": {
+     "file": "AlKhairat-Thermal-Power-Plant-150x150.jpg",
+     "width": 150,
+     "height": 150,
+     "mime-type": "image/jpeg"
+    },
+    "full": {
+     "file": "AlKhairat-Thermal-Power-Plant.jpg",
+     "width": 600,
+     "height": 400,
+     "mime-type": "image/jpeg"
+    }
+   }
+  }
+ ]
+}

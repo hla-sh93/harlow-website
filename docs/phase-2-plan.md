@@ -15,7 +15,15 @@ identical to the reference on the 22 pages WordPress has (`verify_chrome.py`,
 (posts and items), 3 (home) and 5 (the blog's pager). Two items of section 1 move: the
 offices are not in the header or footer but on the Contact page, so they come with it
 (stage 3); the brand fonts come with the editor (stage 4), which must load the same faces.
-Next: stage 2 (content types and their data), after Hla's go.
+Stage 2 done on 2026-10-28 (tag `stage-2`): live's content types under live's names and
+addresses, their 49 items with live's ids, dates and addresses, and 88 pictures in the
+Media Library with live's ids and every size live has; the list block prints the nine
+lists and the client logos identical to the reference (`verify_lists.py`: 1,182 elements,
+0 differences) and each follows its items; the 25 item pages carry the same header and
+footer (`verify_chrome.py`: 47 pages, 0 differences). Pictures' loading hints follow
+WordPress's rules (README, "Deliberate differences"). Team members (28 on live) are a type
+with no items: no page of the 49 shows one.
+Next: stage 3 (the pages read into blocks), after Hla's go.
 
 Starting point: `html-v1` (github.com/hla-sh93/harlow-website), the 49 English pages
 matching live at 1440x900 and 479x900. It stays in the repository as the reference every

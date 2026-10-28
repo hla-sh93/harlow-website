@@ -1,0 +1,23 @@
+[
+ {
+  "id": 9,
+  "name": "Blog Post",
+  "slug": "blog-post",
+  "description": "",
+  "parent": 0
+ },
+ {
+  "id": 8,
+  "name": "Latest News Post",
+  "slug": "latest-news",
+  "description": "",
+  "parent": 0
+ },
+ {
+  "id": 1,
+  "name": "Uncategorized",
+  "slug": "uncategorized",
+  "description": "",
+  "parent": 0
+ }
+]

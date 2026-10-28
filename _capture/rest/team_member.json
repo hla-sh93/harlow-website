@@ -1,0 +1,394 @@
+[
+ {
+  "id": 6705,
+  "date": "2024-06-26T16:02:28",
+  "date_gmt": "2024-06-26T16:02:28",
+  "modified": "2024-06-26T16:02:59",
+  "slug": "zaid-raad",
+  "status": "publish",
+  "type": "team_member",
+  "link": "https://www.harlowgroup.com/team-member/zaid-raad/",
+  "title": {
+   "rendered": "Zaid Raad"
+  },
+  "featured_media": 6706
+ },
+ {
+  "id": 6708,
+  "date": "2024-06-26T16:04:02",
+  "date_gmt": "2024-06-26T16:04:02",
+  "modified": "2024-10-23T07:33:14",
+  "slug": "sangcheon-yem",
+  "status": "publish",
+  "type": "team_member",
+  "link": "https://www.harlowgroup.com/team-member/sangcheon-yem/",
+  "title": {
+   "rendered": "SANGCHEON YIM"
+  },
+  "featured_media": 6709
+ },
+ {
+  "id": 6711,
+  "date": "2024-06-26T16:05:03",
+  "date_gmt": "2024-06-26T16:05:03",
+  "modified": "2024-10-23T07:54:54",
+  "slug": "mohammed-ahmed",
+  "status": "publish",
+  "type": "team_member",
+  "link": "https://www.harlowgroup.com/team-member/mohammed-ahmed/",
+  "title": {
+   "rendered": "Mohammed Ahmed"
+  },
+  "featured_media": 6712
+ },
+ {
+  "id": 6714,
+  "date": "2024-06-26T16:06:01",
+  "date_gmt": "2024-06-26T16:06:01",
+  "modified": "2024-06-26T16:06:01",
+  "slug": "kiyoung-ko",
+  "status": "publish",
+  "type": "team_member",
+  "link": "https://www.harlowgroup.com/team-member/kiyoung-ko/",
+  "title": {
+   "rendered": "KIYOUNG KO"
+  },
+  "featured_media": 6715
+ },
+ {
+  "id": 6823,
+  "date": "2024-06-26T16:58:57",
+  "date_gmt": "2024-06-26T16:58:57",
+  "modified": "2024-06-26T16:58:57",
+  "slug": "thanon-hamza",
+  "status": "publish",
+  "type": "team_member",
+  "link": "https://www.harlowgroup.com/team-member/thanon-hamza/",
+  "title": {
+   "rendered": "Thanon Hamza"
+  },
+  "featured_media": 6824
+ },
+ {
+  "id": 6826,
+  "date": "2024-06-26T16:59:53",
+  "date_gmt": "2024-06-26T16:59:53",
+  "modified": "2024-06-26T16:59:53",
+  "slug": "anand-tripathi",
+  "status": "publish",
+  "type": "team_member",
+  "link": "https://www.harlowgroup.com/team-member/anand-tripathi/",
+  "title": {
+   "rendered": "Anand Tripathi"
+  },
+  "featured_media": 6827
+ },
+ {
+  "id": 6829,
+  "date": "2024-06-26T17:02:01",
+  "date_gmt": "2024-06-26T17:02:01",
+  "modified": "2024-06-26T17:02:01",
+  "slug": "abdelatif-chaouch",
+  "status": "publish",
+  "type": "team_member",
+  "link": "https://www.harlowgroup.com/team-member/abdelatif-chaouch/",
+  "title": {
+   "rendered": "Abdelatif Chaouch"
+  },
+  "featured_media": 6830
+ },
+ {
+  "id": 6832,
+  "date": "2024-06-26T17:02:49",
+  "date_gmt": "2024-06-26T17:02:49",
+  "modified": "2024-06-26T17:02:49",
+  "slug": "fadhil-abbas",
+  "status": "publish",
+  "type": "team_member",
+  "link": "https://www.harlowgroup.com/team-member/fadhil-abbas/",
+  "title": {
+   "rendered": "Fadhil Abbas"
+  },
+  "featured_media": 6833
+ },
+ {
+  "id": 6835,
+  "date": "2024-06-26T17:03:52",
+  "date_gmt": "2024-06-26T17:03:52",
+  "modified": "2024-06-26T17:03:52",
+  "slug": "mohammed-nassoom",
+  "status": "publish",
+  "type": "team_member",
+  "link": "https://www.harlowgroup.com/team-member/mohammed-nassoom/",
+  "title": {
+   "rendered": "Mohammed Nassoom"
+  },
+  "featured_media": 6836
+ },
+ {
+  "id": 6893,
+  "date": "2024-06-27T06:16:07",
+  "date_gmt": "2024-06-27T06:16:07",
+  "modified": "2024-06-27T06:16:07",
+  "slug": "craig-lowden",
+  "status": "publish",
+  "type": "team_member",
+  "link": "https://www.harlowgroup.com/team-member/craig-lowden/",
+  "title": {
+   "rendered": "Craig Lowden"
+  },
+  "featured_media": 6894
+ },
+ {
+  "id": 6903,
+  "date": "2024-06-27T06:17:49",
+  "date_gmt": "2024-06-27T06:17:49",
+  "modified": "2024-06-27T06:17:49",
+  "slug": "mustafa-abed-ali",
+  "status": "publish",
+  "type": "team_member",
+  "link": "https://www.harlowgroup.com/team-member/mustafa-abed-ali/",
+  "title": {
+   "rendered": "Mustafa abed ali"
+  },
+  "featured_media": 6901
+ },
+ {
+  "id": 6904,
+  "date": "2024-06-27T06:20:56",
+  "date_gmt": "2024-06-27T06:20:56",
+  "modified": "2024-06-27T06:21:00",
+  "slug": "emad-al-kareem",
+  "status": "publish",
+  "type": "team_member",
+  "link": "https://www.harlowgroup.com/team-member/emad-al-kareem/",
+  "title": {
+   "rendered": "Emad Al Kareem"
+  },
+  "featured_media": 6897
+ },
+ {
+  "id": 6908,
+  "date": "2024-06-27T06:35:44",
+  "date_gmt": "2024-06-27T06:35:44",
+  "modified": "2024-06-27T06:35:44",
+  "slug": "richard-jones",
+  "status": "publish",
+  "type": "team_member",
+  "link": "https://www.harlowgroup.com/team-member/richard-jones/",
+  "title": {
+   "rendered": "Richard Jones"
+  },
+  "featured_media": 6909
+ },
+ {
+  "id": 6918,
+  "date": "2024-06-27T06:38:06",
+  "date_gmt": "2024-06-27T06:38:06",
+  "modified": "2024-06-27T06:38:06",
+  "slug": "gina-cabintoy",
+  "status": "publish",
+  "type": "team_member",
+  "link": "https://www.harlowgroup.com/team-member/gina-cabintoy/",
+  "title": {
+   "rendered": "GINA CABINTOY"
+  },
+  "featured_media": 6923
+ },
+ {
+  "id": 6925,
+  "date": "2024-06-27T06:38:31",
+  "date_gmt": "2024-06-27T06:38:31",
+  "modified": "2024-06-27T06:38:31",
+  "slug": "kapil-mohan-bajaj",
+  "status": "publish",
+  "type": "team_member",
+  "link": "https://www.harlowgroup.com/team-member/kapil-mohan-bajaj/",
+  "title": {
+   "rendered": "KAPIL MOHAN BAJAJ"
+  },
+  "featured_media": 6921
+ },
+ {
+  "id": 6926,
+  "date": "2024-06-27T06:38:52",
+  "date_gmt": "2024-06-27T06:38:52",
+  "modified": "2024-06-27T06:38:52",
+  "slug": "panchami-chettri",
+  "status": "publish",
+  "type": "team_member",
+  "link": "https://www.harlowgroup.com/team-member/panchami-chettri/",
+  "title": {
+   "rendered": "PANCHAMI CHETTRI"
+  },
+  "featured_media": 6919
+ },
+ {
+  "id": 6930,
+  "date": "2024-06-27T06:41:38",
+  "date_gmt": "2024-06-27T06:41:38",
+  "modified": "2025-07-13T12:48:45",
+  "slug": "jonathan-irland",
+  "status": "publish",
+  "type": "team_member",
+  "link": "https://www.harlowgroup.com/team-member/jonathan-irland/",
+  "title": {
+   "rendered": "Jonathan Ireland"
+  },
+  "featured_media": 6931
+ },
+ {
+  "id": 6936,
+  "date": "2024-06-27T06:42:48",
+  "date_gmt": "2024-06-27T06:42:48",
+  "modified": "2024-06-27T06:42:48",
+  "slug": "chris-wilkins",
+  "status": "publish",
+  "type": "team_member",
+  "link": "https://www.harlowgroup.com/team-member/chris-wilkins/",
+  "title": {
+   "rendered": "Chris Wilkins"
+  },
+  "featured_media": 6937
+ },
+ {
+  "id": 6939,
+  "date": "2024-06-27T06:43:11",
+  "date_gmt": "2024-06-27T06:43:11",
+  "modified": "2024-06-27T06:43:29",
+  "slug": "firas-kamal",
+  "status": "publish",
+  "type": "team_member",
+  "link": "https://www.harlowgroup.com/team-member/firas-kamal/",
+  "title": {
+   "rendered": "Firas Kamal"
+  },
+  "featured_media": 6940
+ },
+ {
+  "id": 6942,
+  "date": "2024-06-27T06:44:14",
+  "date_gmt": "2024-06-27T06:44:14",
+  "modified": "2024-06-27T06:44:14",
+  "slug": "ray-mcfarlane",
+  "status": "publish",
+  "type": "team_member",
+  "link": "https://www.harlowgroup.com/team-member/ray-mcfarlane/",
+  "title": {
+   "rendered": "Ray Mcfarlane"
+  },
+  "featured_media": 6943
+ },
+ {
+  "id": 6945,
+  "date": "2024-06-27T06:45:07",
+  "date_gmt": "2024-06-27T06:45:07",
+  "modified": "2024-06-27T06:45:07",
+  "slug": "paul-woodly",
+  "status": "publish",
+  "type": "team_member",
+  "link": "https://www.harlowgroup.com/team-member/paul-woodly/",
+  "title": {
+   "rendered": "Paul Woodly"
+  },
+  "featured_media": 6946
+ },
+ {
+  "id": 6967,
+  "date": "2024-06-27T06:52:06",
+  "date_gmt": "2024-06-27T06:52:06",
+  "modified": "2024-06-27T06:52:06",
+  "slug": "ali-taleb",
+  "status": "publish",
+  "type": "team_member",
+  "link": "https://www.harlowgroup.com/team-member/ali-taleb/",
+  "title": {
+   "rendered": "Ali Taleb"
+  },
+  "featured_media": 6968
+ },
+ {
+  "id": 6971,
+  "date": "2024-06-27T06:53:09",
+  "date_gmt": "2024-06-27T06:53:09",
+  "modified": "2024-06-27T06:53:19",
+  "slug": "ibrahim-kang",
+  "status": "publish",
+  "type": "team_member",
+  "link": "https://www.harlowgroup.com/team-member/ibrahim-kang/",
+  "title": {
+   "rendered": "Ibrahim Kang"
+  },
+  "featured_media": 6972
+ },
+ {
+  "id": 6974,
+  "date": "2024-06-27T06:54:08",
+  "date_gmt": "2024-06-27T06:54:08",
+  "modified": "2024-06-27T06:54:08",
+  "slug": "mustafa-ibrahim",
+  "status": "publish",
+  "type": "team_member",
+  "link": "https://www.harlowgroup.com/team-member/mustafa-ibrahim/",
+  "title": {
+   "rendered": "Mustafa Ibrahim"
+  },
+  "featured_media": 6975
+ },
+ {
+  "id": 6977,
+  "date": "2024-06-27T06:55:31",
+  "date_gmt": "2024-06-27T06:55:31",
+  "modified": "2024-06-27T06:55:31",
+  "slug": "quanyun-fu",
+  "status": "publish",
+  "type": "team_member",
+  "link": "https://www.harlowgroup.com/team-member/quanyun-fu/",
+  "title": {
+   "rendered": "QUANYUN FU"
+  },
+  "featured_media": 6978
+ },
+ {
+  "id": 7010,
+  "date": "2024-06-27T07:05:46",
+  "date_gmt": "2024-06-27T07:05:46",
+  "modified": "2024-06-27T07:05:54",
+  "slug": "mohammed-al-obaidy",
+  "status": "publish",
+  "type": "team_member",
+  "link": "https://www.harlowgroup.com/team-member/mohammed-al-obaidy/",
+  "title": {
+   "rendered": "MOHAMMED AL-OBAIDY"
+  },
+  "featured_media": 7011
+ },
+ {
+  "id": 7021,
+  "date": "2024-06-27T07:18:25",
+  "date_gmt": "2024-06-27T07:18:25",
+  "modified": "2024-06-27T07:18:25",
+  "slug": "ahmed-wajih",
+  "status": "publish",
+  "type": "team_member",
+  "link": "https://www.harlowgroup.com/team-member/ahmed-wajih/",
+  "title": {
+   "rendered": "AHMED WAJIH"
+  },
+  "featured_media": 7022
+ },
+ {
+  "id": 7024,
+  "date": "2024-06-27T07:18:51",
+  "date_gmt": "2024-06-27T07:18:51",
+  "modified": "2024-06-27T07:18:51",
+  "slug": "mays-rasheed",
+  "status": "publish",
+  "type": "team_member",
+  "link": "https://www.harlowgroup.com/team-member/mays-rasheed/",
+  "title": {
+   "rendered": "MAYS RASHEED"
+  },
+  "featured_media": 7025
+ }
+]

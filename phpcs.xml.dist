@@ -33,6 +33,18 @@
 		</properties>
 	</rule>
 
+	<!--
+		Helpers that print only what WordPress has escaped (or nothing), on every path:
+		harlow_card_image() returns wp_get_attachment_image() or an empty string.
+	-->
+	<rule ref="WordPress.Security.EscapeOutput">
+		<properties>
+			<property name="customAutoEscapedFunctions" type="array">
+				<element value="harlow_card_image"/>
+			</property>
+		</properties>
+	</rule>
+
 	<!-- Everything global carries the theme's name, so it can never collide with a plugin. -->
 	<rule ref="WordPress.NamingConventions.PrefixAllGlobals">
 		<properties>

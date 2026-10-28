@@ -8,10 +8,14 @@
  *   enqueue.php   the stylesheets and scripts, in the reference's order
  *   settings.php  Appearance → Customize: site details, cookie bar, page transition
  *   brand.php     Appearance → Customize → Brand colours
- *   nav.php       the header and footer menus, printed as live prints them
- *   install.php   the pages and menus of the site (wp harlow install)
+ *   nav.php            the header and footer menus, printed as live prints them
+ *   content-types.php  news, projects, gallery, jobs, business models, people,
+ *                      testimonials, client logos: live's names and addresses
+ *   loops.php          the list block (blocks/loop) and what its cards print
+ *   install.php        the pages, pictures, items and menus (wp harlow install)
  *
- * The markup of the header, footer, cookie bar and page transition is in includes/parts/.
+ * The markup of the header, footer, cookie bar and page transition is in includes/parts/,
+ * the cards' in includes/loops/, the blocks' in includes/sections/.
  *
  * @package Harlow
  */
@@ -27,4 +31,6 @@ require_once __DIR__ . '/functions/enqueue.php';
 require_once __DIR__ . '/functions/settings.php';
 require_once __DIR__ . '/functions/brand.php';
 require_once __DIR__ . '/functions/nav.php';
+require_once __DIR__ . '/functions/content-types.php';
+require_once __DIR__ . '/functions/loops.php';
 require_once __DIR__ . '/functions/install.php';

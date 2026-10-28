@@ -12,8 +12,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * The page title is the SEO plugin's to print (Rank Math), so the theme declares title-tag
  * and prints no title of its own.
+ *
+ * The content width is live's theme's (Hello Elementor: 800). WordPress sizes a "large"
+ * picture to it, which is why live's cards print width="800" for a 1024px file.
  */
 function harlow_setup() {
+	$GLOBALS['content_width'] = 800;
 	add_theme_support( 'title-tag' );
 	add_theme_support( 'post-thumbnails' );
 	add_theme_support(

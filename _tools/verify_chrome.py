@@ -7,9 +7,13 @@ element (tag, every attribute, every piece of text), after WordPress's addresses
 written the way the reference writes them (wpsite.as_reference). Also compared: the order
 of those parts in the page, the stylesheets (every one, in order) and the scripts.
 
-Pages WordPress does not have yet are counted and named, not passed: the posts and items
-arrive in stage 2; the home page in stage 3, because live builds its header and footer
-into the home page's own sections.
+The loading hints of pictures (loading, decoding, fetchpriority) are counted apart: they
+decide when a picture downloads, not how it looks, and WordPress decides them by its own
+rules where live followed Elementor's (README, "Deliberate differences").
+
+Pages WordPress does not have yet are counted and named, not passed: the home page comes
+in stage 3, because live builds its header and footer into the home page's own sections;
+the blog's second page with the pager, in stage 5.
 
     python -u _tools/verify_chrome.py [name ...]
 """
@@ -18,8 +22,8 @@ import re
 import sys
 
 from common import pages
-from wpsite import (LIVE_ADMIN, LOCAL_ADMIN, as_reference, fetch, known_paths, parse,
-                    reference, srcset_as_reference, wp_path)
+from wpsite import (HINTS, as_reference, compare_trees, elements, fetch, known_paths, parse,
+                    reference, wp_path)
 
 PARTS = [
     ("transition", "./e-page-transition"),
@@ -30,7 +34,6 @@ PARTS = [
     ("language", ".//div[contains(concat(' ', @class, ' '), ' wpml-ls-statics-footer ')]"),
     ("cookie window", ".//dialog[@id='moove_gdpr_cookie_modal']"),
 ]
-URL_ATTRS = ("href", "src", "poster", "preloader-image-url")
 
 # WordPress's own inline styles and scripts that may stay, with why.
 ALLOWED_STYLES = {
@@ -41,53 +44,6 @@ ALLOWED_SCRIPTS = {"speculationrules": "core's prefetch rules, which live prints
 
 LATER = {"index": "stage 3: live builds the home page's header and footer into its own sections",
          "blog-2": "stage 5: the blog's second page comes with the pager"}
-
-
-def norm_text(s):
-    return re.sub(r"\s+", " ", s or "")
-
-
-def norm_attrs(el, known):
-    out = {}
-    for k, v in el.attrib.items():
-        if k in URL_ATTRS:
-            v = as_reference(v, known)
-        elif k == "srcset":
-            v = srcset_as_reference(v, known)
-        elif k == "exclude":
-            v = v.replace(LOCAL_ADMIN, LIVE_ADMIN)
-        elif k == "class":
-            v = " ".join(sorted(v.split()))
-        out[k] = v
-    return out
-
-
-def elements(root):
-    return [e for e in root.iter() if isinstance(e.tag, str)]
-
-
-def compare_part(wp, ref, known):
-    """Differences between two copies of one part, described; [] when they are the same."""
-    a, b = elements(wp), elements(ref)
-    if len(a) != len(b):
-        tags = lambda els: [e.tag for e in els]
-        first = next((i for i, (x, y) in enumerate(zip(tags(a), tags(b))) if x != y), min(len(a), len(b)))
-        return [f"{len(a)} elements, the reference {len(b)}; first different at #{first}: "
-                f"{a[first].tag if first < len(a) else '-'} / {b[first].tag if first < len(b) else '-'}"]
-    out = []
-    for i, (x, y) in enumerate(zip(a, b)):
-        if x.tag != y.tag:
-            out.append(f"#{i}: <{x.tag}> where the reference has <{y.tag}>")
-            continue
-        ax, ay = norm_attrs(x, known), norm_attrs(y, known)
-        for k in sorted(set(ax) | set(ay)):
-            if ax.get(k) != ay.get(k):
-                out.append(f"#{i} <{x.tag}> {k}: {str(ax.get(k))[:90]!r} / reference {str(ay.get(k))[:90]!r}")
-        if norm_text(x.text) != norm_text(y.text):
-            out.append(f"#{i} <{x.tag}> text: {norm_text(x.text)[:60]!r} / reference {norm_text(y.text)[:60]!r}")
-        if i and norm_text(x.tail) != norm_text(y.tail):
-            out.append(f"#{i} </{x.tag}> followed by {norm_text(x.tail)[:40]!r} / reference {norm_text(y.tail)[:40]!r}")
-    return out
 
 
 def part_order(body, found):
@@ -107,10 +63,10 @@ def check(page, known):
     status, text = fetch(wp_path(page))
     expected = 404 if page["name"] == "404" else 200
     if status != expected:
-        return None, f"WordPress answers {status}"
+        return None, f"WordPress answers {status}", []
     wp, ref = parse(text), reference(page["name"])
     wp_body, ref_body = wp.xpath("//body")[0], ref.xpath("//body")[0]
-    problems, counted = [], 0
+    problems, hints, counted = [], [], 0
 
     found_wp = {role: (wp_body.xpath(xp) or [None])[0] for role, xp in PARTS}
     found_ref = {role: (ref_body.xpath(xp) or [None])[0] for role, xp in PARTS}
@@ -122,7 +78,9 @@ def check(page, known):
             problems.append(f"{role}: {'missing' if w is None else 'printed, the reference has none'}")
             continue
         counted += len(elements(r))
-        problems += [f"{role} {d}" for d in compare_part(w, r, known)]
+        diff, hint = compare_trees(w, r, known)
+        problems += [f"{role} {d}" for d in diff]
+        hints += [f"{role} {d}" for d in hint]
 
     if part_order(wp_body, found_wp) != part_order(ref_body, found_ref):
         problems.append(f"order {part_order(wp_body, found_wp)} / reference {part_order(ref_body, found_ref)}")
@@ -142,7 +100,7 @@ def check(page, known):
     for s in wp.xpath("//script[not(@src)]"):
         if s.get("type") not in ALLOWED_SCRIPTS and s.get("type") != "application/ld+json":
             problems.append(f"inline script {s.get('type') or s.get('id')!r}")
-    return counted, problems
+    return counted, problems, hints
 
 
 def main(only):
@@ -154,24 +112,29 @@ def main(only):
         if page["name"] in LATER:
             later.append((page["name"], LATER[page["name"]]))
             continue
-        counted, problems = check(page, known)
+        counted, problems, hints = check(page, known)
         if counted is None:
-            later.append((page["name"], problems + ", not in WordPress yet (stage 2)"))
+            later.append((page["name"], problems + ", not in WordPress yet"))
             continue
-        rows.append((page["name"], counted, problems))
+        rows.append((page["name"], counted, problems, hints))
 
-    for name, counted, problems in rows:
+    for name, counted, problems, hints in rows:
         print(f"{'OK  ' if not problems else 'DIFF'} {name[:60]:60} {counted} elements" +
-              (f", {len(problems)} differences" if problems else ""))
+              (f", {len(problems)} differences" if problems else "") +
+              (f", {len(hints)} loading hints" if hints else ""))
         for p in problems[:8]:
             print("       ", p)
+        for p in hints[:3]:
+            print("        hint:", p)
     if later:
         print(f"\nnot checked yet ({len(later)}):")
         for name, why in later:
             print(f"     {name[:60]:60} {why}")
-    bad = sum(1 for _, _, p in rows if p)
-    print(f"\nchrome: {len(rows)} pages checked, {sum(c for _, c, _ in rows)} elements - {bad} of {len(rows)} pages differ"
-          f" ({len(later)} pages not in WordPress yet)")
+    bad = sum(1 for _, _, p, _ in rows if p)
+    hinted = sum(1 for _, _, _, h in rows if h)
+    print(f"\nchrome: {len(rows)} pages checked, {sum(c for _, c, _, _ in rows)} elements - {bad} of {len(rows)} pages differ"
+          f" ({len(later)} pages not in WordPress yet; loading hints differ on {hinted} pages: "
+          f"{sum(len(h) for _, _, _, h in rows)} attributes)")
     return 1 if bad or not rows else 0
 
 

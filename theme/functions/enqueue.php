@@ -155,6 +155,13 @@ add_action( 'wp_enqueue_scripts', 'harlow_dequeue_extras', 100 );
 remove_action( 'wp_enqueue_scripts', 'wp_enqueue_global_styles' );
 remove_action( 'wp_footer', 'wp_enqueue_global_styles', 1 );
 
+/*
+ * WordPress 6.7 writes "auto, " at the front of a lazy picture's sizes, a newer way for the
+ * browser to pick a file from the srcset. Live's pictures do not have it; left out, the
+ * pictures are written as live writes them (and the style that goes with it is not added).
+ */
+add_filter( 'wp_img_tag_add_auto_sizes', '__return_false' );
+
 add_filter( 'wpcf7_load_css', '__return_false' );
 add_filter( 'wpcf7_load_js', '__return_false' );
 remove_action( 'wp_head', 'print_emoji_detection_script', 7 );

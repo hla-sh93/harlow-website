@@ -62,8 +62,11 @@ staying identical to the reference until something is changed:
 | every word of the cookie bar and its settings window, and the window's logo | Appearance → Customize → Cookie bar |
 | the picture of the page transition | Appearance → Customize → Page transition |
 | the brand colours: blue, dark, accent, light surface, text | Appearance → Customize → Brand colours |
+| posts, news, projects, gallery items, jobs, business models (with their icon and page), Harlow's people, testimonials (with their position), client logos (in their order) | their own menus in the dashboard; every list and carousel shows them by itself |
 
-The pages exist (with live's addresses and ids) but are empty until stage 3.
+The pages exist (with live's addresses and ids) but are empty until stage 3; the lists
+are placed on them then. The items and pictures are live's, with live's ids, addresses
+and dates; the pictures are in the Media Library with every size live has.
 
 To rebuild the static pages after changing a generator:
 
@@ -89,6 +92,8 @@ python -u _tools/build_css.py && python -u _tools/atomize.py && python -u _tools
 | Hover submenus and the burger menu are an own module with SmartMenus' timings (250ms open, 500ms close) | no jQuery or SmartMenus is shipped |
 | Two kinds of dead CSS are not carried: Elementor's `margin-center` (not a CSS property; browsers ignore it) and rules for the motion-effects layer Elementor's runtime adds (that layer is not in this markup) | they did nothing on live |
 | No `<link rel="prerender">` on hovering a link | Elementor's page transition adds it; browsers have dropped prerender |
+| WordPress theme: pictures' loading hints (`loading="lazy"`, `decoding`, `fetchpriority`) follow WordPress's rules, not the ones Elementor gave each live page | they decide when a picture downloads, not how it looks; the checks count them apart |
+| WordPress theme: the pages of business models, people and team members lead to the home page | as on live (301) |
 
 ## Known gaps
 

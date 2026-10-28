@@ -1,0 +1,72 @@
+[
+ {
+  "id": 2540,
+  "date": "2024-06-06T12:02:21",
+  "date_gmt": "2024-06-06T12:02:21",
+  "modified": "2024-12-22T11:58:06",
+  "slug": "riverside-business-center",
+  "status": "publish",
+  "type": "gallery_item",
+  "link": "https://www.harlowgroup.com/gallery-item/riverside-business-center/",
+  "title": {
+   "rendered": "Riverside Business Center"
+  },
+  "featured_media": 8825
+ },
+ {
+  "id": 2617,
+  "date": "2024-06-06T13:33:01",
+  "date_gmt": "2024-06-06T13:33:01",
+  "modified": "2024-12-22T11:53:54",
+  "slug": "al-rasheed-hotel",
+  "status": "publish",
+  "type": "gallery_item",
+  "link": "https://www.harlowgroup.com/gallery-item/al-rasheed-hotel/",
+  "title": {
+   "rendered": "Al Rasheed Hotel"
+  },
+  "featured_media": 8688
+ },
+ {
+  "id": 2625,
+  "date": "2024-06-06T13:34:39",
+  "date_gmt": "2024-06-06T13:34:39",
+  "modified": "2024-12-22T11:53:31",
+  "slug": "british-embassy",
+  "status": "publish",
+  "type": "gallery_item",
+  "link": "https://www.harlowgroup.com/gallery-item/british-embassy/",
+  "title": {
+   "rendered": "Bismayah New City"
+  },
+  "featured_media": 8690
+ },
+ {
+  "id": 2630,
+  "date": "2024-06-06T13:39:13",
+  "date_gmt": "2024-06-06T13:39:13",
+  "modified": "2024-12-22T11:52:58",
+  "slug": "suwayrah-air-base",
+  "status": "publish",
+  "type": "gallery_item",
+  "link": "https://www.harlowgroup.com/gallery-item/suwayrah-air-base/",
+  "title": {
+   "rendered": "Suwayrah Air Base"
+  },
+  "featured_media": 8692
+ },
+ {
+  "id": 2633,
+  "date": "2024-06-06T13:41:10",
+  "date_gmt": "2024-06-06T13:41:10",
+  "modified": "2024-12-22T11:52:32",
+  "slug": "british-embassy-2",
+  "status": "publish",
+  "type": "gallery_item",
+  "link": "https://www.harlowgroup.com/gallery-item/british-embassy-2/",
+  "title": {
+   "rendered": "British Embassy"
+  },
+  "featured_media": 8677
+ }
+]

@@ -6,7 +6,8 @@ browser makes of them: for every page WordPress has, at 1440, 900 and 479 wide, 
 computed property and the box of every element of every chrome part, against the same
 page of the reference served from the same site (/static/), so both share one origin.
 Boxes are measured from the top of their part, because the content between header and
-footer is not there yet. Then the chrome's behaviours are driven on a WordPress page:
+footer is not there yet; a box inside a fixed element (the header bar) from the top of the
+screen, because a page can be left a few pixels down after settling (seen: 8 to 79px). Then the chrome's behaviours are driven on a WordPress page:
 header on scroll, submenu on hover, burger, cookie bar, page transition, a link followed.
 
     python -u _tools/verify_chrome_render.py [name ...]
@@ -39,11 +40,16 @@ MEASURE = """
     if (!root) { out[role] = null; continue; }
     const r0 = root.getBoundingClientRect();
     const rows = [];
+    // inside a fixed element (the header bar) a box is where it is on the screen; anywhere
+    // else, where it is in its part: a page left a few pixels down measures the same
+    const fixed = (el) => { for (let e = el; e && e !== document.body; e = e.parentElement) {
+      if (getComputedStyle(e).position === 'fixed') return true; } return false; };
     for (const el of [root, ...root.querySelectorAll('*')]) {
       const cs = getComputedStyle(el); const b = el.getBoundingClientRect();
+      const o = fixed(el) ? { left: 0, top: 0 } : r0;
       const names = []; for (let i = 0; i < cs.length; i++) if (!cs[i].startsWith('--hl-color-')) names.push(cs[i]); names.sort();
       let s = ''; for (const n of names) s += n + ':' + cs.getPropertyValue(n).replace(local, '/') + ';';
-      rows.push([fnv(s), [b.left - r0.left, b.top - r0.top, b.width, b.height].map(v => +v.toFixed(1))]);
+      rows.push([fnv(s), [b.left - o.left, b.top - o.top, b.width, b.height].map(v => +v.toFixed(1))]);
     }
     out[role] = rows;
   }
