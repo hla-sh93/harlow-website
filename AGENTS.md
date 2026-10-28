@@ -76,7 +76,8 @@ The 49 English pages marked `yes` in `_inventory/urls.csv` (decisions in
 | D | home page + one page of each kind | built and measured 2026-10-27 (tag `stage-d`) |
 | E | generate the rest | done 2026-10-27: all 49 pages, same generator |
 | F | checks | all 49 pages: geometry, computed styles, behaviour, links (`_tools/report.py`) |
-| G | docs, tag `html-v1` | not started |
+| G | docs, tag `html-v1` | done 2026-10-28; pushed to github.com/hla-sh93/harlow-website |
+| Phase 2 | the WordPress theme | planned in `docs/phase-2-plan.md`; waiting for answers to its questions |
 
 ## Tools
 
