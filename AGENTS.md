@@ -95,6 +95,7 @@ The 49 English pages marked `yes` in `_inventory/urls.csv` (decisions in
 | `_tools/behaviour.py` | drives each module on the built pages: header on scroll, hover submenu, burger menu, carousel, history slider, entrance animations, gallery, lightbox, cookie bar, page transition, internal link | `N behaviours checked, 0 failed, 0 skipped` |
 | `_tools/links.py` | every local reference in pages and stylesheets exists | `N references in M files checked - 0 broken, 0 pages linked but not built yet` |
 | `_tools/report.py` | the per-page table from the latest compare, style_check and links runs: `_capture/report.md` | `49 pages, 0 with any difference` |
+| `_tools/client_copy.py [folder]` | the client's copy outside the repository (default `../harlow-website` and `../harlow-website.zip`): the pages and only the files they use, CSS without internal comments, checked on its own | `49 pages and N files (… MB) in <folder> - 0 missing references, 0 workshop mentions` |
 
 ## Hazards met on this project
 
