@@ -1,7 +1,7 @@
 # Phase 2 plan: the Harlow Group WordPress theme
 
-Status: proposal, waiting for answers to the questions in section 8. Nothing of WordPress
-is built before they are answered.
+Status: answered by Hla on 2026-10-28 (section 8); the steps and timing are in section 9.
+Waiting for her go to start stage R.
 
 Starting point: `html-v1` (github.com/hla-sh93/harlow-website), the 49 English pages
 matching live at 1440x900 and 479x900. It stays in the repository as the reference every
@@ -157,16 +157,41 @@ them, each passed by its counting sentence.
 For scale: Osous was 57 pages in 7 kinds and took five weeks; this site is 49 English pages
 in 11 kinds, with stage R and nine content types on top.
 
-## 8. Questions before anything is built
+## 8. Questions and answers (Hla, 2026-10-28)
 
-1. Who will read the code and judge it?
-2. Freedom: the vocabulary with a site-wide brand palette (recommended), or Elementor-style
-   freedom without the guarantee that pages match the design?
-3. Where does the theme land: the existing live WordPress (pages filled in place), or a new
-   WordPress?
-4. Plugins: keep Rank Math, Contact Form 7 with Turnstile, WPML, GDPR Cookie Compliance?
-   The host's upload limit and mail?
-5. Content: use the posts, news, projects and other items already in the live WordPress
-   (recommended), or recreate them from the capture?
-6. Arabic as stage 11, after English is approved (recommended)?
-7. Prefix `harlow` for functions, blocks and the text domain?
+| # | question | answer |
+|---|---|---|
+| 1 | Who will read the code and judge it? | Hla |
+| 2 | Freedom | **The current design, kept.** Full editing in place of Elementor, not a redesign: the vocabulary model; the brand palette keeps today's colours as its values |
+| 3 | Where the theme lands | **A new theme named after the site** ("Harlow Group", slug and text domain `harlow`), on a **local WordPress first**. The live site is a later, separate step (stage 12) |
+| 4 | Plugins, upload limit, mail | Decided for the local site: Rank Math (SEO fields) and Contact Form 7 (forms) as on live; Turnstile left off locally (it needs live's keys); WPML at stage 11; the cookie bar stays the theme's own module (no plugin). Docker gives 64 MB uploads and catches mail in Mailpit. Asked again only before live |
+| 5 | Content | The items as they are on live (recreated locally from the capture, under live's type names, so live's own items show the same way later) |
+| 6 | Arabic | Stage 11, after English is approved |
+| 7 | Prefix | `harlow` |
+
+## 9. The way to a complete, editable local site
+
+Active working days per stage; each stage ends with a stop for Hla's go, so the calendar
+also depends on review time. The estimate is widest for stages R and 3, where the
+number of one-off styles decides the work.
+
+| stage | after it, Hla can… | estimate |
+|---|---|---|
+| R | read the site's design as named words (the vocabulary report), and the HTML reference still matches live | 2–3 days |
+| 0 | open WordPress on her machine (`http://localhost:8080`), empty, with the plugins | half a day |
+| 1 | change the header and footer menus, logos, offices, social links and brand colours from the dashboard | 1–2 days |
+| 2 | add and edit blog posts, news, projects, gallery items, jobs, testimonials, business models, people and client logos | 2 days |
+| 3 | open every one of the 49 pages in WordPress, looking exactly like the reference, and insert sections from the library | 3–4 days |
+| 4 | click any word or picture in the editor and change it, with the editor showing the page as it really looks | 2–3 days |
+| 5 | see archives, single pages, 404 and search working, and send the contact form (caught locally) | 1–2 days |
+| 6 | make a new page of any kind from its ready layout, duplicate, restore originals, change addresses safely | 1–2 days |
+| 7 | edit every page's SEO in Rank Math | half a day |
+| 8 | install all pages into any WordPress with one button | 1 day |
+| 9 | trust it: every field of every page has been changed from WordPress and checked, one row per page | 1–2 days |
+| 10 | hand over a theme zip that installs and makes the site on a clean WordPress | half to 1 day |
+
+Total: about 16–23 working days, three to four weeks with reviews. The site becomes
+editable in WordPress at the end of stage 3 (about halfway); stages 4–10 make that editing
+comfortable, complete and proven. Arabic (stage 11) and live (stage 12) come after.
+
+Needed on Hla's machine: Docker Desktop running (installed, version 29.8).
