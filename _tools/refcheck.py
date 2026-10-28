@@ -41,8 +41,10 @@ HASHES = """
   for (const el of document.body.querySelectorAll('*')) {
     const cs = getComputedStyle(el); const b = el.getBoundingClientRect();
     let s = el.tagName + '|' + [b.left, b.top + scrollY, b.width, b.height].map(v => v.toFixed(1)).join(',') + '|';
-    // custom properties are listed in a different order on every page: sort by name
-    const names = []; for (let i = 0; i < cs.length; i++) names.push(cs[i]); names.sort();
+    // custom properties are listed in a different order on every page: sort by name.
+    // The brand colours (--hl-color-*, design/brand.css) are left out: they are new since
+    // html-v1, and what they do is compared in every property that uses them.
+    const names = []; for (let i = 0; i < cs.length; i++) if (!cs[i].startsWith('--hl-color-')) names.push(cs[i]); names.sort();
     for (const n of names) s += n + ':' + cs.getPropertyValue(n).replace(origin, '/') + ';';
     out.push(fnv(s));
   }
@@ -55,7 +57,7 @@ DETAIL = """
   const origin = /http:\\/\\/127\\.0\\.0\\.1:\\d+\\//g;
   const all = [...document.body.querySelectorAll('*')];
   return idx.map(i => { const el = all[i]; if (!el) return null; const cs = getComputedStyle(el); const b = el.getBoundingClientRect();
-    const props = {}; for (let k = 0; k < cs.length; k++) props[cs[k]] = cs.getPropertyValue(cs[k]).replace(origin, '/');
+    const props = {}; for (let k = 0; k < cs.length; k++) if (!cs[k].startsWith('--hl-color-')) props[cs[k]] = cs.getPropertyValue(cs[k]).replace(origin, '/');
     props['(box)'] = [b.left, b.top + scrollY, b.width, b.height].map(v => v.toFixed(1)).join(',');
     return { tag: el.tagName.toLowerCase(), cls: (typeof el.className === 'string' ? el.className : '').slice(0, 90), props }; });
 }

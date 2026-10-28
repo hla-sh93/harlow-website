@@ -24,7 +24,7 @@
   height: auto;
   top: auto;
   bottom: 0;
-  background-color: #0165a1;
+  background-color: var(--hl-color-primary);
 }
 
 .gallery-details .e-gallery-item {

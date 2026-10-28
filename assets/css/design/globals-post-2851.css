@@ -51,14 +51,14 @@
 }
 
 .side-menu a {
-  border-bottom: 1px solid #0165A1;
+  border-bottom: 1px solid var(--hl-color-primary);
   padding-right: 5px !important;
   padding-left: 8px !important;
 }
 
 .side-menu a:hover {
   color: #FFF !important;
-  background-color: #0165A1;
+  background-color: var(--hl-color-primary);
 }
 
 .side-menu a.elementor-item-active {

@@ -95,7 +95,7 @@
   font-size: 13px;
   font-weight: 600;
   letter-spacing: 4px;
-  color: #000000;
+  color: var(--hl-color-text);
 }
 
 .elementor-widget-loop-grid .elementor-button {
@@ -136,7 +136,7 @@
 
 .elementor-9063 .elementor-element.elementor-element-25ebe677:not(.elementor-motion-effects-element-type-background),
 .elementor-9063 .elementor-element.elementor-element-25ebe677 > .elementor-motion-effects-container > .elementor-motion-effects-layer {
-  background-color: #F2F2F2;
+  background-color: var(--hl-color-light);
 }
 
 :root {

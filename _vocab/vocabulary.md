@@ -10,7 +10,7 @@ How many different values each scale holds, and how many elements use each. This
 
 ### palette: 38 values
 
-`#000000`x73 `#FFFFFF`x60 `#001420`x56 `#0165A1`x40 `#F2F2F2`x30 `#000000D6`x23 `TRANSPARENT`x5 `#181818`x5 `#FFFFFF94`x4 `#E6F0F6`x4 `#013C60`x4 `#1C1D1D`x4 `#02010100`x3 `#FFFFFF9C`x3 `#014167`x3 `#00CCCC`x3 `#E46E6E00`x2 `#0165A100`x2 `#B4B4B5`x2 `#61CE7000`x2 `#015384`x2 `#00000000`x2 `#002840`x1 `#FFFFFF9E`x1 `#D5D5D5`x1 `#F7F7F7`x1 `#00000075`x1 `#12421900`x1 `#00000078`x1 `#BFBFBF`x1 `#212529`x1 `#B9B5B5`x1 `#9B9B9B`x1 `#54595F00`x1 `#6ADADB`x1 `#FFFEFE`x1 `#B6B6B6`x1 `RGBA(0,0,0,0.5)`x1
+`#000000`x73 `#FFFFFF`x60 `#001420`x56 `#0165A1`x40 `#F2F2F2`x30 `#000000D6`x23 `#181818`x5 `TRANSPARENT`x5 `#013C60`x4 `#1C1D1D`x4 `#E6F0F6`x4 `#FFFFFF94`x4 `#00CCCC`x3 `#014167`x3 `#02010100`x3 `#FFFFFF9C`x3 `#00000000`x2 `#015384`x2 `#0165A100`x2 `#61CE7000`x2 `#B4B4B5`x2 `#E46E6E00`x2 `#00000075`x1 `#00000078`x1 `#002840`x1 `#12421900`x1 `#212529`x1 `#54595F00`x1 `#6ADADB`x1 `#9B9B9B`x1 `#B6B6B6`x1 `#B9B5B5`x1 `#BFBFBF`x1 `#D5D5D5`x1 `#F7F7F7`x1 `#FFFEFE`x1 `#FFFFFF9E`x1 `RGBA(0,0,0,0.5)`x1
 
 ### font size, desktop: 20 values
 
@@ -60,9 +60,9 @@ How many different values each scale holds, and how many elements use each. This
 | `--margin-bottom` | 16 | 12 | 6 | `0px` x203, `10px` x10, `40px` x5 |
 | `--column-gap` | 14 | 14 | 5 | `0px` x70, `10px` x26, `12px` x21 |
 | `--margin-top` | 11 | 9 | 6 | `0px` x219, `55px` x2, `73px` x2 |
-| `padding-top` | 6 | 6 | 4 | `7px` x3, `14px` x2, `17px` x1 |
-| `padding-bottom` | 6 | 6 | 4 | `7px` x3, `14px` x2, `17px` x1 |
-| `margin-inline` | 6 | 4 | 4 | `calc(-8px/2)` x1, `calc(20px/2)` x1, `calc(8px/2)` x1 |
+| `padding-top` | 6 | 6 | 4 | `7px` x3, `14px` x2, `10px` x1 |
+| `padding-bottom` | 6 | 6 | 4 | `7px` x3, `14px` x2, `10px` x1 |
+| `margin-inline` | 6 | 4 | 4 | `calc(-20px/2)` x1, `calc(-8px/2)` x1, `calc(20px/2)` x1 |
 | `--margin-left` | 3 | 1 | 0 | `0px` x227 |
 | `--margin-right` | 3 | 1 | 0 | `0px` x227 |
 | `padding-block-end` | 3 | 3 | 0 | `2px` x10, `15px` x3, `calc(15px/2)` x2 |
@@ -85,20 +85,20 @@ How many different values each scale holds, and how many elements use each. This
 | `left` | 19 | 19 | 11 | `89px` x9, `14px` x8, `0px` x6 |
 | `--e-con-grid-template-columns` | 19 | 16 | 6 | `repeat(1, 1fr)` x13, `1` x12, `20px 1fr` x7 |
 | `--content-width` | 14 | 13 | 4 | `1151px` x47, `200px` x11, `500px` x9 |
-| `bottom` | 13 | 13 | 8 | `-9px` x3, `66px` x3, `140px` x2 |
+| `bottom` | 13 | 13 | 8 | `-9px` x3, `66px` x3, `0px` x2 |
 | `--align-self` | 12 | 4 | 1 | `center` x31, `flex-start` x9, `flex-end` x3 |
-| `top` | 12 | 10 | 6 | `-30px` x9, `0px` x3, `45px` x2 |
+| `top` | 12 | 10 | 6 | `-30px` x9, `0px` x3, `-19px` x2 |
 | `--justify-content` | 8 | 4 | 2 | `center` x121, `flex-start` x41, `flex-end` x1 |
 | `--flex-grow` | 5 | 2 | 0 | `0` x60, `1` x4 |
 | `--align-items` | 5 | 2 | 0 | `center` x128, `flex-start` x29 |
 | `--e-con-grid-template-rows` | 5 | 3 | 0 | `repeat(1, 1fr)` x19, `1fr` x8, `repeat(2, 1fr)` x2 |
 | `--container-widget-flex-grow` | 4 | 2 | 0 | `1` x119, `0` x60 |
 | `--z-index` | 4 | 4 | 3 | `1` x3, `10` x1, `9` x1 |
-| `right` | 3 | 3 | 3 | `20px` x1, `0%` x1, `17px` x1 |
+| `right` | 3 | 3 | 3 | `0%` x1, `17px` x1, `20px` x1 |
 | `--flex-shrink` | 3 | 1 | 0 | `0` x64 |
-| `z-index` | 3 | 3 | 2 | `0` x2, `99` x1, `2` x1 |
+| `z-index` | 3 | 3 | 2 | `0` x2, `2` x1, `99` x1 |
 | `--grid-auto-flow` | 3 | 1 | 0 | `row` x28 |
-| `inset-inline-end` | 3 | 2 | 2 | `calc(-8px/2)` x1, `calc(-20px/2)` x1 |
+| `inset-inline-end` | 3 | 2 | 2 | `calc(-20px/2)` x1, `calc(-8px/2)` x1 |
 | `--flex-wrap` | 3 | 2 | 0 | `wrap` x34, `nowrap` x33 |
 | `--display` | 2 | 2 | 0 | `flex` x288, `grid` x28 |
 | `--position` | 2 | 2 | 0 | `absolute` x17, `fixed` x2 |
@@ -120,7 +120,7 @@ How many different values each scale holds, and how many elements use each. This
 | `max-width` | 43 | 38 | 22 | `5px` x24, `100%` x17, `250px` x7 |
 | `--min-height` | 18 | 14 | 7 | `200px` x30, `415px` x23, `80px` x21 |
 | `height` | 15 | 12 | 5 | `100%` x10, `12px` x7, `18px` x7 |
-| `--width` | 14 | 12 | 7 | `100%` x21, `80%` x3, `32.977%` x3 |
+| `--width` | 14 | 12 | 7 | `100%` x21, `32.977%` x3, `80%` x3 |
 | `object-fit` | 4 | 2 | 0 | `cover` x8, `contain` x3 |
 | `object-position` | 1 | 1 | 0 | `center center` x7 |
 
@@ -132,17 +132,17 @@ How many different values each scale holds, and how many elements use each. This
 | `background-image` | 34 | 34 | 27 | `url("../../uploads/2024/05/plus.png")` x9, `url("../../uploads/2024/05/arrow.png")` x3, `url("../../uploads/2024/06/message-sec-bg.png")` x3 |
 | `fill` | 23 | 7 | 3 | `#000000` x23, `#FFFFFF` x15, `#FFFFFF94` x4 |
 | `background-position` | 13 | 11 | 5 | `top center` x21, `top left` x9, `center center` x4 |
-| `border-width` | 9 | 4 | 1 | `2px 2px 2px 2px` x7, `13px 1px 13px 1px` x7, `1px 1px 1px 1px` x2 |
+| `border-width` | 9 | 4 | 1 | `13px 1px 13px 1px` x7, `2px 2px 2px 2px` x7, `1px 1px 1px 1px` x2 |
 | `border-color` | 8 | 6 | 3 | `#0165A1` x14, `#000000` x7, `#FFFFFF` x7 |
 | `border-style` | 7 | 2 | 0 | `none` x19, `solid` x16 |
 | `background-size` | 5 | 4 | 1 | `cover` x28, `22px auto` x9, `48% auto` x3 |
 | `border-radius` | 4 | 4 | 2 | `0px 0px 0px 0px` x8, `3px 3px 3px 3px` x2, `12px 12px 12px 12px` x1 |
 | `--overlay-opacity` | 4 | 4 | 2 | `0.5` x26, `0.67` x2, `0.38` x1 |
 | `background-repeat` | 3 | 2 | 0 | `no-repeat` x36, `repeat` x9 |
-| `box-shadow` | 3 | 3 | 3 | `8px 0px 0px 0px #4D93BD inset` x1, `0px 4px 20px 0px rgba(0, 0, 0, 0.2)` x1, `0px 0px 10px 0px rgba(0,0,0,0.5)` x1 |
+| `box-shadow` | 3 | 3 | 3 | `0px 0px 10px 0px rgba(0,0,0,0.5)` x1, `0px 4px 20px 0px rgba(0, 0, 0, 0.2)` x1, `8px 0px 0px 0px #4D93BD inset` x1 |
 | `--border-radius` | 3 | 3 | 1 | `20px 20px 20px 20px` x8, `0px 0px 0px 0px` x3, `5px 5px 5px 5px` x1 |
-| `--border-top-width` | 3 | 3 | 2 | `13px` x7, `2px` x1, `1px` x1 |
-| `--border-bottom-width` | 3 | 3 | 2 | `13px` x7, `2px` x1, `1px` x1 |
+| `--border-top-width` | 3 | 3 | 2 | `13px` x7, `1px` x1, `2px` x1 |
+| `--border-bottom-width` | 3 | 3 | 2 | `13px` x7, `1px` x1, `2px` x1 |
 | `--background-overlay` | 3 | 1 | 0 | `""` x27 |
 | `--border-style` | 2 | 2 | 0 | `none` x11, `solid` x9 |
 | `--border-right-width` | 2 | 2 | 1 | `1px` x8, `2px` x1 |
@@ -164,7 +164,7 @@ How many different values each scale holds, and how many elements use each. This
 
 | property | classes | different values | values worn by 1 element | most used values |
 |---|---|---|---|---|
-| `--e-transform-translateX` | 2 | 2 | 0 | `15px` x4, `-50%` x4 |
+| `--e-transform-translateX` | 2 | 2 | 0 | `-50%` x4, `15px` x4 |
 | `transition` | 2 | 2 | 0 | `color 0.3s` x15, `fill 0.3s` x14 |
 | `--e-transform-scale` | 2 | 2 | 1 | `1.2` x20, `1` x1 |
 | `--e-transform-origin-x` | 1 | 1 | 1 | `center` x1 |
@@ -175,15 +175,15 @@ How many different values each scale holds, and how many elements use each. This
 
 | property | classes | different values | values worn by 1 element | most used values |
 |---|---|---|---|---|
-| `--divider-color` | 4 | 4 | 3 | `#0165A1` x10, `#B6B6B6` x1, `#BFBFBF` x1 |
+| `--divider-color` | 4 | 4 | 3 | `#0165A1` x10, `#B6B6B6` x1, `#B9B5B5` x1 |
 | `--divider-border-width` | 3 | 3 | 0 | `5px` x8, `1px` x3, `4px` x2 |
 | `--e-icon-list-icon-size` | 3 | 3 | 2 | `6px` x13, `14px` x1, `24px` x1 |
-| `--e-nav-menu-horizontal-menu-item-margin` | 3 | 2 | 2 | `calc( 40px / 2 )` x1, `calc( 32px / 2 )` x1 |
+| `--e-nav-menu-horizontal-menu-item-margin` | 3 | 2 | 2 | `calc( 32px / 2 )` x1, `calc( 40px / 2 )` x1 |
 | `--arrow-prev-left-position` | 3 | 3 | 0 | `26%` x2, `40%` x2, `87%` x2 |
-| `--arrow-prev-top-position` | 3 | 2 | 0 | `calc(100% + 20px)` x2, `-25%` x2 |
-| `--arrow-next-right-position` | 3 | 3 | 0 | `-55%` x2, `calc(-87%  - 70px)` x2, `-54%` x2 |
-| `--arrow-next-top-position` | 3 | 2 | 0 | `calc(100% + 20px)` x2, `-25%` x2 |
-| `--swiper-offset-size` | 3 | 2 | 2 | `210px` x1, `0px` x1 |
+| `--arrow-prev-top-position` | 3 | 2 | 0 | `-25%` x2, `calc(100% + 20px)` x2 |
+| `--arrow-next-right-position` | 3 | 3 | 0 | `-54%` x2, `-55%` x2, `calc(-87%  - 70px)` x2 |
+| `--arrow-next-top-position` | 3 | 2 | 0 | `-25%` x2, `calc(100% + 20px)` x2 |
+| `--swiper-offset-size` | 3 | 2 | 2 | `0px` x1, `210px` x1 |
 | `--swiper-slides-gap` | 2 | 2 | 0 | `25px` x2, `35px` x2 |
 | `--arrow-prev-top-align` | 2 | 1 | 0 | `0%` x2 |
 | `--arrow-prev-caption-spacing` | 2 | 1 | 0 | `0px` x2 |
@@ -191,7 +191,7 @@ How many different values each scale holds, and how many elements use each. This
 | `--arrow-next-top-align` | 2 | 1 | 0 | `0%` x2 |
 | `--arrow-next-caption-spacing` | 2 | 1 | 0 | `0px` x2 |
 | `--arrow-next-translate-y` | 2 | 1 | 0 | `0px` x2 |
-| `--content-text-align` | 2 | 2 | 2 | `left` x1, `center` x1 |
+| `--content-text-align` | 2 | 2 | 2 | `center` x1, `left` x1 |
 | `--divider-border-style` | 1 | 1 | 0 | `solid` x13 |
 | `--icon-vertical-offset` | 1 | 1 | 0 | `0px` x15 |
 | `content` | 1 | 1 | 1 | `""` x1 |

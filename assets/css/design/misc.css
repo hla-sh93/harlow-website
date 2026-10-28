@@ -102,7 +102,7 @@
 }
 
 .elementor .elementor-element.hl-v-divider-color-0165a1 {
-  --divider-color: #0165A1;
+  --divider-color: var(--hl-color-primary);
 }
 
 .elementor .elementor-element.hl-v-divider-color-b9b5b5 {

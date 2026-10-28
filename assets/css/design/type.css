@@ -6,15 +6,15 @@
 }
 
 .elementor .elementor-element.hl-c-001420--ht .elementor-heading-title {
-  color: #001420;
+  color: var(--hl-color-dark);
 }
 
 .elementor .elementor-element.hl-c-001420 {
-  color: #001420;
+  color: var(--hl-color-dark);
 }
 
 .elementor .elementor-element.hl-c-0165a1--button .elementor-button {
-  color: #0165A1;
+  color: var(--hl-color-primary);
 }
 
 .elementor .elementor-element.hl-c-ffffff9e--ht .elementor-heading-title {
@@ -22,7 +22,7 @@
 }
 
 .elementor .elementor-element.hl-c-0165a1--ht .elementor-heading-title {
-  color: #0165A1;
+  color: var(--hl-color-primary);
 }
 
 .elementor .elementor-element.hl-c-ffffff--ht .elementor-heading-title {
@@ -30,11 +30,11 @@
 }
 
 .elementor .elementor-element.hl-c-000000--ht .elementor-heading-title {
-  color: #000000;
+  color: var(--hl-color-text);
 }
 
 .elementor .elementor-element.hl-c-000000 {
-  color: #000000;
+  color: var(--hl-color-text);
 }
 
 .elementor .elementor-element.hl-c-00000078--button .elementor-button {
@@ -42,15 +42,15 @@
 }
 
 .elementor .elementor-element.hl-c-000000--widget-container .elementor-widget-container {
-  color: #000000;
+  color: var(--hl-color-text);
 }
 
 .elementor .elementor-element.hl-c-0165a1--button-hover .elementor-button:hover {
-  color: #0165A1;
+  color: var(--hl-color-primary);
 }
 
 .elementor .elementor-element.hl-c-0165a1--button-focus .elementor-button:focus {
-  color: #0165A1;
+  color: var(--hl-color-primary);
 }
 
 .elementor .elementor-element.hl-c-ffffff--nav-menu-main-item .elementor-nav-menu--main .elementor-item {
@@ -102,31 +102,31 @@
 }
 
 .elementor .elementor-element.hl-c-0165a1--nav-menu-dropdow-343fd .elementor-nav-menu--dropdown a:hover {
-  color: #0165A1;
+  color: var(--hl-color-primary);
 }
 
 .elementor .elementor-element.hl-c-0165a1--nav-menu-dropdow-96aeb .elementor-nav-menu--dropdown a:focus {
-  color: #0165A1;
+  color: var(--hl-color-primary);
 }
 
 .elementor .elementor-element.hl-c-0165a1--nav-menu-dropdow-d9c33 .elementor-nav-menu--dropdown a.elementor-item-active {
-  color: #0165A1;
+  color: var(--hl-color-primary);
 }
 
 .elementor .elementor-element.hl-c-0165a1--nav-menu-dropdow-341f5 .elementor-nav-menu--dropdown a.highlighted {
-  color: #0165A1;
+  color: var(--hl-color-primary);
 }
 
 .elementor .elementor-element.hl-c-0165a1--menu-toggle-hover .elementor-menu-toggle:hover {
-  color: #0165A1;
+  color: var(--hl-color-primary);
 }
 
 .elementor .elementor-element.hl-c-0165a1--menu-toggle-focus .elementor-menu-toggle:focus {
-  color: #0165A1;
+  color: var(--hl-color-primary);
 }
 
 .elementor .elementor-element.hl-c-000000--nav-menu-dropdown-a .elementor-nav-menu--dropdown a {
-  color: #000000;
+  color: var(--hl-color-text);
 }
 
 .elementor .elementor-element.hl-c-ffffff--div-menu-toggle div.elementor-menu-toggle {
@@ -134,31 +134,31 @@
 }
 
 .elementor .elementor-element.hl-c-000000--menu-toggle .elementor-menu-toggle {
-  color: #000000;
+  color: var(--hl-color-text);
 }
 
 .elementor .elementor-element.hl-c-000000--nav-menu-dropdow-343fd .elementor-nav-menu--dropdown a:hover {
-  color: #000000;
+  color: var(--hl-color-text);
 }
 
 .elementor .elementor-element.hl-c-000000--nav-menu-dropdow-96aeb .elementor-nav-menu--dropdown a:focus {
-  color: #000000;
+  color: var(--hl-color-text);
 }
 
 .elementor .elementor-element.hl-c-000000--nav-menu-dropdow-341f5 .elementor-nav-menu--dropdown a.highlighted {
-  color: #000000;
+  color: var(--hl-color-text);
 }
 
 .elementor .elementor-element.hl-c-000000--menu-toggle-hover .elementor-menu-toggle:hover {
-  color: #000000;
+  color: var(--hl-color-text);
 }
 
 .elementor .elementor-element.hl-c-000000--menu-toggle-focus .elementor-menu-toggle:focus {
-  color: #000000;
+  color: var(--hl-color-text);
 }
 
 .elementor .elementor-element.hl-c-000000--nav-menu-dropdow-d9c33 .elementor-nav-menu--dropdown a.elementor-item-active {
-  color: #000000;
+  color: var(--hl-color-text);
 }
 
 .elementor .elementor-element.hl-c-212529--accordion-icon .elementor-accordion-icon {
@@ -190,7 +190,7 @@
 }
 
 .elementor .elementor-element.hl-c-001420--button .elementor-button {
-  color: #001420;
+  color: var(--hl-color-dark);
 }
 
 .elementor .elementor-element.hl-c-9b9b9b--pagination-page--a902d .elementor-pagination .page-numbers:not(.dots) {
@@ -198,11 +198,11 @@
 }
 
 .elementor .elementor-element.hl-c-0165a1--pagination-page--5532f .elementor-pagination .page-numbers.current {
-  color: #0165A1;
+  color: var(--hl-color-primary);
 }
 
 .elementor .elementor-element.hl-c-00cccc--ht .elementor-heading-title {
-  color: #00CCCC;
+  color: var(--hl-color-accent);
 }
 
 .elementor .elementor-element.hl-c-6adadb--ht .elementor-heading-title {
@@ -214,11 +214,11 @@
 }
 
 .elementor .elementor-element.hl-c-000000--nav-menu-main-item .elementor-nav-menu--main .elementor-item {
-  color: #000000;
+  color: var(--hl-color-text);
 }
 
 .elementor .elementor-element.hl-c-0165a1--nav-menu-main-it-cb62e .elementor-nav-menu--main .elementor-item.elementor-item-active {
-  color: #0165A1;
+  color: var(--hl-color-primary);
 }
 
 .elementor .elementor-element.hl-c-1c1d1d--ht .elementor-heading-title {
@@ -230,11 +230,11 @@
 }
 
 .elementor .elementor-element.hl-c-000000--view-default-icon.elementor-view-default .elementor-icon {
-  color: #000000;
+  color: var(--hl-color-text);
 }
 
 .elementor .elementor-element.hl-c-000000--ilt .elementor-icon-list-text {
-  color: #000000;
+  color: var(--hl-color-text);
 }
 
 .elementor .elementor-element.hl-ff-plus-jakarta-san-4f7b99--ht .elementor-heading-title {

@@ -25,6 +25,8 @@ A rebuild in two phases:
 | `_capture/` | stage B: live server HTML, settled DOM, geometry baseline, asset list (screenshots are not committed) |
 | `_source/` | the live platform's own CSS and JS, kept for reference and checks only; never loaded by a page |
 | `_tools/` | the tools that build and check everything (see AGENTS.md) |
+| `theme/` | phase 2: the WordPress theme "Harlow Group" (see AGENTS.md, "The theme") |
+| `docker-compose.yml`, `_tools/env.sh` | phase 2: the local WordPress |
 
 ## How to run
 
@@ -47,6 +49,21 @@ Then WordPress is at http://localhost:8090 (admin login in `.env`, written by th
 rebuild), phpMyAdmin at http://localhost:8091 and every e-mail the site sends at
 http://localhost:8035. `./_tools/env.sh up` and `./_tools/env.sh down` start and stop
 it; `python -u _tools/verify_env.py` proves it works.
+
+What can be changed from the dashboard so far (stage 1), with the header and footer
+staying identical to the reference until something is changed:
+
+| what | where |
+|---|---|
+| the header menu, the three footer columns (a column's heading is its menu's name) and the links under them | Appearance → Menus |
+| logos, footer background, the heading over the social links, copyright line, credit | Appearance → Customize → Header and footer |
+| the five social links (an empty one hides its icon) | Appearance → Customize → Social links |
+| the label of the Arabic link, and where it goes from a page with no Arabic version | Appearance → Customize → Language link |
+| every word of the cookie bar and its settings window, and the window's logo | Appearance → Customize → Cookie bar |
+| the picture of the page transition | Appearance → Customize → Page transition |
+| the brand colours: blue, dark, accent, light surface, text | Appearance → Customize → Brand colours |
+
+The pages exist (with live's addresses and ids) but are empty until stage 3.
 
 To rebuild the static pages after changing a generator:
 

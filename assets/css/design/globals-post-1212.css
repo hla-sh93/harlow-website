@@ -62,7 +62,7 @@
   text-transform: uppercase;
   margin: auto;
   display: block;
-  color: #0165a1;
+  color: var(--hl-color-primary);
   font-weight: 700;
   padding: 15px;
   border: none;
@@ -73,5 +73,5 @@
 
 .contact-form-holder input[type="submit"]:hover {
   color: #FFF;
-  background-color: #0165a1;
+  background-color: var(--hl-color-primary);
 }

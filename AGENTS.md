@@ -9,7 +9,7 @@ Working rules for anyone (person or tool) changing this repository.
 | `SITE_URL` | https://www.harlowgroup.com/ |
 | `PROJECT_DIR` | `D:\abbas\هارلو\website` |
 | `CLIENT` | Harlow Group |
-| `PREFIX` | `harlow` (proposed; confirmed before phase 2) |
+| `PREFIX` | `harlow` (confirmed 2026-10-28) |
 
 Two phases, each ending in a version that is kept:
 
@@ -57,8 +57,8 @@ The 49 English pages marked `yes` in `_inventory/urls.csv` (decisions in
   classes, `aria-current`, the language link's `href`, image loading hints, `rel`/`target`
   on external links. Anything else that differs is reported and fails the build report.
 - **Stylesheets**, in load order: tokens, base, layout, components, navigation, modules,
-  `design/globals-<document>.css` for the documents the page uses, the seven `design/`
-  axis files, utilities, animations. Every rule comes from a live stylesheet and is kept
+  `design/globals-<document>.css` for the documents the page uses, `design/brand.css`, the
+  seven `design/` axis files, utilities, animations. Every rule comes from a live stylesheet and is kept
   only if it matches an element of a page that loads it (state pseudo-classes and runtime
   classes stripped first). Media queries stay where the source put them inside each file.
   Unused custom properties, keyframes and font faces are dropped; font faces are kept only
@@ -72,10 +72,45 @@ The 49 English pages marked `yes` in `_inventory/urls.csv` (decisions in
   queries keep their conditions and Elementor's order. The vocabulary, with its scales
   (palette, type sizes, spacing), is in `_vocab/vocabulary.md`. A new section in WordPress
   is styled by wearing these same classes.
+- **Brand colours are named once.** `design/brand.css` defines `--hl-color-primary`
+  (#0165A1), `-dark` (#001420), `-accent` (#00CCCC), `-light` (#F2F2F2) and `-text`
+  (#000000, for text and icons only), and every rule of `design/` that uses one of those
+  colours exactly asks for the property instead (`BRAND` in `atomize.py`). Shades with their
+  own alpha (`#0165A100`) keep their values. The theme's Customizer overrides the properties;
+  `assets/js/header.js` reads `--hl-color-primary` for the scrolled header.
 - **Links**: pages in scope point at `<name>.html`; uploads at `assets/uploads/`; pages
   outside v1 (Arabic) stay on live; Cloudflare-obfuscated emails become `mailto:`.
 - **Page names**: the live path's segments joined by `-` (`/news/x/` -> `news-x.html`),
   the home page is `index.html`, the 404 template `404.html`.
+
+## The theme (phase 2)
+
+A classic theme in `theme/` (`harlow`), to the WordPress Coding Standards (`env.sh phpcs`,
+exit 0). `theme/assets` is the repository's `assets/`, mounted read-only: the theme serves
+the reference's CSS and JS unchanged.
+
+| path | what |
+|---|---|
+| `functions/setup.php` | theme supports, the five menu locations (registered on `init`), the kit body class |
+| `functions/enqueue.php` | the reference's stylesheets in its order, the page's own documents' `globals-*.css` (`_harlow_documents`), the 12 modules; WordPress's global styles, block library and emoji, and CF7's assets, left out |
+| `functions/settings.php` | Appearance → Customize: header and footer, social links, language link, cookie bar, page transition. Every default is live's value; an empty picture is the design's own |
+| `functions/brand.php` | Customize → Brand colours: an inline `:root` override after `brand.css`, printed only for a changed colour |
+| `functions/nav.php` | the menus through WordPress's own walker with Elementor's classes; the language link; the footer's icon lists |
+| `functions/install.php` | `wp harlow install`: pages and menus from `install/site.json` |
+| `includes/parts/` | the markup of the header, footer, cookie bar, cookie window, language switcher and page transition, taken from html-v1 with their design classes |
+| `install/site.json` | the site's data, written by `_tools/seed_site.py` from the reference: never hand-edited |
+
+- **The chrome is html-v1's markup.** Only what an owner changes is PHP: the logo, menus,
+  words, links and pictures. A footer column's heading is the name of its menu.
+- **Typed menu links are never "current".** Live never marks a Custom Link as the current
+  page; its About links point at parts of the About page, which the scroll script marks.
+  `harlow_nav_current_items()` takes WordPress's mark off typed links.
+- **Pages keep live's ids** where the id is free (`import_id`), and so do menu items, so the
+  menus print live's `menu-item-<id>` and `page-item-<id>`. Found again by `_harlow_original`
+  (survives a slug change). Each page stores its Arabic address (`_harlow_translations`) and
+  the documents whose page-wide rules it loads (`_harlow_documents`).
+- **The language link and the footer switcher are the theme's** until WPML (stage 11);
+  with WPML active they are left to it.
 
 ## Stages
 
@@ -91,6 +126,7 @@ The 49 English pages marked `yes` in `_inventory/urls.csv` (decisions in
 | R | design vocabulary: per-element design as classes | done 2026-10-28, tag `html-v1.1`: 0 of 49 pages differ from html-v1 (117,847 elements, every computed property, 1440/900/479), 0 of 49 from the live baseline |
 | Phase 2 | the WordPress theme | planned in `docs/phase-2-plan.md`; answers recorded |
 | 0 | local WordPress (Docker): WordPress 7.1, MariaDB, phpMyAdmin, Mailpit, WP-CLI; Contact Form 7 and Rank Math; the `harlow` theme folder mounted from `theme/`; coding standards | done 2026-10-28, tag `stage-0`: `env: 21 checks, 0 failed` after a rebuild from a wiped database; phpcs exit 0 |
+| 1 | skeleton and chrome: header, footer, cookie bar and window, language switcher, page transition from html-v1's markup; menus in Appearance → Menus; site details, social links, language link, cookie words, transition picture and brand colours in the Customizer; brand colours as `--hl-color-*` in the design; the 22 pages and 5 menus from `install/site.json` | done 2026-10-28, tag `stage-1`, after a rebuild from a wiped database: `chrome: 22 pages checked, 13925 elements - 0 of 22 pages differ (27 pages not in WordPress yet)`; `chrome in the browser: 22 pages x 3 widths, 41970 elements - 0 of 22 pages differ (0 page-widths measured again); 7 behaviours, 0 failed`; `settings: 33 settings and menu changes checked, 0 problems; 2 of 2 pages byte for byte as before`; `env: 21 checks, 0 failed`; phpcs exit 0 (16 files); the reference after the brand colours: refcheck `49 pages x 3 widths, 117847 elements compared - 0 of 49 pages differ`, behaviour `13 behaviours checked, 0 failed`, links `0 broken` |
 
 ## Tools
 
@@ -110,8 +146,13 @@ The 49 English pages marked `yes` in `_inventory/urls.csv` (decisions in
 | `_tools/style_check.py [name…]` | 43 computed properties (box, typography, colour, background) of every element and the element inside it, against live, both widths; timed parts (history slider, carousel tracks) and the scroll-animated header colour left out; px within 0.5 | `N elements x 86 properties checked over 2 widths - 0 of M pages differ` |
 | `_tools/style_diff.py <name> [width] [id… / tree:id]` | the same properties for one page, printed by property, or one element's subtree node by node: the tool for finding which rule a difference comes from | (diagnostic, no pass sentence) |
 | `_tools/behaviour.py` | drives each module on the built pages: header on scroll, hover submenu, burger menu, carousel, history slider, entrance animations, gallery, lightbox, cookie bar, page transition, internal link | `N behaviours checked, 0 failed, 0 skipped` |
-| `_tools/links.py` | every local reference in pages and stylesheets exists | `N references in M files checked - 0 broken, 0 pages linked but not built yet` |
+| `_tools/links.py` | every local reference in pages and stylesheets exists | `8565 references in 101 files checked - 0 broken, 0 pages linked but not built yet` |
 | `_tools/env.sh up/down/status/wp/save/restore/list/rebuild --yes/phpcs/phpcbf` | the local WordPress (`docker-compose.yml`, project `harlow`, http://localhost:8090, phpMyAdmin 8091, Mailpit 8035): `rebuild` wipes the database and builds the site from the repository (core, theme, plugins from host-fetched zips, Rank Math's first screen skipped, permalinks, empty site); the admin login is in `.env`, written with a random password, never committed | `Built. WordPress 7.1 at http://localhost:8090`; phpcs: `theme/ meets the WordPress Coding Standards (exit 0)` |
+| `_tools/seed_site.py` | writes `theme/install/site.json` from the reference: the 22 WordPress pages (title, address, live id, Arabic address, stylesheet documents), the five menus item by item (live ids, labels, page or typed address), the language link | `22 pages and 5 menus (43 items) -> theme/install/site.json` |
+| `wp harlow install` (the theme's) | lays the pages and menus of `site.json` into WordPress: finds before it makes, keeps live's ids, adopts WordPress's draft privacy page, sets the front and privacy pages; run by `env.sh rebuild` | first run `pages: 21 made (21 with live's id), 1 found; menus: 5 made (43 items), 0 kept`, second run `0 made … 22 found … 5 kept` |
+| `_tools/verify_chrome.py [name…]` | stage 1: on every page WordPress has, the page transition, skip link, header, footer, cookie bar, language switcher and cookie window against the reference, element by element (tag, every attribute, every text, WordPress addresses rewritten to the reference's form); their order; every stylesheet in order; the scripts | `chrome: 22 pages checked, 13925 elements - 0 of 22 pages differ (27 pages not in WordPress yet)` |
+| `_tools/verify_chrome_render.py [name…]` | stage 1, in Chrome: every computed property and box of every chrome element at 1440, 900 and 479 against `/static/<name>.html` on the same site (boxes from their part's top; 0x0 boxes by being 0x0); then the chrome's behaviours on a WordPress page | `chrome in the browser: 22 pages x 3 widths, 41970 elements - 0 of 22 pages differ (…); 7 behaviours, 0 failed` |
+| `_tools/verify_settings.py` | stage 1: every Customizer setting, a footer menu's name and two menu items given test values through WP-CLI (pictures: one imported for the test), each found in its place on a page and the 404 page; then all put back and the pages compared byte for byte | `settings: 33 settings and menu changes checked, 0 problems; 2 of 2 pages byte for byte as before after putting everything back` |
 | `_tools/verify_env.py` | stage 0 check: services running; home page from the harlow theme; the static reference and the theme's assets served byte for byte from the repository; WordPress version, theme, plugins, permalinks, timezone, debug logging and development mode in WP-CLI; a message sent through wp_mail() found in Mailpit; 64 MB uploads on the web server; an empty debug.log | `env: 21 checks, 0 failed` |
 | `_tools/report.py` | the per-page table from the latest compare, style_check and links runs: `_capture/report.md` | `49 pages, 0 with any difference` |
 | `_tools/client_copy.py [folder]` | the client's copy outside the repository (default `../harlow-website` and `../harlow-website.zip`): the pages and only the files they use, CSS without internal comments, checked on its own | `49 pages and N files (… MB) in <folder> - 0 missing references, 0 workshop mentions` |
@@ -158,6 +199,15 @@ The 49 English pages marked `yes` in `_inventory/urls.csv` (decisions in
 | The Osous stack runs on this machine on 8080, 8081 and 8025. The Harlow stack is its own compose project (`harlow`) on 8090, 8091 and 8035, so both run side by side and neither is stopped for the other. | `docker ps` before the first start. |
 | The WordPress image's wp-config.php reads `WORDPRESS_DEBUG` and `WORDPRESS_CONFIG_EXTRA` at run time, so the WP-CLI container, which had only the database settings, ran without debug logging and without `WP_DEVELOPMENT_MODE`. One YAML anchor (`x-wordpress-env`) gives both containers the same settings. | verify_env: `log False, mode ''` in WP-CLI while the web server had both. |
 | The container cannot reach wordpress.org over TLS on this machine: every update check (after a plugin install, from admin pages, from cron) wrote a PHP warning to debug.log, the file that must stay empty. A local-only must-use plugin (`harlow-local-offline.php`) answers api.wordpress.org with an empty 200; plugins come from zips the host fetches. | verify_env: `no PHP errors in debug.log` failed on `wp_version_check()` after a rebuild. |
+| WordPress marks a typed menu link (Custom Link) current when its address is the page's; live never does, on any of the 49 pages. On the About page all five About links would be underlined at once, against the scroll script. The theme takes the mark off typed links. | Per-page chrome differences against one page: no About link marked on about-us. |
+| PHP drops the newline right after `?>`. A template line ending in `?>` followed by a tag at column 0 loses the space the reference has there. | verify_chrome: `cookie window #7 </img> followed by '' / reference ' '`. |
+| `wp_dequeue_style( 'global-styles' )` at priority 100 left the global styles in the head (WordPress adds them late and in two places). The two actions are removed instead. | `global-styles-inline-css` in the first WordPress page. |
+| A page-wide custom property comes from the page's own document (`--page-title-display: none` in `globals-post-1224.css`), not from the chrome's: a page loads its documents' rules from stage 1 on, in the reference's order. | verify_chrome_render: `--page-title-display 'block' / reference 'none'` on every chrome element. |
+| One design rule is keyed on the body class of Elementor's kit (`.elementor-kit-9 e-page-transition`: the transition's background). The theme adds `elementor-kit-9` to the body. | grep of every body class against the stylesheets: 1 of 105 used. |
+| On Windows, Python's `Path.write_text()` writes CRLF; phpcs refuses it. Theme files are written with `newline="\n"`, and `.gitattributes` keeps `theme/**` and `*.sh` LF on every checkout (this machine has `core.autocrlf=true`, which would write CRLF back). | phpcs: `End of line character is invalid; expected "\n" but found "\r\n"`. |
+| Git Bash started from Python cannot open a script by a path with Arabic letters (`env.sh: No such file or directory`). The checks call `docker compose` directly (`wpsite.wp_cli`). | verify_settings' first run. |
+| The vocabulary report sorted equal counts in a different order on each run (string hashing). Ties are sorted by value. | `_vocab/vocabulary.md` changed with nothing else changed. |
+| A short page cannot scroll 200px, so the header never changes colour on it. Until the pages have their sections, the placeholder in `index.php` is 120vh tall. | verify_chrome_render: header scroll `{'bg': '', 'logo': ''}`. |
 | A pipeline ending in `| head` reports the exit code of `head`: a failed generator did not stop the chain, and a comparison started on half-written files. Run the chain with `&&` and no pipe, redirecting to a log. | A traceback in the first lines and `49 pages built` after it. |
 | A git worktree of tag html-v1 inside the scratchpad failed on Windows (`Filename too long`: one page name is 140 characters). The reference checkout is `../_ref-v1`, a short path. | `git worktree add` error. |
 | A network drop (`ERR_NAME_NOT_RESOLVED`) or a Cloudflare delay over 90s killed a 30-minute run. style_check retries a page 4 times, 20s apart, and keeps results after every page (`_capture/style_check.partial.json`), resuming from it. compare and style_check runs on a few pages merge into the full results. | Two runs lost to the network. |

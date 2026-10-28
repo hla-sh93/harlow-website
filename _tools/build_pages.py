@@ -28,7 +28,7 @@ from lxml import html as lxml_html
 from common import CAPTURE, ROOT, SITE, is_live, pages
 
 CSS_LAYERS = ["tokens", "base", "layout", "components", "navigation", "modules"]
-DESIGN_FILES = ["type", "space", "layout", "size", "surface", "effects", "misc"]
+DESIGN_FILES = ["brand", "type", "space", "layout", "size", "surface", "effects", "misc"]
 CSS_LAST = ["utilities", "animations"]
 ID_CLASS = re.compile(r"^elementor-element-[0-9a-f]{7}$")
 DESIGN_CLASSES, DYNAMIC, CSS_MAP = {}, [], {}   # loaded from _vocab/ by main()

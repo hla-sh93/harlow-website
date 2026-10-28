@@ -1,6 +1,10 @@
 <?php
 /**
- * The fallback template. Stage 0 only: it proves the theme is the active one.
+ * The fallback template.
+ *
+ * Stage 1: every page has the site's header and footer, and in between only its title on
+ * a dark band, so the header's white menu can be read. The pages get their sections in
+ * stage 3, and their kinds their own templates.
  *
  * @package Harlow
  */
@@ -8,20 +12,12 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
+
+get_header();
 ?>
-<!DOCTYPE html>
-<html <?php language_attributes(); ?>>
-<head>
-	<meta charset="<?php bloginfo( 'charset' ); ?>">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<?php wp_head(); ?>
-</head>
-<body <?php body_class(); ?>>
-<?php wp_body_open(); ?>
-<main id="harlow-stage-0">
-	<h1><?php bloginfo( 'name' ); ?></h1>
-	<p><?php esc_html_e( 'The Harlow Group theme is active. The header, footer and pages arrive in the next stages.', 'harlow' ); ?></p>
+<main id="content" class="site-main" style="background: #001420; color: #fff; min-height: 120vh; padding: 180px 20px 120px; text-align: center;">
+	<h1><?php echo esc_html( is_404() ? __( 'Page not found', 'harlow' ) : get_the_title( get_queried_object_id() ) ); ?></h1>
+	<p><?php esc_html_e( 'This page gets its sections in stage 3.', 'harlow' ); ?></p>
 </main>
-<?php wp_footer(); ?>
-</body>
-</html>
+<?php
+get_footer();

@@ -27,7 +27,7 @@ set -euo pipefail
 cd "$(dirname "$0")/.."
 
 SITE_URL="http://localhost:8090"
-SITE_TITLE="Harlow Group (local)"
+SITE_TITLE="Harlow Group"
 PLUGINS="contact-form-7 seo-by-rank-math"
 
 # Git Bash rewrites anything that looks like a Unix path into a Windows one, so
@@ -209,14 +209,17 @@ rebuild)
 	wp rewrite flush >/dev/null
 	wp option update timezone_string 'Asia/Baghdad' >/dev/null
 
-	# WordPress's own sample content is not Harlow's: the site starts empty. (Its draft
-	# Privacy Policy page stays: the installer of a later stage adopts or leaves it.)
+	# WordPress's own sample content is not Harlow's. (Its draft Privacy Policy page stays:
+	# the theme's installer adopts it as the site's privacy page, at live's address.)
 	wp post delete 1 --force >/dev/null 2>&1 || true
 	wp eval '$sample = get_page_by_path( "sample-page" ); if ( $sample ) { wp_delete_post( $sample->ID, true ); }'
 
+	# The site's pages and menus, from the theme's data file (theme/install/site.json).
+	wp harlow install
+
 	echo
 	echo "Built. WordPress $(wp core version) at $SITE_URL  (login: see .env)"
-	echo "Prove it:  python -u _tools/verify_env.py"
+	echo "Prove it:  python -u _tools/verify_env.py && python -u _tools/verify_chrome.py"
 	;;
 
 phpcs)

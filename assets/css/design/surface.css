@@ -30,7 +30,7 @@
 }
 
 .elementor .elementor-element.hl-v-border-color-0165a1 {
-  --border-color: #0165A1;
+  --border-color: var(--hl-color-primary);
 }
 
 .elementor .elementor-element.hl-v-border-left-width-1 {
@@ -110,7 +110,7 @@
 }
 
 .elementor .elementor-element.hl-bgc-f2f2f2--bg:not(.elementor-motion-effects-element-type-background) {
-  background-color: #F2F2F2;
+  background-color: var(--hl-color-light);
 }
 
 .elementor .elementor-element.hl-bgc-e46e6e00--button .elementor-button {
@@ -138,7 +138,7 @@
 }
 
 .elementor .elementor-element.hl-bgc-0165a1--bg:not(.elementor-motion-effects-element-type-background) {
-  background-color: #0165A1;
+  background-color: var(--hl-color-primary);
 }
 
 .elementor .elementor-element.hl-bgc-00000075--bg:not(.elementor-motion-effects-element-type-background) {
@@ -150,7 +150,7 @@
 }
 
 .elementor .elementor-element.hl-bgc-0165a1--button .elementor-button {
-  background-color: #0165A1;
+  background-color: var(--hl-color-primary);
 }
 
 .elementor .elementor-element.hl-bgc-02010100--button-hover .elementor-button:hover {
@@ -234,7 +234,7 @@
 }
 
 .elementor .elementor-element.hl-bgc-0165a1--is-swiper-button-90a8f :is(.elementor-swiper-button-prev:hover, .elementor-swiper-button-next:hover) {
-  background-color: #0165A1;
+  background-color: var(--hl-color-primary);
 }
 
 .elementor .elementor-element.hl-bgc-000000--before::before {
@@ -250,7 +250,7 @@
 }
 
 .elementor .elementor-element.hl-bgc-0165a1--wc > .elementor-widget-container {
-  background-color: #0165A1;
+  background-color: var(--hl-color-primary);
 }
 
 .elementor .elementor-element.hl-bgc-54595f00--social-icon .elementor-social-icon {
@@ -282,7 +282,7 @@
 }
 
 .elementor .elementor-element.hl-bgi-linear-gradient-0b9d9a--bg:not(.elementor-motion-effects-element-type-background) {
-  background-image: linear-gradient(110deg, #0165A1 90%, #F2295B00 10%);
+  background-image: linear-gradient(110deg, var(--hl-color-primary) 90%, #F2295B00 10%);
 }
 
 .elementor .elementor-element.hl-bgi-linear-gradient-6addcb--before::before {
@@ -342,7 +342,7 @@
 }
 
 .elementor .elementor-element.hl-bgi-linear-gradient-ab8473--bg:not(.elementor-motion-effects-element-type-background) {
-  background-image: linear-gradient(180deg, #F2F2F2 55%, #FFFFFF 45%);
+  background-image: linear-gradient(180deg, var(--hl-color-light) 55%, #FFFFFF 45%);
 }
 
 .elementor .elementor-element.hl-bgi-url-133116078506171098blog--bg:not(.elementor-motion-effects-element-type-background) {
@@ -490,7 +490,7 @@
 }
 
 .elementor .elementor-element.hl-bc-0165a1--button .elementor-button {
-  border-color: #0165A1;
+  border-color: var(--hl-color-primary);
 }
 
 .elementor .elementor-element.hl-bc-ffffff9c--icon-list-item-n-61a77 .elementor-icon-list-item:not(:last-child):after {
@@ -498,7 +498,7 @@
 }
 
 .elementor .elementor-element.hl-bc-0165a1 {
-  border-color: #0165A1;
+  border-color: var(--hl-color-primary);
 }
 
 .elementor .elementor-element.hl-bc-ffffff--view-default-icon.elementor-view-default .elementor-icon {
@@ -510,7 +510,7 @@
 }
 
 .elementor .elementor-element.hl-bc-0165a1--img img {
-  border-color: #0165A1;
+  border-color: var(--hl-color-primary);
 }
 
 .elementor .elementor-element.hl-bc-000000--view-default-icon.elementor-view-default .elementor-icon {
@@ -630,7 +630,7 @@
 }
 
 .elementor .elementor-element.hl-fill-0165a1--button .elementor-button {
-  fill: #0165A1;
+  fill: var(--hl-color-primary);
 }
 
 .elementor .elementor-element.hl-fill-00000078--button .elementor-button {
@@ -686,11 +686,11 @@
 }
 
 .elementor .elementor-element.hl-fill-000000--nav-menu-dropdown-a .elementor-nav-menu--dropdown a {
-  fill: #000000;
+  fill: var(--hl-color-text);
 }
 
 .elementor .elementor-element.hl-fill-000000--menu-toggle .elementor-menu-toggle {
-  fill: #000000;
+  fill: var(--hl-color-text);
 }
 
 .elementor .elementor-element.hl-fill-212529--accordion-icon-svg .elementor-accordion-icon svg {
@@ -706,19 +706,19 @@
 }
 
 .elementor .elementor-element.hl-fill-001420--button .elementor-button {
-  fill: #001420;
+  fill: var(--hl-color-dark);
 }
 
 .elementor .elementor-element.hl-fill-000000--nav-menu-main-item .elementor-nav-menu--main .elementor-item {
-  fill: #000000;
+  fill: var(--hl-color-text);
 }
 
 .elementor .elementor-element.hl-fill-000000--view-default-icon-svg.elementor-view-default .elementor-icon svg {
-  fill: #000000;
+  fill: var(--hl-color-text);
 }
 
 .elementor .elementor-element.hl-fill-000000--ili-svg .elementor-icon-list-icon svg {
-  fill: #000000;
+  fill: var(--hl-color-text);
 }
 
 @media (min-width:1025px) {

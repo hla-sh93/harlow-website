@@ -72,9 +72,9 @@ def main():
 
     print("pages")
     r = get(WP + "/")
-    check("home page answers 200 from the harlow theme",
-          not isinstance(r, Exception) and r.status_code == 200 and 'id="harlow-stage-0"' in r.text,
-          getattr(r, "status_code", r))
+    check("home page answers 200 from the harlow theme, with the site's header",
+          not isinstance(r, Exception) and r.status_code == 200 and "wp-theme-harlow" in r.text
+          and 'data-elementor-type="header"' in r.text, getattr(r, "status_code", r))
     r = get(WP + "/wp-login.php")
     check("login page answers 200", not isinstance(r, Exception) and r.status_code == 200, getattr(r, "status_code", r))
     for path, local in (("/static/index.html", "index.html"),
@@ -113,8 +113,9 @@ def main():
     check("errors go to debug.log, development mode theme", facts["debug_log"] and facts["dev_mode"] == "theme",
           f"log {facts['debug_log']}, mode {facts['dev_mode']}")
     check("Rank Math first screen skipped", facts["rank_math_skip"] == 1, facts["rank_math_skip"])
-    check("the site starts empty (no sample post or page)", facts["posts"] == 0 and facts["pages"] == 0,
-          f"{facts['posts']} posts, {facts['pages']} pages")
+    site_pages = len(json.loads((ROOT / "theme" / "install" / "site.json").read_text(encoding="utf-8"))["pages"])
+    check(f"no sample content: 0 posts, and the {site_pages} pages of install/site.json",
+          facts["posts"] == 0 and facts["pages"] == site_pages, f"{facts['posts']} posts, {facts['pages']} pages")
     check("wp_mail() returns true", facts["mail"] is True, facts["mail"])
 
     found = False

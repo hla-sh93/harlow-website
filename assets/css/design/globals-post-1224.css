@@ -24,7 +24,7 @@
 }
 
 .wpdevart_org_chart_container {
-  background-color: #F2F2F2 !important;
+  background-color: var(--hl-color-light) !important;
   background-image: none !important;
   border: none !important;
 }

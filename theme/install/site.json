@@ -1,0 +1,613 @@
+{
+ "source": "html-v1.1 reference pages; live ids and titles from the inventory of https://www.harlowgroup.com",
+ "front_page": "/",
+ "privacy_page": "/policy/",
+ "pages": [
+  {
+   "name": "index",
+   "path": "/",
+   "title": "Home Page",
+   "live_id": 17,
+   "translations": {
+    "ar": "https://www.harlowgroup.com/ar/"
+   },
+   "documents": [
+    "post-17",
+    "loop-1092",
+    "loop-1073",
+    "post-1179",
+    "post-5532",
+    "post-1066"
+   ]
+  },
+  {
+   "name": "al-khairat-thermal-power-plant-iraq",
+   "path": "/al-khairat-thermal-power-plant-iraq/",
+   "title": "Harlow International Limited",
+   "live_id": 2962,
+   "translations": {
+    "ar": "https://www.harlowgroup.com/ar/%d9%85%d8%ad%d8%b7%d8%a9-%d9%83%d9%87%d8%b1%d8%a8%d8%a7%d8%a1-%d8%a7%d9%84%d8%ae%d9%8a%d8%b1%d8%a7%d8%aa-%d8%a7%d9%84%d8%ad%d8%b1%d8%a7%d8%b1%d9%8a%d8%a9-%d8%a7%d9%84%d8%b9%d8%b1%d8%a7%d9%82/"
+   },
+   "documents": [
+    "post-2962",
+    "post-1179",
+    "post-5532",
+    "post-1066"
+   ]
+  },
+  {
+   "name": "construction-iraq",
+   "path": "/construction-iraq/",
+   "title": "Anwar alrisala contracting and general trading",
+   "live_id": 2966,
+   "translations": {
+    "ar": "https://www.harlowgroup.com/ar/%d8%aa%d8%b7%d9%88%d9%8a%d8%b1-%d8%a7%d9%84%d8%a7%d9%86%d8%b4%d8%a7%d8%a1%d8%a7%d8%aa-%d8%a7%d9%84%d8%b9%d8%b1%d8%a7%d9%82/"
+   },
+   "documents": [
+    "post-2966",
+    "post-1179",
+    "loop-4279",
+    "post-5532",
+    "post-1066"
+   ]
+  },
+  {
+   "name": "consultancy-iraq",
+   "path": "/consultancy-iraq/",
+   "title": "HARLOW DMCC",
+   "live_id": 2974,
+   "translations": {
+    "ar": "https://www.harlowgroup.com/ar/%d8%ae%d8%af%d9%85%d8%a7%d8%aa-%d8%a7%d9%84%d8%a7%d8%b3%d8%aa%d8%b4%d8%a7%d8%b1%d8%a7%d8%aa-%d8%a7%d9%84%d8%b9%d8%b1%d8%a7%d9%82/"
+   },
+   "documents": [
+    "post-2974",
+    "post-1179",
+    "post-5532",
+    "post-1066"
+   ]
+  },
+  {
+   "name": "drc-cement-plant-iraq",
+   "path": "/drc-cement-plant-iraq/",
+   "title": "DRC CEMENT PLANT",
+   "live_id": 2970,
+   "translations": {
+    "ar": "https://www.harlowgroup.com/ar/%d9%85%d8%b5%d9%86%d8%b9-%d8%a7%d8%b3%d9%85%d9%86%d8%aa-%d8%a7%d9%84%d8%b9%d8%b1%d8%a7%d9%82/"
+   },
+   "documents": [
+    "post-2970",
+    "post-1179",
+    "post-5532",
+    "post-1066"
+   ]
+  },
+  {
+   "name": "security-services-iraq",
+   "path": "/security-services-iraq/",
+   "title": "AL MURABIT SECURITY SERVICES",
+   "live_id": 2968,
+   "translations": {
+    "ar": "https://www.harlowgroup.com/ar/%d8%ae%d8%af%d9%85%d8%a7%d8%aa-%d8%a3%d9%85%d9%86%d9%8a%d8%a9-%d8%a7%d9%84%d8%b9%d8%b1%d8%a7%d9%82/"
+   },
+   "documents": [
+    "post-2968",
+    "post-1179",
+    "post-5532",
+    "post-1066"
+   ]
+  },
+  {
+   "name": "smart-metering-iraq",
+   "path": "/smart-metering-iraq/",
+   "title": "SMART METERS COLLECTION AND ELECTRICAL SERVICES LTD",
+   "live_id": 2964,
+   "translations": {
+    "ar": "https://www.harlowgroup.com/ar/%d8%b9%d8%af%d8%a7%d8%af-%d9%83%d9%87%d8%b1%d8%a8%d8%a7%d8%a1-%d8%b0%d9%83%d9%8a-%d8%a7%d9%84%d8%b9%d8%b1%d8%a7%d9%82/"
+   },
+   "documents": [
+    "post-2964",
+    "post-1179",
+    "post-5532",
+    "post-1066"
+   ]
+  },
+  {
+   "name": "about-us",
+   "path": "/about-us/",
+   "title": "About Us",
+   "live_id": 1224,
+   "translations": {
+    "ar": "https://www.harlowgroup.com/ar/%d9%85%d9%86-%d9%86%d8%ad%d9%86/"
+   },
+   "documents": [
+    "post-1224",
+    "post-1179",
+    "loop-2279",
+    "post-5532",
+    "post-1066"
+   ]
+  },
+  {
+   "name": "energy-and-smart-solutions",
+   "path": "/energy-and-smart-solutions/",
+   "title": "Energy and smart solutions",
+   "live_id": 5043,
+   "translations": {
+    "ar": "https://www.harlowgroup.com/ar/%d8%a7%d9%84%d8%b7%d8%a7%d9%82%d8%a9-%d9%88-%d8%a7%d9%84%d8%ad%d9%84%d9%88%d9%84-%d8%a7%d9%84%d8%b0%d9%83%d9%8a%d8%a9/"
+   },
+   "documents": [
+    "post-5043",
+    "post-1179",
+    "post-5532",
+    "post-1066"
+   ]
+  },
+  {
+   "name": "industrial",
+   "path": "/industrial/",
+   "title": "Industrial",
+   "live_id": 5106,
+   "translations": {
+    "ar": "https://www.harlowgroup.com/ar/%d8%a7%d9%84%d8%b5%d9%86%d8%a7%d8%b9%d8%a9/"
+   },
+   "documents": [
+    "post-5106",
+    "post-1179",
+    "post-5532",
+    "post-1066"
+   ]
+  },
+  {
+   "name": "security-services",
+   "path": "/security-services/",
+   "title": "Security Services",
+   "live_id": 5092,
+   "translations": {
+    "ar": "https://www.harlowgroup.com/ar/%d8%a7%d9%84%d8%ae%d8%af%d9%85%d8%a7%d8%aa-%d8%a7%d9%84%d8%a3%d9%85%d9%86%d9%8a%d8%a9/"
+   },
+   "documents": [
+    "post-5092",
+    "post-1179",
+    "post-5532",
+    "post-1066"
+   ]
+  },
+  {
+   "name": "blog",
+   "path": "/blog/",
+   "title": "BLOG",
+   "live_id": 1491,
+   "translations": {
+    "ar": "https://www.harlowgroup.com/ar/%d8%a7%d9%84%d9%85%d9%82%d8%a7%d9%84%d8%a7%d8%aa/"
+   },
+   "documents": [
+    "post-1491",
+    "post-1179",
+    "loop-1073",
+    "post-5532",
+    "post-1066"
+   ]
+  },
+  {
+   "name": "harlows-people",
+   "path": "/harlows-people/",
+   "title": "Harlow’s People",
+   "live_id": 2847,
+   "translations": {
+    "ar": "https://www.harlowgroup.com/ar/%d9%81%d8%b1%d9%8a%d9%82-%d9%87%d8%a7%d8%b1%d9%84%d9%88/"
+   },
+   "documents": [
+    "post-2847",
+    "post-1179",
+    "loop-4002",
+    "post-5532",
+    "post-1066"
+   ]
+  },
+  {
+   "name": "latest-news",
+   "path": "/latest-news/",
+   "title": "LATEST NEWS",
+   "live_id": 9063,
+   "translations": {
+    "ar": "https://www.harlowgroup.com/ar/%d8%a7%d9%84%d8%a7%d8%ae%d8%a8%d8%a7%d8%b1/"
+   },
+   "documents": [
+    "post-9063",
+    "post-1179",
+    "loop-1073",
+    "post-5532",
+    "post-1066"
+   ]
+  },
+  {
+   "name": "photo-gallery",
+   "path": "/photo-gallery/",
+   "title": "PHOTO GALLERY",
+   "live_id": 1489,
+   "translations": {
+    "ar": "https://www.harlowgroup.com/ar/%d9%85%d8%b9%d8%b1%d8%b6-%d8%a7%d9%84%d8%b5%d9%88%d8%b1/"
+   },
+   "documents": [
+    "post-1489",
+    "post-1179",
+    "loop-2552",
+    "post-5532",
+    "post-1066"
+   ]
+  },
+  {
+   "name": "work-with-us",
+   "path": "/work-with-us/",
+   "title": "Work With Us",
+   "live_id": 2849,
+   "translations": {
+    "ar": "https://www.harlowgroup.com/ar/%d8%a7%d8%b9%d9%85%d9%84-%d9%85%d8%b9%d9%86%d8%a7/"
+   },
+   "documents": [
+    "post-2849",
+    "post-1179",
+    "loop-4058",
+    "post-5532",
+    "post-1066"
+   ]
+  },
+  {
+   "name": "application-process",
+   "path": "/application-process/",
+   "title": "Application Process",
+   "live_id": 2851,
+   "translations": {
+    "ar": "https://www.harlowgroup.com/ar/%d8%b9%d9%85%d9%84%d9%8a%d8%a9-%d8%a7%d9%84%d8%aa%d9%82%d8%af%d9%8a%d9%85/"
+   },
+   "documents": [
+    "post-2851",
+    "post-1179",
+    "post-5532",
+    "post-1066"
+   ]
+  },
+  {
+   "name": "contact-us",
+   "path": "/contact-us/",
+   "title": "CONTACT US",
+   "live_id": 1212,
+   "translations": {
+    "ar": "https://www.harlowgroup.com/ar/contact-us/"
+   },
+   "documents": [
+    "post-1212",
+    "post-1179",
+    "post-5532",
+    "post-1066"
+   ]
+  },
+  {
+   "name": "corporate-policies",
+   "path": "/corporate-policies/",
+   "title": "Corporate Policies",
+   "live_id": 4955,
+   "translations": {
+    "ar": "https://www.harlowgroup.com/ar/%d8%b3%d9%8a%d8%a7%d8%b3%d8%a7%d8%aa-%d8%a7%d9%84%d8%b4%d8%b1%d9%83%d8%a9/"
+   },
+   "documents": [
+    "post-4955",
+    "post-1179",
+    "post-5532",
+    "post-1066"
+   ]
+  },
+  {
+   "name": "faq",
+   "path": "/faq/",
+   "title": "FAQ",
+   "live_id": 1208,
+   "translations": {
+    "ar": "https://www.harlowgroup.com/ar/%d8%a7%d9%84%d8%a3%d8%b3%d8%a6%d9%84%d8%a9-%d8%a7%d9%84%d8%b4%d8%a7%d8%a6%d8%b9%d8%a9/"
+   },
+   "documents": [
+    "post-1208",
+    "post-1179",
+    "post-5532",
+    "post-1066"
+   ]
+  },
+  {
+   "name": "policy",
+   "path": "/policy/",
+   "title": "Privacy Policy",
+   "live_id": 5584,
+   "translations": {
+    "ar": "https://www.harlowgroup.com/ar/%d8%b3%d9%8a%d8%a7%d8%b3%d8%a9-%d8%a7%d9%84%d8%ae%d8%b5%d9%88%d8%b5%d9%8a%d8%a9/"
+   },
+   "documents": [
+    "post-5584",
+    "post-1179",
+    "post-5532",
+    "post-1066"
+   ]
+  },
+  {
+   "name": "sitemap",
+   "path": "/sitemap/",
+   "title": "Sitemap",
+   "live_id": 6254,
+   "translations": {
+    "ar": "https://www.harlowgroup.com/ar/%d8%ae%d8%b1%d9%8a%d8%b7%d8%a9-%d8%a7%d9%84%d9%85%d9%88%d9%82%d8%b9/"
+   },
+   "documents": [
+    "post-6254",
+    "post-1179",
+    "post-5532",
+    "post-1066"
+   ]
+  }
+ ],
+ "menus": [
+  {
+   "location": "primary",
+   "name": "Main menu",
+   "items": [
+    {
+     "live_id": 1207,
+     "title": "HOME",
+     "page": "/"
+    },
+    {
+     "live_id": 1221,
+     "title": "WHO WE ARE",
+     "url": "#",
+     "children": [
+      {
+       "live_id": 1229,
+       "title": "ABOUT US",
+       "path": "/about-us/"
+      },
+      {
+       "live_id": 1230,
+       "title": "CHAIRMAN MESSAGE",
+       "path": "/about-us/#section-2"
+      },
+      {
+       "live_id": 1232,
+       "title": "VISION & MISSION",
+       "path": "/about-us/#section-4"
+      },
+      {
+       "live_id": 1233,
+       "title": "CORPORATE SOCIAL RESPONSIBILITY",
+       "path": "/about-us/#section-5"
+      },
+      {
+       "live_id": 1234,
+       "title": "TESTIMONIALS",
+       "path": "/about-us/#section-6"
+      }
+     ]
+    },
+    {
+     "live_id": 1222,
+     "title": "GROUP BUSINESSES",
+     "url": "#",
+     "children": [
+      {
+       "live_id": 1486,
+       "title": "Strategic Projects & Investments",
+       "url": "#",
+       "children": [
+        {
+         "live_id": 2982,
+         "title": "Harlow International Limited",
+         "page": "/al-khairat-thermal-power-plant-iraq/"
+        }
+       ]
+      },
+      {
+       "live_id": 8300,
+       "title": "Smart Utilities",
+       "url": "#",
+       "children": [
+        {
+         "live_id": 2981,
+         "title": "Smart Meters Company",
+         "page": "/smart-metering-iraq/"
+        }
+       ]
+      },
+      {
+       "live_id": 2978,
+       "title": "Cement Manufacturing",
+       "url": "#",
+       "children": [
+        {
+         "live_id": 2987,
+         "title": "DRC Cement Factory",
+         "page": "/drc-cement-plant-iraq/"
+        }
+       ]
+      },
+      {
+       "live_id": 2976,
+       "title": "Construction",
+       "url": "#",
+       "children": [
+        {
+         "live_id": 2983,
+         "title": "ARC Contracting And General Trading, Ltd.",
+         "page": "/construction-iraq/"
+        }
+       ]
+      },
+      {
+       "live_id": 2977,
+       "title": "Security",
+       "url": "#",
+       "children": [
+        {
+         "live_id": 2984,
+         "title": "Almurabit Security Services",
+         "page": "/security-services-iraq/"
+        }
+       ]
+      },
+      {
+       "live_id": 2980,
+       "title": "Consultancy",
+       "url": "#",
+       "children": [
+        {
+         "live_id": 2985,
+         "title": "Harlow DMCC Consultancy Services",
+         "page": "/consultancy-iraq/"
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "live_id": 1223,
+     "title": "MEDIA CENTER",
+     "url": "#",
+     "children": [
+      {
+       "live_id": 9085,
+       "title": "LATEST NEWS",
+       "page": "/latest-news/"
+      },
+      {
+       "live_id": 1494,
+       "title": "PHOTO GALLERY",
+       "page": "/photo-gallery/"
+      },
+      {
+       "live_id": 1493,
+       "title": "BLOG",
+       "page": "/blog/"
+      }
+     ]
+    },
+    {
+     "live_id": 7804,
+     "title": "CAREERS",
+     "page": "/work-with-us/"
+    },
+    {
+     "live_id": 1214,
+     "title": "CONTACT US",
+     "page": "/contact-us/"
+    }
+   ]
+  },
+  {
+   "location": "footer-1",
+   "name": "Quick Links",
+   "items": [
+    {
+     "live_id": 4932,
+     "title": "ABOUT US",
+     "path": "/about-us/"
+    },
+    {
+     "live_id": 4933,
+     "title": "CHAIRMAN MESSAGE",
+     "path": "/about-us/#section-2"
+    },
+    {
+     "live_id": 4934,
+     "title": "GROUP CHART",
+     "path": "/about-us/#section-3"
+    },
+    {
+     "live_id": 4935,
+     "title": "VISION & MISSION",
+     "path": "/about-us/#section-4"
+    },
+    {
+     "live_id": 6205,
+     "title": "CORPORATE POLICIES",
+     "page": "/corporate-policies/"
+    }
+   ]
+  },
+  {
+   "location": "footer-2",
+   "name": "Group Businesses",
+   "items": [
+    {
+     "live_id": 9117,
+     "title": "ENERGY AND SMART SOLUTIONS",
+     "page": "/smart-metering-iraq/"
+    },
+    {
+     "live_id": 9114,
+     "title": "CONSTRUCTION",
+     "page": "/construction-iraq/"
+    },
+    {
+     "live_id": 9115,
+     "title": "SECURITY SERVICES",
+     "page": "/security-services-iraq/"
+    },
+    {
+     "live_id": 9116,
+     "title": "INDUSTRIAL",
+     "page": "/drc-cement-plant-iraq/"
+    }
+   ]
+  },
+  {
+   "location": "footer-3",
+   "name": "Media Center",
+   "items": [
+    {
+     "live_id": 9086,
+     "title": "LATEST NEWS",
+     "page": "/latest-news/"
+    },
+    {
+     "live_id": 7821,
+     "title": "CAREERS",
+     "page": "/work-with-us/"
+    },
+    {
+     "live_id": 6250,
+     "title": "GALLERY",
+     "page": "/photo-gallery/"
+    },
+    {
+     "live_id": 6248,
+     "title": "CONTACT US",
+     "page": "/contact-us/"
+    },
+    {
+     "live_id": 9031,
+     "title": "FAQ",
+     "page": "/faq/"
+    }
+   ]
+  },
+  {
+   "location": "footer-legal",
+   "name": "Footer links",
+   "items": [
+    {
+     "title": "Site Map",
+     "page": "/sitemap/"
+    },
+    {
+     "title": "Terms and Condition",
+     "page": "/corporate-policies/"
+    },
+    {
+     "title": "Privacy Policy",
+     "page": "/policy/"
+    }
+   ]
+  }
+ ],
+ "language": {
+  "label": "العربية",
+  "code": "ar",
+  "home": "https://www.harlowgroup.com/ar/"
+ }
+}

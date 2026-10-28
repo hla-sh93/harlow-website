@@ -7,7 +7,15 @@ html-v1 in every computed property (117,847 elements, 1440/900/479) and live in 
 Stage 0 done on 2026-10-28 (tag `stage-0`): WordPress 7.1 runs locally at
 http://localhost:8090 with the empty `harlow` theme, Contact Form 7 and Rank Math;
 `_tools/verify_env.py`: 21 checks, 0 failed, after a rebuild from a wiped database.
-Next: stage 1 (skeleton and chrome), after Hla's go.
+Stage 1 done on 2026-10-28 (tag `stage-1`): the header, footer, cookie bar, language
+switcher and page transition are the theme's, from WordPress menus and Appearance →
+Customize (site details, social links, cookie bar, page transition, brand colours), and
+identical to the reference on the 22 pages WordPress has (`verify_chrome.py`,
+`verify_chrome_render.py`, `verify_settings.py`). The other 27 pages arrive with stages 2
+(posts and items), 3 (home) and 5 (the blog's pager). Two items of section 1 move: the
+offices are not in the header or footer but on the Contact page, so they come with it
+(stage 3); the brand fonts come with the editor (stage 4), which must load the same faces.
+Next: stage 2 (content types and their data), after Hla's go.
 
 Starting point: `html-v1` (github.com/hla-sh93/harlow-website), the 49 English pages
 matching live at 1440x900 and 479x900. It stays in the repository as the reference every

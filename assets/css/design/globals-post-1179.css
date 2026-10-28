@@ -81,7 +81,7 @@ ul.sub-menu a {
   position: absolute;
   top: 0px;
   right: 0px;
-  color: #0165A1;
+  color: var(--hl-color-primary);
   font-size: 26px;
 }
 

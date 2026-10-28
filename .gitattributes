@@ -1,0 +1,4 @@
+# The theme is checked by phpcs, which refuses CRLF, and the shell scripts run in bash,
+# which reads a CR as part of the command: both stay LF on every checkout.
+theme/** text eol=lf
+*.sh text eol=lf

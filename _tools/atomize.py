@@ -18,6 +18,9 @@ assets/css/design/:
     misc.css      what fits nowhere else
     globals-<document>.css   the rules of each document that name no element (widget defaults,
                   a few custom rules); a page loads those of the documents it uses, as before
+    brand.css     the brand colours as custom properties (--hl-color-primary: #0165A1, ...);
+                  wherever the rules above use one of those colours they ask for the
+                  property, so the theme's Customizer changes a brand colour everywhere
 
 Nothing is approximated: a rule's selector keeps its tail and its specificity
 (`.elementor .elementor-element.<class><tail>` weighs what the id selector weighed), media
@@ -170,6 +173,29 @@ def in_media(wrap, w):
 
 NOT_CSS = {"margin-center"}   # written by Elementor, not a property: browsers ignore it
 
+# The brand colours: role -> today's value. Keep in step with harlow_brand_colours() in
+# theme/functions/brand.php. A colour written exactly so (not a shade of it with its own
+# alpha, like the transparent #0165A100 the header fades from) becomes var(--hl-color-<role>).
+# Black is "text" only where it colours text or icons; elsewhere it stays black.
+BRAND = {"primary": "#0165A1", "dark": "#001420", "accent": "#00CCCC", "light": "#F2F2F2", "text": "#000000"}
+BRAND_ONLY = {"text": {"color", "fill"}}
+
+
+def brand_value(prop, value):
+    """A declaration's value with each brand colour in it replaced by its custom property."""
+    for role, hex_ in BRAND.items():
+        if role in BRAND_ONLY and prop not in BRAND_ONLY[role]:
+            continue
+        value = re.sub(re.escape(hex_) + r"(?![0-9a-fA-F])", f"var(--hl-color-{role})", value, flags=re.I)
+    return value
+
+
+def brand_sheet():
+    s = Sheet("design/brand", OUT, "atomize.py")
+    s.add_source("the brand colours, changed in the theme's Customizer (Brand colours)")
+    s.add((), ":root {\n" + "\n".join(f"  --hl-color-{r}: {v};" for r, v in BRAND.items()) + "\n}")
+    return s
+
 
 def declarations(rule):
     out = []
@@ -309,7 +335,7 @@ def vocabulary_report(elem, names, usage, by_axis):
                 return (float(m.group()) * (16 if "rem" in v or "em" in v else 1) if m else 1e9, v)
             order = sorted(vals, key=size_key)
         else:
-            order = sorted(vals, key=lambda v: -len(vals[v]))
+            order = sorted(vals, key=lambda v: (-len(vals[v]), v))
         lines += [f"### {name}: {len(vals)} values", "",
                   " ".join(f"`{v}`x{len(vals[v])}" for v in order), ""]
     for a in ("type", "space", "layout", "size", "surface", "effects", "misc"):
@@ -324,7 +350,7 @@ def vocabulary_report(elem, names, usage, by_axis):
         for p, vals in props.items():
             distinct = set(vals)
             rows.append((p, len(vals), len(distinct), sum(1 for v in distinct if len(users[(p, v)]) == 1),
-                         sorted(distinct, key=lambda v: -len(users[(p, v)]))[:3], p))
+                         sorted(distinct, key=lambda v: (-len(users[(p, v)]), v))[:3], p))   # ties by value: the same report every run
         for p, n, d, once, top, _ in sorted(rows, key=lambda r: -r[1]):
             lines.append(f"| `{p}` | {n} | {d} | {once} | " +
                          ", ".join(f"`{v}` x{len(users[(p, v)])}" for v in top) + " |")
@@ -463,12 +489,12 @@ def main():
         name = names[key]
         wrap, ltr, post, prop, value = key
         sel = f"{'body:not(.rtl) ' if ltr else ''}.elementor .elementor-element.{name}{post}"
-        sheets[axis_of(prop)].add(at_rules(wrap), f"{sel} {{\n  {prop}: {value};\n}}")
+        sheets[axis_of(prop)].add(at_rules(wrap), f"{sel} {{\n  {prop}: {brand_value(prop, value)};\n}}")
 
     OUT.mkdir(parents=True, exist_ok=True)
     for old in OUT.glob("*.css"):
         old.unlink()
-    written = {}
+    written = {"brand.css": brand_sheet().render()}
     for a, s in sheets.items():
         written[f"{a}.css"] = s.render()
 
@@ -476,7 +502,7 @@ def main():
         g = Sheet(f"design/globals-{stem}", OUT, "atomize.py")
         g.add_source(f"the rules of document {stem} that name no element")
         for (wrap, sels), decls in rules.items():
-            body = "\n".join(f"  {p}: {v};" for p, v in decls)
+            body = "\n".join(f"  {p}: {brand_value(p, v)};" for p, v in decls)
             g.add(at_rules(wrap), ",\n".join(sels) + " {\n" + body + "\n}")
         written[f"globals-{stem}.css"] = g.render()
     bad = []
