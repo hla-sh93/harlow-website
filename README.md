@@ -1,9 +1,14 @@
 # Harlow Group website
 
-A rebuild of https://www.harlowgroup.com/ in two phases:
+**The complete English website of https://www.harlowgroup.com/ as static HTML pages:**
+all 49 English pages, plain HTML with readable CSS and JS, no platform runtime, matching
+the live site at 1440x900 and 479x900. Open `index.html`, or serve the folder with any
+static server.
 
-1. **html site v1** (current): every public English page as plain HTML with readable CSS
-   and JS, rendering identically to the live site at 1440x900 and 479x900.
+A rebuild in two phases:
+
+1. **html site v1** (done, tag `html-v1`): every public English page as plain HTML with
+   readable CSS and JS, rendering identically to the live site at 1440x900 and 479x900.
 2. **WordPress theme**: a classic theme built from the approved HTML site.
 
 ## Layout
