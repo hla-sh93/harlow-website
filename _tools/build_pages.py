@@ -28,7 +28,10 @@ from lxml import html as lxml_html
 from common import CAPTURE, ROOT, SITE, is_live, pages
 
 CSS_LAYERS = ["tokens", "base", "layout", "components", "navigation", "modules"]
+DESIGN_FILES = ["type", "space", "layout", "size", "surface", "effects", "misc"]
 CSS_LAST = ["utilities", "animations"]
+ID_CLASS = re.compile(r"^elementor-element-[0-9a-f]{7}$")
+DESIGN_CLASSES, DYNAMIC, CSS_MAP = {}, [], {}   # loaded from _vocab/ by main()
 JS_MODULES = ["header", "nav-menu", "reveal", "background-video", "carousel", "gallery",
               "accordion", "history-slider", "people-popup", "lightbox", "cookie-bar",
               "page-transition"]
@@ -207,7 +210,7 @@ def transfer_state(source, own):
     return out, True
 
 
-def build_head(old_head, title, name, css_docs):
+def build_head(old_head, title, name):
     head = etree.Element("head")
     etree.SubElement(head, "meta", charset="utf-8")
     etree.SubElement(head, "meta", name="viewport",
@@ -230,14 +233,34 @@ def build_head(old_head, title, name, css_docs):
             head.append(deepcopy(el))
     for layer in CSS_LAYERS:
         etree.SubElement(head, "link", rel="stylesheet", href=f"assets/css/{layer}.css")
-    for d in css_docs:
-        etree.SubElement(head, "link", rel="stylesheet", href=f"assets/css/docs/{d}.css")
+    # the rules of each document that name no element, for the documents this page uses
+    for doc in CSS_MAP.get(name, []):
+        if (ROOT / "assets" / "css" / "design" / f"globals-{doc}.css").exists():
+            etree.SubElement(head, "link", rel="stylesheet", href=f"assets/css/design/globals-{doc}.css")
+    for d in DESIGN_FILES:
+        etree.SubElement(head, "link", rel="stylesheet", href=f"assets/css/design/{d}.css")
     for layer in CSS_LAST:
         etree.SubElement(head, "link", rel="stylesheet", href=f"assets/css/{layer}.css")
     return head
 
 
-def build(item, source_chrome, known, css_map, report):
+def apply_design(body):
+    """Elements wear the classes of their design (atomize.py) instead of an id class, and the
+    backgrounds that belong to one post of a list are set on the element itself."""
+    for el in body.iter():
+        if not isinstance(el.tag, str) or not el.get("data-id"):
+            continue
+        keep = [c for c in (el.get("class") or "").split() if not ID_CLASS.match(c)]
+        el.set("class", " ".join(keep + DESIGN_CLASSES.get(el.get("data-id"), [])))
+    for rule in DYNAMIC:
+        xp = (f".//*[contains(concat(' ', @class, ' '), ' e-loop-item-{rule['post']} ')]"
+              f"//*[@data-id='{rule['id']}']")
+        for el in body.xpath(xp):
+            style = "".join(f"{p}: {v.replace('../../', 'assets/')}; " for p, v in rule["decls"])
+            el.set("style", ((el.get("style") or "").rstrip("; ") + "; " if el.get("style") else "") + style.strip())
+
+
+def build(item, source_chrome, known, report):
     raw = (CAPTURE / "raw" / f"{item['name']}.html").read_text(encoding="utf-8")
     doc = parse(raw)
     root = doc.getroot()
@@ -305,6 +328,7 @@ def build(item, source_chrome, known, css_map, report):
         clean_settings(el)
     body.set("class", " ".join(c for c in body.get("class", "").split()
                                if not RUNTIME_BODY_CLASSES.match(c)))
+    apply_design(body)
 
     # Contact Form 7: its script adds a spinner after the submit button on load. Turnstile
     # is not loaded in v1 (inventory decision 4); its widget's slot stays, empty, so the
@@ -324,7 +348,7 @@ def build(item, source_chrome, known, css_map, report):
         for v in el.xpath(".//video[contains(@class,'elementor-background-video-hosted')]"):
             v.set("src", link)
 
-    new_head = build_head(head, title, item["name"], css_map.get(item["name"], []))
+    new_head = build_head(head, title, item["name"])
     for el in new_head.iter():
         if isinstance(el.tag, str) and el.tag == "link" and el.get("rel") in ("icon", "apple-touch-icon"):
             el.set("href", local_url(el.get("href"), known))
@@ -340,8 +364,11 @@ def build(item, source_chrome, known, css_map, report):
 
 
 def main(only):
+    global DESIGN_CLASSES, DYNAMIC, CSS_MAP
     known = known_pages()
-    css_map = json.loads((CAPTURE / "css_map.json").read_text(encoding="utf-8"))
+    CSS_MAP = json.loads((ROOT / "_vocab" / "css_map.json").read_text(encoding="utf-8"))
+    DESIGN_CLASSES = json.loads((ROOT / "_vocab" / "element_classes.json").read_text(encoding="utf-8"))
+    DYNAMIC = json.loads((ROOT / "_vocab" / "dynamic.json").read_text(encoding="utf-8"))
     home = parse((CAPTURE / "raw" / "index.html").read_text(encoding="utf-8"))
     source = chrome_parts(home)
     # the source chrome without the home page's own active state
@@ -357,7 +384,7 @@ def main(only):
     report = {}
     items = [p for p in pages() if not only or p["name"] in only]
     for it in items:
-        build(it, source, known, css_map, report)
+        build(it, source, known, report)
     bad = {k: v for k, v in report.items() if v}
     for k, v in bad.items():
         print(f"  {k}: {'; '.join(v)}")

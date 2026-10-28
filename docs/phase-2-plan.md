@@ -1,7 +1,10 @@
 # Phase 2 plan: the Harlow Group WordPress theme
 
 Status: answered by Hla on 2026-10-28 (section 8); the steps and timing are in section 9.
-Waiting for her go to start stage R.
+Stage R done on 2026-10-28 (tag `html-v1.1`): the per-element design is 1,111 classes in
+`assets/css/design/`, the vocabulary is in `_vocab/vocabulary.md`, and the 49 pages match
+html-v1 in every computed property (117,847 elements, 1440/900/479) and live in geometry.
+Next: stage 0 (the local WordPress), after Hla's go.
 
 Starting point: `html-v1` (github.com/hla-sh93/harlow-website), the 49 English pages
 matching live at 1440x900 and 479x900. It stays in the repository as the reference every

@@ -16,11 +16,12 @@ A rebuild in two phases:
 | path | what |
 |---|---|
 | `*.html` | the pages, named after the live path (`/news/x/` -> `news-x.html`, home `index.html`, `404.html`). Generated: do not edit |
-| `assets/css/` | stylesheets in load order: `tokens`, `base`, `layout`, `components`, `navigation`, `modules`, `docs/*` (one per Elementor document), `utilities`, `animations`. All generated except `modules.css` |
+| `assets/css/` | stylesheets in load order: `tokens`, `base`, `layout`, `components`, `navigation`, `modules`, `design/globals-*` (the rules of each Elementor document that name no element), the seven `design/` axis files (`type`, `space`, `layout`, `size`, `surface`, `effects`, `misc`: one class per design value, see `_vocab/vocabulary.md`), `utilities`, `animations`. All generated except `modules.css` |
 | `assets/js/` | one small module per behaviour (header, nav menu, entrance animations, background video, carousel, gallery, accordion, history slider, people popups, lightbox, cookie bar, page transition). Hand-written, no libraries |
 | `assets/uploads/` | images, video and PDFs, same paths as `wp-content/uploads/` |
 | `assets/fonts/`, `assets/vendor/` | the font faces live really loads, and plugin images and fonts the pages use |
 | `_inventory/` | stage A: the inventory, every URL and the decisions |
+| `_vocab/` | stage R: the design vocabulary (`vocabulary.md`: the palette, type sizes and spacing the site uses), which classes each element wears, and the intermediate rules |
 | `_capture/` | stage B: live server HTML, settled DOM, geometry baseline, asset list (screenshots are not committed) |
 | `_source/` | the live platform's own CSS and JS, kept for reference and checks only; never loaded by a page |
 | `_tools/` | the tools that build and check everything (see AGENTS.md) |
@@ -36,11 +37,7 @@ python -m http.server 8000
 To rebuild after changing a generator:
 
 ```bash
-python -u _tools/build_css.py
-```
-
-```bash
-python -u _tools/build_pages.py
+python -u _tools/build_css.py && python -u _tools/atomize.py && python -u _tools/build_pages.py
 ```
 
 ## Deliberate differences from live
@@ -59,6 +56,7 @@ python -u _tools/build_pages.py
 | No JavaScript errors | live throws on 48 of 49 pages (the history slider script running where there is no slider) and once from the Organization Chart plugin |
 | Logo scale and header background "motion effects" are not implemented | on live they are set with speed 0 and do nothing visible |
 | Hover submenus and the burger menu are an own module with SmartMenus' timings (250ms open, 500ms close) | no jQuery or SmartMenus is shipped |
+| Two kinds of dead CSS are not carried: Elementor's `margin-center` (not a CSS property; browsers ignore it) and rules for the motion-effects layer Elementor's runtime adds (that layer is not in this markup) | they did nothing on live |
 | No `<link rel="prerender">` on hovering a link | Elementor's page transition adds it; browsers have dropped prerender |
 
 ## Known gaps

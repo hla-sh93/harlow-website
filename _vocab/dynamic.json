@@ -1,0 +1,62 @@
+[
+ {
+  "post": "2633",
+  "id": "b2269f0",
+  "post_tail": ":not(.elementor-motion-effects-element-type-background)",
+  "wrap": [],
+  "decls": [
+   [
+    "background-image",
+    "url(\"../../uploads/2024/12/CONSTRUCTION-DEVELOPMENT.jpg\")"
+   ]
+  ]
+ },
+ {
+  "post": "2630",
+  "id": "b2269f0",
+  "post_tail": ":not(.elementor-motion-effects-element-type-background)",
+  "wrap": [],
+  "decls": [
+   [
+    "background-image",
+    "url(\"../../uploads/2024/06/AL-SUWAYRAH-AIR-BASE.jpg\")"
+   ]
+  ]
+ },
+ {
+  "post": "2625",
+  "id": "b2269f0",
+  "post_tail": ":not(.elementor-motion-effects-element-type-background)",
+  "wrap": [],
+  "decls": [
+   [
+    "background-image",
+    "url(\"../../uploads/2024/06/Bismayah-New-City-Project.jpg\")"
+   ]
+  ]
+ },
+ {
+  "post": "2617",
+  "id": "b2269f0",
+  "post_tail": ":not(.elementor-motion-effects-element-type-background)",
+  "wrap": [],
+  "decls": [
+   [
+    "background-image",
+    "url(\"../../uploads/2024/06/AL-RASHEED-HOTEL.jpg\")"
+   ]
+  ]
+ },
+ {
+  "post": "2540",
+  "id": "b2269f0",
+  "post_tail": ":not(.elementor-motion-effects-element-type-background)",
+  "wrap": [],
+  "decls": [
+   [
+    "background-image",
+    "url(\"../../uploads/2024/06/Riverside-Business-Center.jpg\")"
+   ]
+  ]
+ }
+]

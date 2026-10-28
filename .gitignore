@@ -3,3 +3,6 @@ __pycache__/
 .DS_Store
 Thumbs.db
 _capture/shots/
+_vocab/docs/
+_vocab/refcheck.json
+_vocab/designs.json
