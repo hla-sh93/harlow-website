@@ -4,8 +4,12 @@ Every check drives the real page in installed Chrome through a local server and 
 the DOM state the module is responsible for. Checks on pages that are not built yet are
 skipped and counted as skipped.
 
+With --wp the same checks run on the local WordPress (http://localhost:8090), page by page
+at its WordPress address; the item pages (the gallery and its lightbox) get their template
+in stage 5 and are skipped until then.
+
 Usage:
-    python -u _tools/behaviour.py
+    python -u _tools/behaviour.py [--wp]
 
 Passing looks like: `N behaviours checked, 0 failed, M skipped`.
 """
@@ -17,14 +21,23 @@ import time
 
 from playwright.async_api import async_playwright
 
-from common import ROOT
+from common import ROOT, pages
 
 PORT = 8770
 BASE = f"http://127.0.0.1:{PORT}"
+WP = "http://localhost:8090"
+ON_WP = "--wp" in sys.argv
+WP_LATER = {"gallery-item-al-rasheed-hotel": "stage 5: the item pages' template"}
+PATHS = {p["name"]: p["path"] for p in pages()}
+
+
+def url(name):
+    """A page of the reference, or the same page on WordPress (--wp)."""
+    return WP + PATHS[name] if ON_WP else f"{BASE}/{name}.html"
 
 
 async def header_scroll(page):
-    await page.goto(f"{BASE}/index.html")
+    await page.goto(url("index"))
     await page.evaluate("document.documentElement.style.scrollBehavior='auto'; window.scrollTo(0, 400)")
     await page.wait_for_timeout(600)
     r = await page.evaluate("""() => ({ bg: document.getElementById('nav-header').style.backgroundColor,
@@ -33,7 +46,7 @@ async def header_scroll(page):
 
 
 async def submenu_hover(page):
-    await page.goto(f"{BASE}/index.html")
+    await page.goto(url("index"))
     li = page.locator(".elementor-nav-menu--main li.menu-item-has-children").first
     await li.hover()
     await page.wait_for_timeout(450)
@@ -45,7 +58,7 @@ async def submenu_hover(page):
 
 async def burger(page):
     await page.set_viewport_size({"width": 479, "height": 900})
-    await page.goto(f"{BASE}/index.html")
+    await page.goto(url("index"))
     toggle = page.locator(".elementor-menu-toggle:visible").first
     await toggle.click()
     await page.wait_for_timeout(500)
@@ -60,7 +73,7 @@ async def burger(page):
 
 
 async def carousel(page):
-    await page.goto(f"{BASE}/index.html")
+    await page.goto(url("index"))
     t0 = await page.evaluate("document.querySelector('.elementor-widget-loop-carousel .swiper-wrapper').style.transform")
     await page.wait_for_timeout(5800)
     t1 = await page.evaluate("document.querySelector('.elementor-widget-loop-carousel .swiper-wrapper').style.transform")
@@ -69,14 +82,14 @@ async def carousel(page):
 
 
 async def history_slider(page):
-    await page.goto(f"{BASE}/index.html")
+    await page.goto(url("index"))
     await page.wait_for_timeout(11500)   # 9s interval + 1s delay + .2s + .4s transition
     r = await page.evaluate("""() => [...document.querySelectorAll('.history_slide')].map(s => getComputedStyle(s).opacity)""")
     return len(r) > 1 and r[1] == "1" and r[0] == "0", r
 
 
 async def reveal(page):
-    await page.goto(f"{BASE}/about-us.html")
+    await page.goto(url("about-us"))
     before = await page.evaluate("document.querySelectorAll('.elementor-invisible').length")
     await page.evaluate("""async () => { document.documentElement.style.scrollBehavior='auto';
         for (let y = 0; y < document.body.scrollHeight; y += 300) { scrollTo(0, y); await new Promise(r => setTimeout(r, 60)); } }""")
@@ -87,7 +100,7 @@ async def reveal(page):
 
 
 async def gallery(page):
-    await page.goto(f"{BASE}/gallery-item-al-rasheed-hotel.html")
+    await page.goto(url("gallery-item-al-rasheed-hotel"))
     await page.wait_for_timeout(600)
     r = await page.evaluate("""() => { const c = document.querySelector('.elementor-gallery__container');
         return { columns: c.style.getPropertyValue('--columns'), loaded: document.querySelectorAll('.e-gallery-image-loaded').length,
@@ -96,7 +109,7 @@ async def gallery(page):
 
 
 async def lightbox(page):
-    await page.goto(f"{BASE}/gallery-item-al-rasheed-hotel.html")
+    await page.goto(url("gallery-item-al-rasheed-hotel"))
     await page.locator(".e-gallery-item").first.click()
     await page.wait_for_timeout(400)
     r = await page.evaluate("""() => { const b = document.querySelector('.site-lightbox');
@@ -108,7 +121,7 @@ async def lightbox(page):
 
 async def cookie_bar(page):
     await page.evaluate("localStorage.removeItem('harlow-cookie-consent')")
-    await page.goto(f"{BASE}/index.html")
+    await page.goto(url("index"))
     shown = await page.evaluate("getComputedStyle(document.getElementById('moove_gdpr_cookie_info_bar')).display")
     await page.click(".moove-gdpr-infobar-allow-all")
     hidden = await page.evaluate("getComputedStyle(document.getElementById('moove_gdpr_cookie_info_bar')).display")
@@ -117,7 +130,7 @@ async def cookie_bar(page):
 
 
 async def page_transition(page):
-    await page.goto(f"{BASE}/index.html")
+    await page.goto(url("index"))
     await page.wait_for_timeout(300)
     r = await page.evaluate("""() => { const t = document.querySelector('e-page-transition');
         return { cls: t.className, display: getComputedStyle(t).display, img: !!t.querySelector('.e-page-transition--preloader') }; }""")
@@ -125,7 +138,7 @@ async def page_transition(page):
 
 
 async def accordion(page):
-    await page.goto(f"{BASE}/faq.html")
+    await page.goto(url("faq"))
     state = """() => [...document.querySelectorAll('.elementor-accordion-item')].slice(0, 2).map(i => ({
         title: i.querySelector('.elementor-tab-title').classList.contains('elementor-active'),
         shown: getComputedStyle(i.querySelector('.elementor-tab-content')).display }))"""
@@ -139,7 +152,7 @@ async def accordion(page):
 
 
 async def people_popup(page):
-    await page.goto(f"{BASE}/harlows-people.html")
+    await page.goto(url("harlows-people"))
     await page.locator(".harlow-emp").first.click()
     await page.wait_for_timeout(500)
     opened = await page.evaluate("""() => ({ popup: getComputedStyle(document.querySelector('.harlow-emp .hp-popup-holder')).display,
@@ -151,10 +164,11 @@ async def people_popup(page):
 
 
 async def internal_link(page):
-    await page.goto(f"{BASE}/index.html")
-    await page.locator("footer a[href='about-us.html']").first.click()
-    await page.wait_for_url("**/about-us.html", timeout=8000)
-    return page.url.endswith("/about-us.html"), {"url": page.url}
+    await page.goto(url("index"))
+    target = url("about-us")
+    await page.locator("footer a[href='about-us.html'], footer a[href$='/about-us/']").first.click()
+    await page.wait_for_url(target, timeout=8000)
+    return page.url == target, {"url": page.url}
 
 
 CHECKS = [
@@ -175,9 +189,9 @@ CHECKS = [
 
 
 async def main():
-    server = subprocess.Popen([sys.executable, "-m", "http.server", str(PORT), "--bind", "127.0.0.1"],
-                              cwd=str(ROOT), stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-    time.sleep(1.5)
+    server = None if ON_WP else subprocess.Popen([sys.executable, "-m", "http.server", str(PORT), "--bind", "127.0.0.1"],
+                                                 cwd=str(ROOT), stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+    time.sleep(0 if ON_WP else 1.5)
     failed = skipped = 0
     try:
         async with async_playwright() as pw:
@@ -187,11 +201,11 @@ async def main():
             page = await ctx.new_page()
             errors = []
             page.on("pageerror", lambda e: errors.append(str(e)[:120]))
-            await page.goto(f"{BASE}/index.html")
+            await page.goto(url("index"))
             for label, needs, fn in CHECKS:
-                if not (ROOT / f"{needs}.html").exists():
+                if not (ROOT / f"{needs}.html").exists() or (ON_WP and needs in WP_LATER):
                     skipped += 1
-                    print(f"  skip  {label} ({needs}.html not built)")
+                    print(f"  skip  {label} ({WP_LATER.get(needs, needs + '.html not built') if ON_WP else needs + '.html not built'})")
                     continue
                 if fn is cookie_bar:
                     await page.evaluate("sessionStorage.setItem('keep-consent','1')")
@@ -205,7 +219,8 @@ async def main():
                 print(f"  {'ok  ' if ok else 'FAIL'}  {label}: {detail}")
             await browser.close()
     finally:
-        server.terminate()
+        if server:
+            server.terminate()
     print(f"  page errors during the run: {len(errors)} {errors[:3]}")
     failed += bool(errors)
     print(f"\n{len(CHECKS) - skipped} behaviours checked, {failed} failed, {skipped} skipped")

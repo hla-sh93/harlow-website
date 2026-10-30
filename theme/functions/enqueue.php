@@ -151,6 +151,10 @@ function harlow_dequeue_extras() {
 }
 add_action( 'wp_enqueue_scripts', 'harlow_dequeue_extras', 100 );
 
+// WordPress loads a small stylesheet for each core block a page uses (paragraph, list);
+// loaded as one library instead, it is the library dequeued above.
+add_filter( 'should_load_separate_core_block_assets', '__return_false' );
+
 // Global styles are added late and in more than one place; not adding them is simpler.
 remove_action( 'wp_enqueue_scripts', 'wp_enqueue_global_styles' );
 remove_action( 'wp_footer', 'wp_enqueue_global_styles', 1 );
@@ -161,6 +165,14 @@ remove_action( 'wp_footer', 'wp_enqueue_global_styles', 1 );
  * pictures are written as live writes them (and the style that goes with it is not added).
  */
 add_filter( 'wp_img_tag_add_auto_sizes', '__return_false' );
+
+/*
+ * Rank Math writes rel="noopener" (and, by its settings, nofollow and a new tab) on links
+ * in content as the page is printed. Live's pages print their links as they were made;
+ * so do these: a link's target and rel are the block's.
+ */
+add_filter( 'rank_math/noopener', '__return_false' );
+add_filter( 'rank_math/link/add_attributes', '__return_false' );
 
 add_filter( 'wpcf7_load_css', '__return_false' );
 add_filter( 'wpcf7_load_js', '__return_false' );

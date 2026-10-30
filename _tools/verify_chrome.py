@@ -11,9 +11,9 @@ The loading hints of pictures (loading, decoding, fetchpriority) are counted apa
 decide when a picture downloads, not how it looks, and WordPress decides them by its own
 rules where live followed Elementor's (README, "Deliberate differences").
 
-Pages WordPress does not have yet are counted and named, not passed: the home page comes
-in stage 3, because live builds its header and footer into the home page's own sections;
-the blog's second page with the pager, in stage 5.
+Pages left to another check are counted and named, not passed: the home page, whose
+header and footer are part of its own content (verify_wp.py compares them there); the
+blog's second page comes with the pager in stage 5.
 
     python -u _tools/verify_chrome.py [name ...]
 """
@@ -42,7 +42,7 @@ ALLOWED_STYLES = {
 }
 ALLOWED_SCRIPTS = {"speculationrules": "core's prefetch rules, which live prints too"}
 
-LATER = {"index": "stage 3: live builds the home page's header and footer into its own sections",
+LATER = {"index": "its header and footer are part of its content: verify_wp.py compares them there",
          "blog-2": "stage 5: the blog's second page comes with the pager"}
 
 

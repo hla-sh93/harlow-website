@@ -64,8 +64,12 @@ staying identical to the reference until something is changed:
 | the brand colours: blue, dark, accent, light surface, text | Appearance → Customize → Brand colours |
 | posts, news, projects, gallery items, jobs, business models (with their icon and page), Harlow's people, testimonials (with their position), client logos (in their order) | their own menus in the dashboard; every list and carousel shows them by itself |
 
-The pages exist (with live's addresses and ids) but are empty until stage 3; the lists
-are placed on them then. The items and pictures are live's, with live's ids, addresses
+The 22 pages are built from blocks and look like the reference (the 25 item pages, the 404
+page and the blog's second page get their templates in stage 5). Editing a page's blocks in
+the editor comes in stage 4; until then the editor shows them as blocks it cannot draw.
+The major clients section is one synced pattern (Appearance → Patterns), and the section
+library and page starters are in the editor's Patterns, under Harlow sections and Harlow
+page layouts. The items and pictures are live's, with live's ids, addresses
 and dates; the pictures are in the Media Library with every size live has.
 
 To rebuild the static pages after changing a generator:
@@ -94,6 +98,7 @@ python -u _tools/build_css.py && python -u _tools/atomize.py && python -u _tools
 | No `<link rel="prerender">` on hovering a link | Elementor's page transition adds it; browsers have dropped prerender |
 | WordPress theme: pictures' loading hints (`loading="lazy"`, `decoding`, `fetchpriority`) follow WordPress's rules, not the ones Elementor gave each live page | they decide when a picture downloads, not how it looks; the checks count them apart |
 | WordPress theme: the pages of business models, people and team members lead to the home page | as on live (301) |
+| WordPress theme: the home page's footer links open in the same tab, without nofollow, as on every other page | on live's home page Rank Math gave five of them a new tab and nofollow, because there the footer is part of the page's content |
 
 ## Known gaps
 

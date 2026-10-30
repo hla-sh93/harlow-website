@@ -19,13 +19,12 @@ byte as before.
 """
 
 import asyncio
-import base64
 import json
 import sys
 
 from playwright.async_api import async_playwright
 
-from common import pages
+from common import ROOT, pages
 from wpsite import WP, compare_trees, elements, fetch, known_paths, parse, reference, wp_cli
 
 # page, widget, layout, card, type, how many, by, which first, pager
@@ -45,7 +44,7 @@ LISTS = [
 LOGOS = ("sitemap", "client-logo", "client_logo", 100, "menu_order", "ASC")
 
 SET_CONTENT = r"""
-$d = json_decode( base64_decode( '%s' ), true );
+$d = json_decode( file_get_contents( '/env/verify-lists.json' ), true );
 $out = array();
 foreach ( $d as $path => $content ) {
 	$page = get_page_by_path( trim( $path, '/' ) );
@@ -57,14 +56,14 @@ echo wp_json_encode( $out );
 """
 
 RESTORE = r"""
-$d = json_decode( base64_decode( '%s' ), true );
+$d = json_decode( file_get_contents( '/env/verify-lists.json' ), true );
 foreach ( $d['pages'] as $path => $saved ) { wp_update_post( wp_slash( array( 'ID' => $saved[0], 'post_content' => $saved[1] ) ) ); }
 foreach ( $d['titles'] as $id => $title ) { wp_update_post( wp_slash( array( 'ID' => (int) $id, 'post_title' => $title ) ) ); }
 echo 'put back';
 """
 
 RETITLE = r"""
-$d = json_decode( base64_decode( '%s' ), true );
+$d = json_decode( file_get_contents( '/env/verify-lists.json' ), true );
 $out = array();
 foreach ( $d as $type => $title ) {
 	$first = get_posts( array( 'post_type' => $type, 'posts_per_page' => 1, 'orderby' => 'date', 'order' => 'DESC' ) )[0];
@@ -107,7 +106,10 @@ async def behaviours(paths):
 
 
 def php(code, data):
-    return wp_cli("eval", code % base64.b64encode(json.dumps(data).encode()).decode())
+    """Run PHP in WP-CLI with data handed over in a file (_env/ is /env in the container):
+    a page's content does not fit on a command line."""
+    (ROOT / "_env" / "verify-lists.json").write_text(json.dumps(data), encoding="utf-8")
+    return wp_cli("eval", code)
 
 
 def body(page):
@@ -148,7 +150,7 @@ def main():
 
         page = LOGOS[0]
         wp_doc = parse(fetch(paths[page])[1])
-        got = [w for w in wp_doc.xpath("//body/*[@data-widget_type='image.default']")]
+        got = [w for w in wp_doc.xpath("//body/*[@data-elementor-type='wp-page']/*[@data-widget_type='image.default']")]
         want = reference("about-us").xpath("//*[@data-elementor-type='container']//*[@data-widget_type='image.default']")
         diff, hints, n = [], [], 0
         if len(got) != len(want):

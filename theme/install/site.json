@@ -5,6 +5,7 @@
  "pages": [
   {
    "name": "index",
+   "kind": "K1",
    "path": "/",
    "title": "Home Page",
    "live_id": 17,
@@ -22,6 +23,7 @@
   },
   {
    "name": "al-khairat-thermal-power-plant-iraq",
+   "kind": "K2",
    "path": "/al-khairat-thermal-power-plant-iraq/",
    "title": "Harlow International Limited",
    "live_id": 2962,
@@ -37,6 +39,7 @@
   },
   {
    "name": "construction-iraq",
+   "kind": "K2",
    "path": "/construction-iraq/",
    "title": "Anwar alrisala contracting and general trading",
    "live_id": 2966,
@@ -53,6 +56,7 @@
   },
   {
    "name": "consultancy-iraq",
+   "kind": "K2",
    "path": "/consultancy-iraq/",
    "title": "HARLOW DMCC",
    "live_id": 2974,
@@ -68,6 +72,7 @@
   },
   {
    "name": "drc-cement-plant-iraq",
+   "kind": "K2",
    "path": "/drc-cement-plant-iraq/",
    "title": "DRC CEMENT PLANT",
    "live_id": 2970,
@@ -83,6 +88,7 @@
   },
   {
    "name": "security-services-iraq",
+   "kind": "K2",
    "path": "/security-services-iraq/",
    "title": "AL MURABIT SECURITY SERVICES",
    "live_id": 2968,
@@ -98,6 +104,7 @@
   },
   {
    "name": "smart-metering-iraq",
+   "kind": "K2",
    "path": "/smart-metering-iraq/",
    "title": "SMART METERS COLLECTION AND ELECTRICAL SERVICES LTD",
    "live_id": 2964,
@@ -113,6 +120,7 @@
   },
   {
    "name": "about-us",
+   "kind": "K3",
    "path": "/about-us/",
    "title": "About Us",
    "live_id": 1224,
@@ -129,6 +137,7 @@
   },
   {
    "name": "energy-and-smart-solutions",
+   "kind": "K4",
    "path": "/energy-and-smart-solutions/",
    "title": "Energy and smart solutions",
    "live_id": 5043,
@@ -144,6 +153,7 @@
   },
   {
    "name": "industrial",
+   "kind": "K4",
    "path": "/industrial/",
    "title": "Industrial",
    "live_id": 5106,
@@ -159,6 +169,7 @@
   },
   {
    "name": "security-services",
+   "kind": "K4",
    "path": "/security-services/",
    "title": "Security Services",
    "live_id": 5092,
@@ -174,6 +185,7 @@
   },
   {
    "name": "blog",
+   "kind": "K5",
    "path": "/blog/",
    "title": "BLOG",
    "live_id": 1491,
@@ -190,6 +202,7 @@
   },
   {
    "name": "harlows-people",
+   "kind": "K5",
    "path": "/harlows-people/",
    "title": "Harlow’s People",
    "live_id": 2847,
@@ -206,6 +219,7 @@
   },
   {
    "name": "latest-news",
+   "kind": "K5",
    "path": "/latest-news/",
    "title": "LATEST NEWS",
    "live_id": 9063,
@@ -222,6 +236,7 @@
   },
   {
    "name": "photo-gallery",
+   "kind": "K5",
    "path": "/photo-gallery/",
    "title": "PHOTO GALLERY",
    "live_id": 1489,
@@ -238,6 +253,7 @@
   },
   {
    "name": "work-with-us",
+   "kind": "K5",
    "path": "/work-with-us/",
    "title": "Work With Us",
    "live_id": 2849,
@@ -254,6 +270,7 @@
   },
   {
    "name": "application-process",
+   "kind": "K6",
    "path": "/application-process/",
    "title": "Application Process",
    "live_id": 2851,
@@ -269,6 +286,7 @@
   },
   {
    "name": "contact-us",
+   "kind": "K6",
    "path": "/contact-us/",
    "title": "CONTACT US",
    "live_id": 1212,
@@ -284,6 +302,7 @@
   },
   {
    "name": "corporate-policies",
+   "kind": "K6",
    "path": "/corporate-policies/",
    "title": "Corporate Policies",
    "live_id": 4955,
@@ -299,6 +318,7 @@
   },
   {
    "name": "faq",
+   "kind": "K6",
    "path": "/faq/",
    "title": "FAQ",
    "live_id": 1208,
@@ -314,6 +334,7 @@
   },
   {
    "name": "policy",
+   "kind": "K6",
    "path": "/policy/",
    "title": "Privacy Policy",
    "live_id": 5584,
@@ -329,6 +350,7 @@
   },
   {
    "name": "sitemap",
+   "kind": "K6",
    "path": "/sitemap/",
    "title": "Sitemap",
    "live_id": 6254,
@@ -601,6 +623,27 @@
     {
      "title": "Privacy Policy",
      "page": "/policy/"
+    }
+   ]
+  },
+  {
+   "location": "careers",
+   "name": "Careers",
+   "items": [
+    {
+     "live_id": 2874,
+     "title": "HARLOW’S PEOPLE",
+     "page": "/harlows-people/"
+    },
+    {
+     "live_id": 2873,
+     "title": "WORK WITH US",
+     "page": "/work-with-us/"
+    },
+    {
+     "live_id": 2872,
+     "title": "APPLICATION PROCESS",
+     "page": "/application-process/"
     }
    ]
   }

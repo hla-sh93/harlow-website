@@ -55,6 +55,7 @@ function harlow_register_menus() {
 			'footer-2'     => __( 'Footer, second column (the heading is the menu name)', 'harlow' ),
 			'footer-3'     => __( 'Footer, third column (the heading is the menu name)', 'harlow' ),
 			'footer-legal' => __( 'Footer, links under the columns', 'harlow' ),
+			'careers'      => __( 'Careers pages, side menu', 'harlow' ),
 		)
 	);
 }

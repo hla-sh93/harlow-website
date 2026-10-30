@@ -9,6 +9,8 @@
  *   media.json  the pictures: file, size, every size WordPress made (_tools/seed_items.py)
  *   items.json  posts, news, projects, gallery items, the job, business models, people,
  *               testimonials and client logos (_tools/seed_items.py)
+ *   ../pages/   each page's blocks, its "original" (_tools/gen_blocks.py), and the major
+ *               clients' blocks, the synced pattern every page shows
  *
  * A picture goes into the Media Library as it is on live: the same files at the same
  * address under uploads/, the same id, the same sizes. They are copied from the theme's
@@ -24,8 +26,9 @@
  * An item is found the same way (`_harlow_original` is its type and live id), and made
  * with live's id, date and address when missing.
  *
- * The pages are laid down empty; their sections arrive in stage 3, and the button in
- * Appearance (Site pages) in stage 8. Until then: `wp harlow install`.
+ * A page gets its original's blocks when it has no content of its own; `--restore` puts
+ * every page's original back (and the major clients'), as "Restore the original sections"
+ * will for one page (stage 6). The button in Appearance (Site pages) comes in stage 8.
  *
  * @package Harlow
  */
@@ -47,11 +50,12 @@ function harlow_site_data( $name = 'site.json' ) {
 }
 
 /**
- * Install everything the data file holds.
+ * Install everything the data files hold.
  *
+ * @param bool $restore Put every page's original blocks back over its own content.
  * @return array<string,int> What was done, counted.
  */
-function harlow_install_site() {
+function harlow_install_site( $restore = false ) {
 	$data   = harlow_site_data();
 	$report = array(
 		'pages_made'  => 0,
@@ -65,6 +69,7 @@ function harlow_install_site() {
 		'files'       => 0,
 		'posts_made'  => 0,
 		'posts_found' => 0,
+		'filled'      => 0,
 	);
 
 	// The data is the theme's own, written from live: kept as it is, not filtered as a
@@ -86,6 +91,10 @@ function harlow_install_site() {
 
 	harlow_install_media( $report );
 	harlow_install_items( $ids, $report );
+	harlow_install_shared_sections( $restore, $report );
+	foreach ( $data['pages'] as $page ) {
+		harlow_install_page_blocks( $ids[ $page['path'] ], $page['name'], $restore, $report );
+	}
 
 	$locations = get_theme_mod( 'nav_menu_locations', array() );
 	foreach ( $data['menus'] as $menu ) {
@@ -160,6 +169,8 @@ function harlow_install_page( $page, $data, &$report ) {
 		}
 	}
 	update_post_meta( $id, '_harlow_original', $page['name'] );
+	update_post_meta( $id, '_harlow_name', $page['name'] );
+	update_post_meta( $id, '_harlow_document', (int) $page['live_id'] );
 	update_post_meta( $id, '_harlow_translations', $page['translations'] );
 	update_post_meta( $id, '_harlow_documents', $page['documents'] );
 	return (int) $id;
@@ -370,6 +381,9 @@ function harlow_install_items( $pages, &$report ) {
 			update_post_meta( $id, '_' . $key, $value );
 		}
 		update_post_meta( $id, '_harlow_original', $original );
+		if ( ! empty( $item['name'] ) ) {
+			update_post_meta( $id, '_harlow_name', $item['name'] );
+		}
 		if ( $item['translations'] ) {
 			update_post_meta( $id, '_harlow_translations', $item['translations'] );
 		}
@@ -381,16 +395,96 @@ function harlow_install_items( $pages, &$report ) {
 }
 
 /**
- * `wp harlow install`: install the site and say what was done.
+ * One file of pages/: a page's original blocks.
+ *
+ * @param string $name The page's reference name, or _major-clients.
+ * @return string '' when the theme has no such file.
  */
-function harlow_cli_install() {
-	$report = harlow_install_site();
+function harlow_original_blocks( $name ) {
+	$file = get_theme_file_path( 'pages/' . $name . '.html' );
+	return file_exists( $file ) ? (string) file_get_contents( $file ) : ''; // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents -- a file inside the theme, not a URL.
+}
+
+/**
+ * Give a page its original blocks: when it has no content of its own, or when asked to.
+ *
+ * @param int               $id      The page.
+ * @param string            $name    Its reference name.
+ * @param bool              $restore Put the original back over the page's own content.
+ * @param array<string,int> $report  Counts, updated.
+ */
+function harlow_install_page_blocks( $id, $name, $restore, &$report ) {
+	$blocks = harlow_original_blocks( $name );
+	if ( '' === $blocks || ( ! $restore && '' !== trim( (string) get_post_field( 'post_content', $id ) ) ) ) {
+		return;
+	}
+	wp_update_post(
+		wp_slash(
+			array(
+				'ID'           => $id,
+				'post_content' => $blocks,
+			)
+		)
+	);
+	++$report['filled'];
+}
+
+/**
+ * The major clients: one synced pattern (Appearance > Patterns), live's saved template
+ * #5532, which every page shows; edited once, it changes on every page.
+ *
+ * @param bool              $restore Put its original blocks back.
+ * @param array<string,int> $report  Counts, updated.
+ */
+function harlow_install_shared_sections( $restore, &$report ) {
+	$blocks = harlow_original_blocks( '_major-clients' );
+	if ( '' === $blocks ) {
+		return;
+	}
+	$existing = get_post( 5532 );
+	if ( $existing && 'wp_block' === $existing->post_type ) {
+		if ( $restore ) {
+			wp_update_post(
+				wp_slash(
+					array(
+						'ID'           => 5532,
+						'post_content' => $blocks,
+					)
+				)
+			);
+			++$report['filled'];
+		}
+		return;
+	}
+	wp_insert_post(
+		wp_slash(
+			array(
+				'import_id'    => $existing ? 0 : 5532,
+				'post_type'    => 'wp_block',
+				'post_status'  => 'publish',
+				'post_title'   => __( 'Major clients', 'harlow' ),
+				'post_content' => $blocks,
+			)
+		)
+	);
+	++$report['filled'];
+}
+
+/**
+ * `wp harlow install [--restore]`: install the site and say what was done.
+ *
+ * @param string[]             $args       Positional arguments (none).
+ * @param array<string,string> $assoc_args `--restore` to put the pages' originals back.
+ */
+function harlow_cli_install( $args = array(), $assoc_args = array() ) {
+	$report = harlow_install_site( isset( $assoc_args['restore'] ) );
 	WP_CLI::success(
 		sprintf(
-			'pages: %d made (%d with live\'s id), %d found; pictures: %d made (%d files), %d found; items: %d made, %d found; menus: %d made (%d items), %d kept',
+			'pages: %d made (%d with live\'s id), %d found, %d filled with their blocks; pictures: %d made (%d files), %d found; items: %d made, %d found; menus: %d made (%d items), %d kept',
 			$report['pages_made'],
 			$report['ids_kept'],
 			$report['pages_found'],
+			$report['filled'],
 			$report['media_made'],
 			$report['files'],
 			$report['media_found'],

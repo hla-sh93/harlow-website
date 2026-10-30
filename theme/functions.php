@@ -11,6 +11,8 @@
  *   nav.php            the header and footer menus, printed as live prints them
  *   content-types.php  news, projects, gallery, jobs, business models, people,
  *                      testimonials, client logos: live's names and addresses
+ *   blocks.php         the blocks of the pages (blocks/, markup in includes/sections/),
+ *                      readable links, the section library's categories
  *   loops.php          the list block (blocks/loop) and what its cards print
  *   install.php        the pages, pictures, items and menus (wp harlow install)
  *
@@ -32,5 +34,6 @@ require_once __DIR__ . '/functions/settings.php';
 require_once __DIR__ . '/functions/brand.php';
 require_once __DIR__ . '/functions/nav.php';
 require_once __DIR__ . '/functions/content-types.php';
+require_once __DIR__ . '/functions/blocks.php';
 require_once __DIR__ . '/functions/loops.php';
 require_once __DIR__ . '/functions/install.php';

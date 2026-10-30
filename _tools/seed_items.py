@@ -29,7 +29,7 @@ from urllib.parse import unquote, urlsplit
 
 from lxml import html
 
-from common import CAPTURE, ROOT, SITE, pages
+from common import CAPTURE, ROOT, SITE, local_name, pages
 
 REST = CAPTURE / "rest"
 UPLOADS = ROOT / "assets" / "uploads"
@@ -137,6 +137,7 @@ def main():
                 "featured": r.get("featured_media") or 0,
                 "categories": [{"slug": cats[c]["slug"], "name": cats[c]["name"]} for c in r.get("categories", [])],
                 "path": path,
+                "name": local_name(path) if path in singles else "",
             }
             item.update(singles.get(path, {"translations": {}, "documents": []}))
             if post_type == "business_model":
@@ -161,7 +162,7 @@ def main():
             # no dates on live: one minute apart, so that newest first is the carousel's order
             "date": f"2024-06-03T10:{len(slides) - n:02d}:00", "date_gmt": f"2024-06-03T10:{len(slides) - n:02d}:00",
             "content": "".join(f"<p>{htmllib.escape(text(q), quote=False)}</p>" for q in quote),
-            "featured": rec["id"], "categories": [], "path": "", "translations": {}, "documents": [],
+            "featured": rec["id"], "categories": [], "path": "", "name": "", "translations": {}, "documents": [],
             "meta": {"harlow_position": text(heads[-1])},
         })
 
@@ -174,7 +175,7 @@ def main():
         items.append({
             "type": "client_logo", "live_id": 0, "slug": "", "title": media[mid]["title"]["rendered"] if mid in media else f"logo-{n + 1}",
             "date": f"2024-05-20T10:{n:02d}:00", "date_gmt": f"2024-05-20T10:{n:02d}:00", "content": "",
-            "featured": mid, "categories": [], "path": "", "translations": {}, "documents": [],
+            "featured": mid, "categories": [], "path": "", "name": "", "translations": {}, "documents": [],
             "menu_order": n + 1, "meta": {"harlow_element": w.get("data-id")},
         })
 

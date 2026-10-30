@@ -23,7 +23,14 @@ lists and the client logos identical to the reference (`verify_lists.py`: 1,182 
 footer (`verify_chrome.py`: 47 pages, 0 differences). Pictures' loading hints follow
 WordPress's rules (README, "Deliberate differences"). Team members (28 on live) are a type
 with no items: no page of the 49 shows one.
-Next: stage 3 (the pages read into blocks), after Hla's go.
+Stage 3 done on 2026-10-30 (tag `stage-3`): the 22 pages are blocks, one per Elementor
+element (17 kinds), read from the reference by `_tools/gen_blocks.py`, which stops on
+anything it cannot express; the major clients section is one synced pattern; the section
+library (72 shapes) and one starter per kind (K1-K6) are patterns. Every page's content is
+identical to the reference element by element (`verify_wp.py`: 4,817 elements) and in every
+computed property and box at 1440, 900 and 479 (`verify_render.py`). The item pages, the
+404 page and the blog's second page get their templates in stage 5.
+Next: stage 4 (the blocks in the editor), after Hla's go.
 
 Starting point: `html-v1` (github.com/hla-sh93/harlow-website), the 49 English pages
 matching live at 1440x900 and 479x900. It stays in the repository as the reference every

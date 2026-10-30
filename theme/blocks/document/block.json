@@ -1,0 +1,25 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "harlow/document",
+	"title": "Elementor document",
+	"category": "layout",
+	"description": "The box around a shared section's blocks.",
+	"textdomain": "harlow",
+	"attributes": {
+		"docType": {
+			"type": "string",
+			"default": "container"
+		},
+		"docId": {
+			"type": "integer",
+			"default": 0
+		}
+	},
+	"supports": {
+		"html": false,
+		"className": false,
+		"customClassName": false
+	},
+	"render": "file:../../includes/sections/document.php"
+}

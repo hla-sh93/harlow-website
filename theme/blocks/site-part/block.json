@@ -1,0 +1,29 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "harlow/site-part",
+	"title": "Site header or footer",
+	"category": "layout",
+	"description": "The site's header or footer, inside a page that builds its own (the home page).",
+	"textdomain": "harlow",
+	"attributes": {
+		"part": {
+			"type": "string",
+			"enum": [
+				"header",
+				"footer"
+			],
+			"default": "header"
+		},
+		"embedded": {
+			"type": "boolean",
+			"default": false
+		}
+	},
+	"supports": {
+		"html": false,
+		"className": false,
+		"customClassName": false
+	},
+	"render": "file:../../includes/sections/site-part.php"
+}

@@ -35,12 +35,19 @@
 
 	<!--
 		Helpers that print only what WordPress has escaped (or nothing), on every path:
-		harlow_card_image() returns wp_get_attachment_image() or an empty string.
+		harlow_card_image() returns wp_get_attachment_image() or an empty string;
+		harlow_element_attributes() and harlow_link_attributes() escape every value;
+		harlow_icon() is wp_kses() with the icon elements; harlow_block_image() is
+		wp_get_attachment_image() or an <img> built of escaped values.
 	-->
 	<rule ref="WordPress.Security.EscapeOutput">
 		<properties>
 			<property name="customAutoEscapedFunctions" type="array">
 				<element value="harlow_card_image"/>
+				<element value="harlow_element_attributes"/>
+				<element value="harlow_link_attributes"/>
+				<element value="harlow_icon"/>
+				<element value="harlow_block_image"/>
 			</property>
 		</properties>
 	</rule>

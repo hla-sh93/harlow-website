@@ -7,6 +7,9 @@
  * phone, and each prints it twice, the second time for its burger (functions/nav.php).
  * The logo is Appearance → Customize → Header and footer.
  *
+ * Inside the home page, which builds its header into its own sections (harlow/site-part),
+ * the header is not a theme location and has no location class, as on live.
+ *
  * @package Harlow
  */
 
@@ -14,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 ?>
-<header data-elementor-type="header" data-elementor-id="1179" class="elementor elementor-1179 elementor-location-header" data-elementor-post-type="elementor_library">
+<header data-elementor-type="header" data-elementor-id="1179" class="elementor elementor-1179<?php echo empty( $args['embedded'] ) ? ' elementor-location-header' : ''; ?>" data-elementor-post-type="elementor_library">
 	<div class="elementor-element e-con-full nav-header e-flex e-con e-parent hl-v-container-widget-flex-grow-1 hl-v-container-widget-width-initial hl-v-display-flex hl-v-flex-direction-row hl-v-flex-wrap-mobile-wrap hl-v-position-fixed hl-v-z-index-10 hl-ltr-left-0 hl-top-0 hl-v-width-100pct--d hl-v-margin-bottom-0 hl-v-margin-left-0 hl-v-margin-right-0 hl-v-margin-top-0 hl-v-padding-bottom-0 hl-v-padding-left-0 hl-v-padding-right-0 hl-v-padding-top-0 hl-bgc-0165a100--bg" data-id="de6340e" data-element_type="container" data-e-type="container" id="nav-header">
 		<div class="elementor-element e-flex e-con-boxed e-con e-child hl-v-align-items-center hl-v-container-widget-flex-grow-1 hl-v-container-widget-width-calc-1-var-conta-3baaee hl-v-content-width-1151--d hl-v-display-flex hl-v-flex-direction-row hl-v-flex-wrap-mobile-wrap hl-v-justify-content-space-between hl-v-margin-bottom-0 hl-v-margin-left-0 hl-v-margin-right-0 hl-v-margin-top-0 hl-v-padding-bottom-0 hl-v-padding-bottom-0--t hl-v-padding-bottom-0--m hl-v-padding-left-0 hl-v-padding-left-10--t hl-v-padding-left-10--m hl-v-padding-right-0 hl-v-padding-right-10--t hl-v-padding-right-10--m hl-v-padding-top-0 hl-v-padding-top-0--t hl-v-padding-top-0--m" data-id="30e6ef7" data-element_type="container" data-e-type="container">
 			<div class="e-con-inner">

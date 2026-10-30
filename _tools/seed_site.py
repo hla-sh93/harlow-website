@@ -94,6 +94,7 @@ def main():
         lang = ref.xpath("//header//a[starts-with(@title, 'Switch to')]/@href")
         site_pages.append({
             "name": p["name"],
+            "kind": p["kind"],
             "path": p["path"],
             "title": htmllib.unescape(rec["rest_title"]),
             "live_id": rec["wp_id"],
@@ -112,6 +113,10 @@ def main():
     for a in doc.xpath(f"//*[@data-id='{LEGAL_LIST}']//li/a"):
         legal.append({"title": " ".join(a.text_content().split()), "page": target(a.get("href"), names)["path"]})
     menus.append({"location": "footer-legal", "name": "Footer links", "items": legal})
+    # the careers pages' side menu, from a page where none of its items is current
+    side = html.parse(str(ROOT / "harlows-people.html"))
+    ul = side.xpath("//ul[@id='menu-1-86fbe0d']")[0]
+    menus.append({"location": "careers", "name": "Careers", "items": menu_items(ul, names)})
 
     lang_li = doc.xpath("//ul[@id='menu-1-f08025a']/li[contains(@class, 'wpml-ls-menu-item')]")[0]
     data = {

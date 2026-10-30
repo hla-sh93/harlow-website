@@ -33,14 +33,6 @@ function harlow_loop_templates() {
 }
 
 /**
- * Register the list block.
- */
-function harlow_register_loop_block() {
-	register_block_type( get_theme_file_path( 'blocks/loop' ) );
-}
-add_action( 'init', 'harlow_register_loop_block' );
-
-/**
  * Is the list being printed a carousel? Set by the block while it prints its items.
  *
  * @param bool|null $set A new value, or null to read.
