@@ -103,13 +103,15 @@ function harlow_is_document( $document ) {
 }
 
 /**
- * The stylesheets and scripts of every page.
+ * The stylesheets, in the reference's order, with the page-wide rules of these documents.
+ *
+ * @param string[] $documents Documents (post-1224, loop-2279, ...).
  */
-function harlow_enqueue_assets() {
+function harlow_enqueue_styles( $documents ) {
 	foreach ( HARLOW_CSS_FIRST as $layer ) {
 		harlow_enqueue_css( $layer, $layer );
 	}
-	foreach ( harlow_page_documents() as $document ) {
+	foreach ( $documents as $document ) {
 		harlow_enqueue_css( 'globals-' . $document, 'design/globals-' . $document );
 	}
 	foreach ( HARLOW_CSS_DESIGN as $axis ) {
@@ -118,6 +120,13 @@ function harlow_enqueue_assets() {
 	foreach ( HARLOW_CSS_LAST as $layer ) {
 		harlow_enqueue_css( $layer, $layer );
 	}
+}
+
+/**
+ * The stylesheets and scripts of every page.
+ */
+function harlow_enqueue_assets() {
+	harlow_enqueue_styles( harlow_page_documents() );
 
 	foreach ( HARLOW_SCRIPTS as $module ) {
 		$path = 'assets/js/' . $module . '.js';
@@ -134,6 +143,57 @@ function harlow_enqueue_assets() {
 	}
 }
 add_action( 'wp_enqueue_scripts', 'harlow_enqueue_assets' );
+
+/**
+ * The editor's canvas: the page's own stylesheets, with the page-wide rules of the
+ * documents of the page being edited, so the blocks are styled as the page styles them,
+ * and editor/canvas.css for what the page's scripts draw.
+ *
+ * WordPress collects the canvas's assets on this action with
+ * should_load_block_editor_scripts_and_styles off; on the editor's own screen (on), the
+ * page's rules would style the editor itself, and on the site, wp_enqueue_scripts has them.
+ */
+function harlow_canvas_assets() {
+	if ( ! is_admin() || wp_should_load_block_editor_scripts_and_styles() ) {
+		return;
+	}
+	$post      = get_post();
+	$documents = $post ? get_post_meta( $post->ID, '_harlow_documents', true ) : '';
+	harlow_enqueue_styles( is_array( $documents ) && $documents ? array_filter( $documents, 'harlow_is_document' ) : HARLOW_CHROME_DOCUMENTS );
+	harlow_brand_style();
+	wp_enqueue_style( 'harlow-canvas', get_theme_file_uri( 'editor/canvas.css' ), array( 'harlow-animations' ), harlow_asset_version( 'editor/canvas.css' ) );
+
+	// The canvas's own document has no language; the page's has the site's, which the
+	// browser shapes text by.
+	wp_register_script( 'harlow-canvas', false, array(), HARLOW_VERSION, false );
+	wp_enqueue_script( 'harlow-canvas' );
+	wp_add_inline_script( 'harlow-canvas', 'document.documentElement.lang = ' . wp_json_encode( get_bloginfo( 'language' ) ) . ';' );
+}
+add_action( 'enqueue_block_assets', 'harlow_canvas_assets' );
+
+/**
+ * The blocks' edit views (theme/build/, built from theme/editor/ by `npm run build`), and
+ * what they need to show links as the page does: the theme's address and every page's.
+ */
+function harlow_editor_assets() {
+	$asset = require get_theme_file_path( 'build/index.asset.php' );
+	wp_enqueue_script( 'harlow-editor', get_theme_file_uri( 'build/index.js' ), $asset['dependencies'], $asset['version'], true );
+	wp_add_inline_script(
+		'harlow-editor',
+		'window.harlowEditor = ' . wp_json_encode(
+			array(
+				'themeUri' => get_theme_file_uri(),
+				'pages'    => harlow_page_urls(),
+			)
+		) . ';',
+		'before'
+	);
+	wp_set_script_translations( 'harlow-editor', 'harlow' );
+	if ( file_exists( get_theme_file_path( 'build/index.css' ) ) ) {
+		wp_enqueue_style( 'harlow-editor', get_theme_file_uri( 'build/index.css' ), array( 'wp-components' ), $asset['version'] );
+	}
+}
+add_action( 'enqueue_block_editor_assets', 'harlow_editor_assets' );
 
 /**
  * What WordPress and the plugins would add on top of the reference's stylesheets.

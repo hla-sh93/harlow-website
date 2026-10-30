@@ -80,13 +80,12 @@ function harlow_link_url( $link ) {
 }
 
 /**
- * The address of a page or item of the site by its reference name (about-us, index,
- * news-<item>), found by the name the installer gave it, so a changed address follows.
+ * The pages and items of the site by the reference name the installer gave them
+ * (about-us, news-<item>), as post ids; one query, kept for the request.
  *
- * @param string $name The reference name.
- * @return string '' when nothing has that name.
+ * @return array<string,int>
  */
-function harlow_page_url( $name ) {
+function harlow_named_posts() {
 	static $by_name = null;
 	if ( null === $by_name ) {
 		$by_name = array();
@@ -100,13 +99,38 @@ function harlow_page_url( $name ) {
 			)
 		);
 		foreach ( $found as $id ) {
-			$by_name[ (string) get_post_meta( $id, '_harlow_name', true ) ] = $id;
+			$by_name[ (string) get_post_meta( $id, '_harlow_name', true ) ] = (int) $id;
 		}
 	}
+	return $by_name;
+}
+
+/**
+ * The address of a page or item of the site by its reference name (about-us, index,
+ * news-<item>), found by the name the installer gave it, so a changed address follows.
+ *
+ * @param string $name The reference name.
+ * @return string '' when nothing has that name.
+ */
+function harlow_page_url( $name ) {
 	if ( 'index' === $name ) {
 		return home_url( '/' );
 	}
+	$by_name = harlow_named_posts();
 	return isset( $by_name[ $name ] ) ? (string) get_permalink( $by_name[ $name ] ) : '';
+}
+
+/**
+ * Every named page's address, for the editor (its links are shown as the page prints them).
+ *
+ * @return array<string,string>
+ */
+function harlow_page_urls() {
+	$urls = array( 'index' => home_url( '/' ) );
+	foreach ( array_keys( harlow_named_posts() ) as $name ) {
+		$urls[ $name ] = harlow_page_url( $name );
+	}
+	return $urls;
 }
 
 /**
@@ -295,8 +319,16 @@ function harlow_document_id() {
 
 /**
  * The page's sections inside Elementor's document element, as live prints them.
+ *
+ * The installed pages, and every page made since (the page's template), hold that element
+ * as their first block (harlow/document), so the editor's canvas has it too; content that
+ * does not is put inside one here.
  */
 function harlow_the_document() {
+	if ( 0 === strpos( ltrim( (string) get_post_field( 'post_content' ) ), '<!-- wp:harlow/document ' ) ) {
+		the_content();
+		return;
+	}
 	$document = harlow_document_id();
 	echo '<div data-elementor-type="wp-page" data-elementor-id="' . (int) $document . '" class="elementor elementor-' . (int) $document . '" data-elementor-post-type="page">';
 	the_content();
@@ -311,3 +343,29 @@ function harlow_pattern_categories() {
 	register_block_pattern_category( 'harlow-starters', array( 'label' => __( 'Harlow page layouts', 'harlow' ) ) );
 }
 add_action( 'init', 'harlow_pattern_categories' );
+
+/**
+ * A new page starts with its Elementor document (harlow/document), the box its sections go
+ * in; nothing is added or removed beside it ('insert': 'all' would rewrite the content on
+ * every load, and every block inside unlocks itself again).
+ *
+ * @param array<string,mixed> $args      The post type's arguments.
+ * @param string              $post_type The post type.
+ * @return array<string,mixed>
+ */
+function harlow_page_template( $args, $post_type ) {
+	if ( 'page' === $post_type ) {
+		$args['template']      = array(
+			array(
+				'harlow/document',
+				array(
+					'docType'  => 'wp-page',
+					'postType' => 'page',
+				),
+			),
+		);
+		$args['template_lock'] = 'insert';
+	}
+	return $args;
+}
+add_filter( 'register_post_type_args', 'harlow_page_template', 10, 2 );

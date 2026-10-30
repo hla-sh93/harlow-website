@@ -30,12 +30,15 @@
 		"iconOpened": {
 			"type": "string",
 			"default": ""
-		},
-		"items": {
-			"type": "array",
-			"default": []
 		}
 	},
+	"providesContext": {
+		"harlow/iconClosed": "iconClosed",
+		"harlow/iconOpened": "iconOpened"
+	},
+	"allowedBlocks": [
+		"harlow/accordion-item"
+	],
 	"supports": {
 		"html": false,
 		"className": false,

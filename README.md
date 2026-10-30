@@ -50,8 +50,8 @@ rebuild), phpMyAdmin at http://localhost:8091 and every e-mail the site sends at
 http://localhost:8035. `./_tools/env.sh up` and `./_tools/env.sh down` start and stop
 it; `python -u _tools/verify_env.py` proves it works.
 
-What can be changed from the dashboard so far (stage 1), with the header and footer
-staying identical to the reference until something is changed:
+What can be changed from the dashboard so far, with every page staying identical to the
+reference until something is changed:
 
 | what | where |
 |---|---|
@@ -63,14 +63,32 @@ staying identical to the reference until something is changed:
 | the picture of the page transition | Appearance → Customize → Page transition |
 | the brand colours: blue, dark, accent, light surface, text | Appearance → Customize → Brand colours |
 | posts, news, projects, gallery items, jobs, business models (with their icon and page), Harlow's people, testimonials (with their position), client logos (in their order) | their own menus in the dashboard; every list and carousel shows them by itself |
+| every word of a page: headings, paragraphs and lists, buttons, questions and their answers, the lines of icon lists | the page in the editor (Pages → Edit): click the words and type |
+| a page's pictures, their words for screen readers, and the links of pictures and buttons | the editor: "Replace picture" in the toolbar (Media Library), the rest in the sidebar |
+| the icons of buttons, icon lists, social links and the accordion | the editor's sidebar, from the icons the site uses |
+| which menu a menu shows; which items a list shows, how many and in what order | the editor's sidebar |
+| an element's design: its classes from the vocabulary (`_vocab/vocabulary.md`) | the editor's sidebar, Advanced → Design classes |
+| new sections and pages: one section of every shape the pages have, one starter per kind of page | the editor's Patterns: Harlow sections, Harlow page layouts |
 
 The 22 pages are built from blocks and look like the reference (the 25 item pages, the 404
-page and the blog's second page get their templates in stage 5). Editing a page's blocks in
-the editor comes in stage 4; until then the editor shows them as blocks it cannot draw.
-The major clients section is one synced pattern (Appearance → Patterns), and the section
-library and page starters are in the editor's Patterns, under Harlow sections and Harlow
-page layouts. The items and pictures are live's, with live's ids, addresses
-and dates; the pictures are in the Media Library with every size live has.
+page and the blog's second page get their templates in stage 5). In the editor each page
+looks as it does on the site, drawn by the site's own stylesheets: the canvas is checked
+against the page at three widths, element by element. Menus, lists, the header and footer
+are drawn as the site prints them; their contents are kept where the table says. The major
+clients section is one synced pattern (Appearance → Patterns): changed once, it changes on
+every page that shows it. A few pictures and words lie under another element of the
+design, on the site as in the editor (the carousels' faded edges, two decorative lines);
+the editor's List View selects them. The items and pictures are live's, with live's ids,
+addresses and dates; the pictures are in the Media Library with every size live has.
+
+The editor's code is in `theme/editor/` and `theme/blocks/*/edit.js`, built into
+`theme/build/` (committed, so the theme needs no build to be installed). After changing it:
+
+```bash
+npm install
+npm run build
+npm run lint
+```
 
 To rebuild the static pages after changing a generator:
 

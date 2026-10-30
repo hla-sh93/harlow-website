@@ -10,3 +10,4 @@ _vocab/designs.json
 _env/
 vendor/
 _capture/*.log
+node_modules/

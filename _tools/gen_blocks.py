@@ -37,6 +37,8 @@ from listdata import LOGOS, list_attributes
 
 OUT_PAGES = ROOT / "theme" / "pages"
 OUT_PATTERNS = ROOT / "theme" / "patterns"
+OUT_EDITOR = ROOT / "theme" / "editor"
+DESIGN_CSS = ROOT / "assets" / "css" / "design"
 CLIENTS = "5532"           # the "major clients" container document, reused by 21 pages
 WRAPPER_ATTRS = {"class", "data-id", "data-element_type", "data-e-type", "data-widget_type", "data-settings", "id"}
 
@@ -164,9 +166,16 @@ def image_attrs(img, label):
 
 # ---------------------------------------------------------------- the widgets
 
+def words(node):
+    """The words of an element the editor types into (a heading, a button, a question, a line
+    of a list): its markup with the white space HTML does not draw taken out (runs as one
+    space, none at the ends). The editor's rich text shows white space as it is written and
+    turns a line break into <br> when the words are edited; the page draws them the same."""
+    return re.sub(r"[ \t\n\f\r]+", " ", inner_html(node)).strip(" ")
+
+
 def heading(el):
     a = wrapper(el)
-    t = only(widget_body(el), None) if False else None
     body = widget_body(el)
     kids = els(body)
     if len(kids) != 1 or "elementor-heading-title" not in (kids[0].get("class") or ""):
@@ -178,7 +187,7 @@ def heading(el):
     a["tag"] = t.tag
     if m.group(1) != "default":
         a["size"] = m.group(1)
-    a["text"] = inner_html(t)
+    a["text"] = words(t)
     return ("heading", a, [], None, None)
 
 
@@ -195,33 +204,56 @@ def plain_prose(node):
     return True
 
 
+BOX_TAGS = {"div", "section"}
+BOX_ATTR = re.compile(r"^(class|id|data-[a-z0-9_-]+)$")
+DATA_ATTR = re.compile(r"^data-[a-z0-9_-]+$")
+
+
+def prose(holder, label):
+    """The prose inside an element: its blocks and the white space between them."""
+    kids = els(holder)
+    return [prose_block(c, label) for c in kids], gaps(holder, kids, label)
+
+
+def prose_block(c, label):
+    """One piece of prose: a paragraph (with the data attributes the reference gives it), a
+    plain list, a box of other pieces (a div or section that holds only elements), or,
+    for anything else (loose words beside elements, a form field), one element written as
+    HTML (harlow/markup: core's HTML block shows a preview in a frame of its own in the
+    editor, which the page's stylesheets do not reach)."""
+    data = [k for k in c.attrib if k != "class"]
+    if c.tag == "p" and all(DATA_ATTR.match(k) for k in data) and plain_prose(c):
+        attrs = OrderedDict()
+        if c.get("class"):
+            attrs["className"] = c.get("class")
+        if data:
+            attrs["dataAttributes"] = OrderedDict((k, c.get(k)) for k in data)
+        return ("core/paragraph", attrs, [], outer_html(c), None)
+    if c.tag in ("ul", "ol") and not data and all(
+            li.tag == "li" and not li.attrib and plain_prose(li) for li in els(c)):
+        attrs = OrderedDict()
+        if c.tag == "ol":
+            attrs["ordered"] = True
+        if c.get("class"):
+            attrs["className"] = c.get("class")
+        items = [("core/list-item", OrderedDict(), [], outer_html(li), None) for li in els(c)]
+        start = f"<{c.tag}" + (f' class="{c.get("class")}"' if c.get("class") else "") + ">"
+        return ("core/list", attrs, items, (start, f"</{c.tag}>"), gaps(c, els(c), label))
+    if (c.tag in BOX_TAGS and els(c) and all(BOX_ATTR.match(k) for k in c.attrib)
+            and not (c.text or "").strip(" \t\n\f\r") and not any((k.tail or "").strip(" \t\n\f\r") for k in els(c))):
+        attrs = OrderedDict(tag=c.tag)
+        if c.attrib:
+            attrs["htmlAttributes"] = OrderedDict(c.attrib)
+        inner, between = prose(c, label)
+        return ("box", attrs, inner, None, between)
+    return ("markup", OrderedDict(html=outer_html(c)), [], None, None)
+
+
 def text(el):
-    """A text: each paragraph a WordPress paragraph, each plain list a WordPress list, and
-    anything else (a paragraph with data attributes, a section, a form field) an HTML block
-    holding it as it is."""
+    """A text: its prose as WordPress paragraphs and lists, boxes, and HTML elements."""
     a = wrapper(el)
-    body = widget_body(el)
-    kids = els(body)
-    inner = []
-    for c in kids:
-        if c.tag == "p" and set(c.attrib) <= {"class"} and plain_prose(c):
-            attrs = OrderedDict()
-            if c.get("class"):
-                attrs["className"] = c.get("class")
-            inner.append(("core/paragraph", attrs, [], outer_html(c), None))
-        elif c.tag in ("ul", "ol") and set(c.attrib) <= {"class"} and all(
-                li.tag == "li" and not li.attrib and plain_prose(li) for li in els(c)):
-            attrs = OrderedDict()
-            if c.tag == "ol":
-                attrs["ordered"] = True
-            if c.get("class"):
-                attrs["className"] = c.get("class")
-            items = [("core/list-item", OrderedDict(), [], outer_html(li), None) for li in els(c)]
-            start = f"<{c.tag}" + (f' class="{c.get("class")}"' if c.get("class") else "") + ">"
-            inner.append(("core/list", attrs, items, (start, f"</{c.tag}>"), gaps(c, els(c), where(el))))
-        else:
-            inner.append(("core/html", OrderedDict(), [], outer_html(c), None))
-    return ("text", a, inner, None, gaps(body, kids, where(el)))
+    inner, between = prose(widget_body(el), where(el))
+    return ("text", a, inner, None, between)
 
 
 def image(el):
@@ -266,7 +298,7 @@ def button(el):
                 a["icon"] = inner_html(p).strip()
             icon_first = icon_first if icon_first is not None else True
         elif p.get("class") == "elementor-button-text":
-            a["text"] = inner_html(p)
+            a["text"] = words(p)
             icon_first = icon_first if icon_first is not None else False
         else:
             raise Unknown(f"{where(el)}: button part {p.get('class')!r}")
@@ -323,7 +355,7 @@ def icon_list(el):
             if part.get("class") == "elementor-icon-list-icon":
                 item["icon"] = inner_html(part).strip()
             elif part.get("class") == "elementor-icon-list-text":
-                item["text"] = inner_html(part)
+                item["text"] = words(part)
             else:
                 raise Unknown(f"{where(el)}: icon list part {part.get('class')!r}")
         items.append(item)
@@ -360,21 +392,33 @@ def accordion(el):
     a = wrapper(el)
     acc = only(widget_body(el), "div", "elementor-accordion", where(el))
     items = []
-    for it in els(acc):
+    kids = els(acc)
+    for it in kids:
+        label = f"{where(el)} item {len(items) + 1}"
+        if it.get("class") != "elementor-accordion-item" or len(it.attrib) != 1:
+            raise Unknown(f"{label}: <{it.tag} {dict(it.attrib)}>")
         title, content = els(it)
         tab = title.get("data-tab")
         tid = re.fullmatch(r"elementor-tab-title-(\d+)", title.get("id")).group(1)
         icons = els(title)[0]
         closed, opened = els(icons)
         link = els(title)[1]
-        items.append(OrderedDict(tab=int(tab), id=int(tid), title=inner_html(link), content=inner_html(content),
-                                 expanded=title.get("aria-expanded"), titleClass=title.get("class"),
-                                 contentClass=content.get("class"),
-                                 contentStyle=content.get("style", "")))
+        if gaps(it, [title, content], label) != ["\n", "\n", "\n"] or content.get("data-tab") != tab:
+            raise Unknown(f"{label}: not shaped as the accordion item block prints it")
+        attrs = OrderedDict(tab=int(tab), itemId=int(tid), title=words(link))
+        if title.get("aria-expanded") != "false":
+            attrs["expanded"] = title.get("aria-expanded")
+        if title.get("class") != "elementor-tab-title":
+            attrs["titleClass"] = title.get("class")
+        if content.get("class") != "elementor-tab-content elementor-clearfix":
+            attrs["contentClass"] = content.get("class")
+        if content.get("style"):
+            attrs["contentStyle"] = content.get("style")
+        inner, between = prose(content, label)
+        items.append(("accordion-item", attrs, inner, None, between))
     a["iconClosed"] = inner_html(closed).strip()
     a["iconOpened"] = inner_html(opened).strip()
-    a["items"] = items
-    return ("accordion", a, [], None, None)
+    return ("accordion", a, items, None, gaps(acc, kids, where(el)))
 
 
 def raw_widget(name):
@@ -551,7 +595,12 @@ def page_document(doc):
     found = doc.xpath("//body//*[@data-elementor-type='wp-page']")
     if len(found) != 1:
         raise Unknown(f"{len(found)} page documents")
-    return found[0]
+    holder = found[0]
+    doc_id = holder.get("data-elementor-id")
+    if dict(holder.attrib) != {"data-elementor-type": "wp-page", "data-elementor-id": doc_id,
+                               "class": f"elementor elementor-{doc_id}", "data-elementor-post-type": "page"}:
+        raise Unknown(f"page document {dict(holder.attrib)}")
+    return holder
 
 
 def shape(block):
@@ -565,16 +614,19 @@ LOGO_CLASSES = "elementor-element e-transform elementor-widget elementor-widget-
 
 
 def with_logo_list(block):
-    """The major clients' ten logos are Client logos now: the container that held them
-    holds the list of client logos instead (stage 2)."""
+    """The major clients' ten logos are Client logos now: the container that held them is
+    the list of client logos, printed as that container around the cards (stage 2), so the
+    cards are its children in the editor too, where the design's child rules need them."""
     name, attrs, inner, html_part, between = block
     images = [i for i in inner if i[0] == "image"]
     if name == "container" and len(images) >= 5 and len(images) == len(inner) and all(
             set(i[1]["classes"].split()) == set(LOGO_CLASSES.split()) for i in images):
         card, post_type, count, by, order = LOGOS
-        loop_block = ("loop", OrderedDict(layout="plain", postType=post_type, template=card, perPage=count,
-                                          orderby=by, order=order), [], None, None)
-        return (name, attrs, [loop_block], None, [between[0], between[-1]])
+        if between[0] != "\n" or between[-1] != "\n" or attrs.get("htmlId") or attrs.get("video"):
+            raise Unknown(f"logos container {attrs['element']}: not shaped as the list's box prints it")
+        return ("loop", OrderedDict(widget=attrs["element"], classes=attrs["classes"], settings=attrs.get("settings", ""),
+                                    layout="box", boxed=attrs.get("boxed", False), postType=post_type, template=card,
+                                    perPage=count, orderby=by, order=order), [], None, None)
     return (name, attrs, [with_logo_list(i) for i in inner], html_part, between)
 
 
@@ -591,6 +643,30 @@ def first_heading(block):
         if h:
             return h
     return ""
+
+
+def icons_of(block, found):
+    """Every icon a block and the blocks inside it use, in the order they come."""
+    name, attrs, inner, *rest = block
+    for key in ("icon", "iconClosed", "iconOpened"):
+        if attrs.get(key):
+            found.setdefault(attrs[key], None)
+    for item in attrs.get("items", []):
+        if isinstance(item, dict) and item.get("icon"):
+            found.setdefault(item["icon"], None)
+    for b in inner:
+        icons_of(b, found)
+
+
+def design_classes():
+    """The class names of the design vocabulary (assets/css/design/), sorted."""
+    names = set()
+    for css in sorted(DESIGN_CSS.glob("*.css")):
+        if css.name.startswith("globals-"):
+            continue
+        for m in re.finditer(r"\.(hl-(?:[A-Za-z0-9_-]|\\.)+)", css.read_text(encoding="utf-8")):
+            names.add(re.sub(r"\\(.)", r"\1", m.group(1)))
+    return sorted(names)
 
 
 def pattern_file(slug, title, category, description, content):
@@ -635,7 +711,9 @@ def main(only_names):
             count(b)
             sections.setdefault(shape(b), (name, b))
         content = joined(blocks, between)
-        (OUT_PAGES / f"{name}.html").write_text(content, encoding="utf-8", newline="\n")
+        page_block = ("document", OrderedDict(docType="wp-page", docId=int(holder.get("data-elementor-id")),
+                                              postType="page"), blocks, None, between)
+        (OUT_PAGES / f"{name}.html").write_text(serialize(page_block), encoding="utf-8", newline="\n")
         starters.setdefault(kinds[name], (name, content))
         written += 1
     if clients:
@@ -652,10 +730,26 @@ def main(only_names):
                              f"A section shaped like this one of the {name} page.", serialize(block)),
                 encoding="utf-8", newline="\n")
         for kind, (name, content) in starters.items():
+            kind_name = KIND_NAMES.get(kind, kind)
+            page_name = kind_name if kind_name.lower().endswith("page") else kind_name + " page"
             (OUT_PATTERNS / f"starter-{kind.lower()}.php").write_text(
-                pattern_file(f"starter-{kind.lower()}", f"{KIND_NAMES.get(kind, kind)} page", "harlow-starters",
-                             f"Every section of a {KIND_NAMES.get(kind, kind).lower()} page, as on {name}.", content),
+                pattern_file(f"starter-{kind.lower()}", page_name, "harlow-starters",
+                             f"Every section of a {page_name.lower()}, as on {name}.", content),
                 encoding="utf-8", newline="\n")
+
+    if not only_names:
+        icons = OrderedDict()
+        for _, (name, block) in sections.items():
+            icons_of(block, icons)
+        if clients:
+            icons_of(clients, icons)
+        classes = design_classes()
+        (OUT_EDITOR / "icons.json").write_text(json.dumps(list(icons), ensure_ascii=False, indent="\t") + "\n",
+                                              encoding="utf-8", newline="\n")
+        (OUT_EDITOR / "design-classes.json").write_text(json.dumps(classes, indent="\t") + "\n",
+                                                       encoding="utf-8", newline="\n")
+        print(f"editor: {len(icons)} icons -> theme/editor/icons.json; "
+              f"{len(classes)} design classes -> theme/editor/design-classes.json")
 
     for p in problems:
         print("  STOP", p)

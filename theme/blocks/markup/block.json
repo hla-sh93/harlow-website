@@ -1,0 +1,21 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "harlow/markup",
+	"title": "HTML",
+	"category": "text",
+	"description": "One element of a text written as HTML, as the text of an older page has it (words beside a form button, a spacer).",
+	"textdomain": "harlow",
+	"attributes": {
+		"html": {
+			"type": "string",
+			"default": ""
+		}
+	},
+	"supports": {
+		"html": false,
+		"className": false,
+		"customClassName": false
+	},
+	"render": "file:../../includes/sections/markup.php"
+}

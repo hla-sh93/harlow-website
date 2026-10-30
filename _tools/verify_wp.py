@@ -13,7 +13,11 @@ footer a new tab and nofollow, a side effect of the footer being part of that pa
 content; the home page here prints its footer as every page does (README, "Deliberate
 differences"). Those attributes are counted as accepted, not passed over.
 
-    python -u _tools/verify_wp.py [name ...]
+With --space (pages saved through the editor, verify_editor.py --save), a difference only
+in the white space between elements is counted apart; whether it is drawn is
+verify_render.py's to say.
+
+    python -u _tools/verify_wp.py [--space] [name ...]
 """
 
 import json
@@ -52,10 +56,10 @@ def accepted(name, doc, lines):
     return keep, ok
 
 
-def main(only):
+def main(only, space=False):
     site = json.loads((ROOT / "theme" / "install" / "site.json").read_text(encoding="utf-8"))
     known = known_paths()
-    rows, accepts = [], {}
+    rows, accepts, spaces = [], {}, []
     for page in site["pages"]:
         name = page["name"]
         if only and name not in only:
@@ -70,7 +74,7 @@ def main(only):
         if len(got) != 1 or len(want) != 1:
             rows.append((name, 0, [f"{len(got)} page documents, the reference {len(want)}"], []))
             continue
-        diff, hint = compare_trees(got[0], want[0], known)
+        diff, hint = compare_trees(got[0], want[0], known, spaces if space else None)
         diff, ok = accepted(name, want[0], diff)
         problems += diff
         hints += hint
@@ -89,10 +93,11 @@ def main(only):
             print("       ", p[:240])
     print(f"\npages: {len(rows)} pages, {sum(r[1] for r in rows)} elements - {bad} of {len(rows)} pages differ "
           f"(loading hints differ on {sum(1 for r in rows if r[3])} pages: {sum(len(r[3]) for r in rows)} attributes; "
-          f"{sum(len(v) for v in accepts.values())} accepted)")
+          f"{sum(len(v) for v in accepts.values())} accepted)"
+          + (f"; white space between elements differs in {len(spaces)} places" if space else ""))
     return 1 if bad or not rows else 0
 
 
 if __name__ == "__main__":
     sys.stdout.reconfigure(encoding="utf-8")
-    sys.exit(main(set(sys.argv[1:])))
+    sys.exit(main({a for a in sys.argv[1:] if not a.startswith("--")}, "--space" in sys.argv))

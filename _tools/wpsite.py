@@ -131,12 +131,24 @@ def norm_text(s):
     return re.sub(r"[ \t\n\f\r]+", " ", s or "")
 
 
+# White space at the start or end of a heading's, paragraph's or list item's words is not
+# drawn (HTML takes it off a line's ends); the editor keeps those words without it.
+EDGE_TRIMMED = {"h1", "h2", "h3", "h4", "h5", "h6", "p", "li"}
+
+
+def edge_trimmed(el):
+    return el.tag in EDGE_TRIMMED or "elementor-heading-title" in (el.get("class") or "").split()
+
+
 def elements(root):
     return [e for e in root.iter() if isinstance(e.tag, str)]
 
 
-def compare_trees(wp, ref, known):
-    """Two copies of one piece of a page, element by element: (differences, hint differences)."""
+def compare_trees(wp, ref, known, space=None):
+    """Two copies of one piece of a page, element by element: (differences, hint differences).
+    With a list as `space`, a difference only in white space between elements (one space or
+    none, after folding) goes there instead (pages saved through the editor, which writes its
+    own line breaks between blocks)."""
     a, b = elements(wp), elements(ref)
     if len(a) != len(b):
         tags = lambda els: [e.tag for e in els]
@@ -153,10 +165,21 @@ def compare_trees(wp, ref, known):
             if ax.get(k) != ay.get(k):
                 line = f"#{i} <{x.tag}> {k}: {str(ax.get(k))[:90]!r} / reference {str(ay.get(k))[:90]!r}"
                 (hints if k in HINTS else out).append(line)
-        if norm_text(x.text) != norm_text(y.text):
-            out.append(f"#{i} <{x.tag}> text: {norm_text(x.text)[:60]!r} / reference {norm_text(y.text)[:60]!r}")
-        if i and norm_text(x.tail) != norm_text(y.tail):
-            out.append(f"#{i} </{x.tag}> followed by {norm_text(x.tail)[:40]!r} / reference {norm_text(y.tail)[:40]!r}")
+        tx, ty = norm_text(x.text), norm_text(y.text)
+        if edge_trimmed(x):
+            tx, ty = tx.lstrip(" "), ty.lstrip(" ")
+            if not len(x):
+                tx, ty = tx.rstrip(" "), ty.rstrip(" ")
+        if tx != ty:
+            line = f"#{i} <{x.tag}> text: {tx[:60]!r} / reference {ty[:60]!r}"
+            (space if space is not None and not tx.strip(" ") and not ty.strip(" ") else out).append(line)
+        ax_tail, ay_tail = norm_text(x.tail), norm_text(y.tail)
+        parent = x.getparent()
+        if parent is not None and x.getnext() is None and edge_trimmed(parent):
+            ax_tail, ay_tail = ax_tail.rstrip(" "), ay_tail.rstrip(" ")
+        if i and ax_tail != ay_tail:
+            line = f"#{i} </{x.tag}> followed by {ax_tail[:40]!r} / reference {ay_tail[:40]!r}"
+            (space if space is not None and not ax_tail.strip(" ") and not ay_tail.strip(" ") else out).append(line)
     return out, hints
 
 
@@ -172,3 +195,15 @@ def wp_cli(*args):
 
 def tree_text(el):
     return etree.tostring(el, method="html", encoding="unicode")
+
+
+def login_cookies():
+    """Browser cookies of the site's first administrator, made by WordPress itself through
+    WP-CLI (a new session, four hours long), for the checks that drive the dashboard. No
+    password is read or typed."""
+    import json
+    out = wp_cli("eval", "$ids = get_users( array( 'role' => 'administrator', 'number' => 1, 'fields' => 'ID' ) );"
+                 " $exp = time() + 4 * HOUR_IN_SECONDS;"
+                 " echo wp_json_encode( array( AUTH_COOKIE => wp_generate_auth_cookie( (int) $ids[0], $exp, 'auth' ),"
+                 " LOGGED_IN_COOKIE => wp_generate_auth_cookie( (int) $ids[0], $exp, 'logged_in' ) ) );")
+    return [{"name": k, "value": v, "domain": "localhost", "path": "/"} for k, v in json.loads(out).items()]

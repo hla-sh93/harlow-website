@@ -1,0 +1,25 @@
+/* The editor's sidebar: the site's icons to choose from, and markup fields. */
+.harlow-icon-picker {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 4px;
+	margin-bottom: 16px;
+}
+
+.harlow-icon-picker__icon.components-button {
+	width: 40px;
+	height: 40px;
+	justify-content: center;
+	padding: 6px;
+}
+
+.harlow-icon-picker__icon svg {
+	width: 22px;
+	height: 22px;
+	fill: currentColor;
+}
+
+.harlow-code textarea {
+	font-family: Menlo, Consolas, monospace;
+	font-size: 12px;
+}

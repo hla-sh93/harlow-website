@@ -1,0 +1,25 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "harlow/box",
+	"title": "Box",
+	"category": "text",
+	"description": "A box around paragraphs, as the text of an older page has it.",
+	"textdomain": "harlow",
+	"attributes": {
+		"tag": {
+			"type": "string",
+			"default": "div"
+		},
+		"htmlAttributes": {
+			"type": "object",
+			"default": {}
+		}
+	},
+	"supports": {
+		"html": false,
+		"className": false,
+		"customClassName": false
+	},
+	"render": "file:../../includes/sections/box.php"
+}

@@ -1,0 +1,52 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "harlow/accordion-item",
+	"title": "Question",
+	"category": "text",
+	"description": "A question of an accordion and its answer.",
+	"textdomain": "harlow",
+	"parent": [
+		"harlow/accordion"
+	],
+	"attributes": {
+		"tab": {
+			"type": "integer",
+			"default": 1
+		},
+		"itemId": {
+			"type": "integer",
+			"default": 0
+		},
+		"title": {
+			"type": "string",
+			"default": ""
+		},
+		"expanded": {
+			"type": "string",
+			"default": "false"
+		},
+		"titleClass": {
+			"type": "string",
+			"default": "elementor-tab-title"
+		},
+		"contentClass": {
+			"type": "string",
+			"default": "elementor-tab-content elementor-clearfix"
+		},
+		"contentStyle": {
+			"type": "string",
+			"default": ""
+		}
+	},
+	"usesContext": [
+		"harlow/iconClosed",
+		"harlow/iconOpened"
+	],
+	"supports": {
+		"html": false,
+		"className": false,
+		"customClassName": false
+	},
+	"render": "file:../../includes/sections/accordion-item.php"
+}

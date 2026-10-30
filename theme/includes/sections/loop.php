@@ -5,8 +5,9 @@
  *
  * Attributes: the widget's element id, design classes and settings (from the page it is
  * on); which items (type, how many, by date or by their order, which first); which card;
- * grid, carousel, or plain (the cards alone, inside a container of the page: the client
- * logos); the pager under a grid.
+ * grid, carousel, plain (the cards alone), or box (the cards in a container of the page,
+ * the list's own element: the client logos, a grid of the major clients section, whose
+ * id, classes and settings are then the container's); the pager under a grid.
  *
  * @package Harlow
  *
@@ -20,7 +21,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 $harlow_templates = harlow_loop_templates();
 $harlow_template  = isset( $harlow_templates[ $attributes['template'] ] ) ? $attributes['template'] : 'post-card';
 $harlow_carousel  = 'carousel' === $attributes['layout'];
-$harlow_plain     = 'plain' === $attributes['layout'];
+$harlow_plain     = in_array( $attributes['layout'], array( 'plain', 'box' ), true );
 $harlow_page      = max( 1, (int) get_query_var( 'page' ), (int) get_query_var( 'paged' ) );
 $harlow_items     = new WP_Query(
 	array(
@@ -37,11 +38,25 @@ $harlow_pages     = (int) $harlow_items->max_num_pages;
 $harlow_permalink = trailingslashit( (string) get_permalink() );
 
 if ( $harlow_plain ) {
+	ob_start();
 	while ( $harlow_items->have_posts() ) {
 		$harlow_items->the_post();
 		get_template_part( 'includes/loops/' . $harlow_template );
 	}
 	wp_reset_postdata();
+	$harlow_cards = (string) ob_get_clean();
+	if ( 'box' === $attributes['layout'] ) {
+		$harlow_box   = array(
+			'classes'  => $attributes['classes'],
+			'element'  => $attributes['widget'],
+			'settings' => $attributes['settings'],
+			'htmlId'   => '',
+		);
+		$harlow_cards = '<div' . harlow_element_attributes( $harlow_box, 'container' ) . '>'
+			. ( $attributes['boxed'] ? "\n" . '<div class="e-con-inner">' . "\n" . $harlow_cards . "\n" . '</div>' . "\n" : "\n" . $harlow_cards . "\n" )
+			. '</div>';
+	}
+	echo $harlow_cards; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- the cards are escaped where they are printed (includes/loops/), the box's attributes in harlow_element_attributes().
 	return;
 }
 ?>

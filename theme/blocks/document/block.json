@@ -4,7 +4,7 @@
 	"name": "harlow/document",
 	"title": "Elementor document",
 	"category": "layout",
-	"description": "The box around a shared section's blocks.",
+	"description": "The box around a page's sections, or a shared section's blocks.",
 	"textdomain": "harlow",
 	"attributes": {
 		"docType": {
@@ -14,6 +14,10 @@
 		"docId": {
 			"type": "integer",
 			"default": 0
+		},
+		"postType": {
+			"type": "string",
+			"default": "elementor_library"
 		}
 	},
 	"supports": {

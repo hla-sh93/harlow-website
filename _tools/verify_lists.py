@@ -42,6 +42,7 @@ LISTS = [
 # The client logos: the cards alone, inside the "major clients" section (stage 3); checked
 # on a page that has no other list, against the section's logos on the reference.
 LOGOS = ("sitemap", "client-logo", "client_logo", 100, "menu_order", "ASC")
+LOGOS_BOX = "365043b"   # the container of the logos, which the list prints around them
 
 SET_CONTENT = r"""
 $d = json_decode( file_get_contents( '/env/verify-lists.json' ), true );
@@ -132,7 +133,10 @@ def main():
                  "orderby": by, "order": order, "pagination": pager}
         content.setdefault(paths[page], []).append(block(attrs))
     page, card, post_type, count, by, order = LOGOS
-    content.setdefault(paths[page], []).append(block({"layout": "plain", "postType": post_type, "template": card,
+    box = reference("about-us").xpath(f"//*[@data-id='{LOGOS_BOX}']")[0]
+    content.setdefault(paths[page], []).append(block({"widget": LOGOS_BOX, "classes": box.get("class"),
+                                                      "settings": box.get("data-settings", ""), "layout": "box",
+                                                      "boxed": True, "postType": post_type, "template": card,
                                                       "perPage": count, "orderby": by, "order": order}))
     before = {path: body(fetch(path)[1]) for path in content}
     saved = json.loads(php(SET_CONTENT, {path: "\n\n".join(blocks) for path, blocks in content.items()}))
@@ -150,17 +154,10 @@ def main():
 
         page = LOGOS[0]
         wp_doc = parse(fetch(paths[page])[1])
-        got = [w for w in wp_doc.xpath("//body/*[@data-elementor-type='wp-page']/*[@data-widget_type='image.default']")]
-        want = reference("about-us").xpath("//*[@data-elementor-type='container']//*[@data-widget_type='image.default']")
-        diff, hints, n = [], [], 0
-        if len(got) != len(want):
-            diff.append(f"{len(got)} logos, the reference {len(want)}")
-        for x, y in zip(got, want):
-            d, h = compare_trees(x, y, known)
-            diff += d
-            hints += h
-            n += len(elements(y))
-        rows.append(("client logos (in the major clients section)", n, diff, hints))
+        got = wp_doc.xpath(f"//body/*[@data-elementor-type='wp-page']/*[@data-id='{LOGOS_BOX}']")
+        want = reference("about-us").xpath(f"//*[@data-id='{LOGOS_BOX}']")[0]
+        diff, hints = compare_trees(got[0], want, known) if got else (["not printed"], [])
+        rows.append(("client logos (the major clients section's grid of them)", len(elements(want)), diff, hints))
 
         acts = asyncio.run(behaviours(paths))
 

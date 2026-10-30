@@ -30,7 +30,16 @@ library (72 shapes) and one starter per kind (K1-K6) are patterns. Every page's 
 identical to the reference element by element (`verify_wp.py`: 4,817 elements) and in every
 computed property and box at 1440, 900 and 479 (`verify_render.py`). The item pages, the
 404 page and the blog's second page get their templates in stage 5.
-Next: stage 4 (the blocks in the editor), after Hla's go.
+Stage 4 done on 2026-10-30 (tag `stage-4`): every block has its edit view, which prints
+the same elements as the page, so the editor's canvas is drawn by the page's own
+stylesheets: words are typed in place, pictures replaced from the Media Library, links,
+icons, menus, lists and design classes set in the sidebar. The canvas is the page at 1440,
+900 and 479 (`verify_editor.py`: 11,829 elements, 0 differences), every word and picture
+takes a click (866), every block is valid (789), the 78 patterns are valid and print their
+sources, and every page saved through the editor stays identical in the browser. The
+brand font is the page's own face in the canvas. A new page starts with its document
+block and takes a page starter.
+Next: stage 5 (blog, 404, search, the contact form), after Hla's go.
 
 Starting point: `html-v1` (github.com/hla-sh93/harlow-website), the 49 English pages
 matching live at 1440x900 and 479x900. It stays in the repository as the reference every
