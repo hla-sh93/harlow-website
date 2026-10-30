@@ -8,9 +8,9 @@
  * business models, Harlow's people and team members to the home page (301): they are
  * cards and slides, not pages; so does this theme.
  *
- * The extra fields (a business model's icon and page, a testimonial's position) are in a
- * box under the editor; everything else is WordPress's own: title, text, excerpt, featured
- * picture, date.
+ * The extra fields (a business model's icon and page, a testimonial's position, a project's
+ * short description, year and pictures, a gallery item's pictures) are in a box under the
+ * editor; everything else is WordPress's own: title, text, excerpt, featured picture, date.
  *
  * @package Harlow
  */
@@ -42,6 +42,13 @@ function harlow_content_types() {
 const HARLOW_TYPES_WITHOUT_PAGES = array( 'business_model', 'harlows_person', 'team_member' );
 
 /**
+ * The types search results show, besides pages and posts: as on live, which leaves out
+ * projects, business models and Harlow's people. Live also lists team members and
+ * testimonials, whose links only lead home; those are left out here (README).
+ */
+const HARLOW_SEARCHED_TYPES = array( 'news', 'gallery_item', 'job' );
+
+/**
  * Register the types.
  */
 function harlow_register_content_types() {
@@ -50,7 +57,7 @@ function harlow_register_content_types() {
 		register_post_type(
 			$type,
 			array(
-				'labels'       => array(
+				'labels'              => array(
 					'name'          => $plural,
 					'singular_name' => $singular,
 					/* translators: %s: the singular name of a content type, e.g. Project. */
@@ -58,28 +65,35 @@ function harlow_register_content_types() {
 					/* translators: %s: the singular name of a content type, e.g. Project. */
 					'edit_item'     => sprintf( __( 'Edit %s', 'harlow' ), $singular ),
 				),
-				'public'       => '' !== $address,
-				'show_ui'      => true,
-				'show_in_rest' => true,
-				'has_archive'  => false,
-				'rewrite'      => '' !== $address ? array(
+				'public'              => '' !== $address,
+				'exclude_from_search' => ! in_array( $type, HARLOW_SEARCHED_TYPES, true ),
+				'show_ui'             => true,
+				'show_in_rest'        => true,
+				'has_archive'         => false,
+				'rewrite'             => '' !== $address ? array(
 					'slug'       => $address,
 					'with_front' => false,
 				) : false,
-				'supports'     => $supports,
-				'menu_icon'    => $icon,
-				'hierarchical' => false,
+				'supports'            => $supports,
+				'menu_icon'           => $icon,
+				'hierarchical'        => false,
 			)
 		);
 	}
 
 	$fields = array(
-		'business_model' => array(
+		'business_model'  => array(
 			'_harlow_icon' => 'integer',
 			'_harlow_link' => 'integer',
 		),
-		'testimonial'    => array( '_harlow_position' => 'string' ),
-		'client_logo'    => array( '_harlow_element' => 'string' ),
+		'testimonial'     => array( '_harlow_position' => 'string' ),
+		'client_logo'     => array( '_harlow_element' => 'string' ),
+		'albahoo_project' => array(
+			'_harlow_summary' => 'string',
+			'_harlow_year'    => 'string',
+			'_harlow_gallery' => 'array',
+		),
+		'gallery_item'    => array( '_harlow_gallery' => 'array' ),
 	);
 	foreach ( $fields as $type => $keys ) {
 		foreach ( $keys as $key => $kind ) {
@@ -89,7 +103,7 @@ function harlow_register_content_types() {
 				array(
 					'type'          => $kind,
 					'single'        => true,
-					'show_in_rest'  => true,
+					'show_in_rest'  => 'array' === $kind ? array( 'schema' => array( 'items' => array( 'type' => 'integer' ) ) ) : true,
 					'auth_callback' => static function () {
 						return current_user_can( 'edit_posts' );
 					},
@@ -117,6 +131,8 @@ add_action( 'template_redirect', 'harlow_redirect_cards' );
 function harlow_add_field_boxes() {
 	add_meta_box( 'harlow-model-fields', __( 'Card', 'harlow' ), 'harlow_model_fields_box', 'business_model', 'side' );
 	add_meta_box( 'harlow-testimonial-fields', __( 'Person', 'harlow' ), 'harlow_testimonial_fields_box', 'testimonial', 'side' );
+	add_meta_box( 'harlow-project-fields', __( 'Project page', 'harlow' ), 'harlow_project_fields_box', 'albahoo_project', 'normal' );
+	add_meta_box( 'harlow-gallery-fields', __( 'Pictures', 'harlow' ), 'harlow_gallery_field', 'gallery_item', 'normal' );
 }
 add_action( 'add_meta_boxes', 'harlow_add_field_boxes' );
 
@@ -163,6 +179,50 @@ function harlow_testimonial_fields_box( $post ) {
 }
 
 /**
+ * A project's short description and year, shown beside its title, and its pictures.
+ *
+ * @param WP_Post $post The project.
+ */
+function harlow_project_fields_box( $post ) {
+	wp_nonce_field( 'harlow_fields', 'harlow_fields_nonce' );
+	?>
+	<p><label for="harlow-summary"><strong><?php esc_html_e( 'Short description', 'harlow' ); ?></strong></label></p>
+	<textarea class="widefat" rows="3" id="harlow-summary" name="harlow_summary"><?php echo esc_textarea( (string) get_post_meta( $post->ID, '_harlow_summary', true ) ); ?></textarea>
+	<p><label for="harlow-year"><strong><?php esc_html_e( 'Year', 'harlow' ); ?></strong></label></p>
+	<input type="text" class="regular-text" id="harlow-year" name="harlow_year" value="<?php echo esc_attr( (string) get_post_meta( $post->ID, '_harlow_year', true ) ); ?>">
+	<?php
+	harlow_gallery_field( $post, false );
+}
+
+/**
+ * The pictures of an item's gallery, in their order.
+ *
+ * @param WP_Post $post  The item.
+ * @param bool    $nonce Print the box's nonce (a box of its own).
+ */
+function harlow_gallery_field( $post, $nonce = true ) {
+	if ( $nonce ) {
+		wp_nonce_field( 'harlow_fields', 'harlow_fields_nonce' );
+	}
+	$ids = array_map( 'absint', (array) get_post_meta( $post->ID, '_harlow_gallery', true ) );
+	?>
+	<p><strong><?php esc_html_e( 'Pictures', 'harlow' ); ?></strong></p>
+	<div class="harlow-image-field" data-multiple="1">
+		<input type="hidden" name="harlow_gallery" value="<?php echo esc_attr( implode( ',', $ids ) ); ?>">
+		<div class="harlow-image-preview">
+		<?php
+		foreach ( $ids as $harlow_id ) {
+			echo wp_get_attachment_image( $harlow_id, 'thumbnail' );
+		}
+		?>
+		</div>
+		<button type="button" class="button harlow-image-choose"><?php esc_html_e( 'Choose the pictures', 'harlow' ); ?></button>
+		<button type="button" class="button-link harlow-image-remove"><?php esc_html_e( 'Remove all', 'harlow' ); ?></button>
+	</div>
+	<?php
+}
+
+/**
  * Save the extra fields.
  *
  * @param int $post_id The item.
@@ -183,9 +243,21 @@ function harlow_save_fields( $post_id ) {
 	if ( isset( $_POST['harlow_position'] ) ) {
 		update_post_meta( $post_id, '_harlow_position', sanitize_text_field( wp_unslash( $_POST['harlow_position'] ) ) );
 	}
+	if ( isset( $_POST['harlow_summary'] ) ) {
+		update_post_meta( $post_id, '_harlow_summary', sanitize_textarea_field( wp_unslash( $_POST['harlow_summary'] ) ) );
+	}
+	if ( isset( $_POST['harlow_year'] ) ) {
+		update_post_meta( $post_id, '_harlow_year', sanitize_text_field( wp_unslash( $_POST['harlow_year'] ) ) );
+	}
+	if ( isset( $_POST['harlow_gallery'] ) ) {
+		$ids = array_filter( array_map( 'absint', explode( ',', sanitize_text_field( wp_unslash( $_POST['harlow_gallery'] ) ) ) ) );
+		update_post_meta( $post_id, '_harlow_gallery', array_values( $ids ) );
+	}
 }
 add_action( 'save_post_business_model', 'harlow_save_fields' );
 add_action( 'save_post_testimonial', 'harlow_save_fields' );
+add_action( 'save_post_albahoo_project', 'harlow_save_fields' );
+add_action( 'save_post_gallery_item', 'harlow_save_fields' );
 
 /**
  * The picture chooser of the icon field.
@@ -193,7 +265,7 @@ add_action( 'save_post_testimonial', 'harlow_save_fields' );
  * @param string $hook The admin screen.
  */
 function harlow_field_scripts( $hook ) {
-	if ( ! in_array( $hook, array( 'post.php', 'post-new.php' ), true ) || 'business_model' !== get_current_screen()->post_type ) {
+	if ( ! in_array( $hook, array( 'post.php', 'post-new.php' ), true ) || ! in_array( get_current_screen()->post_type, array( 'business_model', 'albahoo_project', 'gallery_item' ), true ) ) {
 		return;
 	}
 	wp_enqueue_media();

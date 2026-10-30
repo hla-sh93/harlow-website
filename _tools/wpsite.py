@@ -8,6 +8,8 @@ rewrites a WordPress address into the reference's form, so the two can be compar
 they are written.
 """
 
+import base64
+import json
 import os
 import re
 import subprocess
@@ -89,7 +91,7 @@ LIVE_ADMIN = preg_quote(SITE + "/wp-admin/")
 
 
 UPLOADS = WP + "/wp-content/uploads/"
-URL_ATTRS = ("href", "src", "poster", "preloader-image-url")
+URL_ATTRS = ("href", "src", "poster", "preloader-image-url", "data-thumbnail", "action")
 
 # When a picture downloads, not how it looks: WordPress decides these by its own rules
 # (header logo high priority, pictures further down lazy), live by how Elementor rendered
@@ -99,9 +101,28 @@ HINTS = ("loading", "decoding", "fetchpriority")
 
 def norm_url(value, known):
     value = unquote(value)   # a U+202F in a file name: written as is, or %E2%80%AF; one address
+    if value.startswith("/") and not value.startswith("//"):
+        value = WP + value   # root-relative (a form's action): this site's
     if value.startswith(UPLOADS):
         return "assets/uploads/" + value[len(UPLOADS):]
     return as_reference(value, known)
+
+
+def norm_action_hash(value, known):
+    """An Elementor lightbox link (#elementor-action:action=lightbox&settings=<base64 JSON>)
+    with the picture's address inside written the reference's way. The reference keeps
+    live's address there (build_pages does not open it); both sides are read as the path of
+    the picture's file."""
+    prefix = "#elementor-action%3Aaction%3Dlightbox%26settings%3D"
+    if not value.startswith(prefix):
+        return value
+    raw = unquote(value[len(prefix):])
+    data = json.loads(base64.b64decode(raw + "=" * (-len(raw) % 4)))
+    url = data.get("url", "")
+    for base in (UPLOADS, SITE + "/wp-content/uploads/"):
+        if url.startswith(base):
+            data["url"] = "assets/uploads/" + url[len(base):]
+    return "lightbox " + json.dumps(data, sort_keys=True)
 
 
 def norm_attrs(el, known):
@@ -115,6 +136,8 @@ def norm_attrs(el, known):
                           for c in v.split(","))
         elif k == "style":
             v = re.sub(r'url\((["\']?)([^)"\']+)\1\)', lambda m: f'url({m.group(1)}{norm_url(m.group(2), known)}{m.group(1)})', v)
+        elif k == "data-e-action-hash":
+            v = norm_action_hash(v, known)
         elif k == "exclude":
             v = v.replace(LOCAL_ADMIN, LIVE_ADMIN)
         elif k == "class":
@@ -201,7 +224,6 @@ def login_cookies():
     """Browser cookies of the site's first administrator, made by WordPress itself through
     WP-CLI (a new session, four hours long), for the checks that drive the dashboard. No
     password is read or typed."""
-    import json
     out = wp_cli("eval", "$ids = get_users( array( 'role' => 'administrator', 'number' => 1, 'fields' => 'ID' ) );"
                  " $exp = time() + 4 * HOUR_IN_SECONDS;"
                  " echo wp_json_encode( array( AUTH_COOKIE => wp_generate_auth_cookie( (int) $ids[0], $exp, 'auth' ),"

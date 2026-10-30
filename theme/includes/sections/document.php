@@ -14,5 +14,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-$harlow_id = (int) $attributes['docId'] ? (int) $attributes['docId'] : harlow_document_id();
-echo '<div data-elementor-type="' . esc_attr( $attributes['docType'] ) . '" data-elementor-id="' . $harlow_id . '" class="elementor elementor-' . $harlow_id . '" data-elementor-post-type="' . esc_attr( $attributes['postType'] ) . '">' . $content . '</div>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- the inner blocks, printed by WordPress.
+$harlow_id    = (int) $attributes['docId'] ? (int) $attributes['docId'] : harlow_document_id();
+$harlow_class = 'elementor elementor-' . $harlow_id;
+if ( 'single' === $attributes['location'] ) {
+	// A single template's box carries the item's classes, as Elementor's theme builder prints it.
+	$harlow_class .= ' elementor-location-single ' . implode( ' ', get_post_class() );
+}
+echo '<div data-elementor-type="' . esc_attr( $attributes['docType'] ) . '" data-elementor-id="' . $harlow_id . '" class="' . esc_attr( $harlow_class ) . '" data-elementor-post-type="' . esc_attr( $attributes['postType'] ) . '">' . $content . '</div>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- the inner blocks, printed by WordPress.

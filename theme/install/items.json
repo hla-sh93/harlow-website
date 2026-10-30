@@ -1,5 +1,20 @@
 {
  "source": "live REST API of https://www.harlowgroup.com and the reference pages",
+ "site": "https://www.harlowgroup.com",
+ "categories": [
+  {
+   "slug": "blog-post",
+   "name": "Blog Post"
+  },
+  {
+   "slug": "latest-news",
+   "name": "Latest News Post"
+  },
+  {
+   "slug": "uncategorized",
+   "name": "Uncategorized"
+  }
+ ],
  "items": [
   {
    "type": "post",
@@ -320,7 +335,18 @@
     "post-4330",
     "post-5532",
     "post-1066"
-   ]
+   ],
+   "meta": {
+    "harlow_summary": "Construction of a new visa facility as well as the expansion and restoration of diplomatic housing.",
+    "harlow_year": "2008",
+    "harlow_gallery": [
+     4278,
+     4277,
+     4276,
+     4275,
+     4274
+    ]
+   }
   },
   {
    "type": "albahoo_project",
@@ -342,7 +368,19 @@
     "post-4330",
     "post-5532",
     "post-1066"
-   ]
+   ],
+   "meta": {
+    "harlow_summary": "Comprehensive refurbishment of the famous (Al Rasheed Hotel) in Baghdad's Green Zone.",
+    "harlow_year": "2010",
+    "harlow_gallery": [
+     4299,
+     4300,
+     4301,
+     4296,
+     4297,
+     4298
+    ]
+   }
   },
   {
    "type": "albahoo_project",
@@ -364,7 +402,19 @@
     "post-4330",
     "post-5532",
     "post-1066"
-   ]
+   ],
+   "meta": {
+    "harlow_summary": "A thorough overhaul and restoration of the Iraqi presidency council.",
+    "harlow_year": "2012",
+    "harlow_gallery": [
+     4308,
+     4309,
+     4310,
+     4305,
+     4306,
+     4307
+    ]
+   }
   },
   {
    "type": "albahoo_project",
@@ -386,7 +436,19 @@
     "post-4330",
     "post-5532",
     "post-1066"
-   ]
+   ],
+   "meta": {
+    "harlow_summary": "Performed economic research and feasibility assessments, and provided Hanwha E&C with administrative, logistical, and legal support in addition to building the project's main labor complex.",
+    "harlow_year": "2012",
+    "harlow_gallery": [
+     4317,
+     4316,
+     4315,
+     4314,
+     4313,
+     4312
+    ]
+   }
   },
   {
    "type": "albahoo_project",
@@ -408,7 +470,15 @@
     "post-4330",
     "post-5532",
     "post-1066"
-   ]
+   ],
+   "meta": {
+    "harlow_summary": "In addition to building the main base camp for long-term construction work for Korea Aerospace Industries, we were tasked with building temporary resident camps for 324 security soldiers (KAI).",
+    "harlow_year": "2015",
+    "harlow_gallery": [
+     2632,
+     2631
+    ]
+   }
   },
   {
    "type": "albahoo_project",
@@ -430,7 +500,16 @@
     "post-4330",
     "post-5532",
     "post-1066"
-   ]
+   ],
+   "meta": {
+    "harlow_summary": "2 million ton per year plant is being built in the Najaf Governorate in Iraq for the purpose of supplying the growing demand for cement.",
+    "harlow_year": "2018",
+    "harlow_gallery": [
+     4322,
+     4321,
+     4323
+    ]
+   }
   },
   {
    "type": "albahoo_project",
@@ -452,7 +531,16 @@
     "post-4330",
     "post-5532",
     "post-1066"
-   ]
+   ],
+   "meta": {
+    "harlow_summary": "Our mega power project in Iraq, a 2800 MW HFO-fired Thermal Power Plant located 20km south of Karbala.",
+    "harlow_year": "2021",
+    "harlow_gallery": [
+     4326,
+     4325,
+     4324
+    ]
+   }
   },
   {
    "type": "gallery_item",
@@ -473,7 +561,14 @@
     "post-1179",
     "post-2590",
     "post-1066"
-   ]
+   ],
+   "meta": {
+    "harlow_gallery": [
+     2542,
+     2543,
+     2544
+    ]
+   }
   },
   {
    "type": "gallery_item",
@@ -494,7 +589,14 @@
     "post-1179",
     "post-2590",
     "post-1066"
-   ]
+   ],
+   "meta": {
+    "harlow_gallery": [
+     2622,
+     2623,
+     2624
+    ]
+   }
   },
   {
    "type": "gallery_item",
@@ -515,7 +617,13 @@
     "post-1179",
     "post-2590",
     "post-1066"
-   ]
+   ],
+   "meta": {
+    "harlow_gallery": [
+     2628,
+     2629
+    ]
+   }
   },
   {
    "type": "gallery_item",
@@ -536,7 +644,13 @@
     "post-1179",
     "post-2590",
     "post-1066"
-   ]
+   ],
+   "meta": {
+    "harlow_gallery": [
+     2631,
+     2632
+    ]
+   }
   },
   {
    "type": "gallery_item",
@@ -557,7 +671,13 @@
     "post-1179",
     "post-2590",
     "post-1066"
-   ]
+   ],
+   "meta": {
+    "harlow_gallery": [
+     2634,
+     2635
+    ]
+   }
   },
   {
    "type": "job",

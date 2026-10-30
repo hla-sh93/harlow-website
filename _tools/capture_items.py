@@ -3,17 +3,22 @@
 What a page shows of an item (a card, a slide) is in the reference; what the item is
 (its id, address, date, full text, excerpt, featured picture) is in live's public REST
 API. This reads the English items of every type that has a REST route, and the media
-records of every picture the site uses: the featured pictures of those items and every
-`wp-image-<id>` of the 49 reference pages. A media record names the file and each size
-WordPress made of it, which is what lets the Media Library hold the same files under the
-same addresses (theme/functions/install.php).
+records of every picture the site uses: the featured pictures of those items, every
+`wp-image-<id>` of the 49 reference pages, and the pictures of their galleries (an
+Elementor gallery names each picture's id in its lightbox link). A media record names the
+file and each size WordPress made of it, which is what lets the Media Library hold the same
+files under the same addresses (theme/functions/install.php).
 
-Written to _capture/rest/<type>.json and _capture/rest/media.json.
+Written to _capture/rest/<type>.json, _capture/rest/media.json and _capture/rest/pages.json
+(the pages' excerpts, which live's search results show). The items are read
+from live again only with --items (stage 2); otherwise the captured ones are kept, since
+the reference was made from them.
 
 Usage:
-    python -u _tools/capture_items.py
+    python -u _tools/capture_items.py [--items]
 """
 
+import base64
 import json
 import re
 import sys
@@ -57,27 +62,49 @@ def all_of(session, path, params):
         page += 1
 
 
+def gallery_pictures(html):
+    """The picture ids of a page's Elementor galleries: each picture's lightbox link carries
+    its settings as base64 JSON ({"id": ..., "url": ..., "slideshow": ...})."""
+    ids = set()
+    for hashed in re.findall(r'data-e-action-hash="([^"]+)"', html):
+        settings = unquote(hashed).split("settings=", 1)[-1]
+        ids.add(int(json.loads(base64.b64decode(settings + "=" * (-len(settings) % 4)))["id"]))
+    return ids
+
+
 def main():
     OUT.mkdir(parents=True, exist_ok=True)
     session = requests.Session()
     session.headers["User-Agent"] = UA
     featured = set()
     for t in TYPES:
-        items = all_of(session, t, {"lang": "en", "orderby": "id", "order": "asc"})
-        items = [{k: it[k] for k in KEEP if k in it} for it in items]
+        if "--items" in sys.argv or not (OUT / f"{t}.json").exists():
+            items = all_of(session, t, {"lang": "en", "orderby": "id", "order": "asc"})
+            items = [{k: it[k] for k in KEEP if k in it} for it in items]
+            (OUT / f"{t}.json").write_text(json.dumps(items, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
+        else:
+            items = json.loads((OUT / f"{t}.json").read_text(encoding="utf-8"))
         featured |= {it["featured_media"] for it in items if it.get("featured_media")}
-        (OUT / f"{t}.json").write_text(json.dumps(items, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
         print(f"{t}: {len(items)} items")
 
-    cats = all_of(session, "categories", {"lang": "en"})
-    cats = [{k: c[k] for k in ("id", "name", "slug", "description", "parent")} for c in cats]
-    (OUT / "categories.json").write_text(json.dumps(cats, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
-    print(f"categories: {len(cats)}")
+    # the pages' excerpts: what live's search results show of a page (stage 5)
+    if "--items" in sys.argv or not (OUT / "pages.json").exists():
+        live_pages = all_of(session, "pages", {"lang": "en", "_fields": "id,slug,link,excerpt"})
+        (OUT / "pages.json").write_text(json.dumps(live_pages, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
+    print(f"pages: {len(json.loads((OUT / 'pages.json').read_text(encoding='utf-8')))} excerpts")
 
-    used = set()
+    if "--items" in sys.argv or not (OUT / "categories.json").exists():
+        cats = all_of(session, "categories", {"lang": "en"})
+        cats = [{k: c[k] for k in ("id", "name", "slug", "description", "parent")} for c in cats]
+        (OUT / "categories.json").write_text(json.dumps(cats, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
+    print(f"categories: {len(json.loads((OUT / 'categories.json').read_text(encoding='utf-8')))}")
+
+    used, galleries = set(), set()
     for p in pages():
-        used |= {int(n) for n in re.findall(r"\bwp-image-(\d+)\b", (ROOT / f"{p['name']}.html").read_text(encoding="utf-8"))}
-    ids = sorted(featured | used)
+        html = (ROOT / f"{p['name']}.html").read_text(encoding="utf-8")
+        used |= {int(n) for n in re.findall(r"\bwp-image-(\d+)\b", html)}
+        galleries |= gallery_pictures(html)
+    ids = sorted(featured | used | galleries)
     media = []
     for i in range(0, len(ids), 100):
         chunk = ids[i:i + 100]
@@ -93,7 +120,8 @@ def main():
     media = sorted(({k: m[k] for k in MEDIA_KEEP if k in m} for m in media), key=lambda m: m["id"])
     (OUT / "media.json").write_text(json.dumps(media, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
     missing = sorted(set(ids) - found)
-    print(f"media: {len(media)} of {len(ids)} pictures ({len(featured)} featured, {len(used)} in the pages)"
+    print(f"media: {len(media)} of {len(ids)} pictures ({len(featured)} featured, {len(used)} in the pages, "
+          f"{len(galleries)} in their galleries)"
           + (f"; not answered: {missing}" if missing else ""))
 
     # The pages use some sizes of a picture; the Media Library shows all of them (the

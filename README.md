@@ -62,7 +62,11 @@ reference until something is changed:
 | every word of the cookie bar and its settings window, and the window's logo | Appearance → Customize → Cookie bar |
 | the picture of the page transition | Appearance → Customize → Page transition |
 | the brand colours: blue, dark, accent, light surface, text | Appearance → Customize → Brand colours |
-| posts, news, projects, gallery items, jobs, business models (with their icon and page), Harlow's people, testimonials (with their position), client logos (in their order) | their own menus in the dashboard; every list and carousel shows them by itself |
+| posts, news, projects, gallery items, jobs, business models (with their icon and page), Harlow's people, testimonials (with their position), client logos (in their order) | their own menus in the dashboard; every list and carousel shows them by itself, and each item's page shows its title, date, picture and text |
+| a project's short description, year and pictures; a gallery item's pictures | the item's screen, the box under the editor |
+| the forms' fields, messages and where their mails go | Contact → Contact Forms (Contact Form 7) |
+| which form a page shows | the editor: the form's block, its shortcode in the sidebar (the form is shown as the page shows it) |
+| what search results show of a page | the page's Excerpt in the editor |
 | every word of a page: headings, paragraphs and lists, buttons, questions and their answers, the lines of icon lists | the page in the editor (Pages → Edit): click the words and type |
 | a page's pictures, their words for screen readers, and the links of pictures and buttons | the editor: "Replace picture" in the toolbar (Media Library), the rest in the sidebar |
 | the icons of buttons, icon lists, social links and the accordion | the editor's sidebar, from the icons the site uses |
@@ -70,8 +74,14 @@ reference until something is changed:
 | an element's design: its classes from the vocabulary (`_vocab/vocabulary.md`) | the editor's sidebar, Advanced → Design classes |
 | new sections and pages: one section of every shape the pages have, one starter per kind of page | the editor's Patterns: Harlow sections, Harlow page layouts |
 
-The 22 pages are built from blocks and look like the reference (the 25 item pages, the 404
-page and the blog's second page get their templates in stage 5). In the editor each page
+All 49 pages are on WordPress and look like the reference: the 22 pages built from blocks,
+the 25 item pages from live's four single templates (posts and news, projects, gallery
+items, the job), the blog's second page, and the page that is not there. The contact form
+and the job application are Contact Form 7's, as on live: they refuse what is missing and
+send their mails (to the site's administration address, answering to the sender; locally
+every mail lands in Mailpit). Search results and a category's posts are printed as live
+prints them; date archives lead home and author archives are not found, as on live. In
+the editor each page
 looks as it does on the site, drawn by the site's own stylesheets: the canvas is checked
 against the page at three widths, element by element. Menus, lists, the header and footer
 are drawn as the site prints them; their contents are kept where the table says. The major
@@ -116,6 +126,8 @@ python -u _tools/build_css.py && python -u _tools/atomize.py && python -u _tools
 | No `<link rel="prerender">` on hovering a link | Elementor's page transition adds it; browsers have dropped prerender |
 | WordPress theme: pictures' loading hints (`loading="lazy"`, `decoding`, `fetchpriority`) follow WordPress's rules, not the ones Elementor gave each live page | they decide when a picture downloads, not how it looks; the checks count them apart |
 | WordPress theme: the pages of business models, people and team members lead to the home page | as on live (301) |
+| WordPress theme: search results leave out team members and testimonials | live lists them, but their links only lead to the home page |
+| WordPress theme: the order of search results can differ from live's | live searches Elementor's plain copy of each page, the theme searches the pages' blocks; the items found are the same kinds |
 | WordPress theme: the home page's footer links open in the same tab, without nofollow, as on every other page | on live's home page Rank Math gave five of them a new tab and nofollow, because there the footer is part of the page's content |
 
 ## Known gaps

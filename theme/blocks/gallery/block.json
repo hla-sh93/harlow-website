@@ -1,0 +1,48 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "harlow/gallery",
+	"title": "Gallery",
+	"category": "media",
+	"description": "Pictures in a grid that open in the lightbox: chosen here, or the pictures of the item the page shows.",
+	"textdomain": "harlow",
+	"attributes": {
+		"element": {
+			"type": "string",
+			"default": ""
+		},
+		"classes": {
+			"type": "string",
+			"default": ""
+		},
+		"settings": {
+			"type": "string",
+			"default": ""
+		},
+		"htmlId": {
+			"type": "string",
+			"default": ""
+		},
+		"pictures": {
+			"type": "array",
+			"default": [],
+			"items": {
+				"type": "integer"
+			}
+		},
+		"source": {
+			"type": "string",
+			"default": ""
+		},
+		"captions": {
+			"type": "boolean",
+			"default": false
+		}
+	},
+	"supports": {
+		"html": false,
+		"className": false,
+		"customClassName": false
+	},
+	"render": "file:../../includes/sections/gallery.php"
+}

@@ -22,7 +22,8 @@ $harlow_templates = harlow_loop_templates();
 $harlow_template  = isset( $harlow_templates[ $attributes['template'] ] ) ? $attributes['template'] : 'post-card';
 $harlow_carousel  = 'carousel' === $attributes['layout'];
 $harlow_plain     = in_array( $attributes['layout'], array( 'plain', 'box' ), true );
-$harlow_page      = max( 1, (int) get_query_var( 'page' ), (int) get_query_var( 'paged' ) );
+// Only a list with a pager follows the page number (/blog/2/); the others show their first page.
+$harlow_page      = '' !== $attributes['pagination'] ? max( 1, (int) get_query_var( 'page' ), (int) get_query_var( 'paged' ) ) : 1;
 $harlow_items     = new WP_Query(
 	array(
 		'post_type'           => sanitize_key( $attributes['postType'] ),
@@ -88,7 +89,7 @@ if ( $harlow_plain ) {
 		</div>
 		<?php endif; ?>
 		<?php if ( 'numbers' === $attributes['pagination'] && $harlow_pages > 1 ) : ?>
-		<div class="e-load-more-anchor" data-page="<?php echo esc_attr( (string) $harlow_page ); ?>" data-max-page="<?php echo esc_attr( (string) $harlow_pages ); ?>" data-next-page="<?php echo esc_url( $harlow_page < $harlow_pages ? $harlow_permalink . ( $harlow_page + 1 ) . '/' : '' ); ?>"></div>
+		<div class="e-load-more-anchor" data-page="<?php echo esc_attr( (string) $harlow_page ); ?>" data-max-page="<?php echo esc_attr( (string) $harlow_pages ); ?>" data-next-page="<?php echo esc_url( $harlow_permalink . ( $harlow_page + 1 ) . '/' ); /* the next page even on the last, as Elementor writes it */ ?>"></div>
 		<nav class="elementor-pagination" aria-label="<?php esc_attr_e( 'Pagination', 'harlow' ); ?>">
 			<?php
 			echo wp_kses_post(

@@ -1,12 +1,17 @@
-"""Stage 3 check: each page's own content on WordPress against the reference, element by
+"""Stages 3 and 5: each page's own content on WordPress against the reference, element by
 element.
 
-For every page WordPress has as a page (22, the home page among them), the page's
-Elementor document (the element that holds its sections) is compared with the reference's:
+For each of the 49 pages, the page's content is compared with the reference's: a page's
+Elementor document (the element that holds its sections), an item page's single template
+(stage 5), the 404 page's main element (at an address that does not exist, answered 404):
 tag, every attribute, every piece of text and the white space between elements, with
 WordPress's addresses written the reference's way (wpsite.as_reference). The lists inside
 compare their cards too (stage 2). Also compared: the elements directly in <body>, in
 order (header, document, footer, cookie bar, ...). Loading hints are counted apart.
+
+The reference prints Contact Form 7's spinner after each submit button, because it has no
+script; on WordPress, as on live, CF7's script adds it to the page. That stand-in is taken
+out of the reference before comparing, and counted.
 
 One difference is accepted, by name: on live's home page Rank Math gave five links of the
 footer a new tab and nofollow, a side effect of the footer being part of that page's
@@ -20,14 +25,13 @@ verify_render.py's to say.
     python -u _tools/verify_wp.py [--space] [name ...]
 """
 
-import json
 import re
 import sys
 
-from common import ROOT
-from wpsite import compare_trees, elements, fetch, known_paths, parse, reference
+from common import pages
+from wpsite import compare_trees, elements, fetch, known_paths, parse, reference, wp_path
 
-DOCUMENT = "//body/*[@data-elementor-type='wp-page']"
+DOCUMENT = "//body/*[@data-elementor-type='wp-page' or @data-elementor-type='single-page'] | //body/main"
 
 
 def body_outline(doc):
@@ -56,24 +60,35 @@ def accepted(name, doc, lines):
     return keep, ok
 
 
+def without_spinners(ref):
+    """The reference's stand-ins for CF7's spinner (its script adds one after the submit
+    button on WordPress and on live), taken out; how many."""
+    found = ref.xpath(".//span[@class='wpcf7-spinner'][preceding-sibling::*[1][contains(@class, 'wpcf7-submit')]]")
+    for span in found:
+        parent, before = span.getparent(), span.getprevious()
+        before.tail = (before.tail or "") + (span.tail or "")
+        parent.remove(span)
+    return len(found)
+
+
 def main(only, space=False):
-    site = json.loads((ROOT / "theme" / "install" / "site.json").read_text(encoding="utf-8"))
     known = known_paths()
-    rows, accepts, spaces = [], {}, []
-    for page in site["pages"]:
+    rows, accepts, spaces, spinners = [], {}, [], 0
+    for page in pages():
         name = page["name"]
         if only and name not in only:
             continue
-        status, text = fetch(page["path"])
-        if status != 200:
+        status, text = fetch(wp_path(page))
+        if status != (404 if name == "404" else 200):
             rows.append((name, 0, [f"WordPress answers {status}"], []))
             continue
         wp, ref = parse(text), reference(name)
         problems, hints = [], []
         got, want = wp.xpath(DOCUMENT), ref.xpath(DOCUMENT)
         if len(got) != 1 or len(want) != 1:
-            rows.append((name, 0, [f"{len(got)} page documents, the reference {len(want)}"], []))
+            rows.append((name, 0, [f"{len(got)} contents, the reference {len(want)}"], []))
             continue
+        spinners += without_spinners(want[0])
         diff, hint = compare_trees(got[0], want[0], known, spaces if space else None)
         diff, ok = accepted(name, want[0], diff)
         problems += diff
@@ -93,7 +108,7 @@ def main(only, space=False):
             print("       ", p[:240])
     print(f"\npages: {len(rows)} pages, {sum(r[1] for r in rows)} elements - {bad} of {len(rows)} pages differ "
           f"(loading hints differ on {sum(1 for r in rows if r[3])} pages: {sum(len(r[3]) for r in rows)} attributes; "
-          f"{sum(len(v) for v in accepts.values())} accepted)"
+          f"{sum(len(v) for v in accepts.values())} accepted; {spinners} form spinners left to CF7's script)"
           + (f"; white space between elements differs in {len(spaces)} places" if space else ""))
     return 1 if bad or not rows else 0
 

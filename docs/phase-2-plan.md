@@ -39,7 +39,20 @@ takes a click (866), every block is valid (789), the 78 patterns are valid and p
 sources, and every page saved through the editor stays identical in the browser. The
 brand font is the page's own face in the canvas. A new page starts with its document
 block and takes a page starter.
-Next: stage 5 (blog, 404, search, the contact form), after Hla's go.
+Stage 5 done on 2026-10-30 (tag `stage-5`): all 49 pages are in WordPress. The 25 item
+pages are live's four single templates as blocks (`theme/singles/`), whose title, date,
+featured picture, text, fields and gallery show the item; what live keeps outside its API
+(a project's description, year and pictures, a gallery item's pictures) is in each item's
+fields. The blog's second page, the 404 page, search results and a category's posts answer
+as live's do, and date and author archives redirect or answer 404 as live's do
+(`verify_archives.py`: 15 addresses asked of both). Every page's content is identical to the
+reference element by element (`verify_wp.py`: 7,845 elements) and in the browser at 1440,
+900 and 479 (`verify_render.py`: 24,289 elements). The contact and job forms are live's
+own Contact Form 7 forms at live's versions: sent empty they refuse every required field,
+sent filled they reach Mailpit with Reply-To the sender, the job's title and the CV
+(`verify_forms.py`). Turnstile comes with the live step.
+Next: stage 6 (page features: kinds and their ready layouts, originals and restore,
+duplicate, slug changes with 301), after Hla's go.
 
 Starting point: `html-v1` (github.com/hla-sh93/harlow-website), the 49 English pages
 matching live at 1440x900 and 479x900. It stays in the repository as the reference every

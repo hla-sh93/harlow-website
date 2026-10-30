@@ -51,7 +51,7 @@ from capture import SETTLE
 from common import HEIGHT, ROOT
 from compare import FREEZE_TIMERS
 from refcheck import STILL
-from verify_wp import accepted
+from verify_wp import accepted, without_spinners
 from wpsite import WP, compare_trees, elements, known_paths, login_cookies, parse, reference, wp_cli
 
 WIDTHS = (1440, 900, 479)
@@ -319,6 +319,13 @@ def check_patterns_markup():
             first = re.search(r'"element":"(\w+)"', p["content"]).group(1)
             ref = ref_doc.xpath(f"//*[@data-id='{first}']")[0]
             got = parse(p["html"]).xpath(f"//*[@data-id='{first}']")[0]
+        without_spinners(ref)   # CF7's script adds the spinner; the pattern's form is printed without
+        # CF7 writes the address a form is printed at into its action; printed here there is
+        # none, so the action is its fragment (the form and its page's id).
+        for form, want in zip(got.iter("form"), ref.iter("form")):
+            fragment = form.get("action", "").partition("#")[2]
+            if fragment and fragment == want.get("action", "").partition("#")[2]:
+                form.set("action", want.get("action"))
         diff, hints = compare_trees(got, ref, known)
         diff, ok = accepted(source, ref, diff)   # the home page footer's rel and target (README)
         out[name] = (len(elements(ref)), diff)

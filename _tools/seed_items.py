@@ -10,6 +10,8 @@ read from the reference pages, where live shows it:
   - a business model's small icon and the page its card links to (the home carousel);
   - testimonials, which have no REST route: name, words, picture, position (About carousel);
   - client logos, which on live are ten pictures in one section: picture and order;
+  - a project's short description, year and pictures, a gallery item's pictures (its page,
+    _tools/singles.py names the widgets);
   - each item page's Arabic address and the documents whose page-wide rules it loads.
 
 A picture is its REST media record (file, size, every size WordPress made), kept to the
@@ -20,6 +22,7 @@ Usage:
     python -u _tools/seed_items.py
 """
 
+import base64
 import html as htmllib
 import json
 import re
@@ -30,6 +33,7 @@ from urllib.parse import unquote, urlsplit
 from lxml import html
 
 from common import CAPTURE, ROOT, SITE, local_name, pages
+from singles import FIELDS
 
 REST = CAPTURE / "rest"
 UPLOADS = ROOT / "assets" / "uploads"
@@ -68,6 +72,32 @@ def single_facts(names):
         out[path] = {"translations": {"ar": lang[0]} if lang else {},
                      "documents": [d for d in css_map.get(name, [])
                                    if (ROOT / "assets" / "css" / "design" / f"globals-{d}.css").exists()]}
+    return out
+
+
+GALLERY_TITLES = {}   # picture id -> its title as typed, from a gallery's lightbox link
+
+
+def page_fields(name, post_type):
+    """The fields only an item's page shows: a heading's words, or a gallery's picture ids in
+    their order (each picture's lightbox link carries its id as base64 JSON, and its title
+    as typed: live's API gives titles with curly quotes put in)."""
+    doc = html.parse(str(ROOT / f"{name}.html"))
+    out = {}
+    for widget, field in FIELDS.get(post_type, {}).items():
+        el = doc.xpath(f"//*[@data-id='{widget}']")[0]
+        if el.get("data-widget_type") == "gallery.default":
+            ids = []
+            for a in el.xpath(".//a[contains(@class, 'e-gallery-item')]"):
+                settings = unquote(a.get("data-e-action-hash")).split("settings=", 1)[1]
+                ids.append(int(json.loads(base64.b64decode(settings + "=" * (-len(settings) % 4)))["id"]))
+                GALLERY_TITLES[ids[-1]] = a.get("data-elementor-lightbox-title", "")
+            out[field] = ids
+        else:
+            title = el.xpath(".//*[contains(@class, 'elementor-heading-title')]")[0]
+            if len(title):
+                raise SystemExit(f"{name} {widget}: a field with markup inside")
+            out[field] = " ".join(title.text_content().split())
     return out
 
 
@@ -143,6 +173,9 @@ def main():
             if post_type == "business_model":
                 item["meta"] = {"harlow_icon": model_extra[r["id"]]["icon"], "harlow_link": model_extra[r["id"]]["link"]}
                 used_media.add(item["meta"]["harlow_icon"])
+            if post_type in FIELDS and item["name"]:
+                item["meta"] = page_fields(item["name"], post_type)
+                used_media |= set(item["meta"].get("harlow_gallery", []))
             used_media.add(item["featured"])
             items.append(item)
 
@@ -192,11 +225,17 @@ def main():
     for rec in extra_media.values():
         if rec["id"] not in used_media:
             records.append(rec)
+    for rec in records:
+        if rec["id"] in GALLERY_TITLES:
+            rec["title"] = GALLERY_TITLES[rec["id"]]
     records.sort(key=lambda r: r["id"])
     unknown = sorted(used_media - {r["id"] for r in records})
 
     OUT.mkdir(parents=True, exist_ok=True)
     (OUT / "items.json").write_text(json.dumps({"source": f"live REST API of {SITE} and the reference pages",
+                                                "site": SITE,
+                                                "categories": [{"slug": unquote(c["slug"]), "name": htmllib.unescape(c["name"])}
+                                                               for c in cats.values()],
                                                 "items": items}, ensure_ascii=False, indent=1) + "\n",
                                     encoding="utf-8", newline="\n")
     (OUT / "media.json").write_text(json.dumps({"source": f"live REST API of {SITE}, files in assets/uploads/",

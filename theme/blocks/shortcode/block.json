@@ -4,7 +4,7 @@
 	"name": "harlow/shortcode",
 	"title": "Shortcode output",
 	"category": "widgets",
-	"description": "What a plugin's shortcode printed (a form, the group chart).",
+	"description": "A shortcode (a form) printed by its plugin, or what a plugin printed on live (the group chart).",
 	"textdomain": "harlow",
 	"attributes": {
 		"element": {
@@ -24,6 +24,10 @@
 			"default": ""
 		},
 		"html": {
+			"type": "string",
+			"default": ""
+		},
+		"shortcode": {
 			"type": "string",
 			"default": ""
 		}

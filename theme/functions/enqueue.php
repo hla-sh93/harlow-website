@@ -159,6 +159,10 @@ function harlow_canvas_assets() {
 	}
 	$post      = get_post();
 	$documents = $post ? get_post_meta( $post->ID, '_harlow_documents', true ) : '';
+	// A form's page: CF7's stylesheet first, as on the page (functions/forms.php).
+	if ( $post && function_exists( 'wpcf7_plugin_url' ) && false !== strpos( $post->post_content, '[contact-form-7 ' ) ) {
+		wp_enqueue_style( 'contact-form-7', wpcf7_plugin_url( 'includes/css/styles.css' ), array(), WPCF7_VERSION );
+	}
 	harlow_enqueue_styles( is_array( $documents ) && $documents ? array_filter( $documents, 'harlow_is_document' ) : HARLOW_CHROME_DOCUMENTS );
 	harlow_brand_style();
 	wp_enqueue_style( 'harlow-canvas', get_theme_file_uri( 'editor/canvas.css' ), array( 'harlow-animations' ), harlow_asset_version( 'editor/canvas.css' ) );
@@ -201,8 +205,8 @@ add_action( 'enqueue_block_editor_assets', 'harlow_editor_assets' );
  * The reference already holds every rule of WordPress's block library, classic-theme and
  * global styles that the live pages use (build_css.py kept them in base.css); loaded again
  * they would be a second, unpruned copy, and their custom properties would reach every
- * element. Contact Form 7's own CSS is in the reference the same way, and its script is
- * only needed where a form is, which is stage 5. The emoji script swaps characters for
+ * element. Contact Form 7's script and stylesheet are loaded where a form is
+ * (functions/forms.php). The emoji script swaps characters for
  * pictures the live site does not show.
  */
 function harlow_dequeue_extras() {
@@ -234,7 +238,5 @@ add_filter( 'wp_img_tag_add_auto_sizes', '__return_false' );
 add_filter( 'rank_math/noopener', '__return_false' );
 add_filter( 'rank_math/link/add_attributes', '__return_false' );
 
-add_filter( 'wpcf7_load_css', '__return_false' );
-add_filter( 'wpcf7_load_js', '__return_false' );
 remove_action( 'wp_head', 'print_emoji_detection_script', 7 );
 remove_action( 'wp_print_styles', 'print_emoji_styles' );

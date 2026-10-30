@@ -25,6 +25,8 @@ import divider from '../blocks/divider/block.json';
 import dividerEdit from '../blocks/divider/edit';
 import documentBlock from '../blocks/document/block.json';
 import documentEdit from '../blocks/document/edit';
+import gallery from '../blocks/gallery/block.json';
+import galleryEdit from '../blocks/gallery/edit';
 import heading from '../blocks/heading/block.json';
 import headingEdit from '../blocks/heading/edit';
 import html from '../blocks/html/block.json';
@@ -41,6 +43,8 @@ import markupEdit from '../blocks/markup/edit';
 import loopEdit from '../blocks/loop/edit';
 import navMenu from '../blocks/nav-menu/block.json';
 import navMenuEdit from '../blocks/nav-menu/edit';
+import postContent from '../blocks/post-content/block.json';
+import postContentEdit from '../blocks/post-content/edit';
 import shortcode from '../blocks/shortcode/block.json';
 import shortcodeEdit from '../blocks/shortcode/edit';
 import sitePart from '../blocks/site-part/block.json';
@@ -64,6 +68,7 @@ const none = () => null;
 	[ container, containerEdit, inner ],
 	[ divider, dividerEdit, none ],
 	[ documentBlock, documentEdit, inner ],
+	[ gallery, galleryEdit, none ],
 	[ heading, headingEdit, none ],
 	[ html, htmlEdit, none ],
 	[ icon, iconEdit, none ],
@@ -72,6 +77,7 @@ const none = () => null;
 	[ loop, loopEdit, none ],
 	[ markup, markupEdit, none ],
 	[ navMenu, navMenuEdit, none ],
+	[ postContent, postContentEdit, none ],
 	[ shortcode, shortcodeEdit, none ],
 	[ sitePart, sitePartEdit, none ],
 	[ socialIcons, socialIconsEdit, none ],

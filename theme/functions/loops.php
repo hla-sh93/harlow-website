@@ -133,15 +133,49 @@ function harlow_client_element() {
 }
 
 /**
- * Pages print their blocks as written: no curly quotes put in, no paragraphs added.
+ * Pages and item pages print their content as written: no curly quotes put in, no
+ * paragraphs added.
  *
  * WordPress runs wptexturize on content, which would turn a card's "..." into "…" and
- * straight quotes into curly ones; live's pages (Elementor's) print the words as typed.
+ * straight quotes into curly ones; live's pages (Elementor's) print the words as typed,
+ * and an item's text is the text live printed.
  */
 function harlow_plain_page_content() {
-	if ( is_page() ) {
+	if ( is_singular() ) {
 		remove_filter( 'the_content', 'wptexturize' );
 		remove_filter( 'the_content', 'wpautop' );
 	}
 }
 add_action( 'wp', 'harlow_plain_page_content' );
+
+/**
+ * A page with a list of items keeps the page numbers of the list's pager (/blog/2/), as on
+ * live: the page itself has one page, so WordPress would send /blog/2/ back to /blog/.
+ *
+ * @param string|false $redirect Where WordPress would send the visitor.
+ * @return string|false
+ */
+function harlow_keep_list_pages( $redirect ) {
+	if ( is_page() && (int) get_query_var( 'page' ) > 1 && has_block( 'harlow/loop', get_queried_object_id() ) ) {
+		return false;
+	}
+	return $redirect;
+}
+add_filter( 'redirect_canonical', 'harlow_keep_list_pages' );
+
+/**
+ * The pager's pages of a page with a list of items are found (200), as on live: WordPress
+ * answers 404 for /blog/2/ because the page's own text is not split into pages.
+ *
+ * @param bool     $handled Whether the request was dealt with already.
+ * @param WP_Query $query   The main query.
+ * @return bool
+ */
+function harlow_list_pages_found( $handled, $query ) {
+	if ( $query->is_page() && (int) $query->get( 'page' ) > 1 && $query->posts && has_block( 'harlow/loop', $query->posts[0] ) ) {
+		status_header( 200 );
+		return true;
+	}
+	return $handled;
+}
+add_filter( 'pre_handle_404', 'harlow_list_pages_found', 10, 2 );

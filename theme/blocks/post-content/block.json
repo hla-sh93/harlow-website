@@ -1,0 +1,33 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "harlow/post-content",
+	"title": "Item's text",
+	"category": "theme",
+	"description": "The text of the item the page shows (Elementor's post content widget).",
+	"textdomain": "harlow",
+	"attributes": {
+		"element": {
+			"type": "string",
+			"default": ""
+		},
+		"classes": {
+			"type": "string",
+			"default": ""
+		},
+		"settings": {
+			"type": "string",
+			"default": ""
+		},
+		"htmlId": {
+			"type": "string",
+			"default": ""
+		}
+	},
+	"supports": {
+		"html": false,
+		"className": false,
+		"customClassName": false
+	},
+	"render": "file:../../includes/sections/post-content.php"
+}

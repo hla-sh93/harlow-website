@@ -36,4 +36,7 @@ require_once __DIR__ . '/functions/nav.php';
 require_once __DIR__ . '/functions/content-types.php';
 require_once __DIR__ . '/functions/blocks.php';
 require_once __DIR__ . '/functions/loops.php';
+require_once __DIR__ . '/functions/singles.php';
+require_once __DIR__ . '/functions/forms.php';
+require_once __DIR__ . '/functions/archives.php';
 require_once __DIR__ . '/functions/install.php';

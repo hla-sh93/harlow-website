@@ -18,6 +18,10 @@
 		"postType": {
 			"type": "string",
 			"default": "elementor_library"
+		},
+		"location": {
+			"type": "string",
+			"default": ""
 		}
 	},
 	"supports": {

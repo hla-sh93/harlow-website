@@ -66,6 +66,14 @@
 		"linkRel": {
 			"type": "string",
 			"default": ""
+		},
+		"source": {
+			"type": "string",
+			"default": ""
+		},
+		"widgetType": {
+			"type": "string",
+			"default": "image.default"
 		}
 	},
 	"supports": {

@@ -208,6 +208,26 @@ add_filter( 'render_block_core/paragraph', 'harlow_plain_prose', 20 );
 add_filter( 'render_block_core/list', 'harlow_plain_prose', 20 );
 
 /**
+ * Words of the item the page shows, for a block whose source names them: its title, its
+ * date, or one of its fields (meta:<name>, stored as _<name>).
+ *
+ * @param string $source title, date or meta:<name>.
+ * @return string Markup.
+ */
+function harlow_item_text( $source ) {
+	if ( 'title' === $source ) {
+		return get_the_title();
+	}
+	if ( 'date' === $source ) {
+		return esc_html( get_the_date() );
+	}
+	if ( 0 === strpos( $source, 'meta:' ) ) {
+		return esc_html( (string) get_post_meta( get_the_ID(), '_' . substr( $source, 5 ), true ) );
+	}
+	return '';
+}
+
+/**
  * An icon of the site's set (inline SVG), kept to the elements and attributes an icon has.
  *
  * @param string $svg The icon's markup.

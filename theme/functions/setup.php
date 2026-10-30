@@ -17,6 +17,8 @@ if ( ! defined( 'ABSPATH' ) ) {
  * picture to it, which is why live's cards print width="800" for a 1024px file.
  */
 function harlow_setup() {
+	// A page's excerpt is what search results show of it (live's, from the installer).
+	add_post_type_support( 'page', 'excerpt' );
 	$GLOBALS['content_width'] = 800;
 	add_theme_support( 'title-tag' );
 	add_theme_support( 'post-thumbnails' );

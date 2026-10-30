@@ -34,6 +34,10 @@
 		"text": {
 			"type": "string",
 			"default": ""
+		},
+		"source": {
+			"type": "string",
+			"default": ""
 		}
 	},
 	"supports": {

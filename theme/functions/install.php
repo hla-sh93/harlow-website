@@ -56,6 +56,9 @@ function harlow_site_data( $name = 'site.json' ) {
  * @return array<string,int> What was done, counted.
  */
 function harlow_install_site( $restore = false ) {
+	// The installer's own writes are not edits to go back to: no revisions, whose ids would
+	// also take live's ids from the menu items made after them.
+	add_filter( 'wp_revisions_to_keep', '__return_zero', 99 );
 	$data   = harlow_site_data();
 	$report = array(
 		'pages_made'  => 0,
@@ -90,7 +93,8 @@ function harlow_install_site( $restore = false ) {
 	}
 
 	harlow_install_media( $report );
-	harlow_install_items( $ids, $report );
+	harlow_install_forms( $report );
+	harlow_install_items( $ids, $restore, $report );
 	harlow_install_shared_sections( $restore, $report );
 	foreach ( $data['pages'] as $page ) {
 		harlow_install_page_blocks( $ids[ $page['path'] ], $page['name'], $restore, $report );
@@ -120,6 +124,7 @@ function harlow_install_site( $restore = false ) {
 	// its address rules are written again.
 	flush_rewrite_rules( false );
 
+	remove_filter( 'wp_revisions_to_keep', '__return_zero', 99 );
 	return $report;
 }
 
@@ -155,11 +160,12 @@ function harlow_install_page( $page, $data, &$report ) {
 		$id   = wp_insert_post(
 			wp_slash(
 				array(
-					'import_id'   => $free ? (int) $page['live_id'] : 0,
-					'post_type'   => 'page',
-					'post_status' => 'publish',
-					'post_title'  => $page['title'],
-					'post_name'   => '/' === $page['path'] ? 'home-page' : trim( $page['path'], '/' ),
+					'import_id'    => $free ? (int) $page['live_id'] : 0,
+					'post_type'    => 'page',
+					'post_status'  => 'publish',
+					'post_title'   => $page['title'],
+					'post_name'    => '/' === $page['path'] ? 'home-page' : trim( $page['path'], '/' ),
+					'post_excerpt' => isset( $page['excerpt'] ) ? $page['excerpt'] : '',
 				)
 			)
 		);
@@ -167,6 +173,17 @@ function harlow_install_page( $page, $data, &$report ) {
 		if ( (int) $page['live_id'] === (int) $id ) {
 			++$report['ids_kept'];
 		}
+	}
+	if ( ! empty( $page['excerpt'] ) && '' === (string) get_post_field( 'post_excerpt', $id ) ) {
+		// What search results show of the page: live's excerpt, kept once the owner writes one.
+		wp_update_post(
+			wp_slash(
+				array(
+					'ID'           => $id,
+					'post_excerpt' => $page['excerpt'],
+				)
+			)
+		);
 	}
 	update_post_meta( $id, '_harlow_original', $page['name'] );
 	update_post_meta( $id, '_harlow_name', $page['name'] );
@@ -315,13 +332,157 @@ function harlow_install_media( &$report ) {
 }
 
 /**
- * Lay down the items, with live's ids, dates and addresses where free.
+ * An item's extra fields (a business model's icon and page, a project's description, year
+ * and pictures, ...), stored as _<name>.
  *
- * @param array<string,int> $pages  Page ids by path.
+ * @param int                 $id        The item.
+ * @param array<string,mixed> $item      The item's data.
+ * @param array<string,int>   $pages     Page ids by path (a card's page).
+ * @param bool                $overwrite Write every field, or only those not there yet.
+ */
+function harlow_install_item_fields( $id, $item, $pages, $overwrite ) {
+	$meta = isset( $item['meta'] ) ? $item['meta'] : array();
+	foreach ( $meta as $key => $value ) {
+		if ( ! $overwrite && metadata_exists( 'post', $id, '_' . $key ) ) {
+			continue;
+		}
+		if ( 'harlow_link' === $key ) {
+			$value = isset( $pages[ $value ] ) ? $pages[ $value ] : 0;
+		}
+		update_post_meta( $id, '_' . $key, $value );
+	}
+}
+
+/**
+ * Live's forms (install/forms.json) as Contact Form 7 forms under live's ids, with their
+ * templates, mails and Turnstile slots; a form already there is kept as it is.
+ *
  * @param array<string,int> $report Counts, updated.
  */
-function harlow_install_items( $pages, &$report ) {
-	foreach ( harlow_site_data( 'items.json' )['items'] as $n => $item ) {
+function harlow_install_forms( &$report ) {
+	$report['forms_made']  = 0;
+	$report['forms_found'] = 0;
+	if ( ! class_exists( 'WPCF7_ContactForm' ) ) {
+		return;
+	}
+	foreach ( harlow_site_data( 'forms.json' )['forms'] as $data ) {
+		$found = get_posts(
+			array(
+				'post_type'      => 'wpcf7_contact_form',
+				'post_status'    => 'any',
+				'meta_key'       => '_harlow_original', // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_key -- the installer, run once, not a page view.
+				'meta_value'     => 'form:' . $data['id'], // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_value -- as above.
+				'posts_per_page' => 1,
+				'fields'         => 'ids',
+			)
+		);
+		if ( $found ) {
+			++$report['forms_found'];
+			continue;
+		}
+		$id = wp_insert_post(
+			array(
+				'import_id'   => get_post( (int) $data['id'] ) ? 0 : (int) $data['id'],
+				'post_type'   => 'wpcf7_contact_form',
+				'post_status' => 'publish',
+				'post_title'  => $data['title'],
+			),
+			true
+		);
+		if ( is_wp_error( $id ) ) {
+			continue;
+		}
+		update_post_meta( $id, '_locale', 'en_US' );
+		$form = wpcf7_contact_form( $id );
+		$form->set_properties(
+			array(
+				'form'     => $data['template'],
+				'mail'     => array_merge(
+					WPCF7_ContactFormTemplate::get_default( 'mail' ),
+					$data['mail'],
+					array(
+						'active'        => true,
+						'use_html'      => false,
+						'exclude_blank' => false,
+					)
+				),
+				'mail_2'   => WPCF7_ContactFormTemplate::get_default( 'mail_2' ),
+				'messages' => WPCF7_ContactFormTemplate::get_default( 'messages' ),
+			)
+		);
+		$form->save();
+		update_post_meta( $id, '_harlow_original', 'form:' . $data['id'] );
+		update_post_meta( $id, '_harlow_turnstile_slot', $data['slot'] );
+		++$report['forms_made'];
+	}
+}
+
+/**
+ * An item's text with this site's addresses: live's picture files become this site's
+ * (the Media Library holds them at the same paths), and links to live's pages lead to
+ * this site's (the same paths); links to the Arabic pages stay on live, as the reference
+ * has them.
+ *
+ * @param string $html The text as live printed it.
+ * @param string $live Live's address (https://www.example.com).
+ * @return string
+ */
+function harlow_local_content( $html, $live ) {
+	$uploads = trailingslashit( wp_upload_dir()['baseurl'] );
+	foreach ( array_unique( array( $live, str_replace( '://www.', '://', $live ) ) ) as $site ) {
+		$html = str_replace( $site . '/wp-content/uploads/', $uploads, $html );
+		$html = (string) preg_replace_callback(
+			'#(href=["\'])' . preg_quote( $site, '#' ) . '(/(?!ar/)[^"\']*)#',
+			static function ( $m ) {
+				return $m[1] . home_url( $m[2] );
+			},
+			$html
+		);
+	}
+	return $html;
+}
+
+/**
+ * The files an item's text shows that are not in the Media Library (pictures put in the
+ * text by address), copied from the theme's copy of live's uploads to the same path.
+ *
+ * @param string $html The item's text, with this site's addresses.
+ */
+function harlow_install_content_files( $html ) {
+	$uploads = wp_upload_dir();
+	$base    = trailingslashit( $uploads['baseurl'] );
+	if ( ! preg_match_all( '#' . preg_quote( $base, '#' ) . '([^"\'\s,?]+)#', $html, $found ) ) {
+		return;
+	}
+	foreach ( array_unique( $found[1] ) as $rel ) {
+		$rel  = rawurldecode( $rel );
+		$to   = trailingslashit( $uploads['basedir'] ) . $rel;
+		$from = get_theme_file_path( 'assets/uploads/' . $rel );
+		if ( ! file_exists( $to ) && file_exists( $from ) && false === strpos( $rel, '..' ) ) {
+			wp_mkdir_p( dirname( $to ) );
+			copy( $from, $to );
+		}
+	}
+}
+
+/**
+ * Lay down the items, with live's ids, dates and addresses where free.
+ *
+ * @param array<string,int> $pages   Page ids by path.
+ * @param bool              $restore Put every item's text back as it came.
+ * @param array<string,int> $report  Counts, updated.
+ */
+function harlow_install_items( $pages, $restore, &$report ) {
+	$data = harlow_site_data( 'items.json' );
+	foreach ( isset( $data['categories'] ) ? $data['categories'] : array() as $category ) {
+		// Every category live has, those without posts too (their page answers, as on live).
+		if ( ! get_term_by( 'slug', $category['slug'], 'category' ) ) {
+			wp_insert_term( $category['name'], 'category', array( 'slug' => $category['slug'] ) );
+		}
+	}
+	foreach ( $data['items'] as $n => $item ) {
+		$item['content'] = harlow_local_content( $item['content'], $data['site'] );
+		harlow_install_content_files( $item['content'] );
 		$original = $item['type'] . ':' . ( $item['live_id'] ? $item['live_id'] : 'n' . $n );
 		$found    = get_posts(
 			array(
@@ -334,6 +495,18 @@ function harlow_install_items( $pages, &$report ) {
 			)
 		);
 		if ( $found ) {
+			// An item already there keeps what it has; fields it has not got yet are added.
+			harlow_install_item_fields( (int) $found[0], $item, $pages, false );
+			if ( $restore ) {
+				wp_update_post(
+					wp_slash(
+						array(
+							'ID'           => (int) $found[0],
+							'post_content' => $item['content'],
+						)
+					)
+				);
+			}
 			++$report['posts_found'];
 			continue;
 		}
@@ -373,13 +546,7 @@ function harlow_install_items( $pages, &$report ) {
 		if ( $item['featured'] && 'attachment' === get_post_type( (int) $item['featured'] ) ) {
 			set_post_thumbnail( $id, (int) $item['featured'] );
 		}
-		$meta = isset( $item['meta'] ) ? $item['meta'] : array();
-		foreach ( $meta as $key => $value ) {
-			if ( 'harlow_link' === $key ) {
-				$value = isset( $pages[ $value ] ) ? $pages[ $value ] : 0;
-			}
-			update_post_meta( $id, '_' . $key, $value );
-		}
+		harlow_install_item_fields( $id, $item, $pages, true );
 		update_post_meta( $id, '_harlow_original', $original );
 		if ( ! empty( $item['name'] ) ) {
 			update_post_meta( $id, '_harlow_name', $item['name'] );

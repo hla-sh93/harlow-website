@@ -25,7 +25,10 @@ from common import ROOT
 WP = "http://localhost:8090"
 PMA = "http://localhost:8091"
 MAILPIT = "http://localhost:8035"
-PLUGINS = {"contact-form-7/wp-contact-form-7.php", "seo-by-rank-math/rank-math.php"}
+PLUGINS = {"contact-form-7/wp-contact-form-7.php", "seo-by-rank-math/rank-math.php",
+           "contact-form-7-dynamic-text-extension/contact-form-7-dynamic-text-extension.php"}
+# the form plugins at live's versions: the forms' markup names them (stage 5)
+FORM_VERSIONS = {"WPCF7_VERSION": "6.2.3", "WPCF7DTX_VERSION": "5.0.7"}
 SERVICES = {"wordpress", "db", "mailpit", "phpmyadmin"}
 
 results = []
@@ -96,6 +99,8 @@ def main():
         " 'version' => get_bloginfo( 'version' ),"
         " 'theme' => get_stylesheet(),"
         " 'plugins' => (array) get_option( 'active_plugins' ),"
+        " 'form_versions' => array( 'WPCF7_VERSION' => defined( 'WPCF7_VERSION' ) ? WPCF7_VERSION : '',"
+        " 'WPCF7DTX_VERSION' => defined( 'WPCF7DTX_VERSION' ) ? WPCF7DTX_VERSION : '' ),"
         " 'permalinks' => get_option( 'permalink_structure' ),"
         " 'timezone' => get_option( 'timezone_string' ),"
         " 'debug_log' => defined( 'WP_DEBUG_LOG' ) && WP_DEBUG_LOG,"
@@ -107,7 +112,9 @@ def main():
         " ) );"))
     check("WordPress 7.1, as on live", str(facts["version"]).startswith("7.1"), facts["version"])
     check("active theme is harlow", facts["theme"] == "harlow", facts["theme"])
-    check("Contact Form 7 and Rank Math active", PLUGINS <= set(facts["plugins"]), facts["plugins"])
+    check("Contact Form 7, its Dynamic Text Extension and Rank Math active", PLUGINS <= set(facts["plugins"]), facts["plugins"])
+    check("the form plugins at live's versions (CF7 6.2.3, DTX 5.0.7)", facts["form_versions"] == FORM_VERSIONS,
+          facts["form_versions"])
     check("permalinks /%postname%/, as on live", facts["permalinks"] == "/%postname%/", facts["permalinks"])
     check("timezone Asia/Baghdad", facts["timezone"] == "Asia/Baghdad", facts["timezone"])
     check("errors go to debug.log, development mode theme", facts["debug_log"] and facts["dev_mode"] == "theme",

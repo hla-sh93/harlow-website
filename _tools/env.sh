@@ -28,7 +28,10 @@ cd "$(dirname "$0")/.."
 
 SITE_URL="http://localhost:8090"
 SITE_TITLE="Harlow Group"
-PLUGINS="contact-form-7 seo-by-rank-math"
+# slug, or slug:version where the site must print what live prints (the forms' markup
+# names Contact Form 7's version; the job form's hidden job title is the Dynamic Text
+# Extension's): live's versions.
+PLUGINS="contact-form-7:6.2.3 contact-form-7-dynamic-text-extension:5.0.7 seo-by-rank-math"
 
 # Git Bash rewrites anything that looks like a Unix path into a Windows one, so
 # `/env/plugins/x.zip` would reach the container as `C:/Program Files/Git/env/...`.
@@ -185,13 +188,16 @@ rebuild)
 		--skip-email
 	wp theme activate harlow
 
-	# The forms are Contact Form 7 and what each page tells a search engine is Rank Math's
-	# to print, as on the live site. Turnstile needs the live site's keys and comes in at
-	# the live step. The zips are fetched by the host: a container cannot always reach
-	# downloads.wordpress.org over TLS.
+	# The forms are Contact Form 7 (with its Dynamic Text Extension) and what each page
+	# tells a search engine is Rank Math's to print, as on the live site. Turnstile needs the
+	# live site's keys and comes in at the live step. The zips are fetched by the host: a
+	# container cannot always reach downloads.wordpress.org over TLS.
 	mkdir -p _env/plugins
-	for slug in $PLUGINS; do
-		curl -sSfL -o "_env/plugins/${slug}.zip" "https://downloads.wordpress.org/plugin/${slug}.latest-stable.zip"
+	for entry in $PLUGINS; do
+		slug="${entry%%:*}"
+		version="latest-stable"
+		[ "$entry" != "$slug" ] && version="${entry#*:}"
+		curl -sSfL -o "_env/plugins/${slug}.zip" "https://downloads.wordpress.org/plugin/${slug}.${version}.zip"
 		wp plugin install "/env/plugins/${slug}.zip" --activate --force >/dev/null
 		echo "plugin  $slug  $(wp plugin get "$slug" --field=version)"
 	done

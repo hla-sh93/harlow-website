@@ -42,8 +42,15 @@ ALLOWED_STYLES = {
 }
 ALLOWED_SCRIPTS = {"speculationrules": "core's prefetch rules, which live prints too"}
 
-LATER = {"index": "its header and footer are part of its content: verify_wp.py compares them there",
-         "blog-2": "stage 5: the blog's second page comes with the pager"}
+# On a page with a form, Contact Form 7's stylesheet and scripts (and WordPress's hooks and
+# i18n, which its script needs), as live loads them; the reference has no scripts.
+FORM_INLINE = {"wp-i18n-js-after", "contact-form-7-js-before", "contact-form-7-js-translations", "swv-js-before"}
+
+
+def form_asset(url):
+    return "/plugins/contact-form-7/" in url or "/wp-includes/js/dist/hooks" in url or "/wp-includes/js/dist/i18n" in url
+
+LATER = {"index": "its header and footer are part of its content: verify_wp.py compares them there"}
 
 
 def part_order(body, found):
@@ -85,7 +92,10 @@ def check(page, known):
     if part_order(wp_body, found_wp) != part_order(ref_body, found_ref):
         problems.append(f"order {part_order(wp_body, found_wp)} / reference {part_order(ref_body, found_ref)}")
 
+    has_form = bool(ref.xpath("//div[contains(concat(' ', @class, ' '), ' wpcf7 ')]"))
     css_wp, css_ref = stylesheets(wp, known), stylesheets(ref, known)
+    if has_form:
+        css_wp = [h for h in css_wp if not form_asset(h)]
     if css_wp != css_ref:
         problems.append(f"stylesheets: {[h for h in css_wp if h not in css_ref]} extra, "
                         f"{[h for h in css_ref if h not in css_wp]} missing" + (" (order)" if set(css_wp) == set(css_ref) else ""))
@@ -93,11 +103,14 @@ def check(page, known):
         if style.get("id") not in ALLOWED_STYLES:
             problems.append(f"inline style {style.get('id')!r}")
 
-    js_wp = [as_reference(s.get("src"), known) for s in wp_body.xpath(".//script[@src]")]
+    js_wp = [as_reference(s.get("src"), known) for s in wp_body.xpath(".//script[@src]")
+             if not (has_form and form_asset(s.get("src")))]
     js_ref = [s.get("src") for s in ref_body.xpath(".//script[@src]")]
     if js_wp != js_ref:
         problems.append(f"scripts {js_wp} / reference {js_ref}")
     for s in wp.xpath("//script[not(@src)]"):
+        if has_form and s.get("id") in FORM_INLINE:
+            continue
         if s.get("type") not in ALLOWED_SCRIPTS and s.get("type") != "application/ld+json":
             problems.append(f"inline script {s.get('type') or s.get('id')!r}")
     return counted, problems, hints
@@ -127,13 +140,13 @@ def main(only):
         for p in hints[:3]:
             print("        hint:", p)
     if later:
-        print(f"\nnot checked yet ({len(later)}):")
+        print(f"\nnot checked here ({len(later)}):")
         for name, why in later:
             print(f"     {name[:60]:60} {why}")
     bad = sum(1 for _, _, p, _ in rows if p)
     hinted = sum(1 for _, _, _, h in rows if h)
     print(f"\nchrome: {len(rows)} pages checked, {sum(c for _, c, _, _ in rows)} elements - {bad} of {len(rows)} pages differ"
-          f" ({len(later)} pages not in WordPress yet; loading hints differ on {hinted} pages: "
+          f" ({len(later)} checked elsewhere or not in WordPress yet; loading hints differ on {hinted} pages: "
           f"{sum(len(h) for _, _, _, h in rows)} attributes)")
     return 1 if bad or not rows else 0
 

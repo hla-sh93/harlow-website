@@ -1,0 +1,38 @@
+/*
+ * The search results and category pages, as live prints them: its base theme's own lists
+ * (Hello Elementor's archive and search templates). These are the base theme's rules for
+ * that markup (hello-elementor/assets/css/theme.css on live) which the 49 pages never
+ * needed, so the reference's stylesheets do not hold them.
+ */
+.page-content a {
+	text-decoration: underline;
+}
+
+.pagination {
+	display: flex;
+	justify-content: space-between;
+	margin: 20px auto;
+}
+
+.post .entry-title a {
+	text-decoration: none;
+}
+
+.post .wp-post-image {
+	max-height: 500px;
+	-o-object-fit: cover;
+	object-fit: cover;
+	width: 100%;
+}
+
+@media (max-width: 991px) {
+	.post .wp-post-image {
+		max-height: 400px;
+	}
+}
+
+@media (max-width: 575px) {
+	.post .wp-post-image {
+		max-height: 300px;
+	}
+}

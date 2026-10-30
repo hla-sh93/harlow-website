@@ -22,10 +22,11 @@ import html as htmllib
 import json
 import re
 import sys
+from urllib.parse import unquote, urlsplit
 
 from lxml import html
 
-from common import ROOT, SITE, pages
+from common import CAPTURE, ROOT, SITE, pages
 
 OUT = ROOT / "theme" / "install" / "site.json"
 MENU_SOURCE = "sitemap"   # a page on which no item of any menu is current
@@ -85,6 +86,10 @@ def main():
     by_path = {p["path"]: p for p in json.loads((ROOT / "_inventory" / "pages.json").read_text(encoding="utf-8"))}
 
     css_map = json.loads((ROOT / "_vocab" / "css_map.json").read_text(encoding="utf-8"))
+    excerpts = {}
+    for lp in json.loads((CAPTURE / "rest" / "pages.json").read_text(encoding="utf-8")):
+        words = re.sub(r"<[^>]+>", "", lp["excerpt"]["rendered"]).strip()
+        excerpts[unquote(urlsplit(lp["link"]).path)] = htmllib.unescape(words)
     site_pages = []
     for p in pages():
         rec = by_path.get(p["path"], {})
@@ -100,6 +105,8 @@ def main():
             "live_id": rec["wp_id"],
             "translations": {"ar": lang[0]},
             "documents": [d for d in css_map[p["name"]] if (ROOT / "assets" / "css" / "design" / f"globals-{d}.css").exists()],
+            # what live's search results show of the page (its excerpt, from live's API)
+            "excerpt": excerpts.get(p["path"], ""),
         })
 
     menus = []
@@ -132,7 +139,7 @@ def main():
         },
     }
     OUT.parent.mkdir(parents=True, exist_ok=True)
-    OUT.write_text(json.dumps(data, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
+    OUT.write_text(json.dumps(data, ensure_ascii=False, indent=1) + "\n", encoding="utf-8", newline="\n")
     n_items = sum(1 for m in menus for _ in walk(m["items"]))
     print(f"{len(site_pages)} pages and {len(menus)} menus ({n_items} items) -> {OUT.relative_to(ROOT)}")
 

@@ -18,15 +18,19 @@ Writes, for the installer:
 and the section library and page starters:
   theme/patterns/section-<n>.php   one section of every shape the pages have
   theme/patterns/starter-<kind>.php one page of every kind (K1-K6), every section in it
+and live's four single templates (_tools/singles.py), the item's parts showing the item:
+  theme/singles/<name>.html        single-post, single-project, single-gallery-item, single-job
 
 Usage:
     python -u _tools/gen_blocks.py [name ...]
 """
 
+import base64
 import json
 import re
 import sys
 from collections import OrderedDict
+from urllib.parse import unquote
 
 import html5lib
 from lxml import etree
@@ -34,10 +38,12 @@ from lxml import etree
 from build_pages import plain_names
 from common import ROOT, pages
 from listdata import LOGOS, list_attributes
+from singles import TEMPLATES
 
 OUT_PAGES = ROOT / "theme" / "pages"
 OUT_PATTERNS = ROOT / "theme" / "patterns"
 OUT_EDITOR = ROOT / "theme" / "editor"
+OUT_SINGLES = ROOT / "theme" / "singles"
 DESIGN_CSS = ROOT / "assets" / "css" / "design"
 CLIENTS = "5532"           # the "major clients" container document, reused by 21 pages
 WRAPPER_ATTRS = {"class", "data-id", "data-element_type", "data-e-type", "data-widget_type", "data-settings", "id"}
@@ -272,6 +278,43 @@ def image(el):
     return ("image", a, [], None, None)
 
 
+def featured_image(el):
+    """Elementor's featured image widget: an image widget of its own type."""
+    block = image(el)
+    block[1]["widgetType"] = "theme-post-featured-image.default"
+    return block
+
+
+def post_content(el):
+    """Elementor's post content widget: the item's text, printed by the page (stage 5)."""
+    widget_body(el)
+    return ("post-content", wrapper(el), [], None, None)
+
+
+def gallery(el):
+    """Elementor's gallery widget: its pictures by id (each picture's lightbox link carries
+    its id as base64 JSON), with or without their titles over them."""
+    a = wrapper(el)
+    box = only(widget_body(el), "div", "elementor-gallery__container", where(el))
+    pictures, captions = [], set()
+    for item in els(box):
+        settings = unquote(item.get("data-e-action-hash", "")).split("settings=", 1)[-1]
+        pictures.append(int(json.loads(base64.b64decode(settings + "=" * (-len(settings) % 4)))["id"]))
+        kinds = [k.get("class") for k in els(item)]
+        if kinds == ["e-gallery-image elementor-gallery-item__image", "elementor-gallery-item__content"]:
+            captions.add(True)
+        elif kinds == ["e-gallery-image elementor-gallery-item__image", "elementor-gallery-item__overlay"]:
+            captions.add(False)
+        else:
+            raise Unknown(f"{where(el)}: gallery item {kinds}")
+    if len(captions) > 1:
+        raise Unknown(f"{where(el)}: some pictures with titles, some without")
+    a["pictures"] = pictures
+    if captions == {True}:
+        a["captions"] = True
+    return ("gallery", a, [], None, None)
+
+
 def button(el):
     a = wrapper(el)
     wrap = only(widget_body(el), "div", "elementor-button-wrapper", where(el))
@@ -431,9 +474,15 @@ def raw_widget(name):
 
 
 def shortcode(el):
+    """A shortcode widget: a Contact Form 7 form as its shortcode (printed by the plugin,
+    stage 5); anything else as the markup live's plugin printed."""
     a = wrapper(el)
     sc = only(widget_body(el), "div", "elementor-shortcode", where(el))
-    a["html"] = inner_html(sc)
+    forms = sc.xpath(".//div[contains(concat(' ', @class, ' '), ' wpcf7 ')]/@data-wpcf7-id")
+    if forms:
+        a["shortcode"] = f'[contact-form-7 id="{forms[0]}"]'
+    else:
+        a["html"] = inner_html(sc)
     return ("shortcode", a, [], None, None)
 
 
@@ -507,6 +556,9 @@ WIDGETS = {
     "template.default": template,
     "loop-grid.post": loop,
     "loop-carousel.post": loop,
+    "theme-post-content.default": post_content,
+    "theme-post-featured-image.default": featured_image,
+    "gallery.default": gallery,
 }
 
 
@@ -645,6 +697,55 @@ def first_heading(block):
     return ""
 
 
+def with_sources(block, dynamic, applied):
+    """A single template's blocks with the item's parts set to show the item: a heading's
+    words as its title, date or a field; an image as its featured picture; a gallery as its
+    gallery field. What the reference page showed of its own item is dropped."""
+    name, attrs, inner, html_part, between = block
+    source = dynamic.get(attrs.get("element"))
+    if source:
+        attrs = OrderedDict(attrs)
+        if name == "heading":
+            attrs.pop("text", None)
+            attrs["source"] = source
+        elif name == "image" and source == "featured":
+            for key in ("image", "alt", "title", "src", "width", "height", "imgClass"):
+                attrs.pop(key, None)
+            attrs["source"] = source
+        elif name == "gallery" and source.startswith("meta:"):
+            attrs.pop("pictures", None)
+            attrs["source"] = source
+        elif name == "post-content" and source == "content":
+            pass
+        else:
+            raise Unknown(f"{attrs.get('element')}: a {name} cannot show {source}")
+        applied.add(attrs["element"])
+    return (name, attrs, [with_sources(b, dynamic, applied) for b in inner], html_part, between)
+
+
+def single_template(tid, info):
+    """A single template, read from the first item page of the reference that uses it."""
+    for page in pages():
+        if page["name"] == "404" or not (ROOT / f"{page['name']}.html").exists():
+            continue
+        doc = parse_page(page["name"])
+        found = doc.xpath(f"//body/*[@data-elementor-id='{tid}']")
+        if found:
+            break
+    else:
+        raise Unknown(f"template {tid}: no page of the reference uses it")
+    holder = found[0]
+    if holder.get("data-elementor-type") != "single-page" or holder.get("data-elementor-post-type") != "elementor_library":
+        raise Unknown(f"template {tid}: {dict(holder.attrib)}")
+    kids = els(holder)
+    applied = set()
+    blocks = [with_sources(convert(c), info["dynamic"], applied) for c in kids]
+    if applied != set(info["dynamic"]):
+        raise Unknown(f"template {tid}: no element {sorted(set(info['dynamic']) - applied)}")
+    return page["name"], ("document", OrderedDict(docType="single-page", docId=int(tid), postType="elementor_library",
+                                                  location="single"), blocks, None, gaps(holder, kids, tid))
+
+
 def icons_of(block, found):
     """Every icon a block and the blocks inside it use, in the order they come."""
     name, attrs, inner, *rest = block
@@ -736,6 +837,19 @@ def main(only_names):
                 pattern_file(f"starter-{kind.lower()}", page_name, "harlow-starters",
                              f"Every section of a {page_name.lower()}, as on {name}.", content),
                 encoding="utf-8", newline="\n")
+
+    singles = 0
+    if not only_names:
+        OUT_SINGLES.mkdir(parents=True, exist_ok=True)
+        for tid, info in TEMPLATES.items():
+            try:
+                source, block = single_template(tid, info)
+            except Unknown as err:
+                problems.append(f"single {tid}: {err}")
+                continue
+            (OUT_SINGLES / f"{info['name']}.html").write_text(serialize(block), encoding="utf-8", newline="\n")
+            singles += 1
+            print(f"single template {tid} ({', '.join(info['types'])}) from {source} -> theme/singles/{info['name']}.html")
 
     if not only_names:
         icons = OrderedDict()

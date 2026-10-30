@@ -5,8 +5,7 @@ the DOM state the module is responsible for. Checks on pages that are not built 
 skipped and counted as skipped.
 
 With --wp the same checks run on the local WordPress (http://localhost:8090), page by page
-at its WordPress address; the item pages (the gallery and its lightbox) get their template
-in stage 5 and are skipped until then.
+at its WordPress address.
 
 Usage:
     python -u _tools/behaviour.py [--wp]
@@ -27,7 +26,7 @@ PORT = 8770
 BASE = f"http://127.0.0.1:{PORT}"
 WP = "http://localhost:8090"
 ON_WP = "--wp" in sys.argv
-WP_LATER = {"gallery-item-al-rasheed-hotel": "stage 5: the item pages' template"}
+WP_LATER = {}   # pages WordPress does not have yet (none since stage 5)
 PATHS = {p["name"]: p["path"] for p in pages()}
 
 

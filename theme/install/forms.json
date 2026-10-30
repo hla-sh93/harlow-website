@@ -1,0 +1,34 @@
+{
+ "forms": [
+  {
+   "id": 3453,
+   "title": "Contact",
+   "page": "contact-us",
+   "template": "<label> Name\n    [text* your-name autocomplete:name placeholder \"Name\"] </label>\n\n<label> Mobile\n    [tel* mobile-phone placeholder \"Mobile\"]</label>\n\n<label> Email\n    [email* your-email autocomplete:email placeholder \"Email\"] </label>\n\n<label> Subject\n    [text* your-subject placeholder \"Subject\"] </label>\n\n<label> Message\n    [textarea* your-message placeholder \"Message\"] </label>\n\n[submit \"Submit\"]",
+   "mail": {
+    "subject": "[_site_title] \"[your-subject]\"",
+    "sender": "[_site_title] <wordpress@[_site_domain]>",
+    "recipient": "[_site_admin_email]",
+    "body": "From: [your-name] <[your-email]>\nMobile: [mobile-phone]\nSubject: [your-subject]\n\nMessage Body:\n[your-message]\n\n-- \nThis is a notification that a contact form was submitted on your website ([_site_title] [_site_url]).",
+    "additional_headers": "Reply-To: [your-email]",
+    "attachments": ""
+   },
+   "slot": "<div class=\"cf7-cf-turnstile\" style=\"margin-top: 0px; margin-bottom: -15px;\"> <div id=\"cf-turnstile-cf7-3302204079\" class=\"cf-turnstile\" data-sitekey=\"0x4AAAAAAFFFwd58SLtC3Fx0\" data-theme=\"light\" data-language=\"auto\" data-size=\"normal\" data-retry=\"auto\" data-retry-interval=\"1000\" data-refresh-expired=\"auto\" data-refresh-timeout=\"auto\" data-action=\"contact-form-7\" data-callback=\"turnstileCF7Callback\" data-appearance=\"always\"><div class=\"cf-turnstile-slot\" aria-hidden=\"true\"></div></div> <br class=\"cf-turnstile-br cf-turnstile-br-cf7-3302204079\"> </div>"
+  },
+  {
+   "id": 4176,
+   "title": "Job application",
+   "page": "job-marketing-coordinator",
+   "template": "[dynamic_hidden job-title \"CF7_get_post_var key='title'\"]\n[text* your-name autocomplete:name placeholder \"Name\"]\n\n[email* your-email autocomplete:email placeholder \"Email\"]\n\n[tel* mobile-phone placeholder \"Phone No\"]\n\n<label>Attach CV (pdf, doc/docx; size less than 6MB) [file* resume limit:6mb filetypes:pdf|doc|docx]</label>\n\n[submit \"Submit\"]",
+   "mail": {
+    "subject": "[_site_title] Job application: [job-title]",
+    "sender": "[_site_title] <wordpress@[_site_domain]>",
+    "recipient": "[_site_admin_email]",
+    "body": "Job: [job-title]\nFrom: [your-name] <[your-email]>\nPhone: [mobile-phone]\n\nThe CV is attached.\n\n-- \nThis is a notification that a job application was submitted on your website ([_site_title] [_site_url]).",
+    "additional_headers": "Reply-To: [your-email]",
+    "attachments": "[resume]"
+   },
+   "slot": "<div class=\"cf7-cf-turnstile\" style=\"margin-top: 0px; margin-bottom: -15px;\"> <div id=\"cf-turnstile-cf7-1106125451\" class=\"cf-turnstile\" data-sitekey=\"0x4AAAAAAFFFwd58SLtC3Fx0\" data-theme=\"light\" data-language=\"auto\" data-size=\"normal\" data-retry=\"auto\" data-retry-interval=\"1000\" data-refresh-expired=\"auto\" data-refresh-timeout=\"auto\" data-action=\"contact-form-7\" data-callback=\"turnstileCF7Callback\" data-appearance=\"always\"><div class=\"cf-turnstile-slot\" aria-hidden=\"true\"></div></div> <br class=\"cf-turnstile-br cf-turnstile-br-cf7-1106125451\"> </div>"
+  }
+ ]
+}
