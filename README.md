@@ -78,6 +78,8 @@ reference until something is changed:
 | a copy of a page or item, as a draft | "Duplicate" under it in its list |
 | a page's original sections, put back | the editor's sidebar: Original sections (nothing is saved until Save; Undo takes it back) |
 | a page's or item's address | the editor's sidebar (its slug): the old address redirects (301) to the new one, listed under Rank Math → Redirections; links in the pages and typed menu links follow |
+| a page's or item's SEO: its title and description in search results, focus keywords, social picture, robots, its own schema | the Rank Math panel in the editor (Rank Math's button in the top bar; for a gallery item, the Rank Math box under its title) |
+| the organization search engines show: name, logo, address, map position, e-mail, telephone, social profiles; which page is the about page and which the contact page | Rank Math → Titles & Meta → Local SEO and Social Meta |
 | where a button or picture links | the editor's sidebar: a page of the site picked from a list (the link follows the page), or a typed address |
 
 All 49 pages are on WordPress and look like the reference: the 22 pages built from blocks,
@@ -137,12 +139,19 @@ python -u _tools/build_css.py && python -u _tools/atomize.py && python -u _tools
 | WordPress theme: pictures' loading hints (`loading="lazy"`, `decoding`, `fetchpriority`) follow WordPress's rules, not the ones Elementor gave each live page | they decide when a picture downloads, not how it looks; the checks count them apart |
 | WordPress theme: the pages of business models, people and team members lead to the home page | as on live (301) |
 | WordPress theme: search results leave out team members and testimonials | live lists them, but their links only lead to the home page |
+| WordPress theme: in a post's (and the front page's) head, "Written by" and the author's schema name the site's own user | live names its administrator account (`adminfirstonline2`) on every post; the posts are the site administrator's here, and on live they keep their author |
+| WordPress theme: the "Time to read" in the head differs on two pages (the front page, corporate policies) | Rank Math counts the words of the stored page: on live Elementor's copy, here the blocks; the other 20 pages read the same |
 | WordPress theme: the order of search results can differ from live's | live searches Elementor's plain copy of each page, the theme searches the pages' blocks; the items found are the same kinds |
 | WordPress theme: the home page's footer links open in the same tab, without nofollow, as on every other page | on live's home page Rank Math gave five of them a new tab and nofollow, because there the footer is part of the page's content |
 
 ## Known gaps
 
 - All 49 English pages are built. The 49 Arabic pages come later (decision 1).
+- Focus keywords: Rank Math does not print a page's focus keywords, so only those live's
+  heads show are installed (four posts and pages); the rest are live's to carry over, or
+  the owner's to write in the Rank Math panel.
+- On the live site, Rank Math's Local SEO module and the settings the installer lays
+  (`install/seo.json`) should be compared with live's own before the live step (stage 12).
 - The latest checks, one row per page, are in `_capture/report.md`: geometry 0 differences
   on all 49 pages at 1440 and 479, 0 broken links, 13 behaviours passing. The computed-style
   check, which reads live in real time, flags three pages (harlows-people, one news item,

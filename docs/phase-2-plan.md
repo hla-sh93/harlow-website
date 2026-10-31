@@ -60,8 +60,14 @@ sections go back from the editor's sidebar; "Duplicate" makes a draft copy of a 
 item; a changed address redirects (301) through Rank Math's redirections, links in the
 pages and typed menu links follow, and putting an address back leaves no loop; links are
 picked from the site's pages.
-Next: stage 7 (SEO: every page's Rank Math fields from the reference; one title,
-description and canonical), after Hla's go.
+Stage 7 done on 2026-10-31 (tag `stage-7`): every page's and item's SEO is Rank Math's,
+as live's heads show it: its own title, description, focus keywords, social picture and
+schema, the organization with its address, logo and social profiles, the about and contact
+pages, the robots, and live's dates. Every head is live's tag by tag and schema node by
+node (`verify_seo.py`: 48 heads), with one title, description and canonical each; each
+page's fields are in its Rank Math panel, and a change made there shows in the head.
+Next: stage 8 (the installer: all pages into any WordPress with one button), after Hla's
+go.
 
 Starting point: `html-v1` (github.com/hla-sh93/harlow-website), the 49 English pages
 matching live at 1440x900 and 479x900. It stays in the repository as the reference every

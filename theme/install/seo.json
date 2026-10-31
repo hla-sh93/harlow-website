@@ -1,0 +1,671 @@
+{
+ "source": "Rank Math's heads in live's server HTML (_capture/raw/), read by _tools/seed_seo.py",
+ "site": {
+  "name": "Harlow Group",
+  "website_name": "Harlow Group",
+  "logo": {
+   "id": 687,
+   "file": "2024/05/footer-logo.png"
+  },
+  "email": "info@harlowgroup.com",
+  "phones": [
+   {
+    "type": "customer support",
+    "number": "+9647901103402"
+   }
+  ],
+  "address": {
+   "streetAddress": "Building 28, Street 23, Locality 925,Hey Babil",
+   "addressLocality": "Baghdad",
+   "addressRegion": "Baghdad Governorate",
+   "postalCode": "10013",
+   "addressCountry": "Iraq"
+  },
+  "geo": "33.2873879,44.4158601",
+  "facebook": "https://www.facebook.com/harlowgroupmea",
+  "profiles": [
+   "https://www.linkedin.com/company/harlow-group-of-companies/",
+   "https://x.com/Harlow_Group",
+   "https://www.instagram.com/harlow_group_companies/"
+  ],
+  "about_page": "about-us",
+  "contact_page": "contact-us",
+  "robots": [
+   "index"
+  ],
+  "page_schema": "off"
+ },
+ "pages": {
+  "index": {
+   "title": "Harlow Group - Leading Investments & Development in Iraq",
+   "description": "leader in energy infrastructure, Harlow Group offer an array of support services to help corporations to operate in Iraq. Call now!",
+   "published": [
+    "2024-05-27 08:53:54",
+    "2024-05-27 05:53:54"
+   ],
+   "modified": [
+    "2025-01-29 06:50:30",
+    "2025-01-29 03:50:30"
+   ]
+  },
+  "al-khairat-thermal-power-plant-iraq": {
+   "title": "Al Khairat Thermal Power Plant in Iraq - Power Station Project by Harlow International",
+   "description": "Al Khairat Thermal Power Plant is transforming Iraq's energy sector. Supplying over 10% of the country's electricity, this project boosts energy capacity, drives economic growth, and supports sustainable development in Karbala and beyond.",
+   "image": {
+    "id": 3549,
+    "file": "2024/06/PowerPlant1.png"
+   },
+   "schema": [
+    {
+     "@type": "Service",
+     "name": "Al Khairat Thermal Power Plant in Iraq - Power Station Project by Harlow International",
+     "description": "Al Khairat Thermal Power Plant is transforming Iraq's energy sector. Supplying over 10% of the country's electricity, this project boosts energy capacity, drives economic growth, and supports sustainable development in Karbala and beyond.",
+     "offers": {
+      "@type": "Offer",
+      "availability": "InStock"
+     },
+     "image": {
+      "@id": "https://www.harlowgroup.com/wp-content/uploads/2024/05/title-img.png"
+     }
+    }
+   ],
+   "published": [
+    "2024-06-08 18:23:12",
+    "2024-06-08 15:23:12"
+   ],
+   "modified": [
+    "2026-09-03 14:31:08",
+    "2026-09-03 11:31:08"
+   ]
+  },
+  "construction-iraq": {
+   "title": "Construction Company in Iraq - Anwar alrisala contracting and general trading",
+   "description": "A leading construction company in Iraq, offers expertise in real estate development, project management, and foreign investment consulting.",
+   "schema": [
+    {
+     "@type": "Service",
+     "name": "Construction Company in Iraq - Anwar alrisala contracting and general trading",
+     "description": "A leading construction company in Iraq, offers expertise in real estate development, project management, and foreign investment consulting.",
+     "offers": {
+      "@type": "Offer",
+      "availability": "InStock"
+     },
+     "image": {
+      "@id": "https://www.harlowgroup.com/wp-content/uploads/2024/12/CONSTRUCTION-DEVELOPMENT.jpg"
+     }
+    }
+   ],
+   "published": [
+    "2024-06-08 18:23:38",
+    "2024-06-08 15:23:38"
+   ],
+   "modified": [
+    "2025-10-14 12:41:04",
+    "2025-10-14 09:41:04"
+   ]
+  },
+  "consultancy-iraq": {
+   "title": "Iraq Business Consultancy Services | Harlow DMCC",
+   "description": "Navigate Iraq's business landscape with Harlow DMCC's expert consultancy services. Specialized in company formation, licensing, and logistics for international investors. Contact us today.",
+   "schema": [
+    {
+     "@type": "Service",
+     "name": "Iraq Business Consultancy Services | Harlow DMCC",
+     "description": "Navigate Iraq's business landscape with Harlow DMCC's expert consultancy services. Specialized in company formation, licensing, and logistics for international investors. Contact us today.",
+     "offers": {
+      "@type": "Offer",
+      "availability": "InStock"
+     },
+     "image": {
+      "@id": "https://www.harlowgroup.com/wp-content/uploads/2024/06/Harlow-DMCC.png"
+     }
+    }
+   ],
+   "published": [
+    "2024-06-08 18:24:49",
+    "2024-06-08 15:24:49"
+   ],
+   "modified": [
+    "2025-03-20 11:48:10",
+    "2025-03-20 08:48:10"
+   ]
+  },
+  "drc-cement-plant-iraq": {
+   "title": "DRC Cement Plant in Iraq - Harlow Group",
+   "description": "Harlow Group's DRC Cement Factory in Iraq, set to produce 2 million tons of cement annually. Supporting Iraq's growing construction demand.",
+   "image": {
+    "id": 3853,
+    "file": "2024/06/DRC.png"
+   },
+   "schema": [
+    {
+     "@type": "Service",
+     "name": "DRC Cement Plant in Iraq - Harlow Group",
+     "description": "Harlow Group's DRC Cement Factory in Iraq, set to produce 2 million tons of cement annually. Supporting Iraq's growing construction demand.",
+     "offers": {
+      "@type": "Offer",
+      "availability": "InStock"
+     },
+     "image": {
+      "@id": "https://www.harlowgroup.com/wp-content/uploads/2024/05/title-img-1.png"
+     }
+    }
+   ],
+   "published": [
+    "2024-06-08 18:24:18",
+    "2024-06-08 15:24:18"
+   ],
+   "modified": [
+    "2025-01-29 07:15:32",
+    "2025-01-29 04:15:32"
+   ]
+  },
+  "security-services-iraq": {
+   "title": "Al Murabit Security Services - Private Security Company in Iraq",
+   "description": "leading private security company in Iraq, offering armed security, close protection, risk management, and security consulting. Trusted by clients in oil, gas and government sectors.",
+   "schema": [
+    {
+     "@type": "Service",
+     "name": "Al Murabit Security Services - Private Security Company in Iraq",
+     "description": "leading private security company in Iraq, offering armed security, close protection, risk management, and security consulting. Trusted by clients in oil, gas and government sectors.",
+     "offers": {
+      "@type": "Offer",
+      "availability": "InStock"
+     },
+     "image": {
+      "@id": "https://www.harlowgroup.com/wp-content/uploads/2024/12/guard.jpg"
+     }
+    }
+   ],
+   "published": [
+    "2024-06-08 18:24:12",
+    "2024-06-08 15:24:12"
+   ],
+   "modified": [
+    "2025-01-28 19:00:52",
+    "2025-01-28 16:00:52"
+   ]
+  },
+  "smart-metering-iraq": {
+   "title": "Smart Metering in Iraq: Advance Electricity Management with Smart Meters",
+   "description": "Smart meters in Iraq enable precise consumption tracking, reduce energy losses, and support a reliable, efficient, and modern smart grid for sustainable power distribution.",
+   "schema": [
+    {
+     "@type": "Service",
+     "name": "Smart Metering in Iraq: Advance Electricity Management with Smart Meters",
+     "description": "Smart meters in Iraq enable precise consumption tracking, reduce energy losses, and support a reliable, efficient, and modern smart grid for sustainable power distribution.",
+     "offers": {
+      "@type": "Offer",
+      "availability": "InStock"
+     },
+     "image": {
+      "@id": "https://www.harlowgroup.com/wp-content/uploads/2024/06/Smart-Meters.png"
+     }
+    }
+   ],
+   "published": [
+    "2024-06-08 18:23:25",
+    "2024-06-08 15:23:25"
+   ],
+   "modified": [
+    "2025-01-29 07:06:35",
+    "2025-01-29 04:06:35"
+   ]
+  },
+  "about-us": {
+   "title": "Harlow Group - Construction Development & Strategic Projects in Iraq",
+   "description": "Harlow Group has 20+ years of EPC and construction development expertise, delivering projects in Oil & Gas, Energy, Petrochemicals, and Smart Metering across Iraq and beyond.",
+   "image": {
+    "id": 8654,
+    "file": "2024/12/harolow-group-min.png"
+   },
+   "published": [
+    "2024-06-03 07:10:09",
+    "2024-06-03 04:10:09"
+   ],
+   "modified": [
+    "2025-01-29 07:44:30",
+    "2025-01-29 04:44:30"
+   ]
+  },
+  "energy-and-smart-solutions": {
+   "title": "Harlow Group | Energy and smart solutions",
+   "description": "Iraq has made significant progress in restructuring its energy infrastructure and is constantly looking to issue legislation and laws to regulate this crucial",
+   "schema": [
+    {
+     "@type": "Service",
+     "name": "Harlow Group | Energy and smart solutions",
+     "description": "Iraq has made significant progress in restructuring its energy infrastructure and is constantly looking to issue legislation and laws to regulate this crucial",
+     "offers": {
+      "@type": "Offer",
+      "availability": "InStock"
+     },
+     "image": {
+      "@id": "https://www.harlowgroup.com/wp-content/uploads/2024/06/Harlow-International.png"
+     }
+    }
+   ],
+   "published": [
+    "2024-06-23 10:03:04",
+    "2024-06-23 07:03:04"
+   ],
+   "modified": [
+    "2025-01-28 18:58:24",
+    "2025-01-28 15:58:24"
+   ]
+  },
+  "industrial": {
+   "title": "Harlow Group | Industrial",
+   "description": "Harlow International is responsible for large-scale industrial projects in Iraq. With years of experience handling complex matters concerning heavy industry,",
+   "published": [
+    "2024-06-23 10:23:40",
+    "2024-06-23 10:23:40"
+   ],
+   "modified": [
+    "2024-12-22 11:25:52",
+    "2024-12-22 08:25:52"
+   ]
+  },
+  "security-services": {
+   "title": "Harlow Group | Security Services",
+   "description": "Al-Murabit Security Services working under the Harlow Group is a private security provider that offers a broad portfolio of services to clients in the oil and",
+   "published": [
+    "2024-06-23 10:15:01",
+    "2024-06-23 10:15:01"
+   ],
+   "modified": [
+    "2024-12-22 12:12:24",
+    "2024-12-22 09:12:24"
+   ]
+  },
+  "blog": {
+   "title": "Harlow Group | BLOG",
+   "description": "BLOGS",
+   "schema": [
+    {
+     "@type": "Service",
+     "name": "Harlow Group | BLOG",
+     "description": "BLOGS",
+     "offers": {
+      "@type": "Offer",
+      "availability": "InStock"
+     }
+    }
+   ],
+   "published": [
+    "2024-06-04 09:55:37",
+    "2024-06-04 06:55:37"
+   ],
+   "modified": [
+    "2025-05-07 13:13:13",
+    "2025-05-07 10:13:13"
+   ]
+  },
+  "blog-2": {
+   "title": "Harlow Group | BLOG",
+   "description": "BLOGS",
+   "schema": [
+    {
+     "@type": "Service",
+     "name": "Harlow Group | BLOG",
+     "description": "BLOGS",
+     "offers": {
+      "@type": "Offer",
+      "availability": "InStock"
+     }
+    }
+   ],
+   "published": [
+    "2024-06-04 09:55:37",
+    "2024-06-04 06:55:37"
+   ],
+   "modified": [
+    "2025-05-07 13:13:13",
+    "2025-05-07 10:13:13"
+   ]
+  },
+  "harlows-people": {
+   "title": "Harlow Group | Harlow's People",
+   "description": "Our employees are our greatest strength, they never fail to amaze us every day. We are proud to always stand by them and help them deliver their best.",
+   "published": [
+    "2024-06-08 12:00:58",
+    "2024-06-08 12:00:58"
+   ],
+   "modified": [
+    "2025-01-21 10:53:04",
+    "2025-01-21 07:53:04"
+   ]
+  },
+  "latest-news": {
+   "description": "NEWS",
+   "published": [
+    "2024-12-29 12:06:18",
+    "2024-12-29 12:06:18"
+   ],
+   "modified": [
+    "2025-01-21 11:17:33",
+    "2025-01-21 08:17:33"
+   ]
+  },
+  "photo-gallery": {
+   "title": "Harlow Group | PHOTO GALLERY",
+   "description": "Gallery",
+   "published": [
+    "2024-06-04 09:55:22",
+    "2024-06-04 09:55:22"
+   ],
+   "modified": [
+    "2025-01-21 11:17:39",
+    "2025-01-21 08:17:39"
+   ]
+  },
+  "work-with-us": {
+   "title": "Harlow Group - Careers",
+   "description": "Work With Us",
+   "published": [
+    "2024-06-08 12:01:52",
+    "2024-06-08 12:01:52"
+   ],
+   "modified": [
+    "2025-01-21 11:17:44",
+    "2025-01-21 08:17:44"
+   ]
+  },
+  "application-process": {
+   "title": "Harlow Group | Application Process",
+   "description": "Every year, Harlow International extends many of employment offers, and we eagerly welcome qualified people to join our flourishing group.",
+   "schema": [
+    {
+     "@type": "Service",
+     "name": "Harlow Group | Application Process",
+     "description": "Every year, Harlow International extends many of employment offers, and we eagerly welcome qualified people to join our flourishing group.",
+     "offers": {
+      "@type": "Offer",
+      "availability": "InStock"
+     },
+     "image": {
+      "@id": "https://www.harlowgroup.com/wp-content/uploads/2024/05/title-img.png"
+     }
+    }
+   ],
+   "published": [
+    "2024-06-08 12:02:15",
+    "2024-06-08 09:02:15"
+   ],
+   "modified": [
+    "2025-01-28 18:56:42",
+    "2025-01-28 15:56:42"
+   ]
+  },
+  "contact-us": {
+   "title": "Harlow Group | CONTACT US",
+   "description": "CONTACT US Dubai 24th Floor, Silver Tower, Cluster I,JLT, Dubai, UAE +971 4453 9899 Iraq Building 28, Street 23, Locality 925,Hey Babil, Baghdad, Iraq +964",
+   "published": [
+    "2024-06-03 06:30:30",
+    "2024-06-03 03:30:30"
+   ],
+   "modified": [
+    "2025-01-21 10:52:08",
+    "2025-01-21 07:52:08"
+   ]
+  },
+  "corporate-policies": {
+   "title": "Harlow Group | Corporate Policies",
+   "description": "CORPORATE POLICIES",
+   "image": {
+    "id": 4982,
+    "file": "2024/06/anti-bribery.jpg"
+   },
+   "published": [
+    "2024-06-23 09:12:19",
+    "2024-06-23 09:12:19"
+   ],
+   "modified": [
+    "2025-01-27 04:53:38",
+    "2025-01-27 01:53:38"
+   ]
+  },
+  "faq": {
+   "title": "Harlow Group | FAQ",
+   "description": "When the Ministry of Oil begins planning to implement the latest refinery in the country, which is the Karbala refinery with a capacity of 140,000 barrels per",
+   "published": [
+    "2024-06-03 06:30:02",
+    "2024-06-03 06:30:02"
+   ],
+   "modified": [
+    "2024-12-22 10:19:05",
+    "2024-12-22 07:19:05"
+   ]
+  },
+  "policy": {
+   "title": "Harlow Group | Privacy Policy",
+   "description": "PRIVACY POLICY",
+   "published": [
+    "2024-06-24 11:08:37",
+    "2024-06-24 11:08:37"
+   ],
+   "modified": [
+    "2025-01-22 15:01:01",
+    "2025-01-22 12:01:01"
+   ]
+  },
+  "sitemap": {
+   "title": "Harlow Group | Sitemap",
+   "description": "SITEMAP Home Who we are About US CHAIRMAN MESSAGE GROUP CHART VISION MISION CORPORATE SOCIAL RESPONSIBILITY TESTIMONIALS Group Business ENERGY AND SMART",
+   "published": [
+    "2024-06-26 08:17:00",
+    "2024-06-26 08:17:00"
+   ],
+   "modified": [
+    "2025-01-22 15:10:19",
+    "2025-01-22 12:10:19"
+   ]
+  },
+  "air-cooled-condenser-acc-at-al-khairat-thermal-power-plant": {
+   "description": "The Air-Cooled Condenser (ACC) represents one of the most significant technological advancements in modern thermal power generation. As the first installation",
+   "focus": "Air Cooled Condenser (ACC),Al Khairat Thermal Power Plant,acc",
+   "published": [
+    "2025-04-30 07:20:35",
+    "2025-04-30 04:20:35"
+   ],
+   "modified": [
+    "2025-04-30 07:32:56",
+    "2025-04-30 04:32:56"
+   ]
+  },
+  "al-khairat-thermal-power-plant-a-game-changer-for-iraqs-energy-sector": {
+   "description": "Al Khairat Thermal Power Plant: A Game Changer for Iraq’s Energy Sector",
+   "published": [
+    "2025-04-16 08:32:47",
+    "2025-04-16 05:32:47"
+   ],
+   "modified": [
+    "2025-10-07 11:00:59",
+    "2025-10-07 08:00:59"
+   ]
+  },
+  "al-khairat-thermal-power-plant-pioneering-fgd-technology-for-a-greener-tomorrow-2": {
+   "description": "Iraq’s energy landscape is on an upward trajectory, marked by new projects that combine innovation and sustainability. At the forefront is the Al Khairat",
+   "focus": "FGD",
+   "published": [
+    "2025-04-07 14:22:33",
+    "2025-04-07 11:22:33"
+   ],
+   "modified": [
+    "2025-04-27 11:43:01",
+    "2025-04-27 08:43:01"
+   ]
+  },
+  "iraq-renaissance-a-new-era-of-comprehensive-advancement": {
+   "description": "Iraq is currently experiencing a comprehensive renaissance across economic, social, and cultural spheres. After years of security and fiscal challenges,",
+   "published": [
+    "2025-04-23 11:14:45",
+    "2025-04-23 08:14:45"
+   ],
+   "modified": [
+    "2025-04-27 11:29:54",
+    "2025-04-27 08:29:54"
+   ]
+  },
+  "iraqs-investment-law-al-khairat-thermal-power-plant": {
+   "title": "Iraq's Investment Law and Al-Khairat Thermal Power Plant",
+   "description": "Discover the impact of Iraq's Investment Law on the Al-Khairat Thermal Power Plant and Harlow International's contributions.",
+   "focus": "Al-Khairat Thermal Power Plant,harlow international",
+   "published": [
+    "2025-05-18 09:15:33",
+    "2025-05-18 06:15:33"
+   ],
+   "modified": [
+    "2025-05-18 09:20:54",
+    "2025-05-18 06:20:54"
+   ]
+  },
+  "news-commencement-of-civil-and-engineering-activities-of-al-khairat-thermal-power-plant": {
+   "description": "The Al Khairat Thermal Power Plant project has officially entered a new phase with the commencement of civil and engineering activities at the site. This",
+   "focus": "Al Khairat Thermal Power Plant",
+   "modified": [
+    "2025-01-22 08:44:03",
+    "2025-01-22 05:44:03"
+   ]
+  },
+  "news-karbala-refinery-trial-pumping-operations-start": {
+   "description": "Karbala refinery trial pumping operations start",
+   "modified": [
+    "2024-12-29 11:54:54",
+    "2024-12-29 08:54:54"
+   ]
+  },
+  "news-minister-of-electricity-chairs-technical-meeting-with-harlow-international-and-citic-on-al-khairat-thermal-power-plant-project-2800-mw": {
+   "description": "On Monday 16th, Minister of Electricity, Eng. Ziad Ali Fadhil, chaired a technical meeting with representatives of Harlow International Limited and CITIC",
+   "modified": [
+    "2024-12-29 12:53:00",
+    "2024-12-29 09:53:00"
+   ]
+  },
+  "news-the-first-of-its-kind-in-iraq-al-khairat-thermal-power-plant-deploys-best-environmental-practices": {
+   "description": "Al Khairat Thermal Power Plant is superior to its competitors from Iraqi power plants in its reliance on simi-green technologies in power generation, including:",
+   "modified": [
+    "2024-12-29 11:41:08",
+    "2024-12-29 08:41:08"
+   ]
+  },
+  "news-unlocking-iraqs-energy-potential-the-crucial-role-of-harlow-group": {
+   "title": "Unlocking Iraq's Energy Potential: The Crucial Role of Harlow Group - Harlow Group",
+   "description": "May 10, 2023",
+   "modified": [
+    "2024-12-29 12:56:10",
+    "2024-12-29 09:56:10"
+   ]
+  },
+  "supporting-iraqs-energy-future-smart-metering-and-ai-integration": {
+   "description": "As Iraq moves toward a more modern and sustainable energy landscape, the development of advanced infrastructure plays a crucial role. Contributing to this",
+   "published": [
+    "2025-05-07 08:04:15",
+    "2025-05-07 05:04:15"
+   ],
+   "modified": [
+    "2025-05-07 08:11:16",
+    "2025-05-07 05:11:16"
+   ]
+  },
+  "the-importance-of-infrastructure-investment-in-iraq-a-look-at-harlow-groups-role": {
+   "description": "The Importance of Infrastructure Investment in Iraq: A Look at Harlow Group’s Role",
+   "published": [
+    "2025-04-14 13:40:44",
+    "2025-04-14 10:40:44"
+   ],
+   "modified": [
+    "2025-04-23 13:22:24",
+    "2025-04-23 10:22:24"
+   ]
+  },
+  "albahoo-project-al-khairat-thermal-power-plant-a-2800-mw-hfo-fired-power-plant": {
+   "description": "Scope: Our mega power project in Iraq, a 2800 MW HFO-fired Thermal Power Plant located 20km south of Karbala.",
+   "modified": [
+    "2025-10-07 11:12:04",
+    "2025-10-07 08:12:04"
+   ]
+  },
+  "albahoo-project-al-rasheed-hotel": {
+   "description": "Scope: Comprehensive refurbishment of the famous (Al Rasheed Hotel) in Baghdad's Green Zone.",
+   "modified": [
+    "2024-12-22 07:57:03",
+    "2024-12-22 04:57:03"
+   ]
+  },
+  "albahoo-project-al-suwayrah-air-base": {
+   "description": "Scope: In addition to building the main base camp for long-term construction work for Korea Aerospace Industries, we were tasked with building temporary",
+   "modified": [
+    "2024-12-22 07:58:45",
+    "2024-12-22 04:58:45"
+   ]
+  },
+  "albahoo-project-bismayah-new-city-project-for-hanwha-ec-the-biggest-housing-project-in-iraqs-recent-history": {
+   "title": "Bismayah New City Project, for Hanwha E&C. The biggest housing project in Iraq's recent history - Harlow Group",
+   "description": "Scope: Performed economic research and feasibility assessments, and provided Hanwha E&C with administrative, logistical, and legal support in addition to",
+   "modified": [
+    "2024-12-22 07:58:19",
+    "2024-12-22 04:58:19"
+   ]
+  },
+  "albahoo-project-british-embassy": {
+   "description": "Scope: Construction of a new visa facility as well as the expansion and restoration of diplomatic housing.",
+   "modified": [
+    "2024-12-22 07:55:58",
+    "2024-12-22 04:55:58"
+   ]
+  },
+  "albahoo-project-najaf-cement-plant-2-million-per-year-capacity-high-quality-cement-factory": {
+   "description": "Scope: 2 million ton per year plant is being built in the Najaf Governorate in Iraq for the purpose of supplying the growing demand for cement.",
+   "modified": [
+    "2024-07-08 07:36:18",
+    "2024-07-08 04:36:18"
+   ]
+  },
+  "albahoo-project-prime-ministers-office-the-ziggurat-palace": {
+   "title": "PRIME MINISTER'S OFFICE (THE ZIGGURAT PALACE - Harlow Group",
+   "description": "Scope: A thorough overhaul and restoration of the Iraqi presidency council.",
+   "modified": [
+    "2024-12-22 07:54:20",
+    "2024-12-22 04:54:20"
+   ]
+  },
+  "gallery-item-al-rasheed-hotel": {
+   "modified": [
+    "2024-12-22 11:53:54",
+    "2024-12-22 08:53:54"
+   ]
+  },
+  "gallery-item-british-embassy-2": {
+   "modified": [
+    "2024-12-22 11:52:32",
+    "2024-12-22 08:52:32"
+   ]
+  },
+  "gallery-item-british-embassy": {
+   "modified": [
+    "2024-12-22 11:53:31",
+    "2024-12-22 08:53:31"
+   ]
+  },
+  "gallery-item-riverside-business-center": {
+   "modified": [
+    "2024-12-22 11:58:06",
+    "2024-12-22 08:58:06"
+   ]
+  },
+  "gallery-item-suwayrah-air-base": {
+   "modified": [
+    "2024-12-22 11:52:58",
+    "2024-12-22 08:52:58"
+   ]
+  },
+  "job-marketing-coordinator": {
+   "description": "Job Title:             Marketing Coordinator",
+   "modified": [
+    "2024-10-30 06:47:30",
+    "2024-10-30 03:47:30"
+   ]
+  }
+ }
+}

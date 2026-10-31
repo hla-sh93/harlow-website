@@ -4,8 +4,10 @@ What a page shows of an item (a card, a slide) is in the reference; what the ite
 (its id, address, date, full text, excerpt, featured picture) is in live's public REST
 API. This reads the English items of every type that has a REST route, and the media
 records of every picture the site uses: the featured pictures of those items, every
-`wp-image-<id>` of the 49 reference pages, and the pictures of their galleries (an
-Elementor gallery names each picture's id in its lightbox link). A media record names the
+`wp-image-<id>` of the 49 reference pages, the pictures of their galleries (an
+Elementor gallery names each picture's id in its lightbox link), and the pictures the
+pages' SEO heads name (stage 7: a page's social picture, its schema's pictures, the
+organization's logo), found by their address. A media record names the
 file and each size WordPress made of it, which is what lets the Media Library hold the same
 files under the same addresses (theme/functions/install.php).
 
@@ -72,6 +74,32 @@ def gallery_pictures(html):
     return ids
 
 
+def upload_path(url):
+    """The path under wp-content/uploads/ of a live picture's address."""
+    return unquote(urlsplit(url).path).split("/wp-content/uploads/", 1)[-1]
+
+
+def record_paths(m):
+    """Every file of a media record: the original and each size, as paths under uploads/."""
+    base = upload_path(m["source_url"]).rsplit("/", 1)[0] + "/"
+    return {upload_path(m["source_url"])} | {base + s["file"] for s in m.get("media_details", {}).get("sizes", {}).values()}
+
+
+def head_pictures():
+    """The pictures the SEO heads of the 49 pages name (their captured server HTML)."""
+    paths = set()
+    for p in pages():
+        raw = CAPTURE / "raw" / f"{p['name']}.html"
+        if not raw.exists():
+            continue
+        head = raw.read_text(encoding="utf-8").split("</head>", 1)[0]
+        urls = re.findall(r'<meta property="og:image" content="([^"]+)"', head)
+        for block in re.findall(r'class="rank-math-schema">(.*?)</script>', head, re.S):
+            urls += re.findall(r'"(?:url|contentUrl)": "([^"]+)"', json.dumps(json.loads(block), ensure_ascii=False))
+        paths |= {upload_path(u) for u in urls if "/wp-content/uploads/" in u}
+    return paths
+
+
 def main():
     OUT.mkdir(parents=True, exist_ok=True)
     session = requests.Session()
@@ -91,7 +119,14 @@ def main():
     if "--items" in sys.argv or not (OUT / "pages.json").exists():
         live_pages = all_of(session, "pages", {"lang": "en", "_fields": "id,slug,link,excerpt"})
         (OUT / "pages.json").write_text(json.dumps(live_pages, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
-    print(f"pages: {len(json.loads((OUT / 'pages.json').read_text(encoding='utf-8')))} excerpts")
+    # and their publication dates, which their heads print (stage 7; a page's date does not move)
+    live_pages = json.loads((OUT / "pages.json").read_text(encoding="utf-8"))
+    if any("date" not in p for p in live_pages):
+        dates = {p["id"]: p for p in all_of(session, "pages", {"lang": "en", "_fields": "id,date,date_gmt"})}
+        for p in live_pages:
+            p.update({k: dates[int(p["id"])][k] for k in ("date", "date_gmt") if int(p["id"]) in dates})
+        (OUT / "pages.json").write_text(json.dumps(live_pages, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
+    print(f"pages: {len(live_pages)} excerpts, {sum(1 for p in live_pages if 'date' in p)} dates")
 
     if "--items" in sys.argv or not (OUT / "categories.json").exists():
         cats = all_of(session, "categories", {"lang": "en"})
@@ -117,11 +152,20 @@ def main():
             if chunk:
                 media += all_of(session, "media", {"include": ",".join(map(str, chunk)), "lang": "ar"})
         found = {m["id"] for m in media}
-    media = sorted(({k: m[k] for k in MEDIA_KEEP if k in m} for m in media), key=lambda m: m["id"])
+    heads = head_pictures()
+    known = set().union(*(record_paths(m) for m in media))
+    for path in sorted(heads - known):
+        stem = re.sub(r"-\d+x\d+$", "", path.rsplit("/", 1)[-1].rsplit(".", 1)[0])
+        media += [m for m in get(session, "media", {"search": stem, "per_page": 20}).json() if path in record_paths(m)]
+    found = {m["id"] for m in media}
+    media = sorted(({k: m[k] for k in MEDIA_KEEP if k in m} for m in {m["id"]: m for m in media}.values()),
+                   key=lambda m: m["id"])
     (OUT / "media.json").write_text(json.dumps(media, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
     missing = sorted(set(ids) - found)
-    print(f"media: {len(media)} of {len(ids)} pictures ({len(featured)} featured, {len(used)} in the pages, "
-          f"{len(galleries)} in their galleries)"
+    unnamed = sorted(heads - set().union(*(record_paths(m) for m in media)))
+    print(f"media: {len(media)} pictures: {len(ids) - len(missing)} of {len(ids)} by id ({len(featured)} featured, "
+          f"{len(used)} in the pages, {len(galleries)} in their galleries), {len(heads)} named by the heads"
+          + (f" ({len(unnamed)} not found: {unnamed})" if unnamed else "")
           + (f"; not answered: {missing}" if missing else ""))
 
     # The pages use some sizes of a picture; the Media Library shows all of them (the

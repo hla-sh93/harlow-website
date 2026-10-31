@@ -735,6 +735,41 @@
   }
  },
  {
+  "id": 687,
+  "date": "2024-05-28T10:35:50",
+  "slug": "footer-logo",
+  "title": {
+   "rendered": "footer-logo"
+  },
+  "alt_text": "Harlow International",
+  "caption": {
+   "rendered": ""
+  },
+  "mime_type": "image/png",
+  "source_url": "https://www.harlowgroup.com/wp-content/uploads/2024/05/footer-logo.png",
+  "media_details": {
+   "width": 1080,
+   "height": 1080,
+   "file": "2024/05/footer-logo.png",
+   "filesize": 58763,
+   "sizes": {},
+   "image_meta": {
+    "aperture": "0",
+    "credit": "",
+    "camera": "",
+    "caption": "",
+    "created_timestamp": "0",
+    "copyright": "",
+    "focal_length": "0",
+    "iso": "0",
+    "shutter_speed": "0",
+    "title": "",
+    "orientation": "0",
+    "keywords": []
+   }
+  }
+ },
+ {
   "id": 927,
   "date": "2024-05-30T09:06:36",
   "slug": "ourclient-main-image-2",

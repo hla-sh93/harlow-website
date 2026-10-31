@@ -9,6 +9,9 @@
  *   media.json  the pictures: file, size, every size WordPress made (_tools/seed_items.py)
  *   items.json  posts, news, projects, gallery items, the job, business models, people,
  *               testimonials and client logos (_tools/seed_items.py)
+ *   forms.json  live's two Contact Form 7 forms (_tools/seed_forms.py)
+ *   seo.json    each page's Rank Math fields and the site's (_tools/seed_seo.py, from
+ *               live's heads)
  *   ../pages/   each page's blocks, its "original" (_tools/gen_blocks.py), and the major
  *               clients' blocks, the synced pattern every page shows
  *
@@ -73,6 +76,7 @@ function harlow_install_site( $restore = false ) {
 		'posts_made'  => 0,
 		'posts_found' => 0,
 		'filled'      => 0,
+		'seo'         => 0,
 	);
 
 	// The data is the theme's own, written from live: kept as it is, not filtered as a
@@ -100,6 +104,7 @@ function harlow_install_site( $restore = false ) {
 		harlow_install_page_kind( $ids[ $page['path'] ], $page, $restore );
 		harlow_install_page_blocks( $ids[ $page['path'] ], $page['name'], $restore, $report );
 	}
+	harlow_install_seo( $ids, $restore, $report );
 
 	$locations = get_theme_mod( 'nav_menu_locations', array() );
 	foreach ( $data['menus'] as $menu ) {
@@ -155,6 +160,7 @@ function harlow_install_page( $page, $data, &$report ) {
 					)
 				)
 			);
+			harlow_install_fresh( (int) $id );
 		}
 	} else {
 		$free = ! get_post( (int) $page['live_id'] );
@@ -164,6 +170,7 @@ function harlow_install_page( $page, $data, &$report ) {
 					'import_id'    => $free ? (int) $page['live_id'] : 0,
 					'post_type'    => 'page',
 					'post_status'  => 'publish',
+					'post_author'  => harlow_install_author(),
 					'post_title'   => $page['title'],
 					'post_name'    => '/' === $page['path'] ? 'home-page' : trim( $page['path'], '/' ),
 					'post_excerpt' => isset( $page['excerpt'] ) ? $page['excerpt'] : '',
@@ -171,6 +178,7 @@ function harlow_install_page( $page, $data, &$report ) {
 			)
 		);
 		++$report['pages_made'];
+		harlow_install_fresh( (int) $id );
 		if ( (int) $page['live_id'] === (int) $id ) {
 			++$report['ids_kept'];
 		}
@@ -518,6 +526,7 @@ function harlow_install_items( $pages, $restore, &$report ) {
 					'post_type'     => $item['type'],
 					'post_status'   => 'publish',
 					'post_title'    => $item['title'],
+					'post_author'   => harlow_install_author(),
 					'post_name'     => $item['slug'],
 					'post_content'  => $item['content'],
 					'post_date'     => str_replace( 'T', ' ', $item['date'] ),
@@ -548,6 +557,7 @@ function harlow_install_items( $pages, $restore, &$report ) {
 			set_post_thumbnail( $id, (int) $item['featured'] );
 		}
 		harlow_install_item_fields( $id, $item, $pages, true );
+		harlow_install_fresh( (int) $id );
 		update_post_meta( $id, '_harlow_original', $original );
 		if ( ! empty( $item['name'] ) ) {
 			update_post_meta( $id, '_harlow_name', $item['name'] );
@@ -571,6 +581,174 @@ function harlow_install_items( $pages, $restore, &$report ) {
 function harlow_original_blocks( $name ) {
 	$file = get_theme_file_path( 'pages/' . $name . '.html' );
 	return file_exists( $file ) ? (string) file_get_contents( $file ) : ''; // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents -- a file inside the theme, not a URL.
+}
+
+/**
+ * The author of what the installer makes: the site's first administrator (WP-CLI runs as
+ * no user, and Rank Math prints a post's author in its head, as live does).
+ *
+ * @return int
+ */
+function harlow_install_author() {
+	$ids = get_users(
+		array(
+			'role'    => 'administrator',
+			'number'  => 1,
+			'orderby' => 'ID',
+			'fields'  => 'ID',
+		)
+	);
+	return $ids ? (int) $ids[0] : 0;
+}
+
+/**
+ * The pages and items made in this run: they get live's dates once their content is laid.
+ *
+ * @param int $id A post made now; 0 to read the list.
+ * @return int[]
+ */
+function harlow_install_fresh( $id = 0 ) {
+	static $fresh = array();
+	if ( $id ) {
+		$fresh[] = $id;
+	}
+	return $fresh;
+}
+
+/**
+ * Rank Math, as live's heads show it (install/seo.json): the site's settings (the
+ * organization and its address, map position, logo, e-mail, telephone and social
+ * profiles; the website's name; the facebook page; the about and contact pages; the
+ * robots every page says; no article schema on pages; Rank Math's Local SEO module, which
+ * prints the organization's address and place) once, or again with --restore; each page's
+ * and item's own fields (title, description, focus keyword, social picture, its own
+ * schema) where it has none yet; and live's dates on what was made now
+ * (or every page and item with --restore), which the head prints.
+ *
+ * @param array<string,int> $ids     The pages, by their address in site.json.
+ * @param bool              $restore Put live's back over the owner's.
+ * @param array<string,int> $report  Counts, updated.
+ */
+function harlow_install_seo( $ids, $restore, &$report ) {
+	global $wpdb;
+	$data = harlow_site_data( 'seo.json' );
+	if ( ! $data || ! defined( 'RANK_MATH_VERSION' ) ) {
+		return;
+	}
+	$named = array();
+	foreach ( harlow_site_data()['pages'] as $page ) {
+		$named[ $page['name'] ] = isset( $ids[ $page['path'] ] ) ? (int) $ids[ $page['path'] ] : 0;
+	}
+	$named += harlow_named_posts();
+
+	if ( $restore || ! get_option( 'harlow_seo_installed' ) ) {
+		$site   = $data['site'];
+		$titles = array_merge(
+			(array) get_option( 'rank-math-options-titles', array() ),
+			array(
+				'knowledgegraph_type'          => 'company',
+				'knowledgegraph_name'          => $site['name'],
+				'website_name'                 => $site['website_name'],
+				'local_business_type'          => 'Organization',
+				'knowledgegraph_logo'          => (string) wp_get_attachment_url( (int) $site['logo']['id'] ),
+				'knowledgegraph_logo_id'       => (int) $site['logo']['id'],
+				'url'                          => untrailingslashit( home_url() ),
+				'email'                        => $site['email'],
+				'phone_numbers'                => $site['phones'],
+				'local_address'                => $site['address'],
+				'geo'                          => $site['geo'],
+				'social_url_facebook'          => $site['facebook'],
+				'social_additional_profiles'   => implode(
+					'
+',
+					$site['profiles']
+				),
+				'local_seo_about_page'         => isset( $named[ $site['about_page'] ] ) ? $named[ $site['about_page'] ] : 0,
+				'local_seo_contact_page'       => isset( $named[ $site['contact_page'] ] ) ? $named[ $site['contact_page'] ] : 0,
+				'robots_global'                => $site['robots'],
+				'pt_page_default_rich_snippet' => $site['page_schema'],
+			)
+		);
+		update_option( 'rank-math-options-titles', $titles );
+		if ( class_exists( 'RankMath\Helper' ) ) {
+			RankMath\Helper::update_modules( array( 'local-seo' => 'on' ) );
+		}
+		update_option( 'harlow_seo_installed', 1, false );
+	}
+
+	$uploads = trailingslashit( wp_upload_dir()['baseurl'] );
+	$fresh   = harlow_install_fresh();
+	foreach ( $data['pages'] as $name => $fields ) {
+		$id = isset( $named[ $name ] ) ? (int) $named[ $name ] : 0;
+		if ( ! $id ) {
+			continue;
+		}
+		$meta = array();
+		if ( isset( $fields['title'] ) ) {
+			$meta['rank_math_title'] = $fields['title'];
+		}
+		if ( isset( $fields['description'] ) ) {
+			$meta['rank_math_description'] = $fields['description'];
+		}
+		if ( isset( $fields['focus'] ) ) {
+			$meta['rank_math_focus_keyword'] = $fields['focus'];
+		}
+		if ( isset( $fields['image'] ) ) {
+			$meta['rank_math_facebook_image']    = $uploads . $fields['image']['file'];
+			$meta['rank_math_facebook_image_id'] = (int) $fields['image']['id'];
+		}
+		foreach ( isset( $fields['schema'] ) ? $fields['schema'] : array() as $node ) {
+			$meta[ 'rank_math_schema_' . $node['@type'] ] = array_merge(
+				$node,
+				array(
+					'metadata' => array(
+						'title'     => $node['@type'],
+						'type'      => 'template',
+						'isPrimary' => true,
+					),
+				)
+			);
+		}
+		$given = false;
+		foreach ( $meta as $key => $value ) {
+			if ( $restore || ! metadata_exists( 'post', $id, $key ) ) {
+				update_post_meta( $id, $key, wp_slash( $value ) );
+				$given = true;
+			}
+		}
+		$report['seo'] += (int) $given;
+		if ( ! (int) get_post_field( 'post_author', $id ) ) {
+			// Made by an earlier install without an author: the site's administrator, as above.
+			$wpdb->update( $wpdb->posts, array( 'post_author' => harlow_install_author() ), array( 'ID' => $id ) ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- wp_update_post() would also write the time of the update.
+			clean_post_cache( $id );
+		}
+		if ( $restore || in_array( $id, $fresh, true ) ) {
+			harlow_install_dates( $id, $fields );
+		}
+	}
+}
+
+/**
+ * Live's dates on a page or item, as WordPress stores them (local and GMT).
+ *
+ * @param int                 $id     The page or item.
+ * @param array<string,mixed> $fields Its entry in seo.json.
+ */
+function harlow_install_dates( $id, $fields ) {
+	global $wpdb;
+	$dates = array();
+	if ( isset( $fields['published'] ) ) {
+		$dates['post_date']     = $fields['published'][0];
+		$dates['post_date_gmt'] = $fields['published'][1];
+	}
+	if ( isset( $fields['modified'] ) ) {
+		$dates['post_modified']     = $fields['modified'][0];
+		$dates['post_modified_gmt'] = $fields['modified'][1];
+	}
+	if ( $dates ) {
+		$wpdb->update( $wpdb->posts, $dates, array( 'ID' => $id ) ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- wp_update_post() writes the time of the update; the installer writes live's.
+		clean_post_cache( $id );
+	}
 }
 
 /**
@@ -662,7 +840,7 @@ function harlow_cli_install( $args = array(), $assoc_args = array() ) {
 	$report = harlow_install_site( isset( $assoc_args['restore'] ) );
 	WP_CLI::success(
 		sprintf(
-			'pages: %d made (%d with live\'s id), %d found, %d filled with their blocks; pictures: %d made (%d files), %d found; items: %d made, %d found; menus: %d made (%d items), %d kept',
+			'pages: %d made (%d with live\'s id), %d found, %d filled with their blocks; pictures: %d made (%d files), %d found; items: %d made, %d found; menus: %d made (%d items), %d kept; SEO: %d pages and items given theirs',
 			$report['pages_made'],
 			$report['ids_kept'],
 			$report['pages_found'],
@@ -674,7 +852,8 @@ function harlow_cli_install( $args = array(), $assoc_args = array() ) {
 			$report['posts_found'],
 			$report['menus_made'],
 			$report['items_made'],
-			$report['menus_kept']
+			$report['menus_kept'],
+			$report['seo']
 		)
 	);
 }

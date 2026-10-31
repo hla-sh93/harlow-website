@@ -32,6 +32,7 @@ from urllib.parse import unquote, urlsplit
 
 from lxml import html
 
+from capture_items import head_pictures, record_paths
 from common import CAPTURE, ROOT, SITE, local_name, pages
 from singles import FIELDS
 
@@ -215,6 +216,9 @@ def main():
     # every picture of the pages, too: the installer puts them all in the Media Library
     for p in pages():
         used_media |= {int(n) for n in WP_IMAGE.findall((ROOT / f"{p['name']}.html").read_text(encoding="utf-8"))}
+    # and the pictures the pages' SEO heads name (stage 7): the organization's logo, social pictures
+    heads = head_pictures()
+    used_media |= {mid for mid, m in media.items() if record_paths(m) & heads}
     used_media.discard(0)
     records = []
     for mid in sorted(used_media):
