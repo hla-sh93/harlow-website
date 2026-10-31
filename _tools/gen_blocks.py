@@ -20,6 +20,10 @@ and the section library and page starters:
   theme/patterns/starter-<kind>.php one page of every kind (K1-K6), every section in it
 and live's four single templates (_tools/singles.py), the item's parts showing the item:
   theme/singles/<name>.html        single-post, single-project, single-gallery-item, single-job
+and the kinds of page (stage 6), for the theme's page templates:
+  theme/kinds.json                 each kind's name, model page, starter, whether it is on
+                                   Elementor's canvas, and the documents whose page-wide rules
+                                   it loads (its model page's); each single template's documents
 
 Usage:
     python -u _tools/gen_blocks.py [name ...]
@@ -44,6 +48,7 @@ OUT_PAGES = ROOT / "theme" / "pages"
 OUT_PATTERNS = ROOT / "theme" / "patterns"
 OUT_EDITOR = ROOT / "theme" / "editor"
 OUT_SINGLES = ROOT / "theme" / "singles"
+OUT_KINDS = ROOT / "theme" / "kinds.json"
 DESIGN_CSS = ROOT / "assets" / "css" / "design"
 CLIENTS = "5532"           # the "major clients" container document, reused by 21 pages
 WRAPPER_ATTRS = {"class", "data-id", "data-element_type", "data-e-type", "data-widget_type", "data-settings", "id"}
@@ -784,6 +789,7 @@ def main(only_names):
     OUT_PAGES.mkdir(parents=True, exist_ok=True)
     OUT_PATTERNS.mkdir(parents=True, exist_ok=True)
     counts, problems, written, sections, starters = {}, [], 0, OrderedDict(), OrderedDict()
+    kind_data = OrderedDict()
     clients = None
     for page in site["pages"]:
         name = page["name"]
@@ -830,15 +836,23 @@ def main(only_names):
                 pattern_file(f"section-{n:02d}", title, "harlow-sections",
                              f"A section shaped like this one of the {name} page.", serialize(block)),
                 encoding="utf-8", newline="\n")
-        for kind, (name, content) in starters.items():
+        by_name = {p["name"]: p for p in site["pages"]}
+        for kind, (name, content) in sorted(starters.items()):
             kind_name = KIND_NAMES.get(kind, kind)
             page_name = kind_name if kind_name.lower().endswith("page") else kind_name + " page"
             (OUT_PATTERNS / f"starter-{kind.lower()}.php").write_text(
                 pattern_file(f"starter-{kind.lower()}", page_name, "harlow-starters",
                              f"Every section of a {page_name.lower()}, as on {name}.", content),
                 encoding="utf-8", newline="\n")
+            body = parse_page(name).xpath("//body")[0].get("class", "").split()
+            kind_data[kind.lower()] = OrderedDict(title=page_name, model=name, model_title=by_name[name]["title"],
+                                                  starter=f"harlow/starter-{kind.lower()}",
+                                                  canvas="elementor-template-canvas" in body,
+                                                  documents=by_name[name]["documents"])
 
-    singles = 0
+    singles, single_documents = 0, OrderedDict()
+    items_by_name = {i["name"]: i for i in json.loads((ROOT / "theme" / "install" / "items.json")
+                                                      .read_text(encoding="utf-8"))["items"]}
     if not only_names:
         OUT_SINGLES.mkdir(parents=True, exist_ok=True)
         for tid, info in TEMPLATES.items():
@@ -848,10 +862,15 @@ def main(only_names):
                 problems.append(f"single {tid}: {err}")
                 continue
             (OUT_SINGLES / f"{info['name']}.html").write_text(serialize(block), encoding="utf-8", newline="\n")
+            single_documents[info["name"]] = OrderedDict(model=source, documents=items_by_name[source]["documents"])
             singles += 1
             print(f"single template {tid} ({', '.join(info['types'])}) from {source} -> theme/singles/{info['name']}.html")
 
     if not only_names:
+        OUT_KINDS.write_text(json.dumps(OrderedDict(pages=kind_data, singles=single_documents), ensure_ascii=False,
+                                        indent="\t") + "\n", encoding="utf-8", newline="\n")
+        print(f"kinds: {len(kind_data)} kinds of page, {len(single_documents)} single templates -> theme/kinds.json")
+
         icons = OrderedDict()
         for _, (name, block) in sections.items():
             icons_of(block, icons)

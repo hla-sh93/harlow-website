@@ -91,7 +91,8 @@ function harlow_named_posts() {
 		$by_name = array();
 		$found   = get_posts(
 			array(
-				'post_type'      => 'any',
+				// Every public type: 'any' leaves out the types search skips (projects).
+				'post_type'      => array_values( get_post_types( array( 'public' => true ) ) ),
 				'post_status'    => 'publish',
 				'posts_per_page' => -1,
 				'meta_key'       => '_harlow_name', // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_key -- one query for every link of the page, cached.

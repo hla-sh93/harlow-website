@@ -1,0 +1,123 @@
+{
+	"pages": {
+		"k1": {
+			"title": "Front page",
+			"model": "index",
+			"model_title": "Home Page",
+			"starter": "harlow/starter-k1",
+			"canvas": true,
+			"documents": [
+				"post-17",
+				"loop-1092",
+				"loop-1073",
+				"post-1179",
+				"post-5532",
+				"post-1066"
+			]
+		},
+		"k2": {
+			"title": "Business page",
+			"model": "al-khairat-thermal-power-plant-iraq",
+			"model_title": "Harlow International Limited",
+			"starter": "harlow/starter-k2",
+			"canvas": false,
+			"documents": [
+				"post-2962",
+				"post-1179",
+				"post-5532",
+				"post-1066"
+			]
+		},
+		"k3": {
+			"title": "About page",
+			"model": "about-us",
+			"model_title": "About Us",
+			"starter": "harlow/starter-k3",
+			"canvas": false,
+			"documents": [
+				"post-1224",
+				"post-1179",
+				"loop-2279",
+				"post-5532",
+				"post-1066"
+			]
+		},
+		"k4": {
+			"title": "Business (older layout) page",
+			"model": "energy-and-smart-solutions",
+			"model_title": "Energy and smart solutions",
+			"starter": "harlow/starter-k4",
+			"canvas": false,
+			"documents": [
+				"post-5043",
+				"post-1179",
+				"post-5532",
+				"post-1066"
+			]
+		},
+		"k5": {
+			"title": "Listing page",
+			"model": "blog",
+			"model_title": "BLOG",
+			"starter": "harlow/starter-k5",
+			"canvas": false,
+			"documents": [
+				"post-1491",
+				"post-1179",
+				"loop-1073",
+				"post-5532",
+				"post-1066"
+			]
+		},
+		"k6": {
+			"title": "Content page",
+			"model": "application-process",
+			"model_title": "Application Process",
+			"starter": "harlow/starter-k6",
+			"canvas": false,
+			"documents": [
+				"post-2851",
+				"post-1179",
+				"post-5532",
+				"post-1066"
+			]
+		}
+	},
+	"singles": {
+		"single-post": {
+			"model": "air-cooled-condenser-acc-at-al-khairat-thermal-power-plant",
+			"documents": [
+				"post-1179",
+				"post-2473",
+				"post-5532",
+				"post-1066"
+			]
+		},
+		"single-project": {
+			"model": "albahoo-project-al-khairat-thermal-power-plant-a-2800-mw-hfo-fired-power-plant",
+			"documents": [
+				"post-1179",
+				"post-4330",
+				"post-5532",
+				"post-1066"
+			]
+		},
+		"single-gallery-item": {
+			"model": "gallery-item-al-rasheed-hotel",
+			"documents": [
+				"post-1179",
+				"post-2590",
+				"post-1066"
+			]
+		},
+		"single-job": {
+			"model": "job-marketing-coordinator",
+			"documents": [
+				"post-1179",
+				"post-4152",
+				"post-5532",
+				"post-1066"
+			]
+		}
+	}
+}

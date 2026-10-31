@@ -10,6 +10,7 @@ import { registerBlockType } from '@wordpress/blocks';
 import './ui.css';
 import './paragraph-data';
 import './design-classes';
+import './page';
 
 import accordion from '../blocks/accordion/block.json';
 import accordionEdit from '../blocks/accordion/edit';

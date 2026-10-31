@@ -7,6 +7,7 @@ import apiFetch from '@wordpress/api-fetch';
 import { InspectorControls, useBlockProps } from '@wordpress/block-editor';
 import {
 	Button,
+	ComboboxControl,
 	PanelBody,
 	TextControl,
 	ToggleControl,
@@ -227,18 +228,63 @@ export function IconPicker( { value, onChange, allowNone = false } ) {
  * @param {Function} props.onChange Called with the changed fields.
  */
 export function LinkFields( { value, onChange } ) {
+	const link = value.link || '';
+	const named = /^([\w-]+)\.html(#.*)?$/.exec( link );
+	const targets = site.linkTargets || [];
+	const picked =
+		named && targets.some( ( t ) => t.name === named[ 1 ] )
+			? named[ 1 ]
+			: '';
+	const part = picked ? named[ 2 ] || '' : '';
+	const toPage = ( name, hash ) =>
+		onChange( { link: name ? `${ name }.html${ hash }` : '' } );
 	return (
 		<>
+			<ComboboxControl
+				__next40pxDefaultSize
+				__nextHasNoMarginBottom
+				label={ __( 'Page of the site', 'harlow' ) }
+				help={ __(
+					'The link follows the page when its address changes.',
+					'harlow'
+				) }
+				value={ picked }
+				options={ targets.map( ( t ) => ( {
+					value: t.name,
+					label: t.type ? `${ t.title } (${ t.type })` : t.title,
+				} ) ) }
+				onChange={ ( name ) => toPage( name, part ) }
+			/>
+			{ picked && (
+				<TextControl
+					__next40pxDefaultSize
+					__nextHasNoMarginBottom
+					label={ __( 'Part of the page', 'harlow' ) }
+					help={ __(
+						'Optional: a section’s id, such as #section-2.',
+						'harlow'
+					) }
+					value={ part }
+					onChange={ ( hash ) =>
+						toPage(
+							picked,
+							hash && ! hash.startsWith( '#' )
+								? `#${ hash }`
+								: hash
+						)
+					}
+				/>
+			) }
 			<TextControl
 				__next40pxDefaultSize
 				__nextHasNoMarginBottom
-				label={ __( 'Link', 'harlow' ) }
+				label={ __( 'Or an address', 'harlow' ) }
 				help={ __(
-					'A page of the site as its name (about-us.html), or a full address.',
+					'Another site’s address, mailto: or tel:.',
 					'harlow'
 				) }
-				value={ value.link || '' }
-				onChange={ ( link ) => onChange( { link } ) }
+				value={ picked ? '' : link }
+				onChange={ ( typed ) => onChange( { link: typed } ) }
 			/>
 			<ToggleControl
 				__nextHasNoMarginBottom

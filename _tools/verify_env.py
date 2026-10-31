@@ -106,6 +106,9 @@ def main():
         " 'debug_log' => defined( 'WP_DEBUG_LOG' ) && WP_DEBUG_LOG,"
         " 'dev_mode' => wp_get_development_mode(),"
         " 'rank_math_skip' => (int) get_option( 'rank_math_registration_skip' ),"
+        " 'redirections' => array( in_array( 'redirections', (array) get_option( 'rank_math_modules' ), true ),"
+        " (string) ( get_option( 'rank-math-options-general' )['redirections_post_redirect'] ?? '' ),"
+        " (bool) $GLOBALS['wpdb']->get_var( \"SHOW TABLES LIKE '{$GLOBALS['wpdb']->prefix}rank_math_redirections'\" ) ),"
         " 'posts' => (int) wp_count_posts( 'post' )->publish,"
         " 'pages' => (int) wp_count_posts( 'page' )->publish,"
         f" 'mail' => wp_mail( 'check@localhost.test', '{subject}', 'Sent by _tools/verify_env.py.' ),"
@@ -120,6 +123,8 @@ def main():
     check("errors go to debug.log, development mode theme", facts["debug_log"] and facts["dev_mode"] == "theme",
           f"log {facts['debug_log']}, mode {facts['dev_mode']}")
     check("Rank Math first screen skipped", facts["rank_math_skip"] == 1, facts["rank_math_skip"])
+    check("a changed address redirects: Rank Math's redirections on, with its tables and Auto Post Redirect",
+          facts["redirections"] == [True, "on", True], facts["redirections"])
     site_pages = len(json.loads((ROOT / "theme" / "install" / "site.json").read_text(encoding="utf-8"))["pages"])
     site_posts = sum(1 for it in json.loads((ROOT / "theme" / "install" / "items.json").read_text(encoding="utf-8"))["items"]
                      if it["type"] == "post")

@@ -73,6 +73,12 @@ reference until something is changed:
 | which menu a menu shows; which items a list shows, how many and in what order | the editor's sidebar |
 | an element's design: its classes from the vocabulary (`_vocab/vocabulary.md`) | the editor's sidebar, Advanced → Design classes |
 | new sections and pages: one section of every shape the pages have, one starter per kind of page | the editor's Patterns: Harlow sections, Harlow page layouts |
+| a new page: its kind (front, business, about, older business, listing, content) and, if wanted, that kind's ready sections with real words to replace | Pages → Add: "What kind of page is this?" |
+| a page's kind: whether it is on the front page's canvas, and whose page-wide design rules it loads | the page's Template, in the editor's sidebar |
+| a copy of a page or item, as a draft | "Duplicate" under it in its list |
+| a page's original sections, put back | the editor's sidebar: Original sections (nothing is saved until Save; Undo takes it back) |
+| a page's or item's address | the editor's sidebar (its slug): the old address redirects (301) to the new one, listed under Rank Math → Redirections; links in the pages and typed menu links follow |
+| where a button or picture links | the editor's sidebar: a page of the site picked from a list (the link follows the page), or a typed address |
 
 All 49 pages are on WordPress and look like the reference: the 22 pages built from blocks,
 the 25 item pages from live's four single templates (posts and news, projects, gallery
@@ -80,7 +86,11 @@ items, the job), the blog's second page, and the page that is not there. The con
 and the job application are Contact Form 7's, as on live: they refuse what is missing and
 send their mails (to the site's administration address, answering to the sender; locally
 every mail lands in Mailpit). Search results and a category's posts are printed as live
-prints them; date archives lead home and author archives are not found, as on live. In
+prints them; date archives lead home and author archives are not found, as on live. Each
+page is on its kind's template, and a new page made from a kind's ready sections is its
+kind's model page, element by element. A changed address redirects through Rank Math's
+redirections with its Auto Post Redirect setting, which the local environment turns on;
+on the live site that setting is the owner's to turn on (stage 12). In
 the editor each page
 looks as it does on the site, drawn by the site's own stylesheets: the canvas is checked
 against the page at three widths, element by element. Menus, lists, the header and footer

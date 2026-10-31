@@ -97,6 +97,7 @@ function harlow_install_site( $restore = false ) {
 	harlow_install_items( $ids, $restore, $report );
 	harlow_install_shared_sections( $restore, $report );
 	foreach ( $data['pages'] as $page ) {
+		harlow_install_page_kind( $ids[ $page['path'] ], $page, $restore );
 		harlow_install_page_blocks( $ids[ $page['path'] ], $page['name'], $restore, $report );
 	}
 
@@ -570,6 +571,20 @@ function harlow_install_items( $pages, $restore, &$report ) {
 function harlow_original_blocks( $name ) {
 	$file = get_theme_file_path( 'pages/' . $name . '.html' );
 	return file_exists( $file ) ? (string) file_get_contents( $file ) : ''; // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents -- a file inside the theme, not a URL.
+}
+
+/**
+ * Give a page its kind's template (functions/kinds.php): when it has none, or when asked to.
+ *
+ * @param int                 $id      The page.
+ * @param array<string,mixed> $page    Its entry in the data file.
+ * @param bool                $restore Put the kind back over a template the owner chose.
+ */
+function harlow_install_page_kind( $id, $page, $restore ) {
+	if ( empty( $page['kind'] ) || ( ! $restore && '' !== (string) get_page_template_slug( $id ) ) ) {
+		return;
+	}
+	update_post_meta( $id, '_wp_page_template', 'kind-' . strtolower( $page['kind'] ) );
 }
 
 /**

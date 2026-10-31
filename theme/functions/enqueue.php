@@ -76,17 +76,14 @@ function harlow_enqueue_css( $handle, $file ) {
  * The documents whose page-wide rules this page loads, in the reference's order.
  *
  * A document's rules that name no element (`.m-0 p`) reach the whole page, so a page loads
- * those of the documents it shows and no others. The installer stores each page's list
- * (`_harlow_documents`, from the reference); anything else shows the header and footer.
+ * those of the documents it shows and no others (harlow_post_documents(): the list live
+ * gave it, or its kind's); anything else shows the header and footer.
  *
  * @return string[]
  */
 function harlow_page_documents() {
 	if ( is_singular() || is_front_page() ) {
-		$documents = get_post_meta( (int) get_queried_object_id(), '_harlow_documents', true );
-		if ( is_array( $documents ) && $documents ) {
-			return array_filter( $documents, 'harlow_is_document' );
-		}
+		return harlow_post_documents( (int) get_queried_object_id() );
 	}
 	return HARLOW_CHROME_DOCUMENTS;
 }
@@ -157,13 +154,12 @@ function harlow_canvas_assets() {
 	if ( ! is_admin() || wp_should_load_block_editor_scripts_and_styles() ) {
 		return;
 	}
-	$post      = get_post();
-	$documents = $post ? get_post_meta( $post->ID, '_harlow_documents', true ) : '';
+	$post = get_post();
 	// A form's page: CF7's stylesheet first, as on the page (functions/forms.php).
 	if ( $post && function_exists( 'wpcf7_plugin_url' ) && false !== strpos( $post->post_content, '[contact-form-7 ' ) ) {
 		wp_enqueue_style( 'contact-form-7', wpcf7_plugin_url( 'includes/css/styles.css' ), array(), WPCF7_VERSION );
 	}
-	harlow_enqueue_styles( is_array( $documents ) && $documents ? array_filter( $documents, 'harlow_is_document' ) : HARLOW_CHROME_DOCUMENTS );
+	harlow_enqueue_styles( $post ? harlow_post_documents( $post->ID ) : HARLOW_CHROME_DOCUMENTS );
 	harlow_brand_style();
 	wp_enqueue_style( 'harlow-canvas', get_theme_file_uri( 'editor/canvas.css' ), array( 'harlow-animations' ), harlow_asset_version( 'editor/canvas.css' ) );
 
@@ -177,17 +173,23 @@ add_action( 'enqueue_block_assets', 'harlow_canvas_assets' );
 
 /**
  * The blocks' edit views (theme/build/, built from theme/editor/ by `npm run build`), and
- * what they need to show links as the page does: the theme's address and every page's.
+ * what they need: the theme's address and every page's (links are shown as the page shows
+ * them), the pages a link can be picked from, the kinds of page and their starters, and the
+ * page's original sections (functions/page-tools.php).
  */
 function harlow_editor_assets() {
 	$asset = require get_theme_file_path( 'build/index.asset.php' );
+	$post  = get_post();
 	wp_enqueue_script( 'harlow-editor', get_theme_file_uri( 'build/index.js' ), $asset['dependencies'], $asset['version'], true );
 	wp_add_inline_script(
 		'harlow-editor',
 		'window.harlowEditor = ' . wp_json_encode(
 			array(
-				'themeUri' => get_theme_file_uri(),
-				'pages'    => harlow_page_urls(),
+				'themeUri'    => get_theme_file_uri(),
+				'pages'       => harlow_page_urls(),
+				'linkTargets' => harlow_link_targets(),
+				'kinds'       => harlow_kinds()['pages'],
+				'original'    => $post ? harlow_page_original( $post->ID ) : '',
 			)
 		) . ';',
 		'before'

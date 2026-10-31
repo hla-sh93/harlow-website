@@ -210,6 +210,9 @@ rebuild)
 	# Rank Math's Instant Indexing sends every saved page's address to api.indexnow.org,
 	# from a local site too. Off here; the live site's own setting is its owner's.
 	wp eval 'update_option( "rank_math_modules", array_values( array_diff( (array) get_option( "rank_math_modules" ), array( "instant-indexing" ) ) ) );'
+	# A page's or item's address changed in the editor redirects (301) from the old one:
+	# Rank Math's redirections (the module, which makes its tables) with Auto Post Redirect.
+	wp eval 'RankMath\Helper::update_modules( array( "redirections" => "on" ) ); $general = (array) get_option( "rank-math-options-general" ); $general["redirections_post_redirect"] = "on"; update_option( "rank-math-options-general", $general );'
 
 	wp rewrite structure '/%postname%/' >/dev/null
 	wp rewrite flush >/dev/null

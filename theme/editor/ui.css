@@ -23,3 +23,19 @@
 	font-family: Menlo, Consolas, monospace;
 	font-size: 12px;
 }
+
+/* "What kind of page is this?" (page.js). */
+.harlow-kinds {
+	max-width: 560px;
+}
+
+.harlow-kinds .components-radio-control {
+	margin-bottom: 16px;
+}
+
+.harlow-kinds__actions {
+	display: flex;
+	justify-content: flex-end;
+	gap: 8px;
+	margin-top: 24px;
+}

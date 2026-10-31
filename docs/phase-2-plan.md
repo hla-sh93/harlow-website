@@ -51,8 +51,17 @@ reference element by element (`verify_wp.py`: 7,845 elements) and in the browser
 own Contact Form 7 forms at live's versions: sent empty they refuse every required field,
 sent filled they reach Mailpit with Reply-To the sender, the job's title and the CV
 (`verify_forms.py`). Turnstile comes with the live step.
-Next: stage 6 (page features: kinds and their ready layouts, originals and restore,
-duplicate, slug changes with 301), after Hla's go.
+Stage 6 done on 2026-10-31 (tag `stage-6`): a page's kind is its template (Page >
+Template, six kinds from the inventory), which decides whether it is on the front page's
+canvas and whose page-wide rules it loads; a new page asks "What kind of page is this?"
+and takes that kind's ready sections or starts empty, and made so it is its kind's model
+page element by element (`verify_features.py`: 2,213 elements). A page's original
+sections go back from the editor's sidebar; "Duplicate" makes a draft copy of a page or
+item; a changed address redirects (301) through Rank Math's redirections, links in the
+pages and typed menu links follow, and putting an address back leaves no loop; links are
+picked from the site's pages.
+Next: stage 7 (SEO: every page's Rank Math fields from the reference; one title,
+description and canonical), after Hla's go.
 
 Starting point: `html-v1` (github.com/hla-sh93/harlow-website), the 49 English pages
 matching live at 1440x900 and 479x900. It stays in the repository as the reference every
