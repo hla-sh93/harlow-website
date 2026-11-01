@@ -20,7 +20,9 @@
  *   kinds.php          the kinds of page as page templates, the rules each page loads
  *   page-tools.php     duplicate, original sections, links picked from the pages
  *   seo.php            Rank Math's head for pages made of blocks (the first picture)
- *   install.php        the pages, pictures, items and menus (wp harlow install)
+ *   install.php        the pages, pictures, items, forms, menus and SEO, in rounds
+ *                      (wp harlow install)
+ *   site-pages.php     Appearance > Site pages: the installer's table and button
  *
  * The markup of the header, footer, cookie bar and page transition is in includes/parts/,
  * the cards' in includes/loops/, the blocks' in includes/sections/.
@@ -49,3 +51,4 @@ require_once __DIR__ . '/functions/kinds.php';
 require_once __DIR__ . '/functions/page-tools.php';
 require_once __DIR__ . '/functions/seo.php';
 require_once __DIR__ . '/functions/install.php';
+require_once __DIR__ . '/functions/site-pages.php';

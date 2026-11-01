@@ -119,7 +119,7 @@ function harlow_post_documents( $post_id ) {
 
 /**
  * The documents of the lists (their cards' loop templates) and of the major clients (the
- * synced pattern #5532) that a page's blocks hold, in the order they come.
+ * synced pattern, live's #5532, whatever its id here) that a page's blocks hold, in order.
  *
  * @param string $content The page's blocks.
  * @return string[]
@@ -137,7 +137,7 @@ function harlow_held_documents( $content ) {
 				if ( ! empty( $templates[ $card ] ) ) {
 					$found[] = 'loop-' . $templates[ $card ];
 				}
-			} elseif ( 'core/block' === $block['blockName'] && isset( $block['attrs']['ref'] ) && 5532 === (int) $block['attrs']['ref'] ) {
+			} elseif ( 'core/block' === $block['blockName'] && isset( $block['attrs']['ref'] ) && harlow_shared_section_id() === (int) $block['attrs']['ref'] ) {
 				$found[] = 'post-5532';
 			}
 			$walk( $block['innerBlocks'] );

@@ -66,8 +66,16 @@ schema, the organization with its address, logo and social profiles, the about a
 pages, the robots, and live's dates. Every head is live's tag by tag and schema node by
 node (`verify_seo.py`: 48 heads), with one title, description and canonical each; each
 page's fields are in its Rank Math panel, and a change made there shows in the head.
-Next: stage 8 (the installer: all pages into any WordPress with one button), after Hla's
-go.
+Stage 8 done on 2026-11-01 (tag `stage-8`): Appearance → Site pages installs the site with
+one button, in 15-second rounds: it says what it will do to each page, finds everything
+before making it, fills pages in place (ids, addresses and history kept), leaves a page's
+own content alone unless the box is ticked (then kept as a revision), keeps posts' texts
+and deletes nothing; a second run changes nothing. Proved through the button on an empty
+WordPress and on a copy shaped like live (`verify_install.py`): the 49 pages identical to
+the reference after both; and in one-second rounds, each its own request, every round going
+on from the last (19 rounds, the same site).
+Next: stage 9 (the owner's test: every field of every page changed from WordPress and
+checked, one row per page), after Hla's go.
 
 Starting point: `html-v1` (github.com/hla-sh93/harlow-website), the 49 English pages
 matching live at 1440x900 and 479x900. It stays in the repository as the reference every

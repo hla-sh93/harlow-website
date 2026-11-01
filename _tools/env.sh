@@ -12,6 +12,8 @@
 #   ./_tools/env.sh rebuild --yes   wipe the database and build the site again from the
 #                                   repository: the one that works when a snapshot is lost,
 #                                   the volume is gone, or on another machine
+#   ./_tools/env.sh rebuild --yes --empty   ... without the site's pages, items and menus,
+#                                   for Appearance > Site pages to install them
 #   ./_tools/env.sh phpcs           the WordPress Coding Standards over theme/ (exit 0 = clean)
 #   ./_tools/env.sh phpcbf          ... and fix what they can fix
 #
@@ -42,6 +44,11 @@ wp() {
 # PHP without PHP on this machine: the WP-CLI image has PHP 8.3, so the coding standards run
 # inside it with the repository mounted at /app. The Windows path is passed on purpose:
 # given the Unix one, Git Bash rewrites the mount.
+# The theme's PHP files, for phpcs and phpcbf. On this bind mount PHP's directory iterators,
+# which phpcs walks folders with, list only part of a large folder (28 of the 78 patterns),
+# while find, ls and scandir() list it all: the files are found by find and handed over.
+THEME_PHP='mkdir -p _env && find theme -name "*.php" -not -path "theme/build/*" -not -path "theme/assets/*" -not -path "*/node_modules/*" -not -path "*/vendor/*" > _env/phpcs-files.txt'
+
 php_here() {
 	MSYS_NO_PATHCONV=1 docker run --rm -v "$(pwd -W 2>/dev/null || pwd):/app" -w /app \
 		--entrypoint sh wordpress:cli -c "$*"
@@ -223,8 +230,11 @@ rebuild)
 	wp post delete 1 --force >/dev/null 2>&1 || true
 	wp eval '$sample = get_page_by_path( "sample-page" ); if ( $sample ) { wp_delete_post( $sample->ID, true ); }'
 
-	# The site's pages and menus, from the theme's data file (theme/install/site.json).
-	wp harlow install
+	# The site's pages and menus, from the theme's data files (theme/install/); with --empty
+	# the site is left without them, for Appearance > Site pages to install (verify_install.py).
+	if [ "${3:-}" != "--empty" ]; then
+		wp harlow install
+	fi
 
 	echo
 	echo "Built. WordPress $(wp core version) at $SITE_URL  (login: see .env)"
@@ -234,8 +244,8 @@ rebuild)
 phpcs)
 	ensure_standards
 	# A clean run prints nothing, so the result is said in words from the exit code.
-	if php_here 'vendor/bin/phpcs'; then
-		echo "phpcs: theme/ meets the WordPress Coding Standards (exit 0)"
+	if php_here "$THEME_PHP && vendor/bin/phpcs --file-list=_env/phpcs-files.txt"; then
+		echo "phpcs: theme/ meets the WordPress Coding Standards (exit 0, $(wc -l < _env/phpcs-files.txt | tr -d ' ') PHP files)"
 	else
 		code=$?
 		echo "phpcs: problems above (exit $code)" >&2
@@ -245,7 +255,7 @@ phpcs)
 
 phpcbf)
 	ensure_standards
-	php_here 'vendor/bin/phpcbf' || true
+	php_here "$THEME_PHP && vendor/bin/phpcbf --file-list=_env/phpcs-files.txt" || true
 	;;
 
 *)

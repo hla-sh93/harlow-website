@@ -50,6 +50,16 @@ rebuild), phpMyAdmin at http://localhost:8091 and every e-mail the site sends at
 http://localhost:8035. `./_tools/env.sh up` and `./_tools/env.sh down` start and stop
 it; `python -u _tools/verify_env.py` proves it works.
 
+The site's pages, pictures, items, forms, menus and search settings are installed by the
+theme itself: Appearance → Site pages shows what installing will do to each page and has
+one button, "Install the pages" (`wp harlow install` is the same code). It finds what is
+already there and makes only what is missing, so it fills a copy of the live site in place
+(ids, addresses and history kept); a page with content of its own (Elementor's) is left as
+it is unless the box is ticked, and then its content is kept in its Revisions. Posts keep
+their texts, nothing is deleted, and installing again changes nothing. It works in
+15-second rounds, so no request outlasts a host's time limit. `rebuild --yes --empty`
+builds WordPress without the site, for that button.
+
 What can be changed from the dashboard so far, with every page staying identical to the
 reference until something is changed:
 
@@ -79,6 +89,7 @@ reference until something is changed:
 | a page's original sections, put back | the editor's sidebar: Original sections (nothing is saved until Save; Undo takes it back) |
 | a page's or item's address | the editor's sidebar (its slug): the old address redirects (301) to the new one, listed under Rank Math → Redirections; links in the pages and typed menu links follow |
 | a page's or item's SEO: its title and description in search results, focus keywords, social picture, robots, its own schema | the Rank Math panel in the editor (Rank Math's button in the top bar; for a gallery item, the Rank Math box under its title) |
+| the site's pages, pictures, items, forms and menus, installed or filled in place | Appearance → Site pages: Install the pages (a page's own content replaced only with the box ticked, and kept as a revision) |
 | the organization search engines show: name, logo, address, map position, e-mail, telephone, social profiles; which page is the about page and which the contact page | Rank Math → Titles & Meta → Local SEO and Social Meta |
 | where a button or picture links | the editor's sidebar: a page of the site picked from a list (the link follows the page), or a typed address |
 

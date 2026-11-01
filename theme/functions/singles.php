@@ -31,5 +31,5 @@ function harlow_the_single() {
 		harlow_the_document();
 		return;
 	}
-	echo do_blocks( (string) file_get_contents( $file ) ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents, WordPress.Security.EscapeOutput.OutputNotEscaped -- a file inside the theme, not a URL; the blocks escape what they print.
+	echo do_blocks( harlow_with_shared_section( (string) file_get_contents( $file ) ) ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents, WordPress.Security.EscapeOutput.OutputNotEscaped -- a file inside the theme, not a URL; the blocks escape what they print.
 }

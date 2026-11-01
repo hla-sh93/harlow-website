@@ -366,6 +366,29 @@ function harlow_pattern_categories() {
 add_action( 'init', 'harlow_pattern_categories' );
 
 /**
+ * The patterns that show the major clients name its synced pattern by live's id, 5532;
+ * where that id was taken (on live, by Elementor's template) they are registered again
+ * naming the pattern's id on this site.
+ */
+function harlow_patterns_shared_section() {
+	$shared = harlow_shared_section_id();
+	if ( ! $shared || 5532 === $shared ) {
+		return;
+	}
+	$registry = WP_Block_Patterns_Registry::get_instance();
+	foreach ( $registry->get_all_registered() as $pattern ) {
+		if ( 0 === strpos( $pattern['name'], 'harlow/' ) && false !== strpos( $pattern['content'], '{"ref":5532}' ) ) {
+			$name = $pattern['name'];
+			unset( $pattern['name'], $pattern['filePath'] );
+			$pattern['content'] = harlow_with_shared_section( $pattern['content'] );
+			$registry->unregister( $name );
+			$registry->register( $name, $pattern );
+		}
+	}
+}
+add_action( 'init', 'harlow_patterns_shared_section', 99 );
+
+/**
  * A new page starts with its Elementor document (harlow/document), the box its sections go
  * in; nothing is added or removed beside it ('insert': 'all' would rewrite the content on
  * every load, and every block inside unlocks itself again).
