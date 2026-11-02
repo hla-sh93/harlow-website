@@ -1,0 +1,71 @@
+{
+	"parts": [
+		{
+			"key": "image",
+			"label": "Image (width, spacing)",
+			"selector": " .elementor-image-box-img",
+			"controls": [
+				"size",
+				"margin"
+			]
+		},
+		{
+			"key": "picture",
+			"label": "Image",
+			"selector": " .elementor-image-box-img img",
+			"controls": [
+				"border",
+				"shadow",
+				"opacity",
+				"transform"
+			],
+			"states": {
+				"hover": {
+					"label": "Hover",
+					"selector": ":hover .elementor-image-box-img img"
+				}
+			}
+		},
+		{
+			"key": "content",
+			"label": "Content",
+			"selector": " .elementor-image-box-wrapper",
+			"controls": [
+				"align"
+			]
+		},
+		{
+			"key": "title",
+			"label": "Title",
+			"selector": " .elementor-image-box-title",
+			"controls": [
+				"color",
+				"typography",
+				"textShadow",
+				"margin"
+			],
+			"states": {
+				"hover": {
+					"label": "Hover",
+					"selector": ":hover .elementor-image-box-title"
+				}
+			}
+		},
+		{
+			"key": "description",
+			"label": "Description",
+			"selector": " .elementor-image-box-description",
+			"controls": [
+				"color",
+				"typography",
+				"textShadow"
+			],
+			"states": {
+				"hover": {
+					"label": "Hover",
+					"selector": ":hover .elementor-image-box-description"
+				}
+			}
+		}
+	]
+}

@@ -1,0 +1,30 @@
+{
+	"parts": [
+		{
+			"key": "text",
+			"label": "Excerpt",
+			"selector": " .elementor-widget-container",
+			"controls": [
+				"color",
+				"typography",
+				"textShadow",
+				"align"
+			]
+		},
+		{
+			"key": "more",
+			"label": "Read More",
+			"selector": " .elementor-post__read-more",
+			"controls": [
+				"color",
+				"typography"
+			],
+			"states": {
+				"hover": {
+					"label": "Hover",
+					"selector": " .elementor-post__read-more:hover"
+				}
+			}
+		}
+	]
+}

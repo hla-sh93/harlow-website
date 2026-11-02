@@ -1,0 +1,57 @@
+{
+	"parts": [
+		{
+			"key": "boxes",
+			"label": "Boxes",
+			"selector": " .elementor-countdown-item",
+			"controls": [
+				"background",
+				"border",
+				"padding",
+				"shadow",
+				"size"
+			]
+		},
+		{
+			"key": "spacing",
+			"label": "Boxes: space between",
+			"selector": " .elementor-countdown-wrapper",
+			"controls": [
+				"gap"
+			]
+		},
+		{
+			"key": "digits",
+			"label": "Digits",
+			"selector": " .elementor-countdown-digits",
+			"controls": [
+				"color",
+				"typography",
+				"textShadow"
+			]
+		},
+		{
+			"key": "label",
+			"label": "Label",
+			"selector": " .elementor-countdown-label",
+			"controls": [
+				"color",
+				"typography",
+				"textShadow"
+			]
+		},
+		{
+			"key": "message",
+			"label": "Message",
+			"selector": " .elementor-countdown-expire--message",
+			"controls": [
+				"align",
+				"color",
+				"typography",
+				"textShadow",
+				"background",
+				"padding"
+			]
+		}
+	]
+}

@@ -1,0 +1,22 @@
+{
+	"parts": [
+		{
+			"key": "line",
+			"label": "Line",
+			"selector": " .elementor-divider-separator",
+			"controls": [
+				"border",
+				"size"
+			]
+		},
+		{
+			"key": "space",
+			"label": "Gap",
+			"selector": " .elementor-divider",
+			"controls": [
+				"padding",
+				"align"
+			]
+		}
+	]
+}

@@ -1,0 +1,78 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "harlow/facebook-embed",
+	"title": "Facebook Embed",
+	"category": "embed",
+	"description": "A post, a video or a comment from Facebook.",
+	"textdomain": "harlow",
+	"attributes": {
+		"element": {
+			"type": "string",
+			"default": ""
+		},
+		"classes": {
+			"type": "string",
+			"default": ""
+		},
+		"settings": {
+			"type": "string",
+			"default": ""
+		},
+		"htmlId": {
+			"type": "string",
+			"default": ""
+		},
+		"embedType": {
+			"type": "string",
+			"default": "post"
+		},
+		"postUrl": {
+			"type": "string",
+			"default": "https://www.facebook.com/elemntor/posts/2624214124556197"
+		},
+		"videoUrl": {
+			"type": "string",
+			"default": "https://www.facebook.com/elemntor/videos/1683988961912056/"
+		},
+		"commentUrl": {
+			"type": "string",
+			"default": "https://www.facebook.com/elemntor/videos/1811703749140576/?comment_id=1812873919023559"
+		},
+		"includeParent": {
+			"type": "boolean",
+			"default": false
+		},
+		"showText": {
+			"type": "boolean",
+			"default": false
+		},
+		"allowFullscreen": {
+			"type": "boolean",
+			"default": false
+		},
+		"autoplay": {
+			"type": "boolean",
+			"default": false
+		},
+		"showCaptions": {
+			"type": "boolean",
+			"default": false
+		},
+		"style": {
+			"type": "object",
+			"default": {}
+		}
+	},
+	"supports": {
+		"html": false,
+		"className": false,
+		"customClassName": false
+	},
+	"example": {
+		"attributes": {
+			"embedType": "post"
+		}
+	},
+	"render": "file:../../includes/sections/facebook-embed.php"
+}

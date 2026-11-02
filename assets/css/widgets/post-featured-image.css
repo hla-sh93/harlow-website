@@ -1,0 +1,24 @@
+/*
+ * The item's featured picture (theme-post-featured-image): an image widget, as Elementor
+ * draws one (the image widget's own rules come with the element's elementor-widget-image
+ * class); here the caption under the picture, in the kit's text colour and font.
+ */
+
+/* The picture inside its caption box */
+.elementor-widget-theme-post-featured-image .wp-caption {
+  margin: 0;
+  max-width: 100%;
+}
+
+.elementor-widget-theme-post-featured-image .wp-caption img {
+  display: inline-block;
+}
+
+/* The caption */
+.elementor-widget-theme-post-featured-image .widget-image-caption {
+  color: var(--e-global-color-text);
+  font-family: var(--e-global-typography-text-font-family), Sans-serif;
+  font-weight: var(--e-global-typography-text-font-weight);
+  display: block;
+  margin: 0;
+}

@@ -19,6 +19,9 @@
 .harlow-icon-picker__icon svg {
 	width: 22px;
 	height: 22px;
+}
+
+.harlow-icon-picker__icon svg:not([fill="none"]) {
 	fill: currentColor;
 }
 
@@ -41,5 +44,195 @@
 	justify-content: flex-end;
 	gap: 8px;
 	margin-top: 24px;
+}
+
+/* A picture chosen from the Media Library, or the design's own (PicturePicker). */
+.harlow-picture-picker {
+	margin-bottom: 16px;
+}
+
+.harlow-picture-picker__label {
+	margin: 0 0 8px;
+	font-size: 11px;
+	font-weight: 500;
+	text-transform: uppercase;
+}
+
+.harlow-picture-picker__preview {
+	display: block;
+	max-width: 100%;
+	height: auto;
+	margin-bottom: 8px;
+}
+
+.harlow-picture-picker__none {
+	margin: 0 0 8px;
+	color: #757575;
+}
+
+/* The Design panel (design-classes.js): an element's design as choices. */
+.harlow-design__heading {
+	margin: 16px 0 8px;
+	font-size: 11px;
+	font-weight: 600;
+	text-transform: uppercase;
+}
+
+.harlow-design__choice {
+	margin-bottom: 12px;
+}
+
+.harlow-design__label {
+	margin: 0 0 6px;
+}
+
+.harlow-design__swatches,
+.harlow-design__pictures {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 6px;
+}
+
+.harlow-design__swatch.components-button {
+	width: 28px;
+	min-width: 28px;
+	height: 28px;
+	padding: 0;
+	border-radius: 50%;
+	box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.2);
+}
+
+.harlow-design__swatch.components-button.is-pressed {
+	box-shadow: 0 0 0 2px #fff, 0 0 0 4px var(--wp-admin-theme-color, #3858e9);
+}
+
+.harlow-design__picture.components-button {
+	width: 64px;
+	height: 44px;
+	padding: 0;
+	overflow: hidden;
+	box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.2);
+}
+
+.harlow-design__picture.components-button.is-pressed {
+	box-shadow: 0 0 0 2px var(--wp-admin-theme-color, #3858e9);
+}
+
+.harlow-design__picture img,
+.harlow-design__gradient {
+	display: block;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+/* The Style tab (styles.js). */
+.harlow-style__colour-row {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+}
+
+.harlow-style__swatch.components-button {
+	width: 32px;
+	min-width: 32px;
+	height: 32px;
+	padding: 0;
+	border-radius: 50%;
+	box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.2);
+}
+
+.harlow-style__value {
+	flex: 1;
+	font-size: 12px;
+	color: #757575;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.harlow-style__picker {
+	padding: 12px;
+	width: 280px;
+}
+
+.harlow-style__picture {
+	display: block;
+	max-width: 100%;
+	height: auto;
+	margin-bottom: 8px;
+}
+
+.harlow-style .components-base-control,
+.harlow-style .components-unit-control-wrapper {
+	margin-bottom: 12px;
+}
+
+.harlow-style__reset-all {
+	margin-top: 8px;
+}
+
+.harlow-style__choices {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 4px;
+}
+
+.harlow-style__length {
+	display: grid;
+	grid-template-columns: 1fr 72px;
+	gap: 8px;
+	align-items: end;
+}
+
+.harlow-style__group {
+	margin: 16px 0 8px;
+	font-size: 11px;
+	font-weight: 600;
+	text-transform: uppercase;
+	color: #1e1e1e;
+}
+
+.harlow-style__shadow {
+	margin-bottom: 8px;
+}
+
+/* A slideshow's pictures, small, in a row. */
+.harlow-style__thumbs {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 4px;
+	margin-bottom: 8px;
+}
+
+.harlow-style__thumb {
+	width: 48px;
+	height: 48px;
+	object-fit: cover;
+	border-radius: 2px;
+}
+
+/* One scrolling or mouse effect: its switch, then its settings. */
+.harlow-style__effect {
+	margin-bottom: 12px;
+}
+
+/* The icon picker's tabs (the site's icons, the library, an upload) and the library's grid. */
+.harlow-icon-picker__tabs {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 4px;
+	width: 100%;
+	margin-bottom: 8px;
+}
+
+.harlow-icon-picker__grid {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 4px;
+	max-height: 320px;
+	overflow-y: auto;
+	width: 100%;
 }
 

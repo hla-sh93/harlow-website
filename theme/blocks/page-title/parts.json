@@ -1,0 +1,31 @@
+{
+	"parts": [
+		{
+			"key": "title",
+			"label": "Title",
+			"selector": " .elementor-heading-title",
+			"controls": [
+				"color",
+				"typography",
+				"textShadow",
+				"align"
+			]
+		},
+		{
+			"key": "link",
+			"label": "Link",
+			"selector": " .elementor-heading-title a",
+			"controls": [
+				"color",
+				"typography",
+				"textShadow"
+			],
+			"states": {
+				"hover": {
+					"label": "Hover",
+					"selector": " .elementor-heading-title a:hover"
+				}
+			}
+		}
+	]
+}

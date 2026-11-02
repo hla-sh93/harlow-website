@@ -1,0 +1,51 @@
+{
+	"parts": [
+		{
+			"key": "wrapper",
+			"label": "Button box",
+			"selector": " .elementor-button-wrapper",
+			"controls": [
+				"align"
+			]
+		},
+		{
+			"key": "content",
+			"label": "Button content",
+			"selector": " .elementor-button-content-wrapper",
+			"controls": [
+				"gap"
+			]
+		},
+		{
+			"key": "icon",
+			"label": "Button icon",
+			"selector": " .elementor-button-icon",
+			"controls": [
+				"icon",
+				"margin"
+			],
+			"states": {
+				"hover": {
+					"label": "Hover",
+					"selector": " .elementor-button:hover .elementor-button-icon"
+				}
+			}
+		},
+		{
+			"key": "text",
+			"label": "Button text",
+			"selector": " .elementor-button-text",
+			"controls": [
+				"color",
+				"typography",
+				"textShadow"
+			],
+			"states": {
+				"hover": {
+					"label": "Hover",
+					"selector": " .elementor-button:hover .elementor-button-text"
+				}
+			}
+		}
+	]
+}

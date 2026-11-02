@@ -1,0 +1,200 @@
+/*
+ * Login (Elementor Pro's login widget): Elementor's form look, the fields full width under
+ * their labels, the button (left, centred, right or full width), small links under it.
+ * Colours and fonts are the kit's, as Elementor's defaults for this widget are.
+ */
+
+/* The rows */
+.elementor-widget-login .elementor-form-fields-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: -10px;
+}
+
+.elementor-widget-login .elementor-field-group {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  position: relative;
+  min-height: 1px;
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.elementor-widget-login .elementor-field-group.elementor-field-type-submit {
+  align-items: flex-end;
+}
+
+/* The labels, over their fields */
+.elementor-widget-login .elementor-field-group > label,
+.elementor-widget-login .elementor-field-label {
+  cursor: pointer;
+}
+
+.elementor-widget-login .elementor-field-type-text > .elementor-field-label {
+  flex-basis: 100%;
+  max-width: 100%;
+  color: var(--e-global-color-text);
+  font-family: var(--e-global-typography-text-font-family), Sans-serif;
+  font-weight: var(--e-global-typography-text-font-weight);
+}
+
+/* The fields */
+.elementor-widget-login .elementor-field-group .elementor-field-textual {
+  flex-basis: 100%;
+  flex-grow: 1;
+  width: 100%;
+  max-width: 100%;
+  vertical-align: middle;
+  line-height: 1.4;
+  font-size: 15px;
+  min-height: 40px;
+  padding: 5px 14px;
+  border: 1px solid #69727d;
+  border-radius: 3px;
+  background-color: transparent;
+  color: #1f2124;
+  font-family: var(--e-global-typography-text-font-family), Sans-serif;
+  font-weight: var(--e-global-typography-text-font-weight);
+}
+
+.elementor-widget-login .elementor-field-group .elementor-field-textual:focus {
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.1);
+  outline: 0;
+}
+
+.elementor-widget-login .elementor-field-group .elementor-field-textual::placeholder {
+  color: inherit;
+  font-family: inherit;
+  opacity: 0.6;
+}
+
+.elementor-widget-login .elementor-field-textual.elementor-size-xs {
+  font-size: 13px;
+  min-height: 33px;
+  padding: 4px 12px;
+  border-radius: 2px;
+}
+
+.elementor-widget-login .elementor-field-textual.elementor-size-md {
+  font-size: 16px;
+  min-height: 47px;
+  padding: 6px 16px;
+  border-radius: 4px;
+}
+
+.elementor-widget-login .elementor-field-textual.elementor-size-lg {
+  font-size: 18px;
+  min-height: 59px;
+  padding: 7px 20px;
+  border-radius: 5px;
+}
+
+.elementor-widget-login .elementor-field-textual.elementor-size-xl {
+  font-size: 20px;
+  min-height: 72px;
+  padding: 8px 24px;
+  border-radius: 6px;
+}
+
+/* Remember me */
+.elementor-widget-login .elementor-remember-me {
+  font-size: 0.8em;
+}
+
+.elementor-widget-login .elementor-remember-me label {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+/* The button */
+.elementor-widget-login .elementor-button {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  cursor: pointer;
+  color: #fff;
+  background-color: var(--e-global-color-accent);
+  font-family: var(--e-global-typography-accent-font-family), Sans-serif;
+  font-weight: var(--e-global-typography-accent-font-weight);
+}
+
+.elementor-widget-login .elementor-button > span {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.elementor-widget-login .elementor-button.elementor-size-xs {
+  min-height: 33px;
+  font-size: 13px;
+  padding: 10px 20px;
+  border-radius: 2px;
+}
+
+.elementor-widget-login .elementor-button.elementor-size-sm {
+  min-height: 40px;
+  font-size: 15px;
+  padding: 12px 24px;
+  border-radius: 3px;
+}
+
+.elementor-widget-login .elementor-button.elementor-size-md {
+  min-height: 47px;
+  font-size: 16px;
+  padding: 15px 30px;
+  border-radius: 4px;
+}
+
+.elementor-widget-login .elementor-button.elementor-size-lg {
+  min-height: 59px;
+  font-size: 18px;
+  padding: 20px 40px;
+  border-radius: 5px;
+}
+
+.elementor-widget-login .elementor-button.elementor-size-xl {
+  min-height: 72px;
+  font-size: 20px;
+  padding: 25px 50px;
+  border-radius: 6px;
+}
+
+.elementor-widget-login.elementor-button-align-start .elementor-field-type-submit {
+  justify-content: flex-start;
+}
+
+.elementor-widget-login.elementor-button-align-center .elementor-field-type-submit {
+  justify-content: center;
+}
+
+.elementor-widget-login.elementor-button-align-end .elementor-field-type-submit {
+  justify-content: flex-end;
+}
+
+.elementor-widget-login.elementor-button-align-stretch .elementor-field-type-submit .elementor-button {
+  flex-basis: 100%;
+}
+
+/* The links: lost password, register */
+.elementor-widget-login .elementor-field-group > a {
+  font-size: 0.8em;
+}
+
+.elementor-widget-login .elementor-field-group > a:hover {
+  text-decoration: underline;
+}
+
+.elementor-widget-login .elementor-login-separator {
+  font-size: 0.8em;
+  white-space: pre;
+}
+
+/* The message to whoever is logged in */
+.elementor-widget-login .elementor-login__logged-in-message {
+  color: var(--e-global-color-text);
+  font-family: var(--e-global-typography-text-font-family), Sans-serif;
+  font-weight: var(--e-global-typography-text-font-weight);
+}

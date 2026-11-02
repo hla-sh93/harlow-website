@@ -1,0 +1,93 @@
+{
+	"parts": [
+		{
+			"key": "header",
+			"label": "List: title and price",
+			"selector": " .elementor-price-list-header",
+			"controls": [
+				"color",
+				"typography",
+				"margin"
+			]
+		},
+		{
+			"key": "title",
+			"label": "List: title",
+			"selector": " .elementor-price-list-title",
+			"controls": [
+				"color",
+				"typography"
+			]
+		},
+		{
+			"key": "price",
+			"label": "List: price",
+			"selector": " .elementor-price-list-price",
+			"controls": [
+				"color",
+				"typography"
+			]
+		},
+		{
+			"key": "description",
+			"label": "List: description",
+			"selector": " .elementor-price-list-description",
+			"controls": [
+				"color",
+				"typography"
+			]
+		},
+		{
+			"key": "separator",
+			"label": "List: separator (style, weight, colour, spacing)",
+			"selector": " .elementor-price-list-separator",
+			"controls": [
+				"border",
+				"margin"
+			]
+		},
+		{
+			"key": "image",
+			"label": "Image",
+			"selector": " .elementor-price-list-image img",
+			"controls": [
+				"size",
+				"border",
+				"shadow"
+			]
+		},
+		{
+			"key": "imageSpacing",
+			"label": "Image: spacing",
+			"selector": " .elementor-price-list-image",
+			"controls": [
+				"padding",
+				"size"
+			]
+		},
+		{
+			"key": "item",
+			"label": "Item: rows gap",
+			"selector": " .elementor-price-list li:not(:last-child)",
+			"controls": [
+				"margin"
+			]
+		},
+		{
+			"key": "itemBox",
+			"label": "Item",
+			"selector": " .elementor-price-list-item",
+			"controls": [
+				"background",
+				"padding",
+				"border"
+			],
+			"states": {
+				"hover": {
+					"label": "Hover",
+					"selector": " .elementor-price-list-item:hover"
+				}
+			}
+		}
+	]
+}

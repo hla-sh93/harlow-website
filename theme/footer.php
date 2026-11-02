@@ -10,7 +10,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-get_template_part( 'includes/parts/site-footer' );
+// A Theme Builder footer that fits the page, else the design's.
+if ( ! harlow_theme_template( 'footer' ) ) {
+	get_template_part( 'includes/parts/site-footer' );
+}
 get_template_part( 'includes/parts/cookie-bar' );
 get_template_part( 'includes/parts/language-switcher' );
 get_template_part( 'includes/parts/cookie-dialog' );

@@ -1,0 +1,299 @@
+/* Hotspot (Elementor Pro's hotspot widget, harlow/hotspot): a picture in the middle with
+   spots on it, white pulsing circles (or an icon or a label in a box of the kit's primary
+   colour), each showing a dark tooltip beside it. */
+
+.elementor-widget-hotspot {
+  display: flex;
+  justify-content: var(--background-align, center);
+}
+
+.elementor-widget-hotspot .elementor-widget-container {
+  position: relative;
+  display: inline-block;
+  max-width: 100%;
+}
+
+.elementor-widget-hotspot .elementor-widget-container > img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+/* A spot, placed by its distance from a side: at 0% inside that side, at 100% inside the
+   other one */
+.e-hotspot {
+  position: absolute;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.e-hotspot--active {
+  z-index: 2;
+}
+
+.e-hotspot--position-left.e-hotspot--position-top {
+  top: var(--hotspot-translate-y);
+  left: var(--hotspot-translate-x);
+  transform: translate(calc(-1 * var(--hotspot-translate-x)), calc(-1 * var(--hotspot-translate-y)));
+}
+
+.e-hotspot--position-left.e-hotspot--position-bottom {
+  bottom: var(--hotspot-translate-y);
+  left: var(--hotspot-translate-x);
+  transform: translate(calc(-1 * var(--hotspot-translate-x)), var(--hotspot-translate-y));
+}
+
+.e-hotspot--position-right.e-hotspot--position-top {
+  top: var(--hotspot-translate-y);
+  right: var(--hotspot-translate-x);
+  transform: translate(var(--hotspot-translate-x), calc(-1 * var(--hotspot-translate-y)));
+}
+
+.e-hotspot--position-right.e-hotspot--position-bottom {
+  bottom: var(--hotspot-translate-y);
+  right: var(--hotspot-translate-x);
+  transform: translate(var(--hotspot-translate-x), var(--hotspot-translate-y));
+}
+
+a.e-hotspot {
+  text-decoration: none;
+}
+
+/* What a spot shows: a circle, or its icon and label in a box */
+.e-hotspot__button {
+  position: relative;
+  display: grid;
+  grid-auto-flow: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  color: var(--hotspot-color, #fff);
+  font-size: var(--hotspot-size, 14px);
+  line-height: 1;
+  cursor: pointer;
+}
+
+.e-hotspot__button svg {
+  display: block;
+  width: auto;
+  height: 1em;
+  fill: currentColor;
+}
+
+.e-hotspot:not(.e-hotspot--circle) .e-hotspot__button {
+  padding: var(--hotspot-padding, 4px);
+  border-radius: var(--hotspot-border-radius, 3px);
+  background-color: var(--hotspot-box-color, var(--e-global-color-primary));
+}
+
+.e-hotspot__inner-circle,
+.e-hotspot__outer-circle {
+  display: block;
+  box-sizing: content-box;
+  width: 1em;
+  height: 1em;
+  border-radius: 50%;
+  background-color: currentColor;
+}
+
+.e-hotspot__outer-circle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  padding: var(--hotspot-padding, 4px);
+  opacity: 0.5;
+  translate: -50% -50%;
+}
+
+/* The spots' animations */
+.e-hotspot--soft-beat {
+  animation: e-hotspot-soft-beat 0.7s infinite alternate ease;
+}
+
+.e-hotspot--expand .e-hotspot__outer-circle {
+  animation: e-hotspot-expand 2s infinite;
+}
+
+.e-hotspot:not(.e-hotspot--circle) .e-hotspot--expand:before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  border-radius: inherit;
+  background-color: inherit;
+  opacity: 0;
+  animation: e-hotspot-expand 2s infinite;
+}
+
+.e-hotspot--overlay {
+  opacity: 0.7;
+  transition: opacity 0.2s;
+}
+
+.e-hotspot--overlay:hover,
+.e-hotspot--active .e-hotspot--overlay {
+  opacity: 1;
+}
+
+.e-hotspot--sequenced {
+  animation: e-hotspot-appear var(--hotspot-sequence-step, 0.3s) both;
+}
+
+@keyframes e-hotspot-soft-beat {
+  0% {
+    transform: scale(1);
+  }
+
+  to {
+    transform: scale(1.1);
+  }
+}
+
+@keyframes e-hotspot-expand {
+  0% {
+    transform: scale(0.5);
+    opacity: 1;
+  }
+
+  to {
+    transform: scale(1.5);
+    opacity: 0;
+  }
+}
+
+@keyframes e-hotspot-appear {
+  0% {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+/* The tooltip, beside its spot */
+.e-hotspot__tooltip {
+  position: absolute;
+  width: max-content;
+  max-width: 240px;
+  padding: var(--tooltip-padding, 8px);
+  border-radius: var(--tooltip-border-radius, 3px);
+  background-color: var(--tooltip-color, var(--e-global-color-secondary));
+  color: var(--tooltip-text-color, #fff);
+  text-align: var(--tooltip-align, start);
+  font-size: 14px;
+  line-height: 1.4;
+  pointer-events: none;
+  transition-property: opacity, scale, transform;
+  transition-duration: var(--tooltip-transition-duration, 500ms);
+}
+
+.e-hotspot__tooltip p:last-of-type {
+  margin-bottom: 0;
+}
+
+.e-hotspot--active .e-hotspot__tooltip,
+.e-hotspot--active .e-hotspot__direction-mask {
+  pointer-events: auto;
+}
+
+.e-hotspot--no-tooltip .e-hotspot__tooltip,
+.e-hotspot__tooltip:empty {
+  display: none !important;
+}
+
+.e-hotspot__direction-mask {
+  position: absolute;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.e-hotspot__direction-mask .e-hotspot__tooltip {
+  position: static;
+  box-shadow: none !important;
+}
+
+.e-hotspot--tooltip-position-top .e-hotspot--tooltip-position {
+  bottom: calc(100% + 5px);
+  left: 50%;
+  translate: -50% 0;
+}
+
+.e-hotspot--tooltip-position-bottom .e-hotspot--tooltip-position {
+  top: calc(100% + 5px);
+  left: 50%;
+  translate: -50% 0;
+}
+
+.e-hotspot--tooltip-position-left .e-hotspot--tooltip-position {
+  right: calc(100% + 5px);
+  top: 50%;
+  translate: 0 -50%;
+}
+
+.e-hotspot--tooltip-position-right .e-hotspot--tooltip-position {
+  left: calc(100% + 5px);
+  top: 50%;
+  translate: 0 -50%;
+}
+
+/* The tooltip's animations: it fades, grows, or comes from its spot's side */
+.e-hotspot--fade-in-out,
+.e-hotspot--fade-grow,
+.e-hotspot--fade-direction {
+  opacity: 0;
+}
+
+.e-hotspot--fade-grow {
+  scale: 0;
+}
+
+.e-hotspot--tooltip-position-top .e-hotspot--fade-direction {
+  transform: translateY(10px);
+}
+
+.e-hotspot--tooltip-position-bottom .e-hotspot--fade-direction {
+  transform: translateY(-10px);
+}
+
+.e-hotspot--tooltip-position-left .e-hotspot--fade-direction {
+  transform: translateX(10px);
+}
+
+.e-hotspot--tooltip-position-right .e-hotspot--fade-direction {
+  transform: translateX(-10px);
+}
+
+.e-hotspot--tooltip-position-top .e-hotspot--slide-direction {
+  transform: translateY(100%);
+}
+
+.e-hotspot--tooltip-position-bottom .e-hotspot--slide-direction {
+  transform: translateY(-100%);
+}
+
+.e-hotspot--tooltip-position-left .e-hotspot--slide-direction {
+  transform: translateX(100%);
+}
+
+.e-hotspot--tooltip-position-right .e-hotspot--slide-direction {
+  transform: translateX(-100%);
+}
+
+.e-hotspot--active .e-hotspot--fade-in-out,
+.e-hotspot--active .e-hotspot--fade-grow,
+.e-hotspot--active .e-hotspot--fade-direction,
+.e-hotspot--active .e-hotspot--slide-direction {
+  opacity: 1;
+  scale: 1;
+  transform: none;
+}
+
+/* In a flex container, the width a container gives its widgets */
+.e-con-inner > .elementor-widget-hotspot,
+.e-con > .elementor-widget-hotspot {
+  width: var(--container-widget-width);
+  --flex-grow: var(--container-widget-flex-grow);
+}

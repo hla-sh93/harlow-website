@@ -1,0 +1,150 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "harlow/video-playlist",
+	"title": "Video Playlist",
+	"category": "media",
+	"description": "Videos in a list beside the player, each with its duration, thumbnail and tabs of its own.",
+	"textdomain": "harlow",
+	"attributes": {
+		"element": {
+			"type": "string",
+			"default": ""
+		},
+		"classes": {
+			"type": "string",
+			"default": ""
+		},
+		"settings": {
+			"type": "string",
+			"default": ""
+		},
+		"htmlId": {
+			"type": "string",
+			"default": ""
+		},
+		"playlistTitle": {
+			"type": "string",
+			"default": "Playlist"
+		},
+		"videos": {
+			"type": "array",
+			"default": [
+				{
+					"id": "b4c8e01",
+					"type": "section",
+					"title": "Section Title"
+				},
+				{
+					"id": "b4c8e02",
+					"type": "youtube",
+					"title": "Sample Video",
+					"url": "https://www.youtube.com/watch?v=XHOmBV4js_E",
+					"duration": "2:11",
+					"tab1Title": "Tab #1",
+					"tab1Content": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec ullamcorper mattis, pulvinar dapibus leo.</p>",
+					"tab2Title": "Tab #2",
+					"tab2Content": "<p>Nulla facilisi. Phasellus tincidunt, metus nec feugiat dictum, lacus est sagittis augue, eu vehicula erat mauris vitae lorem.</p>"
+				},
+				{
+					"id": "b4c8e03",
+					"type": "vimeo",
+					"title": "Sample Video 2",
+					"url": "https://vimeo.com/235215203",
+					"duration": "1:30",
+					"tab1Title": "Tab #1",
+					"tab1Content": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec ullamcorper mattis, pulvinar dapibus leo.</p>",
+					"tab2Title": "Tab #2",
+					"tab2Content": "<p>Nulla facilisi. Phasellus tincidunt, metus nec feugiat dictum, lacus est sagittis augue, eu vehicula erat mauris vitae lorem.</p>"
+				}
+			],
+			"items": {
+				"type": "object"
+			}
+		},
+		"layout": {
+			"type": "string",
+			"default": "left"
+		},
+		"autoplay": {
+			"type": "boolean",
+			"default": false
+		},
+		"playNext": {
+			"type": "boolean",
+			"default": true
+		},
+		"showWatched": {
+			"type": "boolean",
+			"default": true
+		},
+		"showCount": {
+			"type": "boolean",
+			"default": true
+		},
+		"showDuration": {
+			"type": "boolean",
+			"default": true
+		},
+		"showThumbnails": {
+			"type": "boolean",
+			"default": true
+		},
+		"lazyLoad": {
+			"type": "boolean",
+			"default": true
+		},
+		"playIcon": {
+			"type": "string",
+			"default": ""
+		},
+		"watchedIcon": {
+			"type": "string",
+			"default": ""
+		},
+		"collapsible": {
+			"type": "boolean",
+			"default": true
+		},
+		"collapsedHeight": {
+			"type": "string",
+			"default": "100"
+		},
+		"showMoreLabel": {
+			"type": "string",
+			"default": "Show More"
+		},
+		"showLessLabel": {
+			"type": "string",
+			"default": "Show Less"
+		},
+		"height": {
+			"type": "string",
+			"default": ""
+		},
+		"heightTablet": {
+			"type": "string",
+			"default": ""
+		},
+		"heightMobile": {
+			"type": "string",
+			"default": ""
+		},
+		"style": {
+			"type": "object",
+			"default": {}
+		}
+	},
+	"supports": {
+		"html": false,
+		"className": false,
+		"customClassName": false
+	},
+	"example": {
+		"attributes": {
+			"element": "a1b2c3d",
+			"classes": "elementor-element elementor-widget elementor-widget-video-playlist"
+		}
+	},
+	"render": "file:../../includes/sections/video-playlist.php"
+}

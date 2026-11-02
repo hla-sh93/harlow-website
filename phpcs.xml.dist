@@ -40,7 +40,8 @@
 		harlow_card_image() returns wp_get_attachment_image() or an empty string;
 		harlow_element_attributes() and harlow_link_attributes() escape every value;
 		harlow_icon() is wp_kses() with the icon elements; harlow_block_image() is
-		wp_get_attachment_image() or an <img> built of escaped values.
+		wp_get_attachment_image() or an <img> built of escaped values; harlow_picture_style()
+		is a style attribute of an escaped address, or nothing.
 	-->
 	<rule ref="WordPress.Security.EscapeOutput">
 		<properties>
@@ -50,6 +51,7 @@
 				<element value="harlow_link_attributes"/>
 				<element value="harlow_icon"/>
 				<element value="harlow_block_image"/>
+				<element value="harlow_picture_style"/>
 			</property>
 		</properties>
 	</rule>

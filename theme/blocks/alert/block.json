@@ -1,0 +1,64 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "harlow/alert",
+	"title": "Alert",
+	"category": "text",
+	"description": "A coloured notice (info, success, warning, danger) with a title, words and a button that closes it.",
+	"textdomain": "harlow",
+	"attributes": {
+		"element": {
+			"type": "string",
+			"default": ""
+		},
+		"classes": {
+			"type": "string",
+			"default": ""
+		},
+		"settings": {
+			"type": "string",
+			"default": ""
+		},
+		"htmlId": {
+			"type": "string",
+			"default": ""
+		},
+		"alertType": {
+			"type": "string",
+			"default": "info"
+		},
+		"title": {
+			"type": "string",
+			"default": "This is an Alert"
+		},
+		"description": {
+			"type": "string",
+			"default": "I am a description. Click the edit button to change this text."
+		},
+		"showDismiss": {
+			"type": "boolean",
+			"default": true
+		},
+		"dismissIcon": {
+			"type": "string",
+			"default": ""
+		},
+		"style": {
+			"type": "object",
+			"default": {}
+		}
+	},
+	"supports": {
+		"html": false,
+		"className": false,
+		"customClassName": false
+	},
+	"example": {
+		"attributes": {
+			"alertType": "info",
+			"title": "This is an Alert",
+			"description": "I am a description. Click the edit button to change this text."
+		}
+	},
+	"render": "file:../../includes/sections/alert.php"
+}

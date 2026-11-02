@@ -1,0 +1,72 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "harlow/facebook-page",
+	"title": "Facebook Page",
+	"category": "embed",
+	"description": "A Facebook page: its timeline, events or messages.",
+	"textdomain": "harlow",
+	"attributes": {
+		"element": {
+			"type": "string",
+			"default": ""
+		},
+		"classes": {
+			"type": "string",
+			"default": ""
+		},
+		"settings": {
+			"type": "string",
+			"default": ""
+		},
+		"htmlId": {
+			"type": "string",
+			"default": ""
+		},
+		"url": {
+			"type": "string",
+			"default": "https://www.facebook.com/elemntor/"
+		},
+		"tabs": {
+			"type": "array",
+			"default": [
+				"timeline"
+			]
+		},
+		"smallHeader": {
+			"type": "boolean",
+			"default": false
+		},
+		"showCover": {
+			"type": "boolean",
+			"default": true
+		},
+		"showFacepile": {
+			"type": "boolean",
+			"default": true
+		},
+		"showCta": {
+			"type": "boolean",
+			"default": true
+		},
+		"height": {
+			"type": "number",
+			"default": 500
+		},
+		"style": {
+			"type": "object",
+			"default": {}
+		}
+	},
+	"supports": {
+		"html": false,
+		"className": false,
+		"customClassName": false
+	},
+	"example": {
+		"attributes": {
+			"height": 500
+		}
+	},
+	"render": "file:../../includes/sections/facebook-page.php"
+}

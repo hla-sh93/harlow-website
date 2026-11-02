@@ -1,0 +1,240 @@
+{
+	"parts": [
+		{
+			"key": "label",
+			"label": "Label",
+			"selector": " .elementor-field-group > label| .elementor-field-subgroup label",
+			"controls": [
+				"color",
+				"typography",
+				"textShadow",
+				"padding",
+				"margin"
+			]
+		},
+		{
+			"key": "mark",
+			"label": "Required mark",
+			"selector": " .elementor-mark-required .elementor-field-label::after",
+			"controls": [
+				"color"
+			]
+		},
+		{
+			"key": "field",
+			"label": "Field",
+			"selector": " .elementor-field-group .elementor-field-textual",
+			"controls": [
+				"color",
+				"typography",
+				"background",
+				"border",
+				"padding",
+				"shadow",
+				"size"
+			],
+			"states": {
+				"focus": {
+					"label": "Focus",
+					"selector": " .elementor-field-group .elementor-field-textual:focus"
+				}
+			}
+		},
+		{
+			"key": "upload",
+			"label": "File upload field",
+			"selector": " .elementor-field-group .elementor-upload-field",
+			"controls": [
+				"color",
+				"typography",
+				"background",
+				"border",
+				"padding"
+			]
+		},
+		{
+			"key": "html",
+			"label": "HTML field",
+			"selector": " .elementor-field-type-html",
+			"controls": [
+				"color",
+				"typography",
+				"padding"
+			]
+		},
+		{
+			"key": "button",
+			"label": "Next & submit button",
+			"selector": " .elementor-button[type=\"submit\"]| .e-form__buttons__wrapper__button-next",
+			"controls": [
+				"color",
+				"typography",
+				"textShadow",
+				"background",
+				"border",
+				"padding",
+				"shadow",
+				"size"
+			],
+			"states": {
+				"hover": {
+					"label": "Hover",
+					"selector": " .elementor-button[type=\"submit\"]:hover| .e-form__buttons__wrapper__button-next:hover"
+				}
+			}
+		},
+		{
+			"key": "previous",
+			"label": "Previous button",
+			"selector": " .e-form__buttons__wrapper__button-previous",
+			"controls": [
+				"color",
+				"typography",
+				"textShadow",
+				"background",
+				"border",
+				"padding",
+				"shadow",
+				"size"
+			],
+			"states": {
+				"hover": {
+					"label": "Hover",
+					"selector": " .e-form__buttons__wrapper__button-previous:hover"
+				}
+			}
+		},
+		{
+			"key": "buttonIcon",
+			"label": "Button icon",
+			"selector": " .elementor-button .elementor-button-icon",
+			"controls": [
+				"icon",
+				"margin"
+			],
+			"states": {
+				"hover": {
+					"label": "Hover",
+					"selector": " .elementor-button:hover .elementor-button-icon"
+				}
+			}
+		},
+		{
+			"key": "messages",
+			"label": "Messages",
+			"selector": " .elementor-message",
+			"controls": [
+				"typography",
+				"margin"
+			]
+		},
+		{
+			"key": "success",
+			"label": "Success message",
+			"selector": " .elementor-message.elementor-message-success",
+			"controls": [
+				"color"
+			]
+		},
+		{
+			"key": "error",
+			"label": "Error message",
+			"selector": " .elementor-message.elementor-message-danger",
+			"controls": [
+				"color"
+			]
+		},
+		{
+			"key": "inline",
+			"label": "Inline message",
+			"selector": " .elementor-message.elementor-help-inline",
+			"controls": [
+				"color",
+				"typography"
+			]
+		},
+		{
+			"key": "steps",
+			"label": "Steps",
+			"selector": " .e-form__indicators",
+			"controls": [
+				"typography",
+				"margin",
+				"gap"
+			]
+		},
+		{
+			"key": "step",
+			"label": "Step",
+			"selector": " .e-form__indicators__indicator--state-inactive",
+			"controls": [
+				"color",
+				"padding"
+			],
+			"states": {
+				"active": {
+					"label": "Active",
+					"selector": " .e-form__indicators__indicator--state-active| .e-form__indicators__indicator--state-active .e-form__indicators__indicator__label"
+				},
+				"completed": {
+					"label": "Completed",
+					"selector": " .e-form__indicators__indicator--state-completed| .e-form__indicators__indicator--state-completed .e-form__indicators__indicator__label"
+				}
+			}
+		},
+		{
+			"key": "stepShape",
+			"label": "Step icon or number",
+			"selector": " .e-form__indicators__indicator--state-inactive .e-form__indicators__indicator__icon| .e-form__indicators__indicator--state-inactive .e-form__indicators__indicator__number",
+			"controls": [
+				"icon",
+				"typography",
+				"background",
+				"border",
+				"size"
+			],
+			"states": {
+				"active": {
+					"label": "Active",
+					"selector": " .e-form__indicators__indicator--state-active .e-form__indicators__indicator__icon| .e-form__indicators__indicator--state-active .e-form__indicators__indicator__number"
+				},
+				"completed": {
+					"label": "Completed",
+					"selector": " .e-form__indicators__indicator--state-completed .e-form__indicators__indicator__icon| .e-form__indicators__indicator--state-completed .e-form__indicators__indicator__number"
+				}
+			}
+		},
+		{
+			"key": "divider",
+			"label": "Divider",
+			"selector": " .e-form__indicators__indicator__separator",
+			"controls": [
+				"background",
+				"size",
+				"margin"
+			]
+		},
+		{
+			"key": "progress",
+			"label": "Progress bar",
+			"selector": " .e-form__indicators__indicator__progress",
+			"controls": [
+				"background",
+				"border",
+				"size"
+			]
+		},
+		{
+			"key": "meter",
+			"label": "Progress bar meter",
+			"selector": " .e-form__indicators__indicator__progress__meter",
+			"controls": [
+				"color",
+				"typography",
+				"background",
+				"padding",
+				"size"
+			]
+		}
+	]
+}

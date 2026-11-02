@@ -1,0 +1,184 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "harlow/image-carousel",
+	"title": "Image Carousel",
+	"category": "media",
+	"description": "Pictures that slide by, with arrows and dots, a link or the lightbox, and a caption.",
+	"textdomain": "harlow",
+	"attributes": {
+		"element": {
+			"type": "string",
+			"default": ""
+		},
+		"classes": {
+			"type": "string",
+			"default": ""
+		},
+		"settings": {
+			"type": "string",
+			"default": ""
+		},
+		"htmlId": {
+			"type": "string",
+			"default": ""
+		},
+		"pictures": {
+			"type": "array",
+			"default": [],
+			"items": {
+				"type": "integer"
+			}
+		},
+		"carouselName": {
+			"type": "string",
+			"default": "Image Carousel"
+		},
+		"imageSize": {
+			"type": "string",
+			"default": "full"
+		},
+		"slidesToShow": {
+			"type": "string",
+			"default": ""
+		},
+		"slidesToShowTablet": {
+			"type": "string",
+			"default": ""
+		},
+		"slidesToShowMobile": {
+			"type": "string",
+			"default": ""
+		},
+		"slidesToScroll": {
+			"type": "string",
+			"default": ""
+		},
+		"slidesToScrollTablet": {
+			"type": "string",
+			"default": ""
+		},
+		"slidesToScrollMobile": {
+			"type": "string",
+			"default": ""
+		},
+		"imageStretch": {
+			"type": "boolean",
+			"default": false
+		},
+		"navigation": {
+			"type": "string",
+			"default": "both"
+		},
+		"prevIcon": {
+			"type": "string",
+			"default": ""
+		},
+		"nextIcon": {
+			"type": "string",
+			"default": ""
+		},
+		"arrowsPosition": {
+			"type": "string",
+			"default": "inside"
+		},
+		"dotsPosition": {
+			"type": "string",
+			"default": "outside"
+		},
+		"linkTo": {
+			"type": "string",
+			"default": "none"
+		},
+		"link": {
+			"type": "string",
+			"default": ""
+		},
+		"linkTarget": {
+			"type": "string",
+			"default": ""
+		},
+		"linkRel": {
+			"type": "string",
+			"default": ""
+		},
+		"openLightbox": {
+			"type": "string",
+			"default": "default"
+		},
+		"captionType": {
+			"type": "string",
+			"default": ""
+		},
+		"autoplay": {
+			"type": "boolean",
+			"default": true
+		},
+		"pauseOnHover": {
+			"type": "boolean",
+			"default": true
+		},
+		"pauseOnInteraction": {
+			"type": "boolean",
+			"default": true
+		},
+		"autoplaySpeed": {
+			"type": "number",
+			"default": 5000
+		},
+		"infinite": {
+			"type": "boolean",
+			"default": true
+		},
+		"effect": {
+			"type": "string",
+			"default": "slide"
+		},
+		"speed": {
+			"type": "number",
+			"default": 500
+		},
+		"direction": {
+			"type": "string",
+			"default": "ltr"
+		},
+		"lazyload": {
+			"type": "boolean",
+			"default": false
+		},
+		"imageSpacing": {
+			"type": "string",
+			"default": ""
+		},
+		"spacing": {
+			"type": "string",
+			"default": "20"
+		},
+		"spacingTablet": {
+			"type": "string",
+			"default": ""
+		},
+		"spacingMobile": {
+			"type": "string",
+			"default": ""
+		},
+		"style": {
+			"type": "object",
+			"default": {}
+		}
+	},
+	"supports": {
+		"html": false,
+		"className": false,
+		"customClassName": false
+	},
+	"example": {
+		"attributes": {
+			"element": "a1b2c3d",
+			"classes": "elementor-element elementor-widget elementor-widget-image-carousel",
+			"navigation": "both",
+			"autoplay": false
+		}
+	},
+	"render": "file:../../includes/sections/image-carousel.php"
+}

@@ -1,0 +1,97 @@
+{
+	"parts": [
+		{
+			"key": "items",
+			"label": "Menu items",
+			"selector": " .elementor-nav-menu--main .elementor-item",
+			"controls": [
+				"color",
+				"typography",
+				"textShadow",
+				"background",
+				"padding",
+				"border"
+			],
+			"states": {
+				"hover": {
+					"label": "Hover",
+					"selector": " .elementor-nav-menu--main .elementor-item:hover"
+				},
+				"active": {
+					"label": "Active",
+					"selector": " .elementor-nav-menu--main .elementor-item.elementor-item-active"
+				}
+			}
+		},
+		{
+			"key": "menu",
+			"label": "Menu row",
+			"selector": " .elementor-nav-menu--main > .elementor-nav-menu",
+			"controls": [
+				"gap",
+				"align",
+				"padding"
+			]
+		},
+		{
+			"key": "pointer",
+			"label": "Pointer",
+			"selector": " .elementor-nav-menu--main .elementor-item::after",
+			"controls": [
+				"background",
+				"size"
+			]
+		},
+		{
+			"key": "dropdown",
+			"label": "Dropdown",
+			"selector": " .elementor-nav-menu--dropdown",
+			"controls": [
+				"background",
+				"border",
+				"shadow",
+				"padding"
+			]
+		},
+		{
+			"key": "dropdownItems",
+			"label": "Dropdown items",
+			"selector": " .elementor-nav-menu--dropdown a",
+			"controls": [
+				"color",
+				"typography",
+				"textShadow",
+				"background",
+				"padding",
+				"border"
+			],
+			"states": {
+				"hover": {
+					"label": "Hover",
+					"selector": " .elementor-nav-menu--dropdown a:hover"
+				},
+				"active": {
+					"label": "Active",
+					"selector": " .elementor-nav-menu--dropdown a.elementor-item-active"
+				}
+			}
+		},
+		{
+			"key": "toggle",
+			"label": "Menu button (phones)",
+			"selector": " .elementor-menu-toggle",
+			"controls": [
+				"icon",
+				"background",
+				"padding",
+				"border"
+			],
+			"states": {
+				"hover": {
+					"label": "Hover",
+					"selector": " .elementor-menu-toggle:hover"
+				}
+			}
+		}
+	]
+}

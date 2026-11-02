@@ -1,0 +1,75 @@
+{
+	"parts": [
+		{
+			"key": "box",
+			"label": "Box",
+			"selector": " .elementor-author-box",
+			"controls": [
+				"background",
+				"padding",
+				"border",
+				"shadow"
+			]
+		},
+		{
+			"key": "picture",
+			"label": "Image",
+			"selector": " .elementor-author-box__avatar img",
+			"controls": [
+				"size",
+				"border",
+				"shadow"
+			]
+		},
+		{
+			"key": "gap",
+			"label": "Image gap",
+			"selector": " .elementor-author-box__avatar",
+			"controls": [
+				"margin"
+			]
+		},
+		{
+			"key": "name",
+			"label": "Name",
+			"selector": " .elementor-author-box__name",
+			"controls": [
+				"color",
+				"typography",
+				"textShadow",
+				"margin"
+			]
+		},
+		{
+			"key": "bio",
+			"label": "Biography",
+			"selector": " .elementor-author-box__bio",
+			"controls": [
+				"color",
+				"typography",
+				"textShadow",
+				"margin"
+			]
+		},
+		{
+			"key": "button",
+			"label": "Button",
+			"selector": " .elementor-author-box__button",
+			"controls": [
+				"color",
+				"typography",
+				"background",
+				"border",
+				"padding",
+				"margin",
+				"shadow"
+			],
+			"states": {
+				"hover": {
+					"label": "Hover",
+					"selector": " .elementor-author-box__button:hover"
+				}
+			}
+		}
+	]
+}

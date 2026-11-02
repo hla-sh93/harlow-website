@@ -1,0 +1,157 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "harlow/slides",
+	"title": "Slides",
+	"category": "media",
+	"description": "Full-width slides, each with a background, a heading, words and a button, that move by themselves.",
+	"textdomain": "harlow",
+	"attributes": {
+		"element": {
+			"type": "string",
+			"default": ""
+		},
+		"classes": {
+			"type": "string",
+			"default": ""
+		},
+		"settings": {
+			"type": "string",
+			"default": ""
+		},
+		"htmlId": {
+			"type": "string",
+			"default": ""
+		},
+		"slides": {
+			"type": "array",
+			"default": [
+				{
+					"id": "e2f1a01",
+					"heading": "Slide 1 Heading",
+					"description": "Lorem ipsum dolor sit amet consectetur adipiscing elit dolor",
+					"buttonText": "Click Here",
+					"backgroundColor": "#833ca3"
+				},
+				{
+					"id": "e2f1a02",
+					"heading": "Slide 2 Heading",
+					"description": "Lorem ipsum dolor sit amet consectetur adipiscing elit dolor",
+					"buttonText": "Click Here",
+					"backgroundColor": "#4054b2"
+				},
+				{
+					"id": "e2f1a03",
+					"heading": "Slide 3 Heading",
+					"description": "Lorem ipsum dolor sit amet consectetur adipiscing elit dolor",
+					"buttonText": "Click Here",
+					"backgroundColor": "#1abc9c"
+				}
+			],
+			"items": {
+				"type": "object"
+			}
+		},
+		"carouselName": {
+			"type": "string",
+			"default": "Slides"
+		},
+		"height": {
+			"type": "string",
+			"default": "400"
+		},
+		"heightTablet": {
+			"type": "string",
+			"default": ""
+		},
+		"heightMobile": {
+			"type": "string",
+			"default": ""
+		},
+		"heightUnit": {
+			"type": "string",
+			"default": "px"
+		},
+		"navigation": {
+			"type": "string",
+			"default": "both"
+		},
+		"prevIcon": {
+			"type": "string",
+			"default": ""
+		},
+		"nextIcon": {
+			"type": "string",
+			"default": ""
+		},
+		"arrowsPosition": {
+			"type": "string",
+			"default": "inside"
+		},
+		"dotsPosition": {
+			"type": "string",
+			"default": "inside"
+		},
+		"autoplay": {
+			"type": "boolean",
+			"default": true
+		},
+		"pauseOnHover": {
+			"type": "boolean",
+			"default": true
+		},
+		"pauseOnInteraction": {
+			"type": "boolean",
+			"default": true
+		},
+		"autoplaySpeed": {
+			"type": "number",
+			"default": 5000
+		},
+		"infinite": {
+			"type": "boolean",
+			"default": true
+		},
+		"transition": {
+			"type": "string",
+			"default": "slide"
+		},
+		"transitionSpeed": {
+			"type": "number",
+			"default": 500
+		},
+		"contentAnimation": {
+			"type": "string",
+			"default": "fadeInUp"
+		},
+		"horizontalPosition": {
+			"type": "string",
+			"default": "center"
+		},
+		"verticalPosition": {
+			"type": "string",
+			"default": "middle"
+		},
+		"buttonSize": {
+			"type": "string",
+			"default": "sm"
+		},
+		"style": {
+			"type": "object",
+			"default": {}
+		}
+	},
+	"supports": {
+		"html": false,
+		"className": false,
+		"customClassName": false
+	},
+	"example": {
+		"attributes": {
+			"element": "a1b2c3d",
+			"classes": "elementor-element elementor-widget elementor-widget-slides",
+			"autoplay": false
+		}
+	},
+	"render": "file:../../includes/sections/slides.php"
+}

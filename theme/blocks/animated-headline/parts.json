@@ -1,0 +1,51 @@
+{
+	"parts": [
+		{
+			"key": "headline",
+			"label": "Headline",
+			"selector": " .elementor-headline| .elementor-headline-plain-text",
+			"controls": [
+				"align",
+				"color",
+				"typography",
+				"textShadow"
+			]
+		},
+		{
+			"key": "animated",
+			"label": "Animated text",
+			"selector": " .elementor-headline-dynamic-text",
+			"controls": [
+				"color",
+				"typography",
+				"textShadow"
+			]
+		},
+		{
+			"key": "shape",
+			"label": "Shape (its colour)",
+			"selector": " .elementor-headline-dynamic-wrapper svg",
+			"controls": [
+				"color",
+				"opacity"
+			]
+		},
+		{
+			"key": "selected",
+			"label": "Typing: selected text",
+			"selector": " .elementor-headline-typing-selected| .elementor-headline-typing-selected .elementor-headline-dynamic-text",
+			"controls": [
+				"color",
+				"background"
+			]
+		},
+		{
+			"key": "cursor",
+			"label": "Typing and clip: cursor",
+			"selector": " .elementor-headline-dynamic-wrapper:after",
+			"controls": [
+				"background"
+			]
+		}
+	]
+}

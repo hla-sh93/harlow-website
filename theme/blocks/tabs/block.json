@@ -1,0 +1,74 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "harlow/tabs",
+	"title": "Tabs",
+	"category": "text",
+	"description": "Titles in a row or a column, each showing its own content.",
+	"textdomain": "harlow",
+	"attributes": {
+		"element": {
+			"type": "string",
+			"default": ""
+		},
+		"classes": {
+			"type": "string",
+			"default": ""
+		},
+		"settings": {
+			"type": "string",
+			"default": ""
+		},
+		"htmlId": {
+			"type": "string",
+			"default": ""
+		},
+		"tabs": {
+			"type": "array",
+			"default": [
+				{
+					"title": "Tab #1",
+					"content": "I am tab content. Click edit button to change this text. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec ullamcorper mattis, pulvinar dapibus leo."
+				},
+				{
+					"title": "Tab #2",
+					"content": "I am tab content. Click edit button to change this text. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec ullamcorper mattis, pulvinar dapibus leo."
+				}
+			]
+		},
+		"type": {
+			"type": "string",
+			"default": "horizontal"
+		},
+		"align": {
+			"type": "string",
+			"default": ""
+		},
+		"style": {
+			"type": "object",
+			"default": {}
+		}
+	},
+	"supports": {
+		"html": false,
+		"className": false,
+		"customClassName": false
+	},
+	"example": {
+		"attributes": {
+			"element": "a1b2c3d",
+			"classes": "elementor-element elementor-widget elementor-widget-tabs",
+			"tabs": [
+				{
+					"title": "Tab #1",
+					"content": "I am tab content. Click edit button to change this text."
+				},
+				{
+					"title": "Tab #2",
+					"content": "I am tab content. Click edit button to change this text."
+				}
+			]
+		}
+	},
+	"render": "file:../../includes/sections/tabs.php"
+}

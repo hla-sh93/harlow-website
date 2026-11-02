@@ -1,0 +1,96 @@
+{
+	"parts": [
+		{
+			"key": "toggle",
+			"label": "Toggle: border",
+			"selector": " .elementor-tab-title| .elementor-tab-content",
+			"controls": [
+				"border"
+			]
+		},
+		{
+			"key": "item",
+			"label": "Toggle: item",
+			"selector": " .elementor-toggle-item",
+			"controls": [
+				"shadow",
+				"background"
+			]
+		},
+		{
+			"key": "space",
+			"label": "Space between (an item's margin)",
+			"selector": " .elementor-toggle-item:not(:last-child)",
+			"controls": [
+				"margin"
+			]
+		},
+		{
+			"key": "title",
+			"label": "Title",
+			"selector": " .elementor-tab-title",
+			"controls": [
+				"background",
+				"padding",
+				"border"
+			],
+			"states": {
+				"hover": {
+					"label": "Hover",
+					"selector": " .elementor-tab-title:hover"
+				},
+				"active": {
+					"label": "Active",
+					"selector": " .elementor-tab-title.elementor-active"
+				}
+			}
+		},
+		{
+			"key": "titleText",
+			"label": "Title text",
+			"selector": " .elementor-toggle-title",
+			"controls": [
+				"color",
+				"typography",
+				"textShadow"
+			],
+			"states": {
+				"hover": {
+					"label": "Hover",
+					"selector": " .elementor-tab-title:hover .elementor-toggle-title"
+				},
+				"active": {
+					"label": "Active",
+					"selector": " .elementor-tab-title.elementor-active .elementor-toggle-title"
+				}
+			}
+		},
+		{
+			"key": "icon",
+			"label": "Icon",
+			"selector": " .elementor-toggle-icon",
+			"controls": [
+				"icon",
+				"margin"
+			],
+			"states": {
+				"active": {
+					"label": "Active",
+					"selector": " .elementor-tab-title.elementor-active .elementor-toggle-icon"
+				}
+			}
+		},
+		{
+			"key": "content",
+			"label": "Content",
+			"selector": " .elementor-tab-content",
+			"controls": [
+				"color",
+				"typography",
+				"textShadow",
+				"background",
+				"padding"
+			]
+		}
+	]
+}

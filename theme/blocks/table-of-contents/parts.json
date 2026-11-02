@@ -1,0 +1,90 @@
+{
+	"parts": [
+		{
+			"key": "box",
+			"label": "Box",
+			"selector": " > .elementor-widget-container",
+			"controls": [
+				"background",
+				"border",
+				"shadow",
+				"size"
+			]
+		},
+		{
+			"key": "header",
+			"label": "Header (background, padding, separator)",
+			"selector": " .elementor-toc__header",
+			"controls": [
+				"background",
+				"padding",
+				"border"
+			]
+		},
+		{
+			"key": "title",
+			"label": "Header: title",
+			"selector": " .elementor-toc__header-title",
+			"controls": [
+				"color",
+				"typography",
+				"textShadow"
+			]
+		},
+		{
+			"key": "toggle",
+			"label": "Header: icon",
+			"selector": " .elementor-toc__toggle-button",
+			"controls": [
+				"icon"
+			]
+		},
+		{
+			"key": "list",
+			"label": "List",
+			"selector": " .elementor-toc__body",
+			"controls": [
+				"typography",
+				"padding",
+				"background"
+			]
+		},
+		{
+			"key": "indent",
+			"label": "List: indent (a sublist's margin)",
+			"selector": " .elementor-toc__list-item .elementor-toc__list-wrapper",
+			"controls": [
+				"margin"
+			]
+		},
+		{
+			"key": "text",
+			"label": "List: text",
+			"selector": " .elementor-toc__list-item-text",
+			"controls": [
+				"color",
+				"typography",
+				"textShadow"
+			],
+			"states": {
+				"hover": {
+					"label": "Hover",
+					"selector": " .elementor-toc__list-item-text:hover"
+				},
+				"active": {
+					"label": "Active",
+					"selector": " .elementor-toc__list-item-text.elementor-item-active"
+				}
+			}
+		},
+		{
+			"key": "marker",
+			"label": "List: marker",
+			"selector": " .elementor-toc__list-item-text-wrapper:before| .elementor-toc__list-item-text-wrapper > svg",
+			"controls": [
+				"color",
+				"typography"
+			]
+		}
+	]
+}

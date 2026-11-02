@@ -1,0 +1,100 @@
+/*
+ * Testimonial (Elementor's testimonial widget): the words, then the picture beside the
+ * name and title (aside) or above them (top), centred by default.
+ */
+
+/* The whole testimonial */
+.elementor-testimonial-wrapper {
+  overflow: hidden;
+  text-align: center;
+}
+
+.elementor-testimonial--align-left .elementor-testimonial-wrapper {
+  text-align: left;
+}
+
+.elementor-testimonial--align-center .elementor-testimonial-wrapper {
+  text-align: center;
+}
+
+.elementor-testimonial--align-right .elementor-testimonial-wrapper {
+  text-align: right;
+}
+
+/* The words: the kit's text colour and font */
+.elementor-testimonial-wrapper .elementor-testimonial-content {
+  font-size: 1.3em;
+  margin-bottom: 20px;
+}
+
+.elementor-widget-testimonial .elementor-testimonial-content {
+  color: var(--e-global-color-text);
+  font-family: var(--e-global-typography-text-font-family), Sans-serif;
+  font-weight: var(--e-global-typography-text-font-weight);
+}
+
+/* The name (the kit's primary colour and font) and the title (secondary) */
+.elementor-testimonial-wrapper .elementor-testimonial-name {
+  line-height: 1.5;
+  display: block;
+}
+
+.elementor-testimonial-wrapper .elementor-testimonial-job {
+  font-size: 0.85em;
+  display: block;
+}
+
+.elementor-widget-testimonial .elementor-testimonial-name {
+  color: var(--e-global-color-primary);
+  font-family: var(--e-global-typography-primary-font-family), Sans-serif;
+  font-weight: var(--e-global-typography-primary-font-weight);
+}
+
+.elementor-widget-testimonial .elementor-testimonial-job {
+  color: var(--e-global-color-secondary);
+  font-family: var(--e-global-typography-secondary-font-family), Sans-serif;
+  font-weight: var(--e-global-typography-secondary-font-weight);
+}
+
+/* The picture, the name and the title */
+.elementor-testimonial-wrapper .elementor-testimonial-meta {
+  width: 100%;
+  line-height: 1;
+}
+
+.elementor-testimonial-wrapper .elementor-testimonial-meta-inner {
+  display: inline-block;
+}
+
+.elementor-testimonial-wrapper .elementor-testimonial-meta .elementor-testimonial-details,
+.elementor-testimonial-wrapper .elementor-testimonial-meta .elementor-testimonial-image {
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.elementor-testimonial-wrapper .elementor-testimonial-meta .elementor-testimonial-image img {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  object-fit: cover;
+  max-width: none;
+}
+
+/* The picture beside the name and title */
+.elementor-testimonial-wrapper .elementor-testimonial-meta.elementor-testimonial-image-position-aside .elementor-testimonial-image {
+  padding-inline-end: 15px;
+}
+
+.elementor-testimonial-wrapper .elementor-testimonial-meta.elementor-testimonial-image-position-aside .elementor-testimonial-details {
+  text-align: start;
+}
+
+/* The picture above them */
+.elementor-testimonial-wrapper .elementor-testimonial-meta.elementor-testimonial-image-position-top .elementor-testimonial-details,
+.elementor-testimonial-wrapper .elementor-testimonial-meta.elementor-testimonial-image-position-top .elementor-testimonial-image {
+  display: block;
+}
+
+.elementor-testimonial-wrapper .elementor-testimonial-meta.elementor-testimonial-image-position-top .elementor-testimonial-image {
+  margin-bottom: 20px;
+}

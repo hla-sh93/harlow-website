@@ -1,0 +1,42 @@
+{
+	"parts": [
+		{
+			"key": "animation",
+			"label": "Lottie",
+			"selector": " .e-lottie__container",
+			"controls": [
+				"size",
+				"opacity",
+				"border",
+				"shadow",
+				"transform"
+			],
+			"states": {
+				"hover": {
+					"label": "Hover",
+					"selector": " .e-lottie__container:hover"
+				}
+			}
+		},
+		{
+			"key": "align",
+			"label": "Alignment",
+			"selector": " > .elementor-widget-container",
+			"controls": [
+				"align"
+			]
+		},
+		{
+			"key": "caption",
+			"label": "Caption",
+			"selector": " .e-lottie__caption",
+			"controls": [
+				"align",
+				"color",
+				"typography",
+				"textShadow",
+				"margin"
+			]
+		}
+	]
+}

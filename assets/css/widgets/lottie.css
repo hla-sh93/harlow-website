@@ -1,0 +1,44 @@
+/*
+ * Lottie (harlow/lottie): Elementor Pro's Lottie widget (widget-lottie.css). The animation
+ * as wide as the element unless a width is chosen, centred, its caption under it;
+ * assets/js/widgets/lottie.js draws it on a canvas.
+ */
+.elementor-widget-lottie {
+  text-align: center;
+}
+
+.e-lottie__container {
+  display: inline-block;
+  width: var(--lottie-container-width, 100%);
+  max-width: var(--lottie-container-max-width, 100%);
+  opacity: var(--lottie-container-opacity, 1);
+  vertical-align: top;
+  transition-duration: var(--lottie-container-transition-duration-hover, 0.3s);
+}
+
+.e-lottie__container:hover {
+  opacity: var(--lottie-container-opacity-hover, var(--lottie-container-opacity, 1));
+}
+
+.e-lottie__container__link {
+  display: inline-block;
+  width: 100%;
+}
+
+.e-lottie__animation {
+  line-height: 0;
+}
+
+.e-lottie__animation svg,
+.e-lottie__animation canvas {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.e-lottie__caption {
+  margin-top: var(--caption-margin-top, 0);
+  margin-bottom: 0;
+  color: var(--caption-color, inherit);
+  text-align: var(--caption-text-align, center);
+}

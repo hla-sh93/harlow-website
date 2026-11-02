@@ -1,0 +1,93 @@
+/* Progress tracker (Elementor Pro's progress tracker widget, harlow/progress-tracker): a
+   thin bar across its container, or a circle, filled in the kit's primary colour as the
+   visitor scrolls. */
+
+.elementor-scrolling-tracker {
+  position: relative;
+  box-sizing: border-box;
+}
+
+/* Horizontal: a bar the width of its container */
+.elementor-scrolling-tracker-horizontal {
+  display: flex;
+  width: 100%;
+  height: 4px;
+  background-color: #eee;
+}
+
+.elementor-scrolling-tracker-horizontal:has(.current-progress-percentage) {
+  min-height: 20px;
+}
+
+.elementor-scrolling-tracker-horizontal.elementor-scrolling-tracker-alignment-rtl {
+  flex-direction: row-reverse;
+}
+
+.elementor-scrolling-tracker-horizontal .current-progress {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  width: 0;
+  background-color: var(--e-global-color-primary);
+}
+
+.elementor-scrolling-tracker-horizontal.elementor-scrolling-tracker-alignment-rtl .current-progress {
+  justify-content: flex-start;
+}
+
+.elementor-scrolling-tracker-horizontal .current-progress-percentage {
+  padding: 0 6px;
+  color: #fff;
+  font-size: 12px;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+/* Circular: a ring drawn from the top, its percentage in the middle */
+.elementor-scrolling-tracker-circular {
+  width: 100px;
+  max-width: 100%;
+  aspect-ratio: 1;
+}
+
+.elementor-scrolling-tracker-circular svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  transform: rotate(-90deg);
+}
+
+.elementor-scrolling-tracker-circular.elementor-scrolling-tracker-alignment-rtl svg {
+  transform: scaleX(-1) rotate(-90deg);
+}
+
+.elementor-scrolling-tracker-circular circle {
+  fill: none;
+  stroke: currentColor;
+}
+
+.elementor-scrolling-tracker-circular .circle-tracker-background {
+  color: #eee;
+}
+
+.elementor-scrolling-tracker-circular .current-progress {
+  color: var(--e-global-color-primary);
+}
+
+.elementor-scrolling-tracker-circular .current-progress-percentage {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: var(--e-global-color-text);
+  font-size: 16px;
+  line-height: 1;
+}
+
+/* In a flex container, the width a container gives its widgets */
+.e-con-inner > .elementor-widget-progress-tracker,
+.e-con > .elementor-widget-progress-tracker {
+  width: var(--container-widget-width, 100%);
+  --flex-grow: var(--container-widget-flex-grow);
+}

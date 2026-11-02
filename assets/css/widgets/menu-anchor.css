@@ -1,0 +1,23 @@
+/*
+ * Menu anchor (Elementor's menu anchor widget): an empty element with the id a link leads
+ * to. It takes no room on the page.
+ */
+.elementor-widget-menu-anchor {
+  margin-bottom: 0;
+}
+
+/* In the editor's canvas only: a mark with the anchor's id, so it can be found and chosen */
+.editor-styles-wrapper .elementor-widget-menu-anchor .elementor-menu-anchor::before {
+  content: "#" attr(id);
+  display: block;
+  min-height: 30px;
+  padding: 5px 5px 5px 30px;
+  border: 1px dashed #c5cbd2;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%2369727d' d='M12 2a3 3 0 0 0-1 5.83V9H8v2h3v8.93A7 7 0 0 1 5.07 14H7l-3-4-3 4h2.05A9 9 0 0 0 12 22a9 9 0 0 0 8.95-8H23l-3-4-3 4h1.93A7 7 0 0 1 13 19.93V11h3V9h-3V7.83A3 3 0 0 0 12 2zm0 2a1 1 0 1 1 0 2 1 1 0 0 1 0-2z'/%3E%3C/svg%3E") no-repeat 8px center / 16px 16px;
+  color: #69727d;
+  font: 12px/20px sans-serif;
+}
+
+.editor-styles-wrapper .elementor-widget-menu-anchor .elementor-menu-anchor:not([id])::before {
+  content: attr(data-label);
+}

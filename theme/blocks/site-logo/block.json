@@ -1,0 +1,92 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "harlow/site-logo",
+	"title": "Site Logo",
+	"category": "theme",
+	"description": "The site's logo, the one the header shows, linked to the home page (Elementor Pro's site logo widget).",
+	"textdomain": "harlow",
+	"harlowWidget": "theme-site-logo",
+	"attributes": {
+		"element": {
+			"type": "string",
+			"default": ""
+		},
+		"classes": {
+			"type": "string",
+			"default": ""
+		},
+		"settings": {
+			"type": "string",
+			"default": ""
+		},
+		"htmlId": {
+			"type": "string",
+			"default": ""
+		},
+		"size": {
+			"type": "string",
+			"enum": [
+				"thumbnail",
+				"medium",
+				"medium_large",
+				"large",
+				"full"
+			],
+			"default": "full"
+		},
+		"captionSource": {
+			"type": "string",
+			"enum": [
+				"none",
+				"attachment",
+				"custom"
+			],
+			"default": "none"
+		},
+		"caption": {
+			"type": "string",
+			"default": ""
+		},
+		"linkTo": {
+			"type": "string",
+			"enum": [
+				"none",
+				"file",
+				"custom"
+			],
+			"default": "custom"
+		},
+		"link": {
+			"type": "string",
+			"default": ""
+		},
+		"linkTarget": {
+			"type": "string",
+			"default": ""
+		},
+		"linkRel": {
+			"type": "string",
+			"default": ""
+		},
+		"lightbox": {
+			"type": "boolean",
+			"default": true
+		},
+		"style": {
+			"type": "object",
+			"default": {}
+		}
+	},
+	"supports": {
+		"html": false,
+		"className": false,
+		"customClassName": false
+	},
+	"example": {
+		"attributes": {
+			"size": "full"
+		}
+	},
+	"render": "file:../../includes/sections/site-logo.php"
+}

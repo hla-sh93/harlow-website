@@ -1,0 +1,91 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "harlow/blockquote",
+	"title": "Blockquote",
+	"category": "text",
+	"description": "A quotation with its author and a button that shares it on X.",
+	"textdomain": "harlow",
+	"attributes": {
+		"element": {
+			"type": "string",
+			"default": ""
+		},
+		"classes": {
+			"type": "string",
+			"default": ""
+		},
+		"settings": {
+			"type": "string",
+			"default": ""
+		},
+		"htmlId": {
+			"type": "string",
+			"default": ""
+		},
+		"skin": {
+			"type": "string",
+			"default": "border"
+		},
+		"alignment": {
+			"type": "string",
+			"default": "left"
+		},
+		"content": {
+			"type": "string",
+			"default": "Click the edit button to change this text. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec ullamcorper mattis, pulvinar dapibus leo."
+		},
+		"author": {
+			"type": "string",
+			"default": "John Doe"
+		},
+		"tweetButton": {
+			"type": "boolean",
+			"default": true
+		},
+		"tweetView": {
+			"type": "string",
+			"default": "icon-text"
+		},
+		"tweetSkin": {
+			"type": "string",
+			"default": "classic"
+		},
+		"tweetColor": {
+			"type": "string",
+			"default": "official"
+		},
+		"tweetLabel": {
+			"type": "string",
+			"default": "Tweet"
+		},
+		"userName": {
+			"type": "string",
+			"default": ""
+		},
+		"urlType": {
+			"type": "string",
+			"default": "current_page"
+		},
+		"url": {
+			"type": "string",
+			"default": ""
+		},
+		"style": {
+			"type": "object",
+			"default": {}
+		}
+	},
+	"supports": {
+		"html": false,
+		"className": false,
+		"customClassName": false
+	},
+	"example": {
+		"attributes": {
+			"content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+			"author": "John Doe"
+		}
+	},
+	"render": "file:../../includes/sections/blockquote.php"
+}

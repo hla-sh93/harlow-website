@@ -1,0 +1,8 @@
+/*
+ * Read more (Elementor's read more widget): WordPress's more mark, and its link to the post
+ * where the post is listed. Elementor gives it no look of its own: the link is drawn as the
+ * page's links are.
+ */
+.elementor-widget-read-more .more-link {
+  display: inline-block;
+}

@@ -1,0 +1,39 @@
+{
+	"parts": [
+		{
+			"key": "title",
+			"label": "Title",
+			"selector": " .elementor-star-rating__title",
+			"controls": [
+				"color",
+				"typography",
+				"textShadow",
+				"margin"
+			]
+		},
+		{
+			"key": "stars",
+			"label": "Stars (size, unmarked colour)",
+			"selector": " .elementor-star-rating",
+			"controls": [
+				"icon"
+			]
+		},
+		{
+			"key": "marked",
+			"label": "Marked stars",
+			"selector": " .elementor-star-rating i::before",
+			"controls": [
+				"color"
+			]
+		},
+		{
+			"key": "spacing",
+			"label": "Space between stars",
+			"selector": " .elementor-star-rating i:not(:last-of-type)",
+			"controls": [
+				"margin"
+			]
+		}
+	]
+}

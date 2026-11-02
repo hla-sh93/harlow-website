@@ -1,0 +1,219 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "harlow/archive-posts",
+	"title": "Archive Posts",
+	"category": "theme",
+	"description": "The posts of the category, tag, author, date or search being shown, as cards in columns, with the list's pager (Elementor Pro's archive posts widget).",
+	"textdomain": "harlow",
+	"attributes": {
+		"element": {
+			"type": "string",
+			"default": ""
+		},
+		"classes": {
+			"type": "string",
+			"default": ""
+		},
+		"settings": {
+			"type": "string",
+			"default": ""
+		},
+		"htmlId": {
+			"type": "string",
+			"default": ""
+		},
+		"skin": {
+			"type": "string",
+			"enum": [
+				"classic",
+				"cards",
+				"full_content"
+			],
+			"default": "classic"
+		},
+		"columns": {
+			"type": "integer",
+			"default": 3
+		},
+		"columnsTablet": {
+			"type": "integer",
+			"default": 2
+		},
+		"columnsMobile": {
+			"type": "integer",
+			"default": 1
+		},
+		"thumbnail": {
+			"type": "string",
+			"enum": [
+				"top",
+				"left",
+				"right",
+				"none"
+			],
+			"default": "top"
+		},
+		"imageSize": {
+			"type": "string",
+			"enum": [
+				"thumbnail",
+				"medium",
+				"medium_large",
+				"large",
+				"full"
+			],
+			"default": "medium"
+		},
+		"imageRatio": {
+			"type": "number",
+			"default": 0.66
+		},
+		"imageWidth": {
+			"type": "integer",
+			"default": 0
+		},
+		"showTitle": {
+			"type": "boolean",
+			"default": true
+		},
+		"titleTag": {
+			"type": "string",
+			"default": "h3"
+		},
+		"showExcerpt": {
+			"type": "boolean",
+			"default": true
+		},
+		"excerptLength": {
+			"type": "integer",
+			"default": 25
+		},
+		"meta": {
+			"type": "array",
+			"default": [
+				"date",
+				"comments"
+			]
+		},
+		"metaSeparator": {
+			"type": "string",
+			"default": "///"
+		},
+		"showReadMore": {
+			"type": "boolean",
+			"default": true
+		},
+		"readMoreText": {
+			"type": "string",
+			"default": "Read More »"
+		},
+		"newTab": {
+			"type": "boolean",
+			"default": false
+		},
+		"align": {
+			"type": "string",
+			"enum": [
+				"",
+				"left",
+				"center",
+				"right"
+			],
+			"default": ""
+		},
+		"showBadge": {
+			"type": "boolean",
+			"default": true
+		},
+		"badgeTaxonomy": {
+			"type": "string",
+			"default": "category"
+		},
+		"showAvatar": {
+			"type": "boolean",
+			"default": true
+		},
+		"cardShadow": {
+			"type": "boolean",
+			"default": true
+		},
+		"hoverEffect": {
+			"type": "string",
+			"enum": [
+				"",
+				"gradient",
+				"zoom-in",
+				"zoom-out"
+			],
+			"default": "gradient"
+		},
+		"pagination": {
+			"type": "string",
+			"enum": [
+				"",
+				"numbers",
+				"prev_next",
+				"numbers_and_prev_next",
+				"load_more_on_click",
+				"load_more_infinite_scroll"
+			],
+			"default": ""
+		},
+		"pageLimit": {
+			"type": "integer",
+			"default": 5
+		},
+		"shorten": {
+			"type": "boolean",
+			"default": false
+		},
+		"prevLabel": {
+			"type": "string",
+			"default": "« Previous"
+		},
+		"nextLabel": {
+			"type": "string",
+			"default": "Next »"
+		},
+		"loadMoreText": {
+			"type": "string",
+			"default": "Load More"
+		},
+		"noMoreText": {
+			"type": "string",
+			"default": "No more posts to show"
+		},
+		"filter": {
+			"type": "boolean",
+			"default": false
+		},
+		"filterTaxonomy": {
+			"type": "string",
+			"default": "category"
+		},
+		"filterAllText": {
+			"type": "string",
+			"default": "All"
+		},
+		"nothingFound": {
+			"type": "string",
+			"default": "It seems we can’t find what you’re looking for."
+		},
+		"style": {
+			"type": "object",
+			"default": {}
+		}
+	},
+	"supports": {
+		"html": false,
+		"className": false,
+		"customClassName": false
+	},
+	"example": {
+		"attributes": {
+			"columns": 3
+		}
+	},
+	"render": "file:../../includes/sections/archive-posts.php"
+}

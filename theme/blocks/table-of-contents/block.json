@@ -1,0 +1,109 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "harlow/table-of-contents",
+	"title": "Table of Contents",
+	"category": "widgets",
+	"description": "A list of the page's headings, made as the page opens, that leads to each of them.",
+	"textdomain": "harlow",
+	"attributes": {
+		"element": {
+			"type": "string",
+			"default": ""
+		},
+		"classes": {
+			"type": "string",
+			"default": ""
+		},
+		"settings": {
+			"type": "string",
+			"default": ""
+		},
+		"htmlId": {
+			"type": "string",
+			"default": ""
+		},
+		"title": {
+			"type": "string",
+			"default": "Table of Contents"
+		},
+		"htmlTag": {
+			"type": "string",
+			"default": "h4"
+		},
+		"headingsTags": {
+			"type": "array",
+			"default": [
+				"h2",
+				"h3",
+				"h4",
+				"h5",
+				"h6"
+			]
+		},
+		"container": {
+			"type": "string",
+			"default": ""
+		},
+		"exclude": {
+			"type": "string",
+			"default": ""
+		},
+		"markerView": {
+			"type": "string",
+			"default": "numbers"
+		},
+		"icon": {
+			"type": "string",
+			"default": "<svg aria-hidden=\"true\" class=\"e-font-icon-svg e-fas-circle\" viewBox=\"0 0 512 512\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8z\"></path></svg>"
+		},
+		"hierarchical": {
+			"type": "boolean",
+			"default": true
+		},
+		"collapseSubitems": {
+			"type": "boolean",
+			"default": false
+		},
+		"minimizeBox": {
+			"type": "boolean",
+			"default": true
+		},
+		"expandIcon": {
+			"type": "string",
+			"default": "<svg aria-hidden=\"true\" class=\"e-font-icon-svg e-fas-chevron-down\" viewBox=\"0 0 448 512\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M207.029 381.476L12.686 187.132c-9.373-9.373-9.373-24.569 0-33.941l22.667-22.667c9.357-9.357 24.522-9.375 33.901-.04L224 284.505l154.745-154.021c9.379-9.335 24.544-9.317 33.901.04l22.667 22.667c9.373 9.373 9.373 24.569 0 33.941L240.971 381.476c-9.373 9.372-24.569 9.372-33.942 0z\"></path></svg>"
+		},
+		"collapseIcon": {
+			"type": "string",
+			"default": "<svg aria-hidden=\"true\" class=\"e-font-icon-svg e-fas-chevron-up\" viewBox=\"0 0 448 512\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M240.971 130.524l194.343 194.343c9.373 9.373 9.373 24.569 0 33.941l-22.667 22.667c-9.357 9.357-24.522 9.375-33.901.04L224 227.495 69.255 381.516c-9.379 9.335-24.544 9.317-33.901-.04l-22.667-22.667c-9.373-9.373-9.373-24.569 0-33.941L207.03 130.525c9.372-9.373 24.568-9.373 33.941-.001z\"></path></svg>"
+		},
+		"minimizedOn": {
+			"type": "string",
+			"default": "tablet"
+		},
+		"noHeadingsMessage": {
+			"type": "string",
+			"default": "No headings were found on this page."
+		},
+		"offset": {
+			"type": "number",
+			"default": 0
+		},
+		"style": {
+			"type": "object",
+			"default": {}
+		}
+	},
+	"supports": {
+		"html": false,
+		"className": false,
+		"customClassName": false
+	},
+	"example": {
+		"attributes": {
+			"element": "a1b2c3d",
+			"classes": "elementor-element elementor-widget elementor-widget-table-of-contents"
+		}
+	},
+	"render": "file:../../includes/sections/table-of-contents.php"
+}

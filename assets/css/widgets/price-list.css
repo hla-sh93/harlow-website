@@ -1,0 +1,112 @@
+/*
+ * Price list (Elementor Pro's price list widget): each item a row, the picture first, the
+ * title and the price on one line joined by a dotted separator, the words under them.
+ * Colours and fonts are the kit's, as Elementor's defaults for this widget are.
+ */
+
+/* The list */
+.elementor-widget-price-list .elementor-price-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.elementor-widget-price-list .elementor-price-list li {
+  margin: 0;
+}
+
+.elementor-price-list li:not(:last-child) {
+  margin-bottom: 20px;
+}
+
+/* An item: picture, then its words */
+.elementor-price-list .elementor-price-list-header,
+.elementor-price-list .elementor-price-list-item,
+.elementor-price-list .elementor-price-list-text {
+  display: flex;
+}
+
+.elementor-price-list .elementor-price-list-item {
+  align-items: flex-start;
+}
+
+.elementor-price-list a.elementor-price-list-item {
+  color: inherit;
+}
+
+.elementor-price-list--align-center .elementor-price-list .elementor-price-list-item {
+  align-items: center;
+}
+
+.elementor-price-list--align-bottom .elementor-price-list .elementor-price-list-item {
+  align-items: flex-end;
+}
+
+.elementor-price-list .elementor-price-list-image {
+  max-width: 50%;
+  flex-shrink: 0;
+  padding-right: 25px;
+}
+
+.elementor-price-list .elementor-price-list-image img {
+  width: 100%;
+}
+
+.elementor-price-list .elementor-price-list-item .elementor-price-list-text {
+  align-items: flex-start;
+  flex-wrap: wrap;
+  flex-grow: 1;
+}
+
+/* The title, the separator and the price */
+.elementor-price-list .elementor-price-list-item .elementor-price-list-header {
+  align-items: center;
+  flex-basis: 100%;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  font-size: 19px;
+  font-weight: 600;
+  color: var(--e-global-color-primary);
+  font-family: var(--e-global-typography-primary-font-family), Sans-serif;
+}
+
+.elementor-price-list .elementor-price-list-item .elementor-price-list-title {
+  max-width: 80%;
+}
+
+.elementor-price-list .elementor-price-list-item .elementor-price-list-price {
+  font-weight: 600;
+}
+
+.elementor-price-list .elementor-price-list-item .elementor-price-list-separator {
+  flex-grow: 1;
+  height: 0;
+  margin-left: 10px;
+  margin-right: 10px;
+  border-bottom-style: dotted;
+  border-bottom-width: 2px;
+  border-bottom-color: var(--e-global-color-secondary);
+}
+
+.elementor-price-list--separator-solid .elementor-price-list .elementor-price-list-separator {
+  border-bottom-style: solid;
+}
+
+.elementor-price-list--separator-dashed .elementor-price-list .elementor-price-list-separator {
+  border-bottom-style: dashed;
+}
+
+.elementor-price-list--separator-double .elementor-price-list .elementor-price-list-separator {
+  border-bottom-style: double;
+  border-bottom-width: 3px;
+}
+
+/* The words */
+.elementor-price-list .elementor-price-list-item p.elementor-price-list-description {
+  flex-basis: 100%;
+  font-size: 14px;
+  margin: 0;
+  color: var(--e-global-color-text);
+  font-family: var(--e-global-typography-text-font-family), Sans-serif;
+  font-weight: var(--e-global-typography-text-font-weight);
+}

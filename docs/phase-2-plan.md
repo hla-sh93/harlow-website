@@ -74,8 +74,14 @@ and deletes nothing; a second run changes nothing. Proved through the button on 
 WordPress and on a copy shaped like live (`verify_install.py`): the 49 pages identical to
 the reference after both; and in one-second rounds, each its own request, every round going
 on from the last (19 rounds, the same site).
-Next: stage 9 (the owner's test: every field of every page changed from WordPress and
-checked, one row per page), after Hla's go.
+Stage 9 done 2026-11-02: every field of every page changed from WordPress and read back
+(`verify_editable.py`); every element styled as in Elementor Free and Pro, from a Styles
+tab per element and device with each widget's own parts; Site settings, the Theme
+Builder with popups, dynamic tags, copy and paste style, the role manager and
+maintenance mode; every Elementor widget as a block (58 added, `verify_widgets.py`); the
+map of all of it in `docs/elementor-parity.md`.
+Next: stage 10 (handoff: the theme's zip, installed on a WordPress that has never seen the
+repository), after Hla's go.
 
 Starting point: `html-v1` (github.com/hla-sh93/harlow-website), the 49 English pages
 matching live at 1440x900 and 479x900. It stays in the repository as the reference every
@@ -201,7 +207,7 @@ output pasted, AGENTS.md updated, commit, tag, the push command, and a stop for 
 | 6 | page features: kinds and their ready layouts, originals and restore, duplicate, slug changes with 301, links picked from the pages | every page on its kind's template |
 | 7 | SEO: every page's Rank Math fields from the reference; one title, description, canonical | every `<head>` checked |
 | 8 | installer: Appearance → Site pages fills the pages in place (ids, addresses and history kept), makes only what is missing; tested on a copy shaped like live and on an empty WordPress | a second run changes nothing |
-| 9 | the owner's test: every field of every block of every page changed from WordPress, read back, put back; a page of every kind built by hand | a row per page, 0 problems |
+| 9 | the owner's test: every field of every block of every page changed from WordPress, read back, put back; a page of every kind built by hand; every element styled as in Elementor (Hla, 2026-11-01): a Styles tab per element and per device (background type, typography, colour, alignment, spacing, size, border, a picture's size, custom CSS; free values, the design's offered first) and site-wide typography and colours in the Customizer; then (Hla, 2026-11-01: "do not leave behind any feature, even the paid ones") all of Elementor Free and Pro: every widget as a block with its own style parts, the Styles tab's advanced groups (motion, hover, sticky, conditions, Flexbox and Grid, shape dividers, the extra breakpoints), Site settings, the Theme Builder and popups, dynamic tags, copy and paste style, the role manager, maintenance mode, custom icons and fonts (`docs/elementor-parity.md`) | a row per page, 0 problems; every kind of control of the Styles tab used in the sidebar and seen on the page; every widget put on a page in the editor and seen on the page; every Site setting in the CSS; every Theme Builder kind where its conditions say |
 | 10 | handoff: theme zip, plugin list, notes in English and Arabic, installed on a WordPress that has never seen the repository | the package makes the reference site |
 | 11 | Arabic: WPML, the 49 Arabic pages, right-to-left styles, measured against live's Arabic pages | 0 of 49 Arabic pages differ |
 | 12 | live: full backup, a staging copy, every check on staging, then live | live answers and matches |
@@ -261,7 +267,7 @@ number of one-off styles decides the work.
 | 6 | make a new page of any kind from its ready layout, duplicate, restore originals, change addresses safely | 1–2 days |
 | 7 | edit every page's SEO in Rank Math | half a day |
 | 8 | install all pages into any WordPress with one button | 1 day |
-| 9 | trust it: every field of every page has been changed from WordPress and checked, one row per page | 1–2 days |
+| 9 | trust it: every field of every page has been changed from WordPress and checked, one row per page; then style every element and use every widget and feature of Elementor, Free and Pro (asked 2026-11-01) | 1–2 days (took 3 with all of Elementor) |
 | 10 | hand over a theme zip that installs and makes the site on a clean WordPress | half to 1 day |
 
 Total: about 16–23 working days, three to four weeks with reviews. The site becomes

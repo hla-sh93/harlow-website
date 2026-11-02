@@ -1,0 +1,89 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "harlow/price-list",
+	"title": "Price List",
+	"category": "widgets",
+	"description": "A list of items with their prices, words and pictures.",
+	"textdomain": "harlow",
+	"attributes": {
+		"element": {
+			"type": "string",
+			"default": ""
+		},
+		"classes": {
+			"type": "string",
+			"default": ""
+		},
+		"settings": {
+			"type": "string",
+			"default": ""
+		},
+		"htmlId": {
+			"type": "string",
+			"default": ""
+		},
+		"items": {
+			"type": "array",
+			"default": [
+				{
+					"id": "a1c2e3f",
+					"title": "First item on the list",
+					"price": "$20",
+					"description": "I am item content. Click edit button to change this text. Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+					"image": 0,
+					"link": "",
+					"linkTarget": "",
+					"linkRel": ""
+				},
+				{
+					"id": "b1c2e3f",
+					"title": "Second item on the list",
+					"price": "$9",
+					"description": "I am item content. Click edit button to change this text. Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+					"image": 0,
+					"link": "",
+					"linkTarget": "",
+					"linkRel": ""
+				},
+				{
+					"id": "c1c2e3f",
+					"title": "Third item on the list",
+					"price": "$32",
+					"description": "I am item content. Click edit button to change this text. Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+					"image": 0,
+					"link": "",
+					"linkTarget": "",
+					"linkRel": ""
+				}
+			]
+		},
+		"imageSize": {
+			"type": "string",
+			"default": "thumbnail"
+		},
+		"separatorStyle": {
+			"type": "string",
+			"default": "dotted"
+		},
+		"verticalAlign": {
+			"type": "string",
+			"default": "top"
+		},
+		"style": {
+			"type": "object",
+			"default": {}
+		}
+	},
+	"supports": {
+		"html": false,
+		"className": false,
+		"customClassName": false
+	},
+	"example": {
+		"attributes": {
+			"separatorStyle": "dotted"
+		}
+	},
+	"render": "file:../../includes/sections/price-list.php"
+}

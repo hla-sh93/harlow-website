@@ -1,0 +1,183 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "harlow/video",
+	"title": "Video",
+	"category": "media",
+	"description": "A YouTube, Vimeo or Dailymotion video, or a video file, with a picture over it and the lightbox if wanted.",
+	"textdomain": "harlow",
+	"attributes": {
+		"element": {
+			"type": "string",
+			"default": ""
+		},
+		"classes": {
+			"type": "string",
+			"default": ""
+		},
+		"settings": {
+			"type": "string",
+			"default": ""
+		},
+		"htmlId": {
+			"type": "string",
+			"default": ""
+		},
+		"videoType": {
+			"type": "string",
+			"default": "youtube"
+		},
+		"youtubeUrl": {
+			"type": "string",
+			"default": "https://www.youtube.com/watch?v=XHOmBV4js_E"
+		},
+		"vimeoUrl": {
+			"type": "string",
+			"default": "https://vimeo.com/235215203"
+		},
+		"dailymotionUrl": {
+			"type": "string",
+			"default": "https://www.dailymotion.com/video/x6tqhqb"
+		},
+		"insertUrl": {
+			"type": "boolean",
+			"default": false
+		},
+		"hostedVideo": {
+			"type": "integer",
+			"default": 0
+		},
+		"externalUrl": {
+			"type": "string",
+			"default": ""
+		},
+		"start": {
+			"type": "string",
+			"default": ""
+		},
+		"end": {
+			"type": "string",
+			"default": ""
+		},
+		"autoplay": {
+			"type": "boolean",
+			"default": false
+		},
+		"playOnMobile": {
+			"type": "boolean",
+			"default": false
+		},
+		"mute": {
+			"type": "boolean",
+			"default": false
+		},
+		"loop": {
+			"type": "boolean",
+			"default": false
+		},
+		"controls": {
+			"type": "boolean",
+			"default": true
+		},
+		"showinfo": {
+			"type": "boolean",
+			"default": true
+		},
+		"modestbranding": {
+			"type": "boolean",
+			"default": false
+		},
+		"logo": {
+			"type": "boolean",
+			"default": true
+		},
+		"color": {
+			"type": "string",
+			"default": ""
+		},
+		"ytPrivacy": {
+			"type": "boolean",
+			"default": false
+		},
+		"lazyLoad": {
+			"type": "boolean",
+			"default": false
+		},
+		"rel": {
+			"type": "string",
+			"default": ""
+		},
+		"vimeoTitle": {
+			"type": "boolean",
+			"default": true
+		},
+		"vimeoPortrait": {
+			"type": "boolean",
+			"default": true
+		},
+		"vimeoByline": {
+			"type": "boolean",
+			"default": true
+		},
+		"downloadButton": {
+			"type": "boolean",
+			"default": false
+		},
+		"preload": {
+			"type": "string",
+			"default": "metadata"
+		},
+		"poster": {
+			"type": "integer",
+			"default": 0
+		},
+		"aspectRatio": {
+			"type": "string",
+			"default": "169"
+		},
+		"showImageOverlay": {
+			"type": "boolean",
+			"default": false
+		},
+		"imageOverlay": {
+			"type": "integer",
+			"default": 0
+		},
+		"imageOverlaySize": {
+			"type": "string",
+			"default": "full"
+		},
+		"showPlayIcon": {
+			"type": "boolean",
+			"default": true
+		},
+		"playIcon": {
+			"type": "string",
+			"default": ""
+		},
+		"lightbox": {
+			"type": "boolean",
+			"default": false
+		},
+		"lightboxAnimation": {
+			"type": "string",
+			"default": ""
+		},
+		"style": {
+			"type": "object",
+			"default": {}
+		}
+	},
+	"supports": {
+		"html": false,
+		"className": false,
+		"customClassName": false
+	},
+	"example": {
+		"attributes": {
+			"element": "a1b2c3d",
+			"classes": "elementor-element elementor-widget elementor-widget-video"
+		}
+	},
+	"render": "file:../../includes/sections/video.php"
+}

@@ -1,0 +1,160 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "harlow/testimonial-carousel",
+	"title": "Testimonial Carousel",
+	"category": "widgets",
+	"description": "Slides of what people said, with their pictures, names and titles.",
+	"textdomain": "harlow",
+	"attributes": {
+		"element": {
+			"type": "string",
+			"default": ""
+		},
+		"classes": {
+			"type": "string",
+			"default": ""
+		},
+		"settings": {
+			"type": "string",
+			"default": ""
+		},
+		"htmlId": {
+			"type": "string",
+			"default": ""
+		},
+		"slides": {
+			"type": "array",
+			"default": [
+				{
+					"content": "I am slide content. Click edit button to change this text. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec ullamcorper mattis, pulvinar dapibus leo.",
+					"image": 0,
+					"name": "John Doe",
+					"title": "CEO"
+				},
+				{
+					"content": "I am slide content. Click edit button to change this text. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec ullamcorper mattis, pulvinar dapibus leo.",
+					"image": 0,
+					"name": "John Doe",
+					"title": "CEO"
+				},
+				{
+					"content": "I am slide content. Click edit button to change this text. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec ullamcorper mattis, pulvinar dapibus leo.",
+					"image": 0,
+					"name": "John Doe",
+					"title": "CEO"
+				}
+			]
+		},
+		"skin": {
+			"type": "string",
+			"default": "default"
+		},
+		"layout": {
+			"type": "string",
+			"default": "image_inline"
+		},
+		"align": {
+			"type": "string",
+			"default": "center"
+		},
+		"imageSize": {
+			"type": "string",
+			"default": "full"
+		},
+		"slidesPerView": {
+			"type": "string",
+			"default": ""
+		},
+		"slidesPerViewTablet": {
+			"type": "string",
+			"default": ""
+		},
+		"slidesPerViewMobile": {
+			"type": "string",
+			"default": ""
+		},
+		"slidesToScroll": {
+			"type": "string",
+			"default": ""
+		},
+		"slidesToScrollTablet": {
+			"type": "string",
+			"default": ""
+		},
+		"slidesToScrollMobile": {
+			"type": "string",
+			"default": ""
+		},
+		"spaceBetween": {
+			"type": "string",
+			"default": "10"
+		},
+		"spaceBetweenTablet": {
+			"type": "string",
+			"default": ""
+		},
+		"spaceBetweenMobile": {
+			"type": "string",
+			"default": ""
+		},
+		"width": {
+			"type": "string",
+			"default": ""
+		},
+		"widthUnit": {
+			"type": "string",
+			"default": "%"
+		},
+		"showArrows": {
+			"type": "boolean",
+			"default": true
+		},
+		"pagination": {
+			"type": "string",
+			"default": "bullets"
+		},
+		"speed": {
+			"type": "number",
+			"default": 500
+		},
+		"autoplay": {
+			"type": "boolean",
+			"default": true
+		},
+		"autoplaySpeed": {
+			"type": "number",
+			"default": 5000
+		},
+		"loop": {
+			"type": "boolean",
+			"default": true
+		},
+		"pauseOnHover": {
+			"type": "boolean",
+			"default": true
+		},
+		"pauseOnInteraction": {
+			"type": "boolean",
+			"default": true
+		},
+		"style": {
+			"type": "object",
+			"default": {}
+		}
+	},
+	"supports": {
+		"html": false,
+		"className": false,
+		"customClassName": false
+	},
+	"example": {
+		"attributes": {
+			"skin": "default",
+			"layout": "image_inline",
+			"align": "center",
+			"autoplay": false
+		}
+	},
+	"render": "file:../../includes/sections/testimonial-carousel.php"
+}

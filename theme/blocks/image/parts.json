@@ -1,0 +1,34 @@
+{
+	"parts": [
+		{
+			"key": "picture",
+			"label": "Picture",
+			"selector": " img",
+			"controls": [
+				"border",
+				"shadow",
+				"opacity"
+			],
+			"states": {
+				"hover": {
+					"label": "Hover",
+					"selector": ":hover img"
+				}
+			}
+		},
+		{
+			"key": "caption",
+			"label": "Caption",
+			"selector": " .widget-image-caption",
+			"controls": [
+				"color",
+				"typography",
+				"textShadow",
+				"background",
+				"padding",
+				"margin",
+				"align"
+			]
+		}
+	]
+}

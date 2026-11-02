@@ -1,0 +1,122 @@
+{
+	"parts": [
+		{
+			"key": "input",
+			"label": "Input",
+			"selector": " .elementor-search-form__input",
+			"controls": [
+				"color",
+				"typography",
+				"padding"
+			],
+			"states": {
+				"focus": {
+					"label": "Focus",
+					"selector": " .elementor-search-form--focus .elementor-search-form__input"
+				}
+			}
+		},
+		{
+			"key": "field",
+			"label": "Input box",
+			"selector": " .elementor-search-form__container",
+			"controls": [
+				"background",
+				"border",
+				"shadow",
+				"size"
+			],
+			"states": {
+				"focus": {
+					"label": "Focus",
+					"selector": " .elementor-search-form--focus .elementor-search-form__container"
+				}
+			}
+		},
+		{
+			"key": "button",
+			"label": "Button",
+			"selector": " .elementor-search-form__submit",
+			"controls": [
+				"color",
+				"typography",
+				"background",
+				"icon",
+				"size",
+				"padding",
+				"border"
+			],
+			"states": {
+				"hover": {
+					"label": "Hover",
+					"selector": " .elementor-search-form__submit:hover"
+				}
+			}
+		},
+		{
+			"key": "icon",
+			"label": "Icon (minimal)",
+			"selector": " .elementor-search-form__icon",
+			"controls": [
+				"icon",
+				"padding"
+			],
+			"states": {
+				"focus": {
+					"label": "Focus",
+					"selector": " .elementor-search-form--focus .elementor-search-form__icon"
+				}
+			}
+		},
+		{
+			"key": "toggle",
+			"label": "Toggle (full screen)",
+			"selector": " .elementor-search-form__toggle .e-font-icon-svg-container",
+			"controls": [
+				"icon",
+				"background",
+				"border",
+				"size"
+			],
+			"states": {
+				"hover": {
+					"label": "Hover",
+					"selector": " .elementor-search-form__toggle:hover .e-font-icon-svg-container"
+				}
+			}
+		},
+		{
+			"key": "overlay",
+			"label": "Full screen overlay",
+			"selector": " .elementor-search-form__container.elementor-search-form--full-screen",
+			"controls": [
+				"background",
+				"padding"
+			]
+		},
+		{
+			"key": "overlayInput",
+			"label": "Full screen input",
+			"selector": " .elementor-search-form--full-screen .elementor-search-form__input",
+			"controls": [
+				"color",
+				"typography",
+				"border"
+			]
+		},
+		{
+			"key": "close",
+			"label": "Close button (full screen)",
+			"selector": " .dialog-close-button",
+			"controls": [
+				"icon"
+			],
+			"states": {
+				"hover": {
+					"label": "Hover",
+					"selector": " .dialog-close-button:hover"
+				}
+			}
+		}
+	]
+}

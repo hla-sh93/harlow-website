@@ -1,0 +1,110 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "harlow/login",
+	"title": "Login",
+	"category": "widgets",
+	"description": "A form to log in to the site, or a message to whoever is logged in.",
+	"textdomain": "harlow",
+	"attributes": {
+		"element": {
+			"type": "string",
+			"default": ""
+		},
+		"classes": {
+			"type": "string",
+			"default": ""
+		},
+		"settings": {
+			"type": "string",
+			"default": ""
+		},
+		"htmlId": {
+			"type": "string",
+			"default": ""
+		},
+		"showLabels": {
+			"type": "boolean",
+			"default": true
+		},
+		"userLabel": {
+			"type": "string",
+			"default": "Username or Email Address"
+		},
+		"userPlaceholder": {
+			"type": "string",
+			"default": "Username or Email Address"
+		},
+		"passwordLabel": {
+			"type": "string",
+			"default": "Password"
+		},
+		"passwordPlaceholder": {
+			"type": "string",
+			"default": "Password"
+		},
+		"inputSize": {
+			"type": "string",
+			"default": "sm"
+		},
+		"buttonText": {
+			"type": "string",
+			"default": "Log In"
+		},
+		"buttonSize": {
+			"type": "string",
+			"default": "sm"
+		},
+		"buttonAlign": {
+			"type": "string",
+			"default": ""
+		},
+		"redirectAfterLogin": {
+			"type": "boolean",
+			"default": false
+		},
+		"redirectUrl": {
+			"type": "string",
+			"default": ""
+		},
+		"redirectAfterLogout": {
+			"type": "boolean",
+			"default": false
+		},
+		"redirectLogoutUrl": {
+			"type": "string",
+			"default": ""
+		},
+		"showLostPassword": {
+			"type": "boolean",
+			"default": true
+		},
+		"showRegister": {
+			"type": "boolean",
+			"default": true
+		},
+		"showRememberMe": {
+			"type": "boolean",
+			"default": true
+		},
+		"showLoggedInMessage": {
+			"type": "boolean",
+			"default": true
+		},
+		"style": {
+			"type": "object",
+			"default": {}
+		}
+	},
+	"supports": {
+		"html": false,
+		"className": false,
+		"customClassName": false
+	},
+	"example": {
+		"attributes": {
+			"showLabels": true
+		}
+	},
+	"render": "file:../../includes/sections/login.php"
+}

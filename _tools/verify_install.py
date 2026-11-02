@@ -169,7 +169,7 @@ def run_short(problems):
     changed = [k for k in once if once[k] != again[k]]
     if changed:
         problems.append(f"a second run changed: {changed}")
-    if any(second["report"][k] for k in ("pages_made", "filled", "replaced", "media_made", "posts_made", "forms_made", "menus_made", "seo")):
+    if any(second["report"][k] for k in ("pages_made", "filled", "replaced", "media_made", "posts_made", "forms_made", "menus_made", "singles", "seo")):
         problems.append(f"a second run did something: {second['report']}")
     lost = {}
     for b_counts, a_counts in ((before, once), (once, again)):
@@ -268,7 +268,7 @@ async def run(mode, problems):
             changed = [k for k in once if once[k] != again[k]]
             if changed:
                 problems.append(f"a second run changed: {changed}")
-            if any(third[k] for k in ("pages_made", "filled", "replaced", "media_made", "posts_made", "forms_made", "menus_made", "seo")):
+            if any(third[k] for k in ("pages_made", "filled", "replaced", "media_made", "posts_made", "forms_made", "menus_made", "singles", "seo")):
                 problems.append(f"a second run did something: {third}")
             for before_counts, after_counts in ((before, once), (once, again)):
                 # by type: a draft published (WordPress's privacy page, adopted) is not a loss

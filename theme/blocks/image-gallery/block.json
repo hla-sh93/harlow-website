@@ -1,0 +1,83 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "harlow/image-gallery",
+	"title": "Basic Gallery",
+	"category": "media",
+	"description": "Pictures in WordPress's gallery: columns of thumbnails, opened in the lightbox.",
+	"textdomain": "harlow",
+	"attributes": {
+		"element": {
+			"type": "string",
+			"default": ""
+		},
+		"classes": {
+			"type": "string",
+			"default": ""
+		},
+		"settings": {
+			"type": "string",
+			"default": ""
+		},
+		"htmlId": {
+			"type": "string",
+			"default": ""
+		},
+		"pictures": {
+			"type": "array",
+			"default": [],
+			"items": {
+				"type": "integer"
+			}
+		},
+		"imageSize": {
+			"type": "string",
+			"default": "thumbnail"
+		},
+		"columns": {
+			"type": "string",
+			"default": "4"
+		},
+		"link": {
+			"type": "string",
+			"default": "file"
+		},
+		"openLightbox": {
+			"type": "string",
+			"default": "default"
+		},
+		"orderby": {
+			"type": "string",
+			"default": ""
+		},
+		"caption": {
+			"type": "string",
+			"default": ""
+		},
+		"imageSpacing": {
+			"type": "string",
+			"default": ""
+		},
+		"spacing": {
+			"type": "string",
+			"default": "15"
+		},
+		"style": {
+			"type": "object",
+			"default": {}
+		}
+	},
+	"supports": {
+		"html": false,
+		"className": false,
+		"customClassName": false
+	},
+	"example": {
+		"attributes": {
+			"element": "a1b2c3d",
+			"classes": "elementor-element elementor-widget elementor-widget-image-gallery",
+			"columns": "4"
+		}
+	},
+	"render": "file:../../includes/sections/image-gallery.php"
+}

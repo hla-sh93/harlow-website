@@ -1,0 +1,108 @@
+/* Off-canvas (Elementor Pro's off-canvas widget, harlow/off-canvas): a white panel the
+   height of the screen (or its width, from the top or the bottom) over a dark overlay,
+   hidden until a link opens it; its close icon in its corner. In the editor the panel is
+   drawn open in its place, so its blocks can be edited. */
+
+/* The panel and its overlay cover the screen, hidden while closed */
+.e-off-canvas {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  justify-content: flex-start;
+  align-items: stretch;
+}
+
+.e-off-canvas[aria-hidden="true"] {
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.e-off-canvas--right {
+  justify-content: flex-end;
+}
+
+.e-off-canvas--top,
+.e-off-canvas--bottom {
+  flex-direction: column;
+}
+
+.e-off-canvas--bottom {
+  justify-content: flex-end;
+}
+
+.e-off-canvas__overlay {
+  position: absolute;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.e-off-canvas--no-overlay .e-off-canvas__overlay {
+  background-color: transparent;
+}
+
+.e-off-canvas--no-overlay:not([aria-hidden="true"]) {
+  pointer-events: none;
+}
+
+.e-off-canvas--no-overlay:not([aria-hidden="true"]) .e-off-canvas__main {
+  pointer-events: auto;
+}
+
+/* The panel */
+.e-off-canvas__main {
+  position: relative;
+  box-sizing: border-box;
+  width: var(--e-off-canvas-width, 400px);
+  max-width: 100%;
+  height: var(--e-off-canvas-height, 100vh);
+  max-height: 100%;
+  overflow: auto;
+  padding: 20px;
+  background-color: #fff;
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.15);
+  outline: none;
+}
+
+/* The close icon */
+.e-off-canvas__close {
+  position: absolute;
+  top: 10px;
+  inset-inline-end: 10px;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px;
+  border: 0;
+  background: none;
+  color: #1f2124;
+  font-size: 20px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.e-off-canvas__close svg {
+  width: 1em;
+  height: 1em;
+  fill: currentColor;
+}
+
+/* In the editor: the panel open in its place on the page */
+.e-off-canvas.e-off-canvas--editing {
+  position: relative;
+  inset: auto;
+  z-index: auto;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.e-off-canvas--editing .e-off-canvas__overlay {
+  display: none;
+}
+
+.e-off-canvas--editing .e-off-canvas__main {
+  height: auto;
+  min-height: 200px;
+  outline: 1px dashed #9da5ae;
+}

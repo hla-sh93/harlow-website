@@ -1,0 +1,89 @@
+/* Countdown (Elementor Pro's countdown widget, harlow/countdown): boxes in the kit's
+   primary colour side by side, big white digits above their labels (block view), or the
+   digits and labels on one line in small boxes in the middle (inline view). The boxes are
+   10px apart, Elementor's space between them. */
+
+.elementor-countdown-wrapper {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
+
+/* A box */
+.elementor-countdown-item {
+  padding: 20px 0;
+  color: #fff;
+  text-align: center;
+}
+
+.elementor-countdown-digits,
+.elementor-countdown-label {
+  line-height: 1;
+}
+
+.elementor-countdown-digits {
+  font-size: 69px;
+}
+
+.elementor-countdown-label {
+  font-size: 19px;
+}
+
+/* Block view: the boxes share the width, each label under its digits */
+.elementor-widget-countdown:not(.elementor-countdown--label-inline) .elementor-countdown-item {
+  flex-basis: 0;
+  flex-grow: 1;
+}
+
+.elementor-widget-countdown.elementor-countdown--label-block .elementor-countdown-digits,
+.elementor-widget-countdown.elementor-countdown--label-block .elementor-countdown-label {
+  display: block;
+}
+
+/* Inline view: the boxes as wide as their words, in the middle */
+.elementor-widget-countdown.elementor-countdown--label-inline {
+  text-align: center;
+}
+
+.elementor-widget-countdown.elementor-countdown--label-inline .elementor-countdown-wrapper {
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.elementor-widget-countdown.elementor-countdown--label-inline .elementor-countdown-item {
+  padding-inline: 5px;
+}
+
+/* The message shown when it has run out */
+.elementor-widget-countdown .elementor-countdown-expire--message {
+  display: none;
+  padding: 20px;
+}
+
+/* In a flex container, the width a container gives its widgets */
+.e-con-inner > .elementor-widget-countdown,
+.e-con > .elementor-widget-countdown {
+  width: var(--container-widget-width, 100%);
+  --flex-grow: var(--container-widget-flex-grow);
+}
+
+/* The kit's colours and fonts, as Elementor gives a new countdown */
+.elementor-widget-countdown .elementor-countdown-item {
+  background-color: var(--e-global-color-primary);
+}
+
+.elementor-widget-countdown .elementor-countdown-digits {
+  font-family: var(--e-global-typography-text-font-family), Sans-serif;
+  font-weight: var(--e-global-typography-text-font-weight);
+}
+
+.elementor-widget-countdown .elementor-countdown-label {
+  font-family: var(--e-global-typography-secondary-font-family), Sans-serif;
+  font-weight: var(--e-global-typography-secondary-font-weight);
+}
+
+.elementor-widget-countdown .elementor-countdown-expire--message {
+  color: var(--e-global-color-text);
+  font-family: var(--e-global-typography-text-font-family), Sans-serif;
+  font-weight: var(--e-global-typography-text-font-weight);
+}

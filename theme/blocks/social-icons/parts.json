@@ -1,0 +1,34 @@
+{
+	"parts": [
+		{
+			"key": "list",
+			"label": "Icons row",
+			"selector": " .elementor-social-icons-wrapper",
+			"controls": [
+				"gap",
+				"align",
+				"columns"
+			]
+		},
+		{
+			"key": "icon",
+			"label": "Icon",
+			"selector": " .elementor-social-icon",
+			"controls": [
+				"icon",
+				"background",
+				"padding",
+				"border",
+				"shadow",
+				"size",
+				"transform"
+			],
+			"states": {
+				"hover": {
+					"label": "Hover",
+					"selector": " .elementor-social-icon:hover"
+				}
+			}
+		}
+	]
+}

@@ -1,0 +1,267 @@
+/*
+ * Price table (Elementor Pro's price table widget): a dark header, the price large in the
+ * middle with its currency and fraction raised, the features divided by thin lines, a
+ * button in the footer and a ribbon across the top corner. Colours and fonts are the kit's,
+ * as Elementor's defaults for this widget are.
+ */
+
+/* The table */
+.elementor-widget-price-table .elementor-widget-container {
+  overflow: hidden;
+  background-color: #f9fafa;
+}
+
+.elementor-widget-price-table .elementor-price-table {
+  text-align: center;
+}
+
+/* The header: title and description */
+.elementor-widget-price-table .elementor-price-table .elementor-price-table__header {
+  padding: 20px 0;
+  background: var(--e-global-color-secondary);
+}
+
+.elementor-widget-price-table .elementor-price-table .elementor-price-table__heading {
+  margin: 0;
+  padding: 0;
+  line-height: 1.2;
+  font-size: 24px;
+  font-weight: 600;
+  color: #fff;
+  font-family: var(--e-global-typography-primary-font-family), Sans-serif;
+}
+
+.elementor-widget-price-table .elementor-price-table .elementor-price-table__subheading {
+  font-size: 13px;
+  font-weight: 400;
+  color: #fff;
+  font-family: var(--e-global-typography-secondary-font-family), Sans-serif;
+}
+
+/* The price */
+.elementor-widget-price-table .elementor-price-table .elementor-price-table__price {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 40px 0;
+  font-size: 65px;
+  font-weight: 800;
+  color: var(--e-global-color-secondary);
+  font-family: var(--e-global-typography-primary-font-family), Sans-serif;
+}
+
+.elementor-widget-price-table .elementor-price-table .elementor-price-table__price .elementor-typo-excluded {
+  line-height: normal;
+  letter-spacing: normal;
+  text-transform: none;
+  font-weight: 400;
+  font-size: medium;
+  font-style: normal;
+}
+
+.elementor-widget-price-table .elementor-price-table .elementor-price-table__price .elementor-price-table__after-price {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  align-items: flex-start;
+  align-self: stretch;
+  text-align: start;
+}
+
+.elementor-widget-price-table .elementor-price-table .elementor-price-table__price .elementor-price-table__integer-part {
+  line-height: 0.8;
+}
+
+.elementor-widget-price-table .elementor-price-table .elementor-price-table__price .elementor-price-table__currency,
+.elementor-widget-price-table .elementor-price-table .elementor-price-table__price .elementor-price-table__fractional-part {
+  line-height: 1;
+  font-size: 0.3em;
+}
+
+.elementor-widget-price-table .elementor-price-table .elementor-price-table__price .elementor-price-table__currency {
+  align-self: flex-start;
+}
+
+.elementor-widget-price-table .elementor-price-table .elementor-price-table__currency.elementor-currency--before {
+  margin-right: 3px;
+}
+
+.elementor-widget-price-table .elementor-price-table .elementor-price-table__currency.elementor-currency--after {
+  margin-left: 3px;
+}
+
+.elementor-widget-price-table .elementor-price-table .elementor-price-table__original-price {
+  margin-right: 15px;
+  text-decoration: line-through;
+  font-size: 0.5em;
+  line-height: 1;
+  font-weight: 400;
+  align-self: center;
+  color: var(--e-global-color-secondary);
+}
+
+.elementor-widget-price-table .elementor-price-table .elementor-price-table__original-price .elementor-price-table__currency {
+  font-size: 1em;
+  margin: 0;
+}
+
+.elementor-widget-price-table .elementor-price-table .elementor-price-table__period {
+  width: 100%;
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--e-global-color-secondary);
+  font-family: var(--e-global-typography-secondary-font-family), Sans-serif;
+}
+
+/* The features, a thin line between each two */
+.elementor-widget-price-table .elementor-price-table .elementor-price-table__features-list {
+  --e-price-table-features-list-color: var(--e-global-color-text);
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  line-height: 1;
+  color: var(--e-price-table-features-list-color);
+  font-family: var(--e-global-typography-text-font-family), Sans-serif;
+  font-weight: var(--e-global-typography-text-font-weight);
+}
+
+.elementor-widget-price-table .elementor-price-table .elementor-price-table__features-list li {
+  font-size: 14px;
+  line-height: 1;
+  margin: 0;
+  padding: 0;
+}
+
+.elementor-widget-price-table .elementor-price-table .elementor-price-table__features-list li .elementor-price-table__feature-inner {
+  margin-left: 15px;
+  margin-right: 15px;
+}
+
+.elementor-widget-price-table .elementor-price-table .elementor-price-table__features-list li:not(:first-child):before {
+  content: "";
+  display: block;
+  border: 0 solid hsla(0, 0%, 47.8%, 0.3);
+  border-top: 2px solid #ddd;
+  margin: 15px 12.5%;
+}
+
+.elementor-widget-price-table .elementor-price-table .elementor-price-table__features-list i {
+  margin-right: 10px;
+  font-size: 1.3em;
+  color: var(--e-price-table-feature-icon-color, inherit);
+}
+
+.elementor-widget-price-table .elementor-price-table .elementor-price-table__features-list svg {
+  margin-right: 10px;
+  fill: var(--e-price-table-feature-icon-color, var(--e-price-table-features-list-color));
+  height: 1.3em;
+  width: 1.3em;
+}
+
+.elementor-widget-price-table .elementor-price-table .elementor-price-table__features-list svg ~ *,
+.elementor-widget-price-table .elementor-price-table .elementor-price-table__features-list .harlow-price-table__icon ~ * {
+  vertical-align: text-top;
+}
+
+/* In the editor the icon has a holder of its own, drawn as if it were not there */
+.elementor-widget-price-table .elementor-price-table .elementor-price-table__features-list .harlow-price-table__icon {
+  display: contents;
+}
+
+/* The footer: the button and the words under it */
+.elementor-widget-price-table .elementor-price-table .elementor-price-table__footer {
+  padding: 30px 0;
+}
+
+.elementor-widget-price-table .elementor-price-table .elementor-price-table__button {
+  display: inline-block;
+  color: #fff;
+  background-color: var(--e-global-color-accent);
+  font-family: var(--e-global-typography-accent-font-family), Sans-serif;
+  font-weight: var(--e-global-typography-accent-font-weight);
+}
+
+.elementor-widget-price-table .elementor-price-table .elementor-price-table__button.elementor-size-xs {
+  font-size: 13px;
+  padding: 10px 20px;
+  border-radius: 2px;
+}
+
+.elementor-widget-price-table .elementor-price-table .elementor-price-table__button.elementor-size-sm {
+  font-size: 15px;
+  padding: 12px 24px;
+  border-radius: 3px;
+}
+
+.elementor-widget-price-table .elementor-price-table .elementor-price-table__button.elementor-size-md {
+  font-size: 16px;
+  padding: 15px 30px;
+  border-radius: 4px;
+}
+
+.elementor-widget-price-table .elementor-price-table .elementor-price-table__button.elementor-size-lg {
+  font-size: 18px;
+  padding: 20px 40px;
+  border-radius: 5px;
+}
+
+.elementor-widget-price-table .elementor-price-table .elementor-price-table__button.elementor-size-xl {
+  font-size: 20px;
+  padding: 25px 50px;
+  border-radius: 6px;
+}
+
+.elementor-widget-price-table .elementor-price-table .elementor-price-table__additional_info {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.4;
+  color: var(--e-global-color-text);
+  font-family: var(--e-global-typography-text-font-family), Sans-serif;
+  font-weight: var(--e-global-typography-text-font-weight);
+}
+
+.elementor-widget-price-table .elementor-price-table .elementor-price-table__button + .elementor-price-table__additional_info {
+  margin-top: 15px;
+}
+
+/* The ribbon across the top corner */
+.elementor-widget-price-table .elementor-price-table__ribbon {
+  position: absolute;
+  top: 0;
+  left: auto;
+  right: 0;
+  width: 150px;
+  height: 150px;
+  overflow: hidden;
+  transform: rotate(90deg);
+}
+
+.elementor-widget-price-table .elementor-price-table__ribbon.elementor-ribbon-left {
+  transform: rotate(0);
+  left: 0;
+  right: auto;
+}
+
+.elementor-widget-price-table .elementor-price-table__ribbon.elementor-ribbon-right {
+  transform: rotate(90deg);
+  left: auto;
+  right: 0;
+}
+
+.elementor-widget-price-table .elementor-price-table__ribbon-inner {
+  position: relative;
+  left: 0;
+  width: 200%;
+  margin-top: 35px;
+  text-align: center;
+  font-size: 13px;
+  line-height: 2;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: #fff;
+  background: var(--e-global-color-accent);
+  font-family: var(--e-global-typography-accent-font-family), Sans-serif;
+  transform: translateY(-50%) translateX(-50%) translateX(35px) rotate(-45deg);
+}

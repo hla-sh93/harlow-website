@@ -6,7 +6,8 @@
   const RATIO = 16 / 9;
 
   document.querySelectorAll('.elementor-background-video-container').forEach((box) => {
-    const video = box.querySelector('video.elementor-background-video-hosted');
+    // A file, or a YouTube or Vimeo frame (sized the same way, playing by itself).
+    const video = box.querySelector('video.elementor-background-video-hosted, iframe.elementor-background-video-embed');
     if (!video) return;
     const size = () => {
       const w = box.offsetWidth;
@@ -17,6 +18,7 @@
     };
     size();
     window.addEventListener('resize', size);
+    if (video.tagName !== 'VIDEO') return;
     video.muted = true;
     const play = video.play();
     if (play && play.catch) play.catch(() => {});

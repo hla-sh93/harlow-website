@@ -1,0 +1,123 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "harlow/author-box",
+	"title": "Author Box",
+	"category": "theme",
+	"description": "The picture, name, biography and posts of the author of the item the page shows, or of an author you type in (Elementor Pro's author box widget).",
+	"textdomain": "harlow",
+	"attributes": {
+		"element": {
+			"type": "string",
+			"default": ""
+		},
+		"classes": {
+			"type": "string",
+			"default": ""
+		},
+		"settings": {
+			"type": "string",
+			"default": ""
+		},
+		"htmlId": {
+			"type": "string",
+			"default": ""
+		},
+		"source": {
+			"type": "string",
+			"enum": [
+				"current",
+				"custom"
+			],
+			"default": "current"
+		},
+		"avatar": {
+			"type": "boolean",
+			"default": true
+		},
+		"customAvatar": {
+			"type": "integer",
+			"default": 0
+		},
+		"name": {
+			"type": "boolean",
+			"default": true
+		},
+		"customName": {
+			"type": "string",
+			"default": "John Doe"
+		},
+		"nameTag": {
+			"type": "string",
+			"default": "h4"
+		},
+		"bio": {
+			"type": "boolean",
+			"default": true
+		},
+		"customBio": {
+			"type": "string",
+			"default": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec ullamcorper mattis, pulvinar dapibus leo."
+		},
+		"linkTo": {
+			"type": "string",
+			"enum": [
+				"",
+				"website",
+				"posts_archive"
+			],
+			"default": ""
+		},
+		"customWebsite": {
+			"type": "string",
+			"default": ""
+		},
+		"customArchive": {
+			"type": "string",
+			"default": ""
+		},
+		"button": {
+			"type": "boolean",
+			"default": false
+		},
+		"buttonText": {
+			"type": "string",
+			"default": "All Posts"
+		},
+		"layout": {
+			"type": "string",
+			"enum": [
+				"",
+				"left",
+				"above",
+				"right"
+			],
+			"default": ""
+		},
+		"align": {
+			"type": "string",
+			"enum": [
+				"",
+				"left",
+				"center",
+				"right"
+			],
+			"default": ""
+		},
+		"style": {
+			"type": "object",
+			"default": {}
+		}
+	},
+	"supports": {
+		"html": false,
+		"className": false,
+		"customClassName": false
+	},
+	"example": {
+		"attributes": {
+			"source": "custom"
+		}
+	},
+	"render": "file:../../includes/sections/author-box.php"
+}

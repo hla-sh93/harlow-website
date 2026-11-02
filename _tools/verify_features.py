@@ -68,9 +68,17 @@ READY = "() => window.wp && wp.data && wp.data.select('core/block-editor').getBl
 PUBLISH = """
 async (title) => {
   const d = wp.data.dispatch('core/editor');
-  if (title) d.editPost({ title, status: 'publish' });
-  await d.savePost();
   const s = wp.data.select('core/editor');
+  const wait = (ms) => new Promise((r) => setTimeout(r, ms));
+  if (title) d.editPost({ title, status: 'publish' });
+  // The editor ignores a save asked for while one is going (its own autosave too): wait
+  // for it, save, and save again while changes are left unsaved.
+  for (let n = 0; n < 3; n++) {
+    for (let i = 0; i < 120 && s.isSavingPost(); i++) await wait(250);
+    await d.savePost();
+    for (let i = 0; i < 120 && s.isSavingPost(); i++) await wait(250);
+    if (!s.isEditedPostDirty() || s.didPostSaveRequestFail()) break;
+  }
   return { id: s.getCurrentPostId(), failed: s.didPostSaveRequestFail(), dirty: s.isEditedPostDirty(),
            template: s.getEditedPostAttribute('template') };
 }
@@ -153,7 +161,8 @@ async def editor_page(browser, url):
     await ctx.add_cookies(login_cookies())
     page = await ctx.new_page()
     errors = []
-    page.on("pageerror", lambda e: errors.append(str(e)[:200]))
+    # an error's words and where it was thrown (a rejected request says only "Object")
+    page.on("pageerror", lambda e: errors.append(" ".join([str(e)] + (e.stack or "").splitlines()[1:3])[:300]))
     await page.goto(WP + url, wait_until="load", timeout=120000)
     return ctx, page, errors
 

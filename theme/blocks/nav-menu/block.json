@@ -34,6 +34,10 @@
 		"menu": {
 			"type": "string",
 			"default": ""
+		},
+		"style": {
+			"type": "object",
+			"default": {}
 		}
 	},
 	"supports": {

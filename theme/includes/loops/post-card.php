@@ -19,7 +19,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 				<div class="e-con-inner">
 					<div class="elementor-element elementor-absolute elementor-widget elementor-widget-image hl-bottom-n21 hl-ltr-right-20 hl-mw-94--img" data-id="aa8eee5" data-element_type="widget" data-e-type="widget" data-widget_type="image.default">
 						<div class="elementor-widget-container">
-							<?php echo harlow_card_image( 625, 'large' ); ?>
+							<?php echo harlow_card_image( (int) harlow_card_option( 'badge', 625 ), 'large' ); ?>
 						</div>
 					</div>
 					<div class="elementor-element news-item-img-holder e-flex e-con-boxed e-con e-child hl-v-display-flex hl-v-margin-bottom-0 hl-v-margin-left-0 hl-v-margin-right-0 hl-v-margin-top-0 hl-v-padding-bottom-0 hl-v-padding-left-0 hl-v-padding-right-0 hl-v-padding-top-0" data-id="e72cbd5" data-element_type="container" data-e-type="container">
@@ -56,11 +56,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 							<p><?php echo esc_html( harlow_card_text( 12, '…' ) ); ?>								</p></div>
 					</div>
 					<div class="elementor-element e-transform elementor-mobile-align-left elementor-widget__width-initial elementor-widget elementor-widget-button hl-v-e-transform-translateX-15--wc-hover hl-v-align-self-flex-end--el hl-v-align-self-center--el--m hl-v-container-widget-flex-grow-0 hl-v-container-widget-flex-grow-0--m hl-v-container-widget-width-130 hl-v-container-widget-width-111--m hl-mw-130 hl-mw-111--m hl-w-var-container-wi-710d30 hl-w-var-container-wi-26f3b7--m hl-p-0-0-0-0--button hl-bgc-e46e6e00--button hl-bgi-url-blue-arrow--wc hl-bgp-center-right--wc hl-bgr-no-repeat--wc hl-br-0-0-0-0--button hl-bs-none--button hl-fill-0165a1--button hl-c-0165a1--button hl-ff-roboto-sans-serif--button hl-fs-14--button hl-fst-normal--button hl-fw-600--button hl-ls-0_6--button hl-tt-uppercase--button" data-id="3d2fe41" data-element_type="widget" data-e-type="widget" data-settings='{"_animation":"none"}' data-widget_type="button.default">
-						<div class="elementor-widget-container">
+						<div class="elementor-widget-container"<?php echo harlow_picture_style( harlow_card_option( 'moreArrow', 0 ) ); ?>>
 							<div class="elementor-button-wrapper">
 								<a class="elementor-button elementor-button-link elementor-size-sm" href="<?php the_permalink(); ?>">
 									<span class="elementor-button-content-wrapper">
-										<span class="elementor-button-text"><?php esc_html_e( 'Read More', 'harlow' ); ?></span>
+										<span class="elementor-button-text"><?php echo esc_html( harlow_card_option( 'more', __( 'Read More', 'harlow' ) ) ); ?></span>
 									</span>
 								</a>
 							</div>

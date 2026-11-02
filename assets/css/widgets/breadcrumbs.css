@@ -1,0 +1,16 @@
+/*
+ * Breadcrumbs (breadcrumbs): the trail a little smaller than the text around it, in the
+ * kit's secondary font, as Elementor Pro's breadcrumbs widget draws it before it is
+ * styled.
+ */
+
+/* The trail */
+.elementor-widget-breadcrumbs {
+  font-family: var(--e-global-typography-secondary-font-family), Sans-serif;
+  font-size: 0.85em;
+  font-weight: var(--e-global-typography-secondary-font-weight);
+}
+
+.elementor-widget-breadcrumbs p {
+  margin-bottom: 0;
+}

@@ -1,0 +1,68 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "harlow/progress",
+	"title": "Progress Bar",
+	"category": "widgets",
+	"description": "A bar that fills to its percentage when it comes into view, with a title and words inside.",
+	"textdomain": "harlow",
+	"attributes": {
+		"element": {
+			"type": "string",
+			"default": ""
+		},
+		"classes": {
+			"type": "string",
+			"default": ""
+		},
+		"settings": {
+			"type": "string",
+			"default": ""
+		},
+		"htmlId": {
+			"type": "string",
+			"default": ""
+		},
+		"title": {
+			"type": "string",
+			"default": "My Skill"
+		},
+		"titleTag": {
+			"type": "string",
+			"default": "span"
+		},
+		"progressType": {
+			"type": "string",
+			"default": ""
+		},
+		"percent": {
+			"type": "number",
+			"default": 50
+		},
+		"displayPercentage": {
+			"type": "boolean",
+			"default": true
+		},
+		"innerText": {
+			"type": "string",
+			"default": "Web Designer"
+		},
+		"style": {
+			"type": "object",
+			"default": {}
+		}
+	},
+	"supports": {
+		"html": false,
+		"className": false,
+		"customClassName": false
+	},
+	"example": {
+		"attributes": {
+			"element": "a1b2c3d",
+			"classes": "elementor-element elementor-widget elementor-widget-progress",
+			"percent": 70
+		}
+	},
+	"render": "file:../../includes/sections/progress.php"
+}

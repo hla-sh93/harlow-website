@@ -119,6 +119,7 @@ def media_record(m):
         "width": details.get("width"),
         "height": details.get("height"),
         "title": htmllib.unescape(m["title"]["rendered"]),
+        "slug": m.get("slug", ""),
         "alt": m.get("alt_text", ""),
         "date": m["date"],
         "sizes": sizes,

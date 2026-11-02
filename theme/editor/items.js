@@ -12,8 +12,18 @@ import { __, sprintf } from '@wordpress/i18n';
  * @param {Function} props.onChange Called with the new lines.
  * @param {Object}   props.blank    A new line.
  * @param {Function} props.children Renders the fields of one line: ( item, update ) => fields.
+ * @param {Function} props.title    A line's panel title from its number (1, 2…), as
+ *                                  Elementor names a repeater's rows ("Tab 1").
+ * @param {string}   props.addLabel The add button's words ("Add a tab").
  */
-export default function ItemPanels( { items, onChange, blank, children } ) {
+export default function ItemPanels( {
+	items,
+	onChange,
+	blank,
+	children,
+	title,
+	addLabel,
+} ) {
 	const update = ( index, patch ) =>
 		onChange(
 			items.map( ( item, i ) =>
@@ -31,8 +41,12 @@ export default function ItemPanels( { items, onChange, blank, children } ) {
 			{ items.map( ( item, index ) => (
 				<PanelBody
 					key={ index }
-					/* translators: %d: the line's number. */
-					title={ sprintf( __( 'Line %d', 'harlow' ), index + 1 ) }
+					title={
+						title
+							? title( index + 1 )
+							: /* translators: %d: the line's number. */
+								sprintf( __( 'Line %d', 'harlow' ), index + 1 )
+					}
 					initialOpen={ false }
 				>
 					{ children( item, ( patch ) => update( index, patch ) ) }
@@ -78,7 +92,7 @@ export default function ItemPanels( { items, onChange, blank, children } ) {
 						] )
 					}
 				>
-					{ __( 'Add a line', 'harlow' ) }
+					{ addLabel || __( 'Add a line', 'harlow' ) }
 				</Button>
 			</PanelBody>
 		</InspectorControls>

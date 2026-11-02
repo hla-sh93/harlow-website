@@ -1,0 +1,75 @@
+{
+	"parts": [
+		{
+			"key": "items",
+			"label": "List",
+			"selector": " .elementor-icon-list-item",
+			"controls": [
+				"padding",
+				"margin",
+				"background",
+				"align"
+			]
+		},
+		{
+			"key": "divider",
+			"label": "Divider",
+			"selector": " .elementor-icon-list-item:not(:last-child)",
+			"controls": [
+				"border"
+			]
+		},
+		{
+			"key": "icon",
+			"label": "Icon",
+			"selector": " .elementor-icon-list-icon",
+			"controls": [
+				"icon",
+				"margin",
+				"padding"
+			],
+			"states": {
+				"hover": {
+					"label": "Hover",
+					"selector": " .elementor-icon-list-item:hover .elementor-icon-list-icon"
+				}
+			}
+		},
+		{
+			"key": "avatar",
+			"label": "Author picture",
+			"selector": " .elementor-avatar",
+			"controls": [
+				"size",
+				"border",
+				"shadow"
+			]
+		},
+		{
+			"key": "text",
+			"label": "Text",
+			"selector": " .elementor-icon-list-text| .elementor-icon-list-text a",
+			"controls": [
+				"color",
+				"typography",
+				"textShadow",
+				"padding"
+			],
+			"states": {
+				"hover": {
+					"label": "Hover",
+					"selector": " .elementor-icon-list-item:hover .elementor-icon-list-text| .elementor-icon-list-item:hover .elementor-icon-list-text a"
+				}
+			}
+		},
+		{
+			"key": "prefix",
+			"label": "Before text",
+			"selector": " .elementor-post-info__item-prefix",
+			"controls": [
+				"color",
+				"typography"
+			]
+		}
+	]
+}

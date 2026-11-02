@@ -1,0 +1,22 @@
+{
+	"parts": [
+		{
+			"key": "map",
+			"label": "Map",
+			"selector": " iframe",
+			"controls": [
+				"size",
+				"opacity",
+				"border",
+				"shadow",
+				"transform"
+			],
+			"states": {
+				"hover": {
+					"label": "Hover",
+					"selector": ":hover iframe"
+				}
+			}
+		}
+	]
+}

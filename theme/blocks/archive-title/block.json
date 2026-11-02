@@ -1,0 +1,77 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "harlow/archive-title",
+	"title": "Archive Title",
+	"category": "theme",
+	"description": "The title of the category, tag, author, date or search being shown, as a heading (Elementor Pro's archive title widget).",
+	"textdomain": "harlow",
+	"harlowWidget": "theme-archive-title",
+	"attributes": {
+		"element": {
+			"type": "string",
+			"default": ""
+		},
+		"classes": {
+			"type": "string",
+			"default": ""
+		},
+		"settings": {
+			"type": "string",
+			"default": ""
+		},
+		"htmlId": {
+			"type": "string",
+			"default": ""
+		},
+		"tag": {
+			"type": "string",
+			"default": "h1"
+		},
+		"size": {
+			"type": "string",
+			"default": "default"
+		},
+		"linkTo": {
+			"type": "string",
+			"enum": [
+				"none",
+				"home",
+				"item",
+				"custom"
+			],
+			"default": "none"
+		},
+		"link": {
+			"type": "string",
+			"default": ""
+		},
+		"linkTarget": {
+			"type": "string",
+			"default": ""
+		},
+		"linkRel": {
+			"type": "string",
+			"default": ""
+		},
+		"context": {
+			"type": "boolean",
+			"default": true
+		},
+		"style": {
+			"type": "object",
+			"default": {}
+		}
+	},
+	"supports": {
+		"html": false,
+		"className": false,
+		"customClassName": false
+	},
+	"example": {
+		"attributes": {
+			"tag": "h1"
+		}
+	},
+	"render": "file:../../includes/sections/archive-title.php"
+}

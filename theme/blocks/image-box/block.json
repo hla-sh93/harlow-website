@@ -1,0 +1,83 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "harlow/image-box",
+	"title": "Image Box",
+	"category": "media",
+	"description": "A picture with a title and words, above them or beside them, with a link if wanted.",
+	"textdomain": "harlow",
+	"attributes": {
+		"element": {
+			"type": "string",
+			"default": ""
+		},
+		"classes": {
+			"type": "string",
+			"default": ""
+		},
+		"settings": {
+			"type": "string",
+			"default": ""
+		},
+		"htmlId": {
+			"type": "string",
+			"default": ""
+		},
+		"image": {
+			"type": "integer",
+			"default": 0
+		},
+		"imageSize": {
+			"type": "string",
+			"default": "full"
+		},
+		"title": {
+			"type": "string",
+			"default": "This is the heading"
+		},
+		"description": {
+			"type": "string",
+			"default": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec ullamcorper mattis, pulvinar dapibus leo."
+		},
+		"link": {
+			"type": "string",
+			"default": ""
+		},
+		"linkTarget": {
+			"type": "string",
+			"default": ""
+		},
+		"linkRel": {
+			"type": "string",
+			"default": ""
+		},
+		"position": {
+			"type": "string",
+			"default": "top"
+		},
+		"titleTag": {
+			"type": "string",
+			"default": "h3"
+		},
+		"verticalAlign": {
+			"type": "string",
+			"default": "top"
+		},
+		"style": {
+			"type": "object",
+			"default": {}
+		}
+	},
+	"supports": {
+		"html": false,
+		"className": false,
+		"customClassName": false
+	},
+	"example": {
+		"attributes": {
+			"title": "This is the heading",
+			"description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+		}
+	},
+	"render": "file:../../includes/sections/image-box.php"
+}

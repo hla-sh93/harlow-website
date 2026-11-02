@@ -1,0 +1,75 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "harlow/star-rating",
+	"title": "Star Rating",
+	"category": "widgets",
+	"description": "A rating out of 5 or 10 as stars, a part of a star for a decimal, with a title.",
+	"textdomain": "harlow",
+	"attributes": {
+		"element": {
+			"type": "string",
+			"default": ""
+		},
+		"classes": {
+			"type": "string",
+			"default": ""
+		},
+		"settings": {
+			"type": "string",
+			"default": ""
+		},
+		"htmlId": {
+			"type": "string",
+			"default": ""
+		},
+		"ratingScale": {
+			"type": "string",
+			"default": "5"
+		},
+		"rating": {
+			"type": "number",
+			"default": 5
+		},
+		"starStyle": {
+			"type": "string",
+			"default": "star_fontawesome"
+		},
+		"unmarkedStyle": {
+			"type": "string",
+			"default": "solid"
+		},
+		"title": {
+			"type": "string",
+			"default": ""
+		},
+		"align": {
+			"type": "string",
+			"default": ""
+		},
+		"alignTablet": {
+			"type": "string",
+			"default": ""
+		},
+		"alignMobile": {
+			"type": "string",
+			"default": ""
+		},
+		"style": {
+			"type": "object",
+			"default": {}
+		}
+	},
+	"supports": {
+		"html": false,
+		"className": false,
+		"customClassName": false
+	},
+	"example": {
+		"attributes": {
+			"rating": 4.5,
+			"title": "Rating"
+		}
+	},
+	"render": "file:../../includes/sections/star-rating.php"
+}

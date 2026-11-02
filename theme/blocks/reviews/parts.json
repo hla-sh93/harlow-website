@@ -1,0 +1,143 @@
+{
+	"parts": [
+		{
+			"key": "slides",
+			"label": "Slides",
+			"selector": " .elementor-testimonial",
+			"controls": [
+				"background",
+				"border",
+				"padding",
+				"shadow"
+			]
+		},
+		{
+			"key": "header",
+			"label": "Header",
+			"selector": " .elementor-testimonial__header",
+			"controls": [
+				"background",
+				"padding",
+				"border",
+				"gap"
+			]
+		},
+		{
+			"key": "image",
+			"label": "Image",
+			"selector": " .elementor-testimonial__image img",
+			"controls": [
+				"size",
+				"margin",
+				"border"
+			]
+		},
+		{
+			"key": "name",
+			"label": "Name",
+			"selector": " .elementor-testimonial__name",
+			"controls": [
+				"color",
+				"typography",
+				"textShadow"
+			]
+		},
+		{
+			"key": "title",
+			"label": "Title",
+			"selector": " .elementor-testimonial__title",
+			"controls": [
+				"color",
+				"typography",
+				"textShadow"
+			]
+		},
+		{
+			"key": "content",
+			"label": "Content",
+			"selector": " .elementor-testimonial__text",
+			"controls": [
+				"color",
+				"typography",
+				"textShadow"
+			]
+		},
+		{
+			"key": "body",
+			"label": "Content box",
+			"selector": " .elementor-testimonial__content",
+			"controls": [
+				"background",
+				"padding"
+			]
+		},
+		{
+			"key": "stars",
+			"label": "Stars (size, unmarked colour)",
+			"selector": " .elementor-star-rating",
+			"controls": [
+				"icon",
+				"margin"
+			]
+		},
+		{
+			"key": "marked",
+			"label": "Stars: marked colour",
+			"selector": " .elementor-star-rating i:before",
+			"controls": [
+				"color"
+			]
+		},
+		{
+			"key": "icon",
+			"label": "Icon",
+			"selector": " .elementor-testimonial__icon",
+			"controls": [
+				"icon",
+				"padding"
+			]
+		},
+		{
+			"key": "arrows",
+			"label": "Navigation: arrows",
+			"selector": " .elementor-swiper-button",
+			"controls": [
+				"icon",
+				"opacity"
+			],
+			"states": {
+				"hover": {
+					"label": "Hover",
+					"selector": " .elementor-swiper-button:hover"
+				}
+			}
+		},
+		{
+			"key": "dots",
+			"label": "Navigation: dots",
+			"selector": " .swiper-pagination-bullet",
+			"controls": [
+				"background",
+				"size",
+				"opacity",
+				"margin"
+			],
+			"states": {
+				"active": {
+					"label": "Active",
+					"selector": " .swiper-pagination-bullet.swiper-pagination-bullet-active"
+				}
+			}
+		},
+		{
+			"key": "pagination",
+			"label": "Navigation: fraction and progress",
+			"selector": " .swiper-pagination-fraction| .swiper-pagination-progressbar",
+			"controls": [
+				"color",
+				"typography",
+				"background"
+			]
+		}
+	]
+}

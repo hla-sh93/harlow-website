@@ -1,0 +1,52 @@
+{
+	"parts": [
+		{
+			"key": "tracker",
+			"label": "Tracker (size, track colour, border)",
+			"selector": " .elementor-scrolling-tracker",
+			"controls": [
+				"size",
+				"background",
+				"border",
+				"padding",
+				"shadow"
+			]
+		},
+		{
+			"key": "progress",
+			"label": "Progress (a bar's colour and border)",
+			"selector": " .elementor-scrolling-tracker-horizontal .current-progress",
+			"controls": [
+				"background",
+				"border"
+			]
+		},
+		{
+			"key": "circleProgress",
+			"label": "Circle: progress colour",
+			"selector": " .elementor-scrolling-tracker-circular .current-progress",
+			"controls": [
+				"color"
+			]
+		},
+		{
+			"key": "circleTrack",
+			"label": "Circle: track colour",
+			"selector": " .elementor-scrolling-tracker-circular .circle-tracker-background",
+			"controls": [
+				"color"
+			]
+		},
+		{
+			"key": "percentage",
+			"label": "Percentage",
+			"selector": " .current-progress-percentage",
+			"controls": [
+				"color",
+				"typography",
+				"textShadow",
+				"padding"
+			]
+		}
+	]
+}

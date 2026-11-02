@@ -1,0 +1,422 @@
+/*
+ * Media carousel (harlow/media-carousel): Elementor Pro's media carousel widget (its
+ * carousel stylesheet), with the parts of Swiper's and Elementor's carousel rules it uses
+ * that the site's stylesheets do not have: the arrows and the pagination inside the
+ * carousel, the coverflow, the thumbnails, the overlay and the video lightbox.
+ * assets/js/widgets/media-carousel.js moves the slides; before it runs, and in the editor,
+ * the first view is drawn here.
+ */
+
+/* The slides each device shows, the space between them, the carousel's height. */
+.e-con .elementor-widget-media-carousel {
+  width: 100%;
+}
+
+.elementor-widget-media-carousel .swiper {
+  --e-media-carousel-slides: var(--e-media-carousel-slides-desktop, 3);
+  --e-media-carousel-space: var(--e-media-carousel-space-desktop, 10px);
+  --e-media-carousel-height: var(--e-media-carousel-height-desktop);
+}
+
+@media (max-width: 1024px) {
+  .elementor-widget-media-carousel .swiper {
+    --e-media-carousel-slides: var(--e-media-carousel-slides-tablet, 2);
+    --e-media-carousel-space: var(--e-media-carousel-space-tablet, 10px);
+    --e-media-carousel-height: var(--e-media-carousel-height-tablet, var(--e-media-carousel-height-desktop));
+  }
+}
+
+@media (max-width: 767px) {
+  .elementor-widget-media-carousel .swiper {
+    --e-media-carousel-slides: var(--e-media-carousel-slides-mobile, 1);
+    --e-media-carousel-space: var(--e-media-carousel-space-mobile, 10px);
+    --e-media-carousel-height: var(--e-media-carousel-height-mobile, var(--e-media-carousel-height-tablet, var(--e-media-carousel-height-desktop)));
+  }
+}
+
+.elementor-widget-media-carousel .elementor-swiper {
+  position: relative;
+}
+
+.elementor-widget-media-carousel .elementor-main-swiper {
+  position: static;
+}
+
+.elementor-skin-carousel .elementor-main-swiper,
+.elementor-skin-coverflow .elementor-main-swiper {
+  height: var(--e-media-carousel-height, 230px);
+}
+
+.elementor-skin-slideshow .elementor-main-swiper {
+  height: var(--e-media-carousel-height, 450px);
+}
+
+.elementor-widget-media-carousel .elementor-main-swiper .swiper-slide {
+  height: 100%;
+}
+
+/* The first view, before the script lays the slides out. */
+.elementor-widget-media-carousel .swiper:not(.swiper-initialized) .swiper-slide {
+  width: calc((100% - (var(--e-media-carousel-slides) - 1) * var(--e-media-carousel-space)) / var(--e-media-carousel-slides));
+  margin-inline-end: var(--e-media-carousel-space);
+}
+
+.elementor-skin-slideshow .elementor-main-swiper:not(.swiper-initialized) .swiper-slide {
+  width: 100%;
+  margin-inline-end: 0;
+}
+
+/* A slide: its picture as a background (grey while none is chosen, as Elementor's
+   placeholder), a video's play icon on it. */
+.elementor-widget-media-carousel .swiper-slide > a {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.elementor-carousel-image {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background-color: #e5e5e5;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: var(--e-media-carousel-fit, cover);
+}
+
+.elementor-carousel-image[style*="background-image"],
+.elementor-carousel-image.swiper-lazy-loaded {
+  background-color: transparent;
+}
+
+.elementor-widget-media-carousel .elementor-custom-embed-play {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.elementor-widget-media-carousel .elementor-custom-embed-play svg {
+  width: 50px;
+  height: 50px;
+  fill: #fff;
+  filter: drop-shadow(1px 0 6px rgba(0, 0, 0, 0.3));
+  opacity: 0.8;
+  transition: all 0.5s;
+}
+
+.elementor-widget-media-carousel .swiper-slide:hover .elementor-custom-embed-play svg {
+  opacity: 1;
+}
+
+/* The overlay: the picture's words or an icon, coming in on hover. */
+.elementor-carousel-image-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  padding: 20px;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: #fff;
+  font-size: 21px;
+  text-align: center;
+  transition: all 0.5s;
+}
+
+.elementor-carousel-image-overlay svg {
+  width: 1em;
+  height: 1em;
+  fill: currentColor;
+}
+
+.elementor-carousel-image-overlay.e-overlay-animation-fade {
+  opacity: 0;
+}
+
+.elementor-carousel-image-overlay.e-overlay-animation-slide-up {
+  transform: translateY(100%);
+}
+
+.elementor-carousel-image-overlay.e-overlay-animation-slide-down {
+  transform: translateY(-100%);
+}
+
+.elementor-carousel-image-overlay.e-overlay-animation-slide-right {
+  transform: translateX(-100%);
+}
+
+.elementor-carousel-image-overlay.e-overlay-animation-slide-left {
+  transform: translateX(100%);
+}
+
+.elementor-carousel-image-overlay.e-overlay-animation-zoom-in {
+  opacity: 0;
+  transform: scale(0.5);
+}
+
+.elementor-widget-media-carousel .swiper-slide {
+  overflow: hidden;
+}
+
+.elementor-widget-media-carousel .swiper-slide:hover .elementor-carousel-image-overlay {
+  opacity: 1;
+  transform: translate(0) scale(1);
+}
+
+/* The slideshow's thumbnails: under the slideshow, in their ratio, the others dimmed. */
+.elementor-skin-slideshow .elementor-thumbnails-swiper {
+  margin-top: var(--e-media-carousel-space, 10px);
+}
+
+.elementor-thumbnails-swiper .swiper-slide {
+  cursor: pointer;
+}
+
+.elementor-thumbnails-swiper .elementor-fit-aspect-ratio {
+  height: 0;
+  padding-bottom: 42.8571%;
+}
+
+.elementor-aspect-ratio-169 .elementor-thumbnails-swiper .elementor-fit-aspect-ratio {
+  padding-bottom: 56.25%;
+}
+
+.elementor-aspect-ratio-43 .elementor-thumbnails-swiper .elementor-fit-aspect-ratio {
+  padding-bottom: 75%;
+}
+
+.elementor-aspect-ratio-11 .elementor-thumbnails-swiper .elementor-fit-aspect-ratio {
+  padding-bottom: 100%;
+}
+
+.elementor-skin-slideshow .elementor-thumbnails-swiper .swiper-slide:not(.swiper-slide-active)::after {
+  position: absolute;
+  inset: 0;
+  background-color: #000;
+  opacity: 0.4;
+  content: "";
+}
+
+/* The coverflow: the slides turned towards the middle one. */
+.elementor-widget-media-carousel .swiper-3d {
+  perspective: 1200px;
+}
+
+.elementor-widget-media-carousel .swiper-3d .swiper-wrapper,
+.elementor-widget-media-carousel .swiper-3d .swiper-slide {
+  transform-style: preserve-3d;
+}
+
+/* Arrows */
+.elementor-widget-media-carousel .swiper .elementor-swiper-button {
+  position: absolute;
+  top: 50%;
+  z-index: 1;
+  display: inline-flex;
+  color: rgba(238, 238, 238, 0.9);
+  font-size: 25px;
+  cursor: pointer;
+  transform: translateY(-50%);
+}
+
+.elementor-widget-media-carousel .swiper .elementor-swiper-button svg {
+  width: 1em;
+  height: 1em;
+  fill: rgba(238, 238, 238, 0.9);
+}
+
+.elementor-widget-media-carousel .swiper .elementor-swiper-button-prev {
+  left: 10px;
+}
+
+.elementor-widget-media-carousel .swiper .elementor-swiper-button-next {
+  right: 10px;
+}
+
+.elementor-widget-media-carousel .swiper .elementor-swiper-button.swiper-button-disabled {
+  opacity: 0.3;
+}
+
+/* Pagination: dots, a fraction or a progress bar. */
+.elementor-widget-media-carousel .swiper-pagination {
+  position: absolute;
+  z-index: 10;
+  text-align: center;
+  transition: 300ms opacity;
+  transform: translate3d(0, 0, 0);
+}
+
+.elementor-widget-media-carousel .swiper-pagination-bullets.swiper-pagination-horizontal,
+.elementor-widget-media-carousel .swiper-pagination-fraction,
+.elementor-widget-media-carousel .swiper:not(.swiper-initialized) .swiper-pagination {
+  bottom: 5px;
+  left: 0;
+  width: 100%;
+}
+
+.elementor-widget-media-carousel .swiper-pagination-bullet {
+  display: inline-block;
+  width: var(--swiper-pagination-bullet-width, var(--swiper-pagination-bullet-size, 6px));
+  height: var(--swiper-pagination-bullet-height, var(--swiper-pagination-bullet-size, 6px));
+  margin: 0 var(--swiper-pagination-bullet-horizontal-gap, 6px);
+  border-radius: 50%;
+  background: var(--swiper-pagination-bullet-inactive-color, #000);
+  opacity: var(--swiper-pagination-bullet-inactive-opacity, 0.2);
+  cursor: pointer;
+}
+
+.elementor-widget-media-carousel .swiper-pagination-bullet-active {
+  background: var(--swiper-pagination-color, var(--swiper-theme-color));
+  opacity: var(--swiper-pagination-bullet-opacity, 1);
+}
+
+.elementor-widget-media-carousel .swiper-pagination-progressbar {
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: rgba(0, 0, 0, 0.25);
+}
+
+.elementor-widget-media-carousel .swiper-pagination-progressbar .swiper-pagination-progressbar-fill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--swiper-pagination-color, var(--swiper-theme-color));
+  transform: scale(0);
+  transform-origin: left top;
+}
+
+.elementor-widget-media-carousel.elementor-pagination-position-outside .elementor-main-swiper {
+  padding-bottom: 30px;
+}
+
+.elementor-widget-media-carousel.elementor-pagination-position-outside .swiper .elementor-swiper-button {
+  top: calc(50% - 30px / 2);
+}
+
+.elementor-widget-media-carousel.elementor-pagination-type-progressbar.elementor-pagination-position-outside .elementor-main-swiper {
+  padding-top: 15px;
+  padding-bottom: 0;
+}
+
+/* Fade (the slideshow): the slides lie on one another, the one shown on top. */
+.elementor-widget-media-carousel .swiper-fade .swiper-slide {
+  pointer-events: none;
+  transition-property: opacity;
+}
+
+.elementor-widget-media-carousel .swiper-fade .swiper-slide-active {
+  pointer-events: auto;
+}
+
+/* The video lightbox (Elementor's dialog and lightbox rules), added to the page by the
+   script. */
+.dialog-prevent-scroll {
+  overflow: hidden;
+  max-height: 100vh;
+}
+
+.elementor-lightbox.dialog-type-lightbox {
+  --lightbox-ui-color: rgba(238, 238, 238, 0.9);
+  --lightbox-ui-color-hover: #fff;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  z-index: 9999;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  user-select: none;
+}
+
+.elementor-lightbox .dialog-widget-content {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: none;
+  box-shadow: none;
+}
+
+.elementor-lightbox .dialog-message {
+  box-sizing: border-box;
+  height: 100%;
+  padding: 0;
+  animation-duration: 0.3s;
+  line-height: 1.5;
+}
+
+.elementor-lightbox .dialog-lightbox-close-button {
+  position: absolute;
+  inset-inline-end: 0.75em;
+  z-index: 2;
+  display: flex;
+  margin-top: 13px;
+  padding: 0.25em;
+  color: var(--lightbox-ui-color);
+  font-size: 20px;
+  line-height: 1;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.elementor-lightbox .dialog-lightbox-close-button svg {
+  width: 1em;
+  height: 1em;
+  fill: var(--lightbox-ui-color);
+}
+
+.elementor-lightbox .dialog-lightbox-close-button:hover {
+  color: var(--lightbox-ui-color-hover);
+}
+
+.elementor-lightbox .dialog-lightbox-close-button:hover svg {
+  fill: var(--lightbox-ui-color-hover);
+}
+
+.elementor-lightbox .elementor-video-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  transform: translate(-50%, -50%);
+}
+
+.elementor-lightbox .elementor-video-container .elementor-video-landscape {
+  width: 100%;
+  height: 100%;
+  margin: auto;
+}
+
+.elementor-lightbox .elementor-video-container iframe,
+.elementor-lightbox .elementor-video-container video {
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  max-height: 90vh;
+  margin: 0;
+  border: 0;
+  background-color: #000;
+  aspect-ratio: var(--video-aspect-ratio, 1.77777);
+}
+
+@media (min-width: 1025px) {
+  .elementor-lightbox .elementor-video-container .elementor-video-landscape {
+    width: 85vw;
+    max-height: 85vh;
+  }
+}
+
+@media (max-width: 1024px) {
+  .elementor-lightbox .elementor-video-container .elementor-video-landscape {
+    width: 95vw;
+    max-height: 95vh;
+  }
+}

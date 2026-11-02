@@ -1,0 +1,629 @@
+/*
+ * Code highlight (harlow/code-highlight): Elementor Pro's code highlight widget, with
+ * Prism's look for it: the code box, the six themes' colours (each under its
+ * .prismjs-<theme>), and the line numbers, marked lines and copy toolbar the widget uses.
+ * assets/js/widgets/code-highlight.js colours the code.
+ */
+
+/* The box's height and the code's size on each device. */
+.elementor-widget-code-highlight [class*="prismjs-"] {
+  --e-code-height: var(--e-code-height-desktop, auto);
+  --e-code-font-size: var(--e-code-font-size-desktop, 1em);
+}
+
+@media (max-width: 1024px) {
+  .elementor-widget-code-highlight [class*="prismjs-"] {
+    --e-code-height: var(--e-code-height-tablet, var(--e-code-height-desktop, auto));
+    --e-code-font-size: var(--e-code-font-size-tablet, var(--e-code-font-size-desktop, 1em));
+  }
+}
+
+@media (max-width: 767px) {
+  .elementor-widget-code-highlight [class*="prismjs-"] {
+    --e-code-height: var(--e-code-height-mobile, var(--e-code-height-tablet, var(--e-code-height-desktop, auto)));
+    --e-code-font-size: var(--e-code-font-size-mobile, var(--e-code-font-size-tablet, var(--e-code-font-size-desktop, 1em)));
+  }
+}
+
+.elementor-widget-code-highlight .highlight-height {
+  height: var(--e-code-height);
+}
+
+/* The code: Prism's box. */
+.elementor-widget-code-highlight code[class*="language-"],
+.elementor-widget-code-highlight pre[class*="language-"] {
+  font-family: Consolas, Monaco, "Andale Mono", "Ubuntu Mono", monospace;
+  font-size: var(--e-code-font-size);
+  line-height: 1.5;
+  text-align: left;
+  white-space: pre;
+  word-spacing: normal;
+  word-break: normal;
+  word-wrap: normal;
+  tab-size: 4;
+  hyphens: none;
+}
+
+.elementor-widget-code-highlight code[class*="language-"] {
+  font-size: inherit;
+}
+
+.elementor-widget-code-highlight pre[class*="language-"] {
+  margin: 0;
+  padding: 1em;
+  overflow: auto;
+}
+
+.elementor-widget-code-highlight :not(pre) > code[class*="language-"] {
+  padding: 0.1em;
+  border-radius: 0.3em;
+  white-space: normal;
+}
+
+/* The code before it is coloured: the xmp it is written in, as the code. */
+.elementor-widget-code-highlight pre xmp {
+  display: inline;
+  margin: 0;
+  font: inherit;
+  white-space: inherit;
+}
+
+/* Long lines wrapped. */
+.elementor-widget-code-highlight .word-wrap pre[class*="language-"],
+.elementor-widget-code-highlight .word-wrap code[class*="language-"] {
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+.elementor-widget-code-highlight .token.bold,
+.elementor-widget-code-highlight .token.important {
+  font-weight: bold;
+}
+
+.elementor-widget-code-highlight .token.italic {
+  font-style: italic;
+}
+
+.elementor-widget-code-highlight .token.entity {
+  cursor: help;
+}
+
+/* Solid (Prism's default). */
+.prismjs-default code[class*="language-"],
+.prismjs-default pre[class*="language-"] {
+  color: #000;
+  background: none;
+  text-shadow: 0 1px #fff;
+}
+
+.prismjs-default pre[class*="language-"] {
+  background: #f5f2f0;
+}
+
+.prismjs-default .token.comment,
+.prismjs-default .token.prolog,
+.prismjs-default .token.doctype,
+.prismjs-default .token.cdata {
+  color: slategray;
+}
+
+.prismjs-default .token.punctuation {
+  color: #999;
+}
+
+.prismjs-default .token.namespace {
+  opacity: 0.7;
+}
+
+.prismjs-default .token.property,
+.prismjs-default .token.tag,
+.prismjs-default .token.boolean,
+.prismjs-default .token.number,
+.prismjs-default .token.constant,
+.prismjs-default .token.symbol,
+.prismjs-default .token.deleted {
+  color: #905;
+}
+
+.prismjs-default .token.selector,
+.prismjs-default .token.attr-name,
+.prismjs-default .token.string,
+.prismjs-default .token.char,
+.prismjs-default .token.builtin,
+.prismjs-default .token.inserted {
+  color: #690;
+}
+
+.prismjs-default .token.operator,
+.prismjs-default .token.entity,
+.prismjs-default .token.url,
+.prismjs-default .language-css .token.string,
+.prismjs-default .style .token.string {
+  color: #9a6e3a;
+  background: rgba(255, 255, 255, 0.5);
+}
+
+.prismjs-default .token.atrule,
+.prismjs-default .token.attr-value,
+.prismjs-default .token.keyword {
+  color: #07a;
+}
+
+.prismjs-default .token.function,
+.prismjs-default .token.class-name {
+  color: #dd4a68;
+}
+
+.prismjs-default .token.regex,
+.prismjs-default .token.important,
+.prismjs-default .token.variable {
+  color: #e90;
+}
+
+/* Dark. */
+.prismjs-dark code[class*="language-"],
+.prismjs-dark pre[class*="language-"] {
+  color: #fff;
+  background: none;
+  text-shadow: 0 -0.1em 0.2em #000;
+}
+
+.prismjs-dark pre[class*="language-"] {
+  border: 0.3em solid hsl(30, 20%, 40%);
+  border-radius: 0.5em;
+  background: hsl(30, 20%, 25%);
+  box-shadow: 1px 1px 0.5em #000 inset;
+}
+
+.prismjs-dark .token.comment,
+.prismjs-dark .token.prolog,
+.prismjs-dark .token.doctype,
+.prismjs-dark .token.cdata {
+  color: hsl(30, 20%, 50%);
+}
+
+.prismjs-dark .token.punctuation,
+.prismjs-dark .token.namespace {
+  opacity: 0.7;
+}
+
+.prismjs-dark .token.property,
+.prismjs-dark .token.tag,
+.prismjs-dark .token.boolean,
+.prismjs-dark .token.number,
+.prismjs-dark .token.constant,
+.prismjs-dark .token.symbol {
+  color: hsl(350, 40%, 70%);
+}
+
+.prismjs-dark .token.selector,
+.prismjs-dark .token.attr-name,
+.prismjs-dark .token.string,
+.prismjs-dark .token.char,
+.prismjs-dark .token.builtin,
+.prismjs-dark .token.inserted {
+  color: hsl(75, 70%, 60%);
+}
+
+.prismjs-dark .token.operator,
+.prismjs-dark .token.entity,
+.prismjs-dark .token.url,
+.prismjs-dark .language-css .token.string,
+.prismjs-dark .style .token.string,
+.prismjs-dark .token.variable {
+  color: hsl(40, 90%, 60%);
+}
+
+.prismjs-dark .token.atrule,
+.prismjs-dark .token.attr-value,
+.prismjs-dark .token.keyword {
+  color: hsl(350, 40%, 70%);
+}
+
+.prismjs-dark .token.regex,
+.prismjs-dark .token.important {
+  color: #e90;
+}
+
+.prismjs-dark .token.deleted {
+  color: red;
+}
+
+/* Okaidia. */
+.prismjs-okaidia code[class*="language-"],
+.prismjs-okaidia pre[class*="language-"] {
+  color: #f8f8f2;
+  background: none;
+  text-shadow: 0 1px rgba(0, 0, 0, 0.3);
+}
+
+.prismjs-okaidia pre[class*="language-"] {
+  border-radius: 0.3em;
+  background: #272822;
+}
+
+.prismjs-okaidia .token.comment,
+.prismjs-okaidia .token.prolog,
+.prismjs-okaidia .token.doctype,
+.prismjs-okaidia .token.cdata {
+  color: #8292a2;
+}
+
+.prismjs-okaidia .token.punctuation {
+  color: #f8f8f2;
+}
+
+.prismjs-okaidia .token.namespace {
+  opacity: 0.7;
+}
+
+.prismjs-okaidia .token.property,
+.prismjs-okaidia .token.tag,
+.prismjs-okaidia .token.constant,
+.prismjs-okaidia .token.symbol,
+.prismjs-okaidia .token.deleted {
+  color: #f92672;
+}
+
+.prismjs-okaidia .token.boolean,
+.prismjs-okaidia .token.number {
+  color: #ae81ff;
+}
+
+.prismjs-okaidia .token.selector,
+.prismjs-okaidia .token.attr-name,
+.prismjs-okaidia .token.string,
+.prismjs-okaidia .token.char,
+.prismjs-okaidia .token.builtin,
+.prismjs-okaidia .token.inserted {
+  color: #a6e22e;
+}
+
+.prismjs-okaidia .token.operator,
+.prismjs-okaidia .token.entity,
+.prismjs-okaidia .token.url,
+.prismjs-okaidia .language-css .token.string,
+.prismjs-okaidia .style .token.string,
+.prismjs-okaidia .token.variable {
+  color: #f8f8f2;
+}
+
+.prismjs-okaidia .token.atrule,
+.prismjs-okaidia .token.attr-value,
+.prismjs-okaidia .token.function,
+.prismjs-okaidia .token.class-name {
+  color: #e6db74;
+}
+
+.prismjs-okaidia .token.keyword {
+  color: #66d9ef;
+}
+
+.prismjs-okaidia .token.regex,
+.prismjs-okaidia .token.important {
+  color: #fd971f;
+}
+
+/* Solarized light. */
+.prismjs-solarizedlight code[class*="language-"],
+.prismjs-solarizedlight pre[class*="language-"] {
+  color: #657b83;
+  background: none;
+}
+
+.prismjs-solarizedlight pre[class*="language-"] {
+  border-radius: 0.3em;
+  background-color: #fdf6e3;
+}
+
+.prismjs-solarizedlight .token.comment,
+.prismjs-solarizedlight .token.prolog,
+.prismjs-solarizedlight .token.doctype,
+.prismjs-solarizedlight .token.cdata {
+  color: #93a1a1;
+}
+
+.prismjs-solarizedlight .token.punctuation {
+  color: #586e75;
+}
+
+.prismjs-solarizedlight .token.namespace {
+  opacity: 0.7;
+}
+
+.prismjs-solarizedlight .token.property,
+.prismjs-solarizedlight .token.tag,
+.prismjs-solarizedlight .token.boolean,
+.prismjs-solarizedlight .token.number,
+.prismjs-solarizedlight .token.constant,
+.prismjs-solarizedlight .token.symbol,
+.prismjs-solarizedlight .token.deleted {
+  color: #268bd2;
+}
+
+.prismjs-solarizedlight .token.selector,
+.prismjs-solarizedlight .token.attr-name,
+.prismjs-solarizedlight .token.string,
+.prismjs-solarizedlight .token.char,
+.prismjs-solarizedlight .token.builtin,
+.prismjs-solarizedlight .token.url,
+.prismjs-solarizedlight .token.inserted {
+  color: #2aa198;
+}
+
+.prismjs-solarizedlight .token.entity {
+  color: #657b83;
+  background: #eee8d5;
+}
+
+.prismjs-solarizedlight .token.atrule,
+.prismjs-solarizedlight .token.attr-value,
+.prismjs-solarizedlight .token.keyword {
+  color: #859900;
+}
+
+.prismjs-solarizedlight .token.function,
+.prismjs-solarizedlight .token.class-name {
+  color: #b58900;
+}
+
+.prismjs-solarizedlight .token.regex,
+.prismjs-solarizedlight .token.important,
+.prismjs-solarizedlight .token.variable {
+  color: #cb4b16;
+}
+
+/* Tomorrow (night). */
+.prismjs-tomorrow code[class*="language-"],
+.prismjs-tomorrow pre[class*="language-"] {
+  color: #ccc;
+  background: none;
+}
+
+.prismjs-tomorrow pre[class*="language-"] {
+  background: #2d2d2d;
+}
+
+.prismjs-tomorrow .token.comment,
+.prismjs-tomorrow .token.prolog,
+.prismjs-tomorrow .token.doctype,
+.prismjs-tomorrow .token.cdata {
+  color: #999;
+}
+
+.prismjs-tomorrow .token.punctuation {
+  color: #ccc;
+}
+
+.prismjs-tomorrow .token.tag,
+.prismjs-tomorrow .token.attr-name,
+.prismjs-tomorrow .token.namespace,
+.prismjs-tomorrow .token.deleted {
+  color: #e2777a;
+}
+
+.prismjs-tomorrow .token.boolean,
+.prismjs-tomorrow .token.number,
+.prismjs-tomorrow .token.function {
+  color: #f08d49;
+}
+
+.prismjs-tomorrow .token.property,
+.prismjs-tomorrow .token.class-name,
+.prismjs-tomorrow .token.constant,
+.prismjs-tomorrow .token.symbol {
+  color: #f8c555;
+}
+
+.prismjs-tomorrow .token.selector,
+.prismjs-tomorrow .token.important,
+.prismjs-tomorrow .token.atrule,
+.prismjs-tomorrow .token.keyword,
+.prismjs-tomorrow .token.builtin {
+  color: #cc99cd;
+}
+
+.prismjs-tomorrow .token.string,
+.prismjs-tomorrow .token.char,
+.prismjs-tomorrow .token.attr-value,
+.prismjs-tomorrow .token.regex,
+.prismjs-tomorrow .token.variable {
+  color: #7ec699;
+}
+
+.prismjs-tomorrow .token.operator,
+.prismjs-tomorrow .token.entity,
+.prismjs-tomorrow .token.url {
+  color: #67cdcc;
+}
+
+.prismjs-tomorrow .token.inserted {
+  color: green;
+}
+
+/* Twilight. */
+.prismjs-twilight code[class*="language-"],
+.prismjs-twilight pre[class*="language-"] {
+  color: #fff;
+  background: none;
+  text-shadow: 0 -0.1em 0.2em #000;
+}
+
+.prismjs-twilight pre[class*="language-"] {
+  border: 0.3em solid hsl(0, 0%, 33%);
+  border-radius: 0.5em;
+  background: hsl(0, 0%, 8%);
+  box-shadow: 1px 1px 0.5em #000 inset;
+}
+
+.prismjs-twilight .token.comment,
+.prismjs-twilight .token.prolog,
+.prismjs-twilight .token.doctype,
+.prismjs-twilight .token.cdata {
+  color: hsl(0, 0%, 47%);
+}
+
+.prismjs-twilight .token.punctuation,
+.prismjs-twilight .token.namespace {
+  opacity: 0.7;
+}
+
+.prismjs-twilight .token.tag,
+.prismjs-twilight .token.boolean,
+.prismjs-twilight .token.number,
+.prismjs-twilight .token.deleted {
+  color: hsl(14, 58%, 55%);
+}
+
+.prismjs-twilight .token.keyword,
+.prismjs-twilight .token.property,
+.prismjs-twilight .token.selector,
+.prismjs-twilight .token.constant,
+.prismjs-twilight .token.symbol,
+.prismjs-twilight .token.builtin {
+  color: hsl(53, 89%, 79%);
+}
+
+.prismjs-twilight .token.attr-name,
+.prismjs-twilight .token.attr-value,
+.prismjs-twilight .token.string,
+.prismjs-twilight .token.char,
+.prismjs-twilight .token.operator,
+.prismjs-twilight .token.entity,
+.prismjs-twilight .token.url,
+.prismjs-twilight .language-css .token.string,
+.prismjs-twilight .style .token.string,
+.prismjs-twilight .token.variable,
+.prismjs-twilight .token.inserted {
+  color: hsl(76, 21%, 52%);
+}
+
+.prismjs-twilight .token.atrule {
+  color: hsl(218, 22%, 55%);
+}
+
+.prismjs-twilight .token.regex,
+.prismjs-twilight .token.important {
+  color: hsl(42, 75%, 65%);
+}
+
+/* Line numbers. */
+.elementor-widget-code-highlight pre[class*="language-"].line-numbers {
+  position: relative;
+  padding-left: 3.8em;
+  counter-reset: linenumber;
+}
+
+.elementor-widget-code-highlight pre[class*="language-"].line-numbers > code {
+  position: relative;
+  white-space: inherit;
+}
+
+.elementor-widget-code-highlight .line-numbers .line-numbers-rows {
+  position: absolute;
+  top: 0;
+  left: -3.8em;
+  width: 3em;
+  border-right: 1px solid #999;
+  color: #999;
+  font-size: 100%;
+  letter-spacing: -1px;
+  pointer-events: none;
+  user-select: none;
+}
+
+.elementor-widget-code-highlight .line-numbers-rows > span {
+  display: block;
+  counter-increment: linenumber;
+}
+
+.elementor-widget-code-highlight .line-numbers-rows > span::before {
+  display: block;
+  padding-right: 0.8em;
+  color: inherit;
+  text-align: right;
+  content: counter(linenumber);
+}
+
+/* Marked lines. */
+.elementor-widget-code-highlight pre[data-line]:not([data-line=""]) {
+  position: relative;
+}
+
+.elementor-widget-code-highlight .line-highlight {
+  position: absolute;
+  right: 0;
+  left: 0;
+  margin-top: 0;
+  background: linear-gradient(to right, hsla(24, 20%, 50%, 0.1) 70%, hsla(24, 20%, 50%, 0));
+  line-height: inherit;
+  white-space: pre;
+  pointer-events: none;
+}
+
+.elementor-widget-code-highlight .line-highlight::before,
+.elementor-widget-code-highlight .line-highlight[data-end]::after {
+  position: absolute;
+  top: 0.4em;
+  left: 0.6em;
+  min-width: 1em;
+  padding: 0 0.5em;
+  border-radius: 999px;
+  background-color: hsla(24, 20%, 50%, 0.4);
+  box-shadow: 0 1px #fff;
+  color: #f4f1ef;
+  font: bold 65%/1.5 sans-serif;
+  text-align: center;
+  text-shadow: none;
+  vertical-align: 0.3em;
+  content: attr(data-start);
+}
+
+.elementor-widget-code-highlight .line-highlight[data-end]::after {
+  top: auto;
+  bottom: 0.4em;
+  content: attr(data-end);
+}
+
+.elementor-widget-code-highlight .line-numbers .line-highlight::before,
+.elementor-widget-code-highlight .line-numbers .line-highlight::after {
+  content: none;
+}
+
+/* The toolbar's Copy button, shown while the code is hovered. */
+.elementor-widget-code-highlight div.code-toolbar {
+  position: relative;
+}
+
+.elementor-widget-code-highlight div.code-toolbar > .toolbar {
+  position: absolute;
+  top: 0.3em;
+  right: 0.2em;
+  z-index: 10;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.elementor-widget-code-highlight div.code-toolbar:hover > .toolbar,
+.elementor-widget-code-highlight div.code-toolbar:focus-within > .toolbar {
+  opacity: 1;
+}
+
+.elementor-widget-code-highlight div.code-toolbar > .toolbar > .toolbar-item {
+  display: inline-block;
+}
+
+.elementor-widget-code-highlight div.code-toolbar > .toolbar > .toolbar-item > button {
+  overflow: visible;
+  padding: 0 0.5em;
+  border: 0;
+  border-radius: 0.5em;
+  background: rgba(224, 224, 224, 0.2);
+  box-shadow: 0 2px 0 0 rgba(0, 0, 0, 0.2);
+  color: #bbb;
+  font: inherit;
+  font-size: 0.8em;
+  line-height: normal;
+  cursor: pointer;
+  user-select: none;
+}

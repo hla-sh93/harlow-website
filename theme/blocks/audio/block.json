@@ -1,0 +1,95 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "harlow/audio",
+	"title": "SoundCloud",
+	"category": "media",
+	"description": "A SoundCloud track or playlist in SoundCloud's own player.",
+	"textdomain": "harlow",
+	"attributes": {
+		"element": {
+			"type": "string",
+			"default": ""
+		},
+		"classes": {
+			"type": "string",
+			"default": ""
+		},
+		"settings": {
+			"type": "string",
+			"default": ""
+		},
+		"htmlId": {
+			"type": "string",
+			"default": ""
+		},
+		"link": {
+			"type": "string",
+			"default": "https://soundcloud.com/shchxango/john-coltrane-1963-my-favorite"
+		},
+		"visual": {
+			"type": "boolean",
+			"default": false
+		},
+		"autoplay": {
+			"type": "boolean",
+			"default": false
+		},
+		"buying": {
+			"type": "boolean",
+			"default": true
+		},
+		"liking": {
+			"type": "boolean",
+			"default": true
+		},
+		"download": {
+			"type": "boolean",
+			"default": true
+		},
+		"artwork": {
+			"type": "boolean",
+			"default": true
+		},
+		"sharing": {
+			"type": "boolean",
+			"default": true
+		},
+		"comments": {
+			"type": "boolean",
+			"default": true
+		},
+		"playCount": {
+			"type": "boolean",
+			"default": true
+		},
+		"user": {
+			"type": "boolean",
+			"default": true
+		},
+		"color": {
+			"type": "string",
+			"default": ""
+		},
+		"height": {
+			"type": "string",
+			"default": ""
+		},
+		"style": {
+			"type": "object",
+			"default": {}
+		}
+	},
+	"supports": {
+		"html": false,
+		"className": false,
+		"customClassName": false
+	},
+	"example": {
+		"attributes": {
+			"element": "a1b2c3d",
+			"classes": "elementor-element elementor-widget elementor-widget-audio"
+		}
+	},
+	"render": "file:../../includes/sections/audio.php"
+}

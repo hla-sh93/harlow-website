@@ -1,0 +1,18 @@
+/*
+ * The item's excerpt (theme-post-excerpt): the words in the kit's text colour and font,
+ * as Elementor's post excerpt widget draws them before they are styled.
+ */
+
+/* The excerpt */
+.elementor-widget-theme-post-excerpt .elementor-widget-container {
+  color: var(--e-global-color-text);
+  font-family: var(--e-global-typography-text-font-family), Sans-serif;
+  font-weight: var(--e-global-typography-text-font-weight);
+}
+
+/* The Read More link */
+.elementor-widget-theme-post-excerpt .elementor-post__read-more {
+  color: var(--e-global-color-accent);
+  font-family: var(--e-global-typography-accent-font-family), Sans-serif;
+  font-weight: var(--e-global-typography-accent-font-weight);
+}

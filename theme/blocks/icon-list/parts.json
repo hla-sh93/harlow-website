@@ -1,0 +1,55 @@
+{
+	"parts": [
+		{
+			"key": "items",
+			"label": "List items",
+			"selector": " .elementor-icon-list-item",
+			"controls": [
+				"padding",
+				"background",
+				"align"
+			]
+		},
+		{
+			"key": "divider",
+			"label": "Divider",
+			"selector": " .elementor-icon-list-item:not(:last-child)",
+			"controls": [
+				"border"
+			]
+		},
+		{
+			"key": "icon",
+			"label": "Icon",
+			"selector": " .elementor-icon-list-icon",
+			"controls": [
+				"icon",
+				"margin",
+				"padding"
+			],
+			"states": {
+				"hover": {
+					"label": "Hover",
+					"selector": " .elementor-icon-list-item:hover .elementor-icon-list-icon"
+				}
+			}
+		},
+		{
+			"key": "text",
+			"label": "Text",
+			"selector": " .elementor-icon-list-text",
+			"controls": [
+				"color",
+				"typography",
+				"textShadow",
+				"padding"
+			],
+			"states": {
+				"hover": {
+					"label": "Hover",
+					"selector": " .elementor-icon-list-item:hover .elementor-icon-list-text"
+				}
+			}
+		}
+	]
+}

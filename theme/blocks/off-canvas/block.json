@@ -1,0 +1,95 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "harlow/off-canvas",
+	"title": "Off-Canvas",
+	"category": "design",
+	"description": "A panel that slides in from a side of the screen when a link to it is clicked, holding any blocks.",
+	"textdomain": "harlow",
+	"attributes": {
+		"element": {
+			"type": "string",
+			"default": ""
+		},
+		"classes": {
+			"type": "string",
+			"default": ""
+		},
+		"settings": {
+			"type": "string",
+			"default": ""
+		},
+		"htmlId": {
+			"type": "string",
+			"default": ""
+		},
+		"name": {
+			"type": "string",
+			"default": "Off-Canvas"
+		},
+		"position": {
+			"type": "string",
+			"default": "left"
+		},
+		"size": {
+			"type": "number",
+			"default": 400
+		},
+		"sizeUnit": {
+			"type": "string",
+			"default": "px"
+		},
+		"overlay": {
+			"type": "boolean",
+			"default": true
+		},
+		"closeButton": {
+			"type": "boolean",
+			"default": true
+		},
+		"closeIcon": {
+			"type": "string",
+			"default": "<svg aria-hidden=\"true\" class=\"e-font-icon-svg e-eicon-close\" viewBox=\"0 0 1000 1000\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M742 167L500 408 258 167C246 154 233 150 217 150 196 150 179 158 167 167 154 179 150 196 150 212 150 229 154 242 171 254L408 500 167 742C138 771 138 800 167 829 196 858 225 858 254 829L496 587 738 829C750 842 767 846 783 846 800 846 817 842 829 829 842 817 846 804 846 783 846 767 842 750 829 737L588 500 833 258C863 229 863 200 833 171 804 137 775 137 742 167Z\"></path></svg>"
+		},
+		"openAnimation": {
+			"type": "string",
+			"default": "slide"
+		},
+		"closeAnimation": {
+			"type": "string",
+			"default": "slide"
+		},
+		"duration": {
+			"type": "number",
+			"default": 400
+		},
+		"closeOnOverlay": {
+			"type": "boolean",
+			"default": true
+		},
+		"closeOnEscape": {
+			"type": "boolean",
+			"default": true
+		},
+		"preventScroll": {
+			"type": "boolean",
+			"default": true
+		},
+		"style": {
+			"type": "object",
+			"default": {}
+		}
+	},
+	"supports": {
+		"html": false,
+		"className": false,
+		"customClassName": false
+	},
+	"example": {
+		"attributes": {
+			"element": "a1b2c3d",
+			"classes": "elementor-element elementor-widget elementor-widget-off-canvas"
+		}
+	},
+	"render": "file:../../includes/sections/off-canvas.php"
+}

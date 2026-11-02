@@ -30,6 +30,46 @@
 		"video": {
 			"type": "string",
 			"default": ""
+		},
+		"picture": {
+			"type": "integer",
+			"default": 0
+		},
+		"tag": {
+			"type": "string",
+			"default": "div"
+		},
+		"link": {
+			"type": "string",
+			"default": ""
+		},
+		"linkNewTab": {
+			"type": "boolean",
+			"default": false
+		},
+		"videoStart": {
+			"type": "string",
+			"default": ""
+		},
+		"videoEnd": {
+			"type": "string",
+			"default": ""
+		},
+		"videoOnce": {
+			"type": "boolean",
+			"default": false
+		},
+		"videoMobile": {
+			"type": "boolean",
+			"default": true
+		},
+		"videoFallback": {
+			"type": "integer",
+			"default": 0
+		},
+		"style": {
+			"type": "object",
+			"default": {}
 		}
 	},
 	"supports": {

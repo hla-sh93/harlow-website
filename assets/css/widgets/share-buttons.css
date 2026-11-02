@@ -1,0 +1,271 @@
+/*
+ * Share buttons (Elementor Pro's share buttons widget): a button per network, its icon in a
+ * square box and its name after it, in the network's official colours or the owner's.
+ * Skins: gradient and flat (filled), minimal (the icon's box filled), framed (outlined),
+ * boxed (outlined, the icon's box filled). The whole button is measured in em of its own
+ * font size (10px), so the Styles tab's size of it scales it.
+ */
+
+/* The buttons, as many as fit (columns 0) or in columns */
+.elementor-widget-share-buttons {
+  --grid-column-gap: 10px;
+  --grid-row-gap: 10px;
+}
+
+.elementor-widget-share-buttons .elementor-grid {
+  display: grid;
+  gap: var(--grid-row-gap) var(--grid-column-gap);
+  grid-template-columns: repeat(var(--grid-template-columns, 1), minmax(0, 1fr));
+  margin: 0;
+  word-spacing: normal;
+}
+
+.elementor-widget-share-buttons.elementor-grid-0 .elementor-grid {
+  display: flex;
+  flex-wrap: wrap;
+  width: auto;
+  margin-bottom: 0;
+}
+
+.elementor-widget-share-buttons .elementor-grid .elementor-grid-item {
+  display: block;
+  margin: 0;
+  word-break: normal;
+}
+
+.elementor-widget-share-buttons.elementor-grid-1 .elementor-grid { --grid-template-columns: 1; }
+.elementor-widget-share-buttons.elementor-grid-2 .elementor-grid { --grid-template-columns: 2; }
+.elementor-widget-share-buttons.elementor-grid-3 .elementor-grid { --grid-template-columns: 3; }
+.elementor-widget-share-buttons.elementor-grid-4 .elementor-grid { --grid-template-columns: 4; }
+.elementor-widget-share-buttons.elementor-grid-5 .elementor-grid { --grid-template-columns: 5; }
+.elementor-widget-share-buttons.elementor-grid-6 .elementor-grid { --grid-template-columns: 6; }
+
+@media (max-width: 1024px) {
+  .elementor-widget-share-buttons.elementor-grid-tablet-0 .elementor-grid { display: flex; flex-wrap: wrap; }
+  .elementor-widget-share-buttons[class*="elementor-grid-tablet-"]:not(.elementor-grid-tablet-0) .elementor-grid { display: grid; }
+  .elementor-widget-share-buttons.elementor-grid-tablet-1 .elementor-grid { --grid-template-columns: 1; }
+  .elementor-widget-share-buttons.elementor-grid-tablet-2 .elementor-grid { --grid-template-columns: 2; }
+  .elementor-widget-share-buttons.elementor-grid-tablet-3 .elementor-grid { --grid-template-columns: 3; }
+  .elementor-widget-share-buttons.elementor-grid-tablet-4 .elementor-grid { --grid-template-columns: 4; }
+  .elementor-widget-share-buttons.elementor-grid-tablet-5 .elementor-grid { --grid-template-columns: 5; }
+  .elementor-widget-share-buttons.elementor-grid-tablet-6 .elementor-grid { --grid-template-columns: 6; }
+}
+
+@media (max-width: 767px) {
+  .elementor-widget-share-buttons.elementor-grid-mobile-0 .elementor-grid { display: flex; flex-wrap: wrap; }
+  .elementor-widget-share-buttons[class*="elementor-grid-mobile-"]:not(.elementor-grid-mobile-0) .elementor-grid { display: grid; }
+  .elementor-widget-share-buttons.elementor-grid-mobile-1 .elementor-grid { --grid-template-columns: 1; }
+  .elementor-widget-share-buttons.elementor-grid-mobile-2 .elementor-grid { --grid-template-columns: 2; }
+  .elementor-widget-share-buttons.elementor-grid-mobile-3 .elementor-grid { --grid-template-columns: 3; }
+  .elementor-widget-share-buttons.elementor-grid-mobile-4 .elementor-grid { --grid-template-columns: 4; }
+  .elementor-widget-share-buttons.elementor-grid-mobile-5 .elementor-grid { --grid-template-columns: 5; }
+  .elementor-widget-share-buttons.elementor-grid-mobile-6 .elementor-grid { --grid-template-columns: 6; }
+}
+
+/* Alignment of the buttons that fit on a line */
+.elementor-share-buttons--align-center .elementor-grid {
+  justify-content: center;
+}
+
+.elementor-share-buttons--align-right .elementor-grid {
+  justify-content: flex-end;
+}
+
+.elementor-share-buttons--align-justify.elementor-grid-0 .elementor-grid .elementor-grid-item {
+  flex-grow: 1;
+}
+
+/* A button: the icon's box, then the name */
+.elementor-share-btn {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  height: 4.5em;
+  overflow: hidden;
+  font-size: 10px;
+  cursor: pointer;
+  transition-duration: 0.2s;
+  transition-property: filter, background-color, border-color;
+}
+
+.elementor-share-btn:hover {
+  filter: saturate(1.5) brightness(1.2);
+}
+
+.elementor-share-btn__icon,
+.elementor-share-btn__text {
+  transition-duration: 0.2s;
+  transition-property: color, background-color;
+}
+
+.elementor-share-btn__icon {
+  display: flex;
+  align-self: stretch;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  width: 4.5em;
+  flex-shrink: 0;
+}
+
+.elementor-share-btn__icon i {
+  font-size: var(--e-share-buttons-icon-size, 1.7em);
+}
+
+.elementor-share-btn__icon svg {
+  width: var(--e-share-buttons-icon-size, 1.7em);
+  height: var(--e-share-buttons-icon-size, 1.7em);
+  fill: currentColor;
+}
+
+.elementor-share-btn__text {
+  display: flex;
+  align-self: stretch;
+  flex-grow: 1;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 0 1.5em;
+  white-space: nowrap;
+}
+
+.elementor-share-btn__title {
+  font-size: 1.5em;
+  font-weight: 700;
+}
+
+.elementor-share-btn__title,
+.elementor-share-btn__counter {
+  font-family: var(--e-global-typography-accent-font-family), Sans-serif;
+}
+
+/* Views: the icon alone (a square), the name alone (centred) */
+.elementor-share-buttons--view-icon .elementor-share-btn {
+  justify-content: center;
+}
+
+.elementor-share-buttons--view-icon .elementor-share-btn__icon {
+  flex-grow: 1;
+}
+
+.elementor-share-buttons--view-text .elementor-share-btn__text {
+  justify-content: center;
+  padding: 0 2em;
+}
+
+.elementor-share-buttons--view-icon.elementor-grid-0 .elementor-share-btn {
+  width: 4.5em;
+}
+
+/* Shapes */
+.elementor-share-buttons--shape-rounded .elementor-share-btn {
+  border-radius: 0.5em;
+}
+
+.elementor-share-buttons--shape-circle .elementor-share-btn {
+  border-radius: 99.9em;
+}
+
+/* Skins: framed and boxed are outlined */
+.elementor-share-buttons--skin-framed .elementor-share-btn,
+.elementor-share-buttons--skin-boxed .elementor-share-btn {
+  border: 0.2em solid;
+  background: none;
+}
+
+.elementor-share-buttons--skin-framed .elementor-share-btn__icon,
+.elementor-share-buttons--skin-boxed .elementor-share-btn__icon {
+  margin-inline-start: -0.2em;
+}
+
+.elementor-share-buttons--skin-gradient .elementor-share-btn__text,
+.elementor-share-buttons--skin-gradient.elementor-share-buttons--view-text .elementor-share-btn {
+  background-image: linear-gradient(90deg, rgba(0, 0, 0, 0.12), transparent);
+}
+
+.elementor-share-buttons--skin-gradient.elementor-share-buttons--view-text .elementor-share-btn__text {
+  background-image: none;
+}
+
+/* The owner's colours: the primary fills (or outlines), the secondary is the icon and name
+   on a fill */
+.elementor-share-buttons--color-custom .elementor-grid {
+  --e-share-buttons-primary-color: #ea4335;
+  --e-share-buttons-secondary-color: #fff;
+}
+
+.elementor-share-buttons--color-custom.elementor-share-buttons--skin-gradient .elementor-share-btn,
+.elementor-share-buttons--color-custom.elementor-share-buttons--skin-flat .elementor-share-btn {
+  background-color: var(--e-share-buttons-primary-color);
+  color: var(--e-share-buttons-secondary-color);
+}
+
+.elementor-share-buttons--color-custom.elementor-share-buttons--skin-gradient .elementor-share-btn:hover,
+.elementor-share-buttons--color-custom.elementor-share-buttons--skin-flat .elementor-share-btn:hover {
+  background-color: var(--e-share-buttons-primary-color-hover, var(--e-share-buttons-primary-color));
+  color: var(--e-share-buttons-secondary-color-hover, var(--e-share-buttons-secondary-color));
+}
+
+.elementor-share-buttons--color-custom.elementor-share-buttons--skin-framed .elementor-share-btn,
+.elementor-share-buttons--color-custom.elementor-share-buttons--skin-boxed .elementor-share-btn,
+.elementor-share-buttons--color-custom.elementor-share-buttons--skin-minimal .elementor-share-btn {
+  color: var(--e-share-buttons-primary-color);
+  border-color: var(--e-share-buttons-primary-color);
+}
+
+.elementor-share-buttons--color-custom.elementor-share-buttons--skin-framed .elementor-share-btn:hover,
+.elementor-share-buttons--color-custom.elementor-share-buttons--skin-boxed .elementor-share-btn:hover,
+.elementor-share-buttons--color-custom.elementor-share-buttons--skin-minimal .elementor-share-btn:hover {
+  color: var(--e-share-buttons-primary-color-hover, var(--e-share-buttons-primary-color));
+  border-color: var(--e-share-buttons-primary-color-hover, var(--e-share-buttons-primary-color));
+}
+
+.elementor-share-buttons--color-custom.elementor-share-buttons--skin-boxed .elementor-share-btn__icon,
+.elementor-share-buttons--color-custom.elementor-share-buttons--skin-minimal .elementor-share-btn__icon {
+  background-color: var(--e-share-buttons-primary-color);
+  color: var(--e-share-buttons-secondary-color);
+}
+
+.elementor-share-buttons--color-custom.elementor-share-buttons--skin-boxed .elementor-share-btn:hover .elementor-share-btn__icon,
+.elementor-share-buttons--color-custom.elementor-share-buttons--skin-minimal .elementor-share-btn:hover .elementor-share-btn__icon {
+  background-color: var(--e-share-buttons-primary-color-hover, var(--e-share-buttons-primary-color));
+  color: var(--e-share-buttons-secondary-color-hover, var(--e-share-buttons-secondary-color));
+}
+
+/* The networks' official colours: each button reads its network's as --e-share-btn-color */
+.elementor-share-btn_facebook { --e-share-btn-color: #3b5998; }
+.elementor-share-btn_twitter { --e-share-btn-color: #1da1f2; }
+.elementor-share-btn_x-twitter { --e-share-btn-color: #000; }
+.elementor-share-btn_linkedin { --e-share-btn-color: #0077b5; }
+.elementor-share-btn_pinterest { --e-share-btn-color: #bd081c; }
+.elementor-share-btn_reddit { --e-share-btn-color: #ff4500; }
+.elementor-share-btn_vk { --e-share-btn-color: #45668e; }
+.elementor-share-btn_odnoklassniki { --e-share-btn-color: #f4731c; }
+.elementor-share-btn_tumblr { --e-share-btn-color: #35465c; }
+.elementor-share-btn_digg { --e-share-btn-color: #005be2; }
+.elementor-share-btn_skype { --e-share-btn-color: #00aff0; }
+.elementor-share-btn_stumbleupon { --e-share-btn-color: #eb4924; }
+.elementor-share-btn_telegram { --e-share-btn-color: #2ca5e0; }
+.elementor-share-btn_pocket { --e-share-btn-color: #ef4056; }
+.elementor-share-btn_xing { --e-share-btn-color: #026466; }
+.elementor-share-btn_whatsapp { --e-share-btn-color: #25d366; }
+.elementor-share-btn_email { --e-share-btn-color: #ea4335; }
+.elementor-share-btn_print { --e-share-btn-color: #a4a4a4; }
+
+.elementor-share-buttons--color-official.elementor-share-buttons--skin-gradient .elementor-share-btn,
+.elementor-share-buttons--color-official.elementor-share-buttons--skin-flat .elementor-share-btn {
+  background-color: var(--e-share-btn-color);
+  color: #fff;
+}
+
+.elementor-share-buttons--color-official.elementor-share-buttons--skin-framed .elementor-share-btn,
+.elementor-share-buttons--color-official.elementor-share-buttons--skin-boxed .elementor-share-btn,
+.elementor-share-buttons--color-official.elementor-share-buttons--skin-minimal .elementor-share-btn {
+  color: var(--e-share-btn-color);
+  border-color: var(--e-share-btn-color);
+}
+
+.elementor-share-buttons--color-official.elementor-share-buttons--skin-boxed .elementor-share-btn__icon,
+.elementor-share-buttons--color-official.elementor-share-buttons--skin-minimal .elementor-share-btn__icon {
+  background-color: var(--e-share-btn-color);
+  color: #fff;
+}

@@ -4,14 +4,22 @@
  * server's markup for the blocks whose words live elsewhere (menus, lists, header, footer).
  */
 import apiFetch from '@wordpress/api-fetch';
-import { InspectorControls, useBlockProps } from '@wordpress/block-editor';
+import {
+	InspectorControls,
+	MediaUpload,
+	MediaUploadCheck,
+	useBlockProps,
+} from '@wordpress/block-editor';
 import {
 	Button,
 	ComboboxControl,
 	PanelBody,
+	SearchControl,
 	TextControl,
 	ToggleControl,
 } from '@wordpress/components';
+import { getBlockTypes } from '@wordpress/blocks';
+import { store as coreStore } from '@wordpress/core-data';
 import { useSelect } from '@wordpress/data';
 import {
 	useEffect,
@@ -28,24 +36,62 @@ import icons from './icons.json';
 const site = window.harlowEditor || { themeUri: '', pages: {} };
 
 /** What a container holds: containers and Elementor's widgets, not WordPress's own blocks. */
-export const IN_CONTAINER = [
-	'harlow/container',
-	'harlow/heading',
-	'harlow/text',
-	'harlow/image',
-	'harlow/button',
-	'harlow/divider',
-	'harlow/icon',
-	'harlow/icon-list',
-	'harlow/social-icons',
-	'harlow/accordion',
-	'harlow/html',
-	'harlow/shortcode',
-	'harlow/nav-menu',
-	'harlow/template',
-	'harlow/loop',
-	'harlow/site-part',
+/** The theme's blocks that are not put in a container by hand (parts of other blocks). */
+const NOT_IN_CONTAINER = [
+	'harlow/document',
+	'harlow/accordion-item',
+	'harlow/box',
+	'harlow/markup',
 ];
+
+/**
+ * The blocks a container takes: every element block of the theme (a new widget's folder is
+ * enough to be one).
+ *
+ * @return {string[]} Block names.
+ */
+export function inContainer() {
+	return getBlockTypes()
+		.map( ( type ) => type.name )
+		.filter(
+			( name ) =>
+				name.startsWith( 'harlow/' ) &&
+				! NOT_IN_CONTAINER.includes( name )
+		);
+}
+
+/**
+ * The element's classes with one class of a group (a view, a shape, a number of columns):
+ * the group's others taken off, the one chosen put on ('' for none).
+ *
+ * @param {string}   classes The element's classes.
+ * @param {string[]} group   The group's classes.
+ * @param {string}   chosen  The class chosen, or ''.
+ * @return {string} The classes.
+ */
+export function withClass( classes, group, chosen ) {
+	const list = ( classes || '' )
+		.split( /\s+/ )
+		.filter( ( c ) => c && ! group.includes( c ) );
+	if ( chosen ) {
+		list.push( chosen );
+	}
+	return list.join( ' ' );
+}
+
+/**
+ * The class of a group the element wears, or ''.
+ *
+ * @param {string}   classes The element's classes.
+ * @param {string[]} group   The group's classes.
+ * @return {string} The class.
+ */
+export function classOf( classes, group ) {
+	return (
+		( classes || '' ).split( /\s+/ ).find( ( c ) => group.includes( c ) ) ||
+		''
+	);
+}
 
 /**
  * The attributes of an element as Elementor writes them (harlow_element_attributes()).
@@ -56,8 +102,15 @@ export const IN_CONTAINER = [
  * @return {Object} Props for the element.
  */
 export function elementProps( attributes, kind, widget = '' ) {
+	// The owner's classes (the Styles tab's Advanced) join the element's.
+	const extra =
+		typeof attributes.style?.classes === 'string'
+			? attributes.style.classes.trim()
+			: '';
 	const props = {
-		className: attributes.classes,
+		className: extra
+			? `${ attributes.classes } ${ extra }`
+			: attributes.classes,
 		'data-id': attributes.element,
 		'data-element_type': kind,
 		'data-e-type': kind,
@@ -71,6 +124,42 @@ export function elementProps( attributes, kind, widget = '' ) {
 	}
 	if ( widget ) {
 		props[ 'data-widget_type' ] = widget;
+	}
+	// Motion effects and sticky, as harlow_style_motion() hands them to the page's script
+	// (which the canvas does not run).
+	const motion = attributes.style?.motion || {};
+	if (
+		motion.sticky?.on ||
+		Object.values( motion.scroll || {} ).some( ( fx ) => fx?.on ) ||
+		Object.values( motion.mouse || {} ).some( ( fx ) => fx?.on )
+	) {
+		props[ 'data-harlow-motion' ] = JSON.stringify( motion );
+	}
+	// The owner's custom attributes (key|value lines), as harlow_style_attributes() prints them.
+	const custom =
+		typeof attributes.style?.attributes === 'string'
+			? attributes.style.attributes
+			: '';
+	const reserved = [
+		'style',
+		'class',
+		'id',
+		'data-id',
+		'data-settings',
+		'data-element_type',
+		'data-e-type',
+		'data-widget_type',
+	];
+	for ( const line of custom.split( /\r?\n/ ) ) {
+		const [ rawName, ...rest ] = line.split( '|' );
+		const name = ( rawName || '' ).trim().toLowerCase();
+		if (
+			/^[a-z][a-z0-9_:.-]*$/.test( name ) &&
+			! name.startsWith( 'on' ) &&
+			! reserved.includes( name )
+		) {
+			props[ name ] = rest.join( '|' ).trim();
+		}
 	}
 	return props;
 }
@@ -186,36 +275,291 @@ export function iconHtml( svg, spaced = true ) {
 	return { __html: spaced ? `\n${ svg }\n` : svg };
 }
 
+/** The icon library (editor/icon-library.json), loaded once when it is first shown. */
+let library = null;
+
 /**
- * Choose one of the site's icons (the ones its pages use).
+ * An uploaded SVG file's icon: its <svg> alone, with the classes an icon has (the page
+ * cleans it again when it prints it: harlow_icon()).
+ *
+ * @param {string} text The file's text.
+ * @return {string} The icon's markup, or '' when the file holds none.
+ */
+function uploadedIcon( text ) {
+	const doc = new window.DOMParser().parseFromString( text, 'image/svg+xml' );
+	const svg = doc.querySelector( 'svg' );
+	if ( ! svg ) {
+		return '';
+	}
+	svg.querySelectorAll( 'script, foreignObject, style' ).forEach( ( el ) =>
+		el.remove()
+	);
+	svg.setAttribute( 'aria-hidden', 'true' );
+	svg.setAttribute( 'class', 'e-font-icon-svg e-custom-icon' );
+	svg.removeAttribute( 'width' );
+	svg.removeAttribute( 'height' );
+	return new window.XMLSerializer()
+		.serializeToString( svg )
+		.replace( /\s+/g, ' ' );
+}
+
+/**
+ * Choose an icon, as Elementor's icon library offers them: the site's own icons, the icon
+ * library (searchable), or an SVG file uploaded to the Media Library.
  *
  * @param {Object}   props
  * @param {string}   props.value     The icon chosen.
  * @param {Function} props.onChange  Called with the new icon's markup.
  * @param {boolean}  props.allowNone Offer "no icon".
+ * @param {string}   props.noneLabel What "no icon" is called, when it is something else.
  */
-export function IconPicker( { value, onChange, allowNone = false } ) {
+export function IconPicker( {
+	value,
+	onChange,
+	allowNone = false,
+	noneLabel,
+} ) {
+	const [ tab, setTab ] = useState( 'site' );
+	const [ search, setSearch ] = useState( '' );
+	const [ shown, setShown ] = useState( library );
+	useEffect( () => {
+		if ( tab !== 'library' || library ) {
+			return;
+		}
+		window
+			.fetch( `${ site.themeUri }/editor/icon-library.json` )
+			.then( ( response ) => response.json() )
+			.then( ( list ) => {
+				library = list;
+				setShown( list );
+			} )
+			.catch( () => setShown( [] ) );
+	}, [ tab ] );
+	const words = search.trim().toLowerCase();
+	const found = ( shown || [] )
+		.filter( ( icon ) => ! words || icon.name.includes( words ) )
+		.slice( 0, 120 );
+	const button = ( svg, label, key ) => (
+		<Button
+			key={ key }
+			className="harlow-icon-picker__icon"
+			isPressed={ svg === value }
+			label={ label }
+			showTooltip
+			onClick={ () => onChange( svg ) }
+		>
+			<span dangerouslySetInnerHTML={ { __html: svg } } />
+		</Button>
+	);
 	return (
 		<div className="harlow-icon-picker">
+			<div className="harlow-icon-picker__tabs" role="tablist">
+				{ [
+					[ 'site', __( 'The site’s icons', 'harlow' ) ],
+					[ 'library', __( 'Icon library', 'harlow' ) ],
+					[ 'upload', __( 'Upload SVG', 'harlow' ) ],
+				].map( ( [ key, label ] ) => (
+					<Button
+						key={ key }
+						role="tab"
+						aria-selected={ tab === key }
+						isPressed={ tab === key }
+						variant="tertiary"
+						size="compact"
+						onClick={ () => setTab( key ) }
+					>
+						{ label }
+					</Button>
+				) ) }
+			</div>
 			{ allowNone && (
 				<Button
 					variant={ value ? 'secondary' : 'primary' }
 					onClick={ () => onChange( '' ) }
 				>
-					{ __( 'No icon', 'harlow' ) }
+					{ noneLabel || __( 'No icon', 'harlow' ) }
 				</Button>
 			) }
-			{ icons.map( ( svg, i ) => (
+			{ tab === 'site' &&
+				icons.map( ( svg, i ) =>
+					button( svg, `${ __( 'Icon', 'harlow' ) } ${ i + 1 }`, i )
+				) }
+			{ tab === 'library' && (
+				<>
+					<SearchControl
+						__nextHasNoMarginBottom
+						label={ __( 'Search the icons', 'harlow' ) }
+						value={ search }
+						onChange={ setSearch }
+					/>
+					{ shown === null && (
+						<p>{ __( 'Loading the icons…', 'harlow' ) }</p>
+					) }
+					<div className="harlow-icon-picker__grid">
+						{ found.map( ( icon ) =>
+							button( icon.svg, icon.name, icon.name )
+						) }
+					</div>
+				</>
+			) }
+			{ tab === 'upload' && (
+				<MediaUploadCheck>
+					<MediaUpload
+						allowedTypes={ [ 'image/svg+xml' ] }
+						onSelect={ ( picked ) =>
+							window
+								.fetch( picked.url )
+								.then( ( response ) => response.text() )
+								.then( ( text ) => {
+									const svg = uploadedIcon( text );
+									if ( svg ) {
+										onChange( svg );
+									}
+								} )
+						}
+						render={ ( { open } ) => (
+							<Button variant="secondary" onClick={ open }>
+								{ __(
+									'Choose or upload an SVG file',
+									'harlow'
+								) }
+							</Button>
+						) }
+					/>
+				</MediaUploadCheck>
+			) }
+		</div>
+	);
+}
+
+/** The fields of an item that a block of an item page template shows (its `source`). */
+const SOURCES = {
+	title: __( 'The item’s title', 'harlow' ),
+	date: __( 'The item’s date', 'harlow' ),
+	featured: __( 'The item’s featured picture', 'harlow' ),
+	'meta:harlow_summary': __( 'The project’s short description', 'harlow' ),
+	'meta:harlow_year': __( 'The project’s year', 'harlow' ),
+	'meta:harlow_gallery': __( 'The item’s pictures', 'harlow' ),
+};
+
+/**
+ * The name of the item's field a block shows, as the block shows it in an item page
+ * template's own screen, where there is no item.
+ *
+ * @param {string} source The block's source.
+ * @return {string} The field's name, in brackets.
+ */
+export function sourceLabel( source ) {
+	return `[${ SOURCES[ source ] || source }]`;
+}
+
+/**
+ * A widget that shows a field of the item (a picture, the pictures), in an item page
+ * template's own screen: the field's name in its place.
+ *
+ * @param {Object} props
+ * @param {Object} props.attributes The block's attributes.
+ * @param {string} props.widget     The widget type, when the block has none of its own.
+ */
+export function SourceNote( { attributes, widget } ) {
+	const blockProps = useBlockProps(
+		elementProps(
+			attributes,
+			'widget',
+			attributes.widgetType || `${ widget }.default`
+		)
+	);
+	return (
+		<div { ...blockProps }>
+			<div className="elementor-widget-container">
+				<p className="harlow-source-note">
+					{ sourceLabel( attributes.source ) }
+				</p>
+			</div>
+		</div>
+	);
+}
+
+/**
+ * A picture of the Media Library, by its id: its address, or '' (none chosen, or not
+ * loaded yet).
+ *
+ * @param {number} id The picture.
+ * @return {string} Its address (the full size, as harlow_picture_style() prints it).
+ */
+export function usePictureUrl( id ) {
+	return (
+		useSelect(
+			( select ) =>
+				id
+					? select( coreStore ).getEntityRecord(
+							'postType',
+							'attachment',
+							id
+						)?.source_url
+					: '',
+			[ id ]
+		) || ''
+	);
+}
+
+/**
+ * A background picture chosen for an element, as the element's own style
+ * (harlow_picture_style()).
+ *
+ * @param {string} url The picture's address, or ''.
+ * @return {Object|undefined} A style for the element.
+ */
+export function pictureStyle( url ) {
+	return url ? { backgroundImage: `url("${ url }")` } : undefined;
+}
+
+/**
+ * Choose a picture from the Media Library, or leave the design's own.
+ *
+ * @param {Object}   props
+ * @param {string}   props.label    What the picture is.
+ * @param {number}   props.value    The picture chosen (its id), 0 for none.
+ * @param {Function} props.onChange Called with the picture's id, 0 to go back to the design's.
+ * @param {string}   props.none     What shows while none is chosen.
+ */
+export function PicturePicker( { label, value, onChange, none } ) {
+	const url = usePictureUrl( value );
+	return (
+		<div className="harlow-picture-picker">
+			<p className="harlow-picture-picker__label">{ label }</p>
+			{ url ? (
+				<img
+					className="harlow-picture-picker__preview"
+					src={ url }
+					alt=""
+				/>
+			) : (
+				<p className="harlow-picture-picker__none">{ none }</p>
+			) }
+			<MediaUploadCheck>
+				<MediaUpload
+					allowedTypes={ [ 'image' ] }
+					value={ value || undefined }
+					onSelect={ ( picked ) => onChange( picked.id ) }
+					render={ ( { open } ) => (
+						<Button variant="secondary" onClick={ open }>
+							{ value
+								? __( 'Replace the picture', 'harlow' )
+								: __( 'Choose a picture', 'harlow' ) }
+						</Button>
+					) }
+				/>
+			</MediaUploadCheck>
+			{ !! value && (
 				<Button
-					key={ i }
-					className="harlow-icon-picker__icon"
-					isPressed={ svg === value }
-					label={ `${ __( 'Icon', 'harlow' ) } ${ i + 1 }` }
-					onClick={ () => onChange( svg ) }
+					variant="link"
+					isDestructive
+					onClick={ () => onChange( 0 ) }
 				>
-					<span dangerouslySetInnerHTML={ { __html: svg } } />
+					{ __( 'Default', 'harlow' ) }
 				</Button>
-			) ) }
+			) }
 		</div>
 	);
 }

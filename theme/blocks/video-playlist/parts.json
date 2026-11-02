@@ -1,0 +1,145 @@
+{
+	"parts": [
+		{
+			"key": "topBar",
+			"label": "Top bar",
+			"selector": " .e-tabs-header",
+			"controls": [
+				"background",
+				"padding",
+				"border"
+			]
+		},
+		{
+			"key": "playlistTitle",
+			"label": "Playlist title",
+			"selector": " .e-tabs-title",
+			"controls": [
+				"color",
+				"typography"
+			]
+		},
+		{
+			"key": "videoCount",
+			"label": "Video count",
+			"selector": " .e-tabs-videos-count",
+			"controls": [
+				"color",
+				"typography"
+			]
+		},
+		{
+			"key": "list",
+			"label": "Videos",
+			"selector": " .e-tabs-wrapper",
+			"controls": [
+				"background",
+				"size",
+				"border"
+			]
+		},
+		{
+			"key": "item",
+			"label": "Video",
+			"selector": " .e-tab-title",
+			"controls": [
+				"color",
+				"typography",
+				"background",
+				"padding",
+				"border"
+			],
+			"states": {
+				"hover": {
+					"label": "Hover",
+					"selector": " .e-tab-title:hover"
+				},
+				"active": {
+					"label": "Active",
+					"selector": " .e-tab-title.e-active"
+				}
+			}
+		},
+		{
+			"key": "itemIcon",
+			"label": "Video icon",
+			"selector": " .e-tab-icon",
+			"controls": [
+				"icon"
+			],
+			"states": {
+				"active": {
+					"label": "Active",
+					"selector": " .e-tab-title.e-active .e-tab-icon"
+				}
+			}
+		},
+		{
+			"key": "duration",
+			"label": "Duration",
+			"selector": " .e-tab-duration",
+			"controls": [
+				"color",
+				"typography"
+			]
+		},
+		{
+			"key": "thumbnail",
+			"label": "Thumbnail",
+			"selector": " .e-tab-thumbnail img",
+			"controls": [
+				"size",
+				"border",
+				"opacity"
+			]
+		},
+		{
+			"key": "section",
+			"label": "Section title",
+			"selector": " .e-section-title",
+			"controls": [
+				"color",
+				"typography",
+				"background",
+				"padding",
+				"border"
+			]
+		},
+		{
+			"key": "innerTabs",
+			"label": "Content tabs",
+			"selector": " .e-inner-tab-title a",
+			"controls": [
+				"color",
+				"typography",
+				"border"
+			],
+			"states": {
+				"active": {
+					"label": "Active",
+					"selector": " .e-inner-tab-title.e-inner-tab-active a"
+				}
+			}
+		},
+		{
+			"key": "innerContent",
+			"label": "Content",
+			"selector": " .e-inner-tab-content",
+			"controls": [
+				"color",
+				"typography",
+				"background",
+				"padding"
+			]
+		},
+		{
+			"key": "toggle",
+			"label": "Show more button",
+			"selector": " .e-inner-tab-text-toggle",
+			"controls": [
+				"color",
+				"typography"
+			]
+		}
+	]
+}

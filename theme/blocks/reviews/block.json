@@ -1,0 +1,173 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "harlow/reviews",
+	"title": "Reviews",
+	"category": "widgets",
+	"description": "Slides of reviews: who wrote them, their rating, the network they came from and what they said.",
+	"textdomain": "harlow",
+	"attributes": {
+		"element": {
+			"type": "string",
+			"default": ""
+		},
+		"classes": {
+			"type": "string",
+			"default": ""
+		},
+		"settings": {
+			"type": "string",
+			"default": ""
+		},
+		"htmlId": {
+			"type": "string",
+			"default": ""
+		},
+		"slides": {
+			"type": "array",
+			"default": [
+				{
+					"image": 0,
+					"name": "John Doe",
+					"title": "@username",
+					"rating": 5,
+					"icon": "<svg aria-hidden=\"true\" class=\"e-font-icon-svg e-fab-x-twitter\" viewBox=\"0 0 512 512\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M389.2 48h70.6L305.6 224.2 487 464H345L233.7 318.6 106.5 464H35.8L200.7 275.5 26.8 48H172.4L272.9 180.9 389.2 48zM364.4 421.8h39.1L151.1 88h-42L364.4 421.8z\"></path></svg>",
+					"link": "",
+					"linkTarget": "",
+					"linkRel": "",
+					"content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec ullamcorper mattis, pulvinar dapibus leo."
+				},
+				{
+					"image": 0,
+					"name": "John Doe",
+					"title": "@username",
+					"rating": 5,
+					"icon": "<svg aria-hidden=\"true\" class=\"e-font-icon-svg e-fab-x-twitter\" viewBox=\"0 0 512 512\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M389.2 48h70.6L305.6 224.2 487 464H345L233.7 318.6 106.5 464H35.8L200.7 275.5 26.8 48H172.4L272.9 180.9 389.2 48zM364.4 421.8h39.1L151.1 88h-42L364.4 421.8z\"></path></svg>",
+					"link": "",
+					"linkTarget": "",
+					"linkRel": "",
+					"content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec ullamcorper mattis, pulvinar dapibus leo."
+				},
+				{
+					"image": 0,
+					"name": "John Doe",
+					"title": "@username",
+					"rating": 5,
+					"icon": "<svg aria-hidden=\"true\" class=\"e-font-icon-svg e-fab-x-twitter\" viewBox=\"0 0 512 512\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M389.2 48h70.6L305.6 224.2 487 464H345L233.7 318.6 106.5 464H35.8L200.7 275.5 26.8 48H172.4L272.9 180.9 389.2 48zM364.4 421.8h39.1L151.1 88h-42L364.4 421.8z\"></path></svg>",
+					"link": "",
+					"linkTarget": "",
+					"linkRel": "",
+					"content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec ullamcorper mattis, pulvinar dapibus leo."
+				}
+			]
+		},
+		"imageSize": {
+			"type": "string",
+			"default": "full"
+		},
+		"starStyle": {
+			"type": "string",
+			"default": "star_fontawesome"
+		},
+		"unmarkedStarStyle": {
+			"type": "string",
+			"default": "solid"
+		},
+		"separator": {
+			"type": "boolean",
+			"default": true
+		},
+		"slidesPerView": {
+			"type": "string",
+			"default": ""
+		},
+		"slidesPerViewTablet": {
+			"type": "string",
+			"default": ""
+		},
+		"slidesPerViewMobile": {
+			"type": "string",
+			"default": ""
+		},
+		"slidesToScroll": {
+			"type": "string",
+			"default": ""
+		},
+		"slidesToScrollTablet": {
+			"type": "string",
+			"default": ""
+		},
+		"slidesToScrollMobile": {
+			"type": "string",
+			"default": ""
+		},
+		"spaceBetween": {
+			"type": "string",
+			"default": "10"
+		},
+		"spaceBetweenTablet": {
+			"type": "string",
+			"default": ""
+		},
+		"spaceBetweenMobile": {
+			"type": "string",
+			"default": ""
+		},
+		"width": {
+			"type": "string",
+			"default": ""
+		},
+		"widthUnit": {
+			"type": "string",
+			"default": "%"
+		},
+		"showArrows": {
+			"type": "boolean",
+			"default": true
+		},
+		"pagination": {
+			"type": "string",
+			"default": "bullets"
+		},
+		"speed": {
+			"type": "number",
+			"default": 500
+		},
+		"autoplay": {
+			"type": "boolean",
+			"default": true
+		},
+		"autoplaySpeed": {
+			"type": "number",
+			"default": 5000
+		},
+		"loop": {
+			"type": "boolean",
+			"default": true
+		},
+		"pauseOnHover": {
+			"type": "boolean",
+			"default": true
+		},
+		"pauseOnInteraction": {
+			"type": "boolean",
+			"default": true
+		},
+		"style": {
+			"type": "object",
+			"default": {}
+		}
+	},
+	"supports": {
+		"html": false,
+		"className": false,
+		"customClassName": false
+	},
+	"example": {
+		"attributes": {
+			"autoplay": false,
+			"starStyle": "star_fontawesome"
+		}
+	},
+	"render": "file:../../includes/sections/reviews.php"
+}

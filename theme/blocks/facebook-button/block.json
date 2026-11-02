@@ -1,0 +1,79 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "harlow/facebook-button",
+	"title": "Facebook Button",
+	"category": "embed",
+	"description": "Facebook’s like or recommend button, for this page or another address.",
+	"textdomain": "harlow",
+	"attributes": {
+		"element": {
+			"type": "string",
+			"default": ""
+		},
+		"classes": {
+			"type": "string",
+			"default": ""
+		},
+		"settings": {
+			"type": "string",
+			"default": ""
+		},
+		"htmlId": {
+			"type": "string",
+			"default": ""
+		},
+		"type": {
+			"type": "string",
+			"default": "like"
+		},
+		"layout": {
+			"type": "string",
+			"default": "standard"
+		},
+		"size": {
+			"type": "string",
+			"default": "small"
+		},
+		"colorScheme": {
+			"type": "string",
+			"default": "light"
+		},
+		"showShare": {
+			"type": "boolean",
+			"default": true
+		},
+		"showFaces": {
+			"type": "boolean",
+			"default": false
+		},
+		"urlType": {
+			"type": "string",
+			"default": "current_page"
+		},
+		"url": {
+			"type": "string",
+			"default": ""
+		},
+		"urlFormat": {
+			"type": "string",
+			"default": "plain"
+		},
+		"style": {
+			"type": "object",
+			"default": {}
+		}
+	},
+	"supports": {
+		"html": false,
+		"className": false,
+		"customClassName": false
+	},
+	"example": {
+		"attributes": {
+			"type": "like",
+			"layout": "standard"
+		}
+	},
+	"render": "file:../../includes/sections/facebook-button.php"
+}

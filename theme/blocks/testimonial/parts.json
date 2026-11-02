@@ -1,0 +1,45 @@
+{
+	"parts": [
+		{
+			"key": "content",
+			"label": "Content",
+			"selector": " .elementor-testimonial-content",
+			"controls": [
+				"color",
+				"typography",
+				"textShadow",
+				"margin"
+			]
+		},
+		{
+			"key": "image",
+			"label": "Image",
+			"selector": " .elementor-testimonial-image img",
+			"controls": [
+				"size",
+				"border",
+				"shadow"
+			]
+		},
+		{
+			"key": "name",
+			"label": "Name",
+			"selector": " .elementor-testimonial-name",
+			"controls": [
+				"color",
+				"typography",
+				"textShadow"
+			]
+		},
+		{
+			"key": "job",
+			"label": "Title",
+			"selector": " .elementor-testimonial-job",
+			"controls": [
+				"color",
+				"typography",
+				"textShadow"
+			]
+		}
+	]
+}

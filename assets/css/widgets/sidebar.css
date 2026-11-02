@@ -1,0 +1,23 @@
+/*
+ * A widget area (sidebar): the widgets one under another, as WordPress prints them;
+ * Elementor's sidebar widget adds no look of its own, only room between the widgets and
+ * lists without bullets' indent, as its base theme gives them.
+ */
+
+/* Widgets */
+.elementor-widget-sidebar .widget {
+  margin-bottom: 20px;
+}
+
+.elementor-widget-sidebar .widget:last-child {
+  margin-bottom: 0;
+}
+
+.elementor-widget-sidebar .widget-title {
+  margin-top: 0;
+}
+
+/* Their lists */
+.elementor-widget-sidebar .widget ul {
+  padding-inline-start: 20px;
+}

@@ -1,0 +1,64 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "harlow/breadcrumbs",
+	"title": "Breadcrumbs",
+	"category": "theme",
+	"description": "The trail from the home page to the page being shown, with its schema for search engines (Elementor Pro's breadcrumbs widget).",
+	"textdomain": "harlow",
+	"attributes": {
+		"element": {
+			"type": "string",
+			"default": ""
+		},
+		"classes": {
+			"type": "string",
+			"default": ""
+		},
+		"settings": {
+			"type": "string",
+			"default": ""
+		},
+		"htmlId": {
+			"type": "string",
+			"default": ""
+		},
+		"tag": {
+			"type": "string",
+			"enum": [
+				"p",
+				"div",
+				"nav",
+				"span"
+			],
+			"default": "p"
+		},
+		"separator": {
+			"type": "string",
+			"default": "»"
+		},
+		"homeText": {
+			"type": "string",
+			"default": "Home"
+		},
+		"schema": {
+			"type": "boolean",
+			"default": true
+		},
+		"style": {
+			"type": "object",
+			"default": {}
+		}
+	},
+	"supports": {
+		"html": false,
+		"className": false,
+		"customClassName": false
+	},
+	"example": {
+		"attributes": {
+			"separator": "»"
+		}
+	},
+	"render": "file:../../includes/sections/breadcrumbs.php"
+}

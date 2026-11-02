@@ -1,6 +1,7 @@
 <?php
 /**
- * An image (harlow/image): Elementor's image widget, a picture with a link if it has one.
+ * An image (harlow/image): Elementor's image widget, a picture with a link and a caption
+ * if it has them.
  *
  * @package Harlow
  *
@@ -18,6 +19,18 @@ if ( 'featured' === $attributes['source'] ) {
 $harlow_picture = harlow_block_image( $harlow_image );
 if ( '' !== $attributes['link'] ) {
 	$harlow_picture = '<a' . harlow_link_attributes( $attributes ) . '>' . "\n" . $harlow_picture . "\n" . '</a>';
+}
+// A caption (the picture's own from the Media Library, or typed), as Elementor prints it.
+$harlow_caption = '';
+if ( 'attachment' === $attributes['caption'] && $harlow_image['image'] ) {
+	$harlow_caption = (string) wp_get_attachment_caption( (int) $harlow_image['image'] );
+} elseif ( 'custom' === $attributes['caption'] ) {
+	$harlow_caption = $attributes['captionText'];
+}
+if ( '' !== $harlow_caption ) {
+	$harlow_picture = '<figure class="wp-caption">' . "\n" . $harlow_picture . "\n"
+		. '<figcaption class="widget-image-caption wp-caption-text">' . wp_kses_post( $harlow_caption ) . '</figcaption>' . "\n"
+		. '</figure>';
 }
 $harlow_html = '<div' . harlow_element_attributes( $attributes, 'widget', $attributes['widgetType'] ) . '>' . "\n"
 	. '<div class="elementor-widget-container">' . "\n" . $harlow_picture . "\n" . '</div>' . "\n"

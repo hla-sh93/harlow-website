@@ -21,6 +21,10 @@ $harlow_canvas = harlow_is_canvas( get_queried_object_id() );
 get_header( $harlow_canvas ? 'canvas' : null );
 while ( have_posts() ) {
 	the_post();
-	harlow_the_document();
+	// A Theme Builder single template for this page (its Post content widget prints the
+	// page's own sections), else the page's sections.
+	if ( ! harlow_theme_template( 'single' ) ) {
+		harlow_the_document();
+	}
 }
 get_footer( $harlow_canvas ? 'canvas' : null );

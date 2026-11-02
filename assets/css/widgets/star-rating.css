@@ -1,0 +1,180 @@
+/*
+ * Star rating (Elementor's star rating widget): a row of stars after an optional title.
+ * Each star is an <i> holding a glyph; its ::before, in the marked colour, covers it to the
+ * star's share of the rating (elementor-star-1 … -9 for a decimal).
+ *
+ * Elementor draws the "Font Awesome" stars with its icon font, not loaded here: they are
+ * drawn with a star-shaped mask instead (solid, or outlined for
+ * elementor--unmarked-style-outline), in the same colours. The "Unicode" stars are the
+ * text characters ★ and ☆, as in Elementor.
+ */
+.elementor-widget-star-rating {
+  --harlow-star-solid: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 2.5l2.94 5.96 6.56.95-4.75 4.63 1.12 6.54L12 17.5l-5.87 3.08 1.12-6.54L2.5 9.41l6.56-.95z' fill='%23000' stroke='%23000' stroke-width='2' stroke-linejoin='round'/%3E%3C/svg%3E");
+  --harlow-star-outline: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 2.5l2.94 5.96 6.56.95-4.75 4.63 1.12 6.54L12 17.5l-5.87 3.08 1.12-6.54L2.5 9.41l6.56-.95z' fill='none' stroke='%23000' stroke-width='2' stroke-linejoin='round'/%3E%3C/svg%3E");
+}
+
+/* The title and the stars, side by side */
+.elementor-star-rating__wrapper {
+  display: flex;
+  align-items: center;
+}
+
+.elementor-star-rating__title {
+  margin-inline-end: 10px;
+}
+
+/* The stars: unmarked colour, then the marked colour over each star's share */
+.elementor-star-rating {
+  display: inline-block;
+  color: #ccd6df;
+  line-height: 1;
+}
+
+.elementor-star-rating i {
+  display: inline-block;
+  position: relative;
+  font-style: normal;
+  cursor: default;
+}
+
+.elementor-star-rating i::before {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: block;
+  overflow: hidden;
+  color: #f0ad4e;
+  font-family: inherit;
+  font-size: inherit;
+}
+
+.elementor-star-rating .elementor-star-empty::before {
+  content: none;
+}
+
+.elementor-widget-star-rating .elementor-star-rating .elementor-star-1::before { width: 10%; }
+.elementor-widget-star-rating .elementor-star-rating .elementor-star-2::before { width: 20%; }
+.elementor-widget-star-rating .elementor-star-rating .elementor-star-3::before { width: 30%; }
+.elementor-widget-star-rating .elementor-star-rating .elementor-star-4::before { width: 40%; }
+.elementor-widget-star-rating .elementor-star-rating .elementor-star-5::before { width: 50%; }
+.elementor-widget-star-rating .elementor-star-rating .elementor-star-6::before { width: 60%; }
+.elementor-widget-star-rating .elementor-star-rating .elementor-star-7::before { width: 70%; }
+.elementor-widget-star-rating .elementor-star-rating .elementor-star-8::before { width: 80%; }
+.elementor-widget-star-rating .elementor-star-rating .elementor-star-9::before { width: 90%; }
+
+/*
+ * "Font Awesome" stars: drawn by masks, the glyph itself not shown. The unmarked star is
+ * the ::after (the star's own colour), the marked share the ::before over it.
+ */
+.elementor--star-style-star_fontawesome .elementor-star-rating i {
+  width: 1em;
+  height: 1em;
+  overflow: hidden;
+  vertical-align: top;
+  -webkit-text-fill-color: transparent;
+}
+
+.elementor--star-style-star_fontawesome .elementor-star-rating i::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: currentColor;
+  -webkit-mask: var(--harlow-star-solid) no-repeat 0 0 / 1em 1em;
+  mask: var(--harlow-star-solid) no-repeat 0 0 / 1em 1em;
+}
+
+.elementor--star-style-star_fontawesome.elementor--unmarked-style-outline .elementor-star-rating i::after {
+  -webkit-mask-image: var(--harlow-star-outline);
+  mask-image: var(--harlow-star-outline);
+}
+
+.elementor--star-style-star_fontawesome .elementor-star-rating i::before {
+  content: "";
+  z-index: 1;
+  height: 100%;
+  background-color: currentColor;
+  -webkit-mask: var(--harlow-star-solid) no-repeat 0 0 / 1em 1em;
+  mask: var(--harlow-star-solid) no-repeat 0 0 / 1em 1em;
+}
+
+.elementor--star-style-star_fontawesome .elementor-star-rating .elementor-star-full::before {
+  width: 100%;
+}
+
+.elementor--star-style-star_fontawesome .elementor-star-rating .elementor-star-empty::before {
+  content: none;
+}
+
+/* "Unicode" stars: the text characters */
+.elementor--star-style-star_unicode .elementor-star-rating {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.elementor--star-style-star_unicode .elementor-star-rating i:not(.elementor-star-empty)::before {
+  content: "\2605";
+}
+
+/* Alignment, per device */
+.elementor-star-rating--align-left .elementor-star-rating__wrapper {
+  justify-content: flex-start;
+  text-align: left;
+}
+
+.elementor-star-rating--align-center .elementor-star-rating__wrapper {
+  justify-content: center;
+  text-align: center;
+}
+
+.elementor-star-rating--align-right .elementor-star-rating__wrapper {
+  justify-content: flex-end;
+  text-align: right;
+}
+
+.elementor-star-rating--align-justify .elementor-star-rating__title {
+  margin-inline-end: auto;
+}
+
+@media (max-width: 1024px) {
+  .elementor-star-rating-tablet--align-left .elementor-star-rating__wrapper {
+    justify-content: flex-start;
+    text-align: left;
+  }
+
+  .elementor-star-rating-tablet--align-center .elementor-star-rating__wrapper {
+    justify-content: center;
+    text-align: center;
+  }
+
+  .elementor-star-rating-tablet--align-right .elementor-star-rating__wrapper {
+    justify-content: flex-end;
+    text-align: right;
+  }
+
+  .elementor-star-rating-tablet--align-justify .elementor-star-rating__title {
+    margin-inline-end: auto;
+  }
+}
+
+@media (max-width: 767px) {
+  .elementor-star-rating-mobile--align-left .elementor-star-rating__wrapper {
+    justify-content: flex-start;
+    text-align: left;
+  }
+
+  .elementor-star-rating-mobile--align-center .elementor-star-rating__wrapper {
+    justify-content: center;
+    text-align: center;
+  }
+
+  .elementor-star-rating-mobile--align-right .elementor-star-rating__wrapper {
+    justify-content: flex-end;
+    text-align: right;
+  }
+
+  .elementor-star-rating-mobile--align-justify .elementor-star-rating__title {
+    margin-inline-end: auto;
+  }
+}

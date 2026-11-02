@@ -13,6 +13,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 get_header();
 while ( have_posts() ) {
 	the_post();
-	harlow_the_single();
+	if ( ! harlow_theme_template( 'single' ) ) {
+		harlow_the_single();
+	}
 }
 get_footer();

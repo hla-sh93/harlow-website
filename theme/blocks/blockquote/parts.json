@@ -1,0 +1,81 @@
+{
+	"parts": [
+		{
+			"key": "content",
+			"label": "Content",
+			"selector": " .elementor-blockquote__content",
+			"controls": [
+				"color",
+				"typography",
+				"textShadow",
+				"margin"
+			]
+		},
+		{
+			"key": "author",
+			"label": "Author",
+			"selector": " .elementor-blockquote__author",
+			"controls": [
+				"color",
+				"typography",
+				"textShadow"
+			]
+		},
+		{
+			"key": "footer",
+			"label": "Gap (author and button)",
+			"selector": " .elementor-blockquote footer",
+			"controls": [
+				"margin",
+				"gap"
+			]
+		},
+		{
+			"key": "button",
+			"label": "Button",
+			"selector": " .elementor-blockquote__tweet-button",
+			"controls": [
+				"color",
+				"typography",
+				"icon",
+				"background",
+				"padding",
+				"border",
+				"shadow"
+			],
+			"states": {
+				"hover": {
+					"label": "Hover",
+					"selector": " .elementor-blockquote__tweet-button:hover"
+				}
+			}
+		},
+		{
+			"key": "box",
+			"label": "Box and border",
+			"selector": " .elementor-blockquote",
+			"controls": [
+				"background",
+				"padding",
+				"border",
+				"shadow"
+			],
+			"states": {
+				"hover": {
+					"label": "Hover",
+					"selector": ":hover .elementor-blockquote"
+				}
+			}
+		},
+		{
+			"key": "quote",
+			"label": "Quote",
+			"selector": " .elementor-blockquote::before",
+			"controls": [
+				"color",
+				"typography",
+				"margin"
+			]
+		}
+	]
+}

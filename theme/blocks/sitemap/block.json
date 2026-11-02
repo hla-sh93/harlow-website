@@ -1,0 +1,105 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "harlow/sitemap",
+	"title": "Sitemap",
+	"category": "widgets",
+	"description": "Lists of the site's pages, posts, items and categories, in columns (Elementor Pro's sitemap widget).",
+	"textdomain": "harlow",
+	"attributes": {
+		"element": {
+			"type": "string",
+			"default": ""
+		},
+		"classes": {
+			"type": "string",
+			"default": ""
+		},
+		"settings": {
+			"type": "string",
+			"default": ""
+		},
+		"htmlId": {
+			"type": "string",
+			"default": ""
+		},
+		"sections": {
+			"type": "array",
+			"default": [
+				{
+					"id": "b1c2d31",
+					"type": "post_type",
+					"postType": "page",
+					"taxonomy": "category",
+					"title": "Pages",
+					"orderby": "post_title",
+					"order": "asc",
+					"hierarchical": true,
+					"depth": 0,
+					"hideEmpty": false,
+					"exclude": "",
+					"excludeCurrent": false
+				},
+				{
+					"id": "b1c2d32",
+					"type": "taxonomy",
+					"postType": "post",
+					"taxonomy": "category",
+					"title": "Categories",
+					"orderby": "name",
+					"order": "asc",
+					"hierarchical": true,
+					"depth": 0,
+					"hideEmpty": false,
+					"exclude": "",
+					"excludeCurrent": false
+				}
+			]
+		},
+		"columns": {
+			"type": "integer",
+			"default": 4
+		},
+		"columnsTablet": {
+			"type": "integer",
+			"default": 2
+		},
+		"columnsMobile": {
+			"type": "integer",
+			"default": 1
+		},
+		"titleTag": {
+			"type": "string",
+			"default": "h2"
+		},
+		"nofollow": {
+			"type": "boolean",
+			"default": false
+		},
+		"bullet": {
+			"type": "string",
+			"enum": [
+				"disc",
+				"circle",
+				"square",
+				"none"
+			],
+			"default": "disc"
+		},
+		"style": {
+			"type": "object",
+			"default": {}
+		}
+	},
+	"supports": {
+		"html": false,
+		"className": false,
+		"customClassName": false
+	},
+	"example": {
+		"attributes": {
+			"columns": 2
+		}
+	},
+	"render": "file:../../includes/sections/sitemap.php"
+}

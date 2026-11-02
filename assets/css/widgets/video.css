@@ -1,0 +1,241 @@
+/*
+ * Video (harlow/video): Elementor's video widget (widget-video.css), its play icon
+ * (frontend.css) and the lightbox it opens (dialog.css and lightbox.css), which
+ * assets/js/widgets/video.js adds to the page.
+ */
+
+/* The player, as wide as the element and as tall as its aspect ratio. */
+.e-con .elementor-widget-video {
+  width: 100%;
+}
+
+.e-con-inner > .elementor-widget-video,
+.e-con > .elementor-widget-video {
+  width: var(--container-widget-width);
+  --flex-grow: var(--container-widget-flex-grow);
+}
+
+.elementor-widget-video .elementor-widget-container {
+  overflow: hidden;
+  transform: translateZ(0);
+}
+
+.elementor-widget-video .elementor-wrapper {
+  aspect-ratio: var(--video-aspect-ratio);
+}
+
+.elementor-widget-video .elementor-wrapper iframe,
+.elementor-widget-video .elementor-wrapper video {
+  display: flex;
+  width: 100%;
+  max-width: 100%;
+  height: 100%;
+  margin: 0;
+  border: none;
+  background-color: #000;
+  line-height: 1;
+}
+
+@supports not (aspect-ratio: 1 / 1) {
+  .elementor-widget-video .elementor-wrapper {
+    position: relative;
+    overflow: hidden;
+    height: 0;
+    padding-bottom: calc(100% / var(--video-aspect-ratio));
+  }
+
+  .elementor-widget-video .elementor-wrapper iframe,
+  .elementor-widget-video .elementor-wrapper video {
+    position: absolute;
+    inset: 0;
+  }
+}
+
+.elementor-widget-video .e-hosted-video .elementor-video {
+  object-fit: cover;
+}
+
+/* The picture over the player, and the play icon on it. */
+.elementor-widget-video .elementor-open-inline .elementor-custom-embed-image-overlay {
+  position: absolute;
+  inset: 0;
+  background-position: 50%;
+  background-size: cover;
+}
+
+.elementor-widget-video .elementor-custom-embed-image-overlay {
+  cursor: pointer;
+  text-align: center;
+}
+
+.elementor-widget-video .elementor-custom-embed-image-overlay:hover .elementor-custom-embed-play i,
+.elementor-widget-video .elementor-custom-embed-image-overlay:hover .elementor-custom-embed-play svg {
+  opacity: 1;
+}
+
+.elementor-widget-video .elementor-custom-embed-image-overlay img {
+  display: block;
+  width: 100%;
+  aspect-ratio: var(--video-aspect-ratio);
+  object-fit: cover;
+  object-position: center center;
+}
+
+.elementor-widget-video .elementor-custom-embed-play {
+  position: absolute;
+  inset-block-start: 50%;
+  inset-inline-start: 50%;
+  transform: translate(calc(-50% * var(--direction-multiplier, 1)), -50%);
+}
+
+.elementor-widget-video .elementor-custom-embed-play i {
+  color: #fff;
+  font-size: 100px;
+  text-shadow: 1px 0 6px rgba(0, 0, 0, 0.3);
+}
+
+.elementor-widget-video .elementor-custom-embed-play svg {
+  width: 100px;
+  height: 100px;
+  fill: #fff;
+  filter: drop-shadow(1px 0 6px rgba(0, 0, 0, 0.3));
+}
+
+.elementor-widget-video .elementor-custom-embed-play i,
+.elementor-widget-video .elementor-custom-embed-play svg {
+  opacity: 0.8;
+  transition: all 0.5s;
+}
+
+/* The lightbox: the video over a dark backdrop, the close button at the top. */
+.dialog-prevent-scroll {
+  overflow: hidden;
+  max-height: 100vh;
+}
+
+.elementor-lightbox.dialog-type-lightbox {
+  --lightbox-ui-color: rgba(238, 238, 238, 0.9);
+  --lightbox-ui-color-hover: #fff;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  z-index: 9999;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  user-select: none;
+}
+
+.elementor-lightbox .dialog-widget-content {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: none;
+  box-shadow: none;
+}
+
+.elementor-lightbox .dialog-message {
+  box-sizing: border-box;
+  height: 100%;
+  padding: 0;
+  animation-duration: 0.3s;
+  line-height: 1.5;
+}
+
+.elementor-lightbox .dialog-lightbox-close-button {
+  position: absolute;
+  inset-inline-end: 0.75em;
+  z-index: 2;
+  display: flex;
+  margin-top: 13px;
+  padding: 0.25em;
+  color: var(--lightbox-ui-color);
+  font-size: 20px;
+  line-height: 1;
+  cursor: pointer;
+  opacity: 1;
+  transition: all 0.3s;
+}
+
+.elementor-lightbox .dialog-lightbox-close-button svg {
+  width: 1em;
+  height: 1em;
+  fill: var(--lightbox-ui-color);
+}
+
+.elementor-lightbox .dialog-lightbox-close-button:hover {
+  color: var(--lightbox-ui-color-hover);
+}
+
+.elementor-lightbox .dialog-lightbox-close-button:hover svg {
+  fill: var(--lightbox-ui-color-hover);
+}
+
+.elementor-lightbox .elementor-video-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  transform: translate(-50%, -50%);
+}
+
+.elementor-lightbox .elementor-video-container .elementor-video-square,
+.elementor-lightbox .elementor-video-container .elementor-video-landscape,
+.elementor-lightbox .elementor-video-container .elementor-video-portrait {
+  width: 100%;
+  height: 100%;
+  margin: auto;
+}
+
+.elementor-lightbox .elementor-video-container iframe,
+.elementor-lightbox .elementor-video-container video {
+  max-width: 100%;
+  margin: 0;
+  border: 0;
+  background-color: #000;
+  aspect-ratio: var(--video-aspect-ratio, 1.77777);
+}
+
+.elementor-lightbox .elementor-video-container .elementor-video-square iframe,
+.elementor-lightbox .elementor-video-container .elementor-video-square video {
+  width: min(90vh, 90vw);
+  height: min(90vh, 90vw);
+}
+
+.elementor-lightbox .elementor-video-container .elementor-video-landscape iframe,
+.elementor-lightbox .elementor-video-container .elementor-video-landscape video {
+  width: 100%;
+  height: auto;
+  max-height: 90vh;
+}
+
+.elementor-lightbox .elementor-video-container .elementor-video-portrait iframe,
+.elementor-lightbox .elementor-video-container .elementor-video-portrait video {
+  max-width: 90vw;
+  height: 100%;
+}
+
+@media (min-width: 1025px) {
+  .elementor-lightbox .elementor-video-container .elementor-video-landscape {
+    width: 85vw;
+    max-height: 85vh;
+  }
+
+  .elementor-lightbox .elementor-video-container .elementor-video-portrait {
+    max-width: 85vw;
+    height: 85vh;
+  }
+}
+
+@media (max-width: 1024px) {
+  .elementor-lightbox .elementor-video-container .elementor-video-landscape {
+    width: 95vw;
+    max-height: 95vh;
+  }
+
+  .elementor-lightbox .elementor-video-container .elementor-video-portrait {
+    max-width: 95vw;
+    height: 95vh;
+  }
+}

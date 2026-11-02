@@ -26,6 +26,22 @@
 		"icon": {
 			"type": "string",
 			"default": ""
+		},
+		"link": {
+			"type": "string",
+			"default": ""
+		},
+		"linkTarget": {
+			"type": "string",
+			"default": ""
+		},
+		"linkRel": {
+			"type": "string",
+			"default": ""
+		},
+		"style": {
+			"type": "object",
+			"default": {}
 		}
 	},
 	"supports": {

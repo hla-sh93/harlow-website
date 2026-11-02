@@ -1,0 +1,51 @@
+{
+	"parts": [
+		{
+			"key": "alert",
+			"label": "Alert",
+			"selector": " .elementor-alert",
+			"controls": [
+				"background",
+				"border",
+				"padding",
+				"shadow"
+			]
+		},
+		{
+			"key": "title",
+			"label": "Title",
+			"selector": " .elementor-alert-title",
+			"controls": [
+				"color",
+				"typography",
+				"textShadow"
+			]
+		},
+		{
+			"key": "description",
+			"label": "Description",
+			"selector": " .elementor-alert-description",
+			"controls": [
+				"color",
+				"typography",
+				"textShadow"
+			]
+		},
+		{
+			"key": "dismiss",
+			"label": "Dismiss Icon",
+			"selector": " .elementor-alert-dismiss",
+			"controls": [
+				"icon",
+				"padding",
+				"transform"
+			],
+			"states": {
+				"hover": {
+					"label": "Hover",
+					"selector": " .elementor-alert-dismiss:hover"
+				}
+			}
+		}
+	]
+}

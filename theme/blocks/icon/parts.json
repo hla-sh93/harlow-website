@@ -1,0 +1,31 @@
+{
+	"parts": [
+		{
+			"key": "icon",
+			"label": "Icon box",
+			"selector": " .elementor-icon",
+			"controls": [
+				"icon",
+				"background",
+				"padding",
+				"border",
+				"shadow",
+				"transform"
+			],
+			"states": {
+				"hover": {
+					"label": "Hover",
+					"selector": " .elementor-icon:hover"
+				}
+			}
+		},
+		{
+			"key": "wrapper",
+			"label": "Icon place",
+			"selector": " .elementor-icon-wrapper",
+			"controls": [
+				"align"
+			]
+		}
+	]
+}

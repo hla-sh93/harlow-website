@@ -1,0 +1,39 @@
+/*
+ * The page's title (theme-page-title): Elementor's heading widget, as it draws one before it is styled: the
+ * kit's primary colour and font, and the heading sizes the Size setting names.
+ */
+
+/* The title */
+.elementor-widget-theme-page-title .elementor-heading-title {
+  color: var(--e-global-color-primary);
+  font-family: var(--e-global-typography-primary-font-family), Sans-serif;
+  font-weight: var(--e-global-typography-primary-font-weight);
+}
+
+/* A linked title keeps the title's look */
+.elementor-widget-theme-page-title .elementor-heading-title > a {
+  color: inherit;
+  font-size: inherit;
+  line-height: inherit;
+}
+
+/* The sizes */
+.elementor-widget-theme-page-title .elementor-heading-title.elementor-size-small {
+  font-size: 15px;
+}
+
+.elementor-widget-theme-page-title .elementor-heading-title.elementor-size-medium {
+  font-size: 19px;
+}
+
+.elementor-widget-theme-page-title .elementor-heading-title.elementor-size-large {
+  font-size: 29px;
+}
+
+.elementor-widget-theme-page-title .elementor-heading-title.elementor-size-xl {
+  font-size: 39px;
+}
+
+.elementor-widget-theme-page-title .elementor-heading-title.elementor-size-xxl {
+  font-size: 59px;
+}

@@ -88,6 +88,8 @@ function harlow_install_units( $step ) {
 			return count( harlow_site_data( 'media.json' )['media'] );
 		case 'items':
 			return count( harlow_site_data( 'items.json' )['items'] ) + 1; // The categories, then each item.
+		case 'shared':
+			return 1 + count( harlow_single_templates() ); // The major clients, then each item page template.
 		default:
 			return 1;
 	}
@@ -121,13 +123,19 @@ function harlow_install_start( $options = array() ) {
 		'rounds'  => 0,
 		'done'    => false,
 		'fresh'   => array(),
-		'report'  => array_fill_keys(
-			array( 'pages_made', 'pages_found', 'ids_kept', 'filled', 'replaced', 'media_made', 'media_found', 'files', 'forms_made', 'forms_found', 'posts_made', 'posts_found', 'menus_made', 'menus_kept', 'items_made', 'shared', 'seo' ),
-			0
-		),
+		'report'  => array_fill_keys( harlow_install_counts(), 0 ),
 	);
 	update_option( 'harlow_install_run', $run, false );
 	return $run;
+}
+
+/**
+ * What a run counts.
+ *
+ * @return string[]
+ */
+function harlow_install_counts() {
+	return array( 'pages_made', 'pages_found', 'ids_kept', 'filled', 'replaced', 'media_made', 'media_found', 'files', 'forms_made', 'forms_found', 'posts_made', 'posts_found', 'menus_made', 'menus_kept', 'items_made', 'shared', 'singles', 'seo' );
 }
 
 /**
@@ -246,7 +254,11 @@ function harlow_install_unit( $step, $n, &$run ) {
 			}
 			break;
 		case 'shared':
-			harlow_install_shared_sections( $options['restore'], $run['report'] );
+			if ( 0 === $n ) {
+				harlow_install_shared_sections( $options['restore'], $run['report'] );
+			} else {
+				harlow_install_single_template( array_keys( harlow_single_templates() )[ $n - 1 ], $options['restore'], $run['report'] );
+			}
 			break;
 		case 'blocks':
 			$page = $data['pages'][ $n ];
@@ -505,6 +517,8 @@ function harlow_install_picture( $picture, &$report ) {
 			'import_id'      => get_post( $id ) ? 0 : $id,
 			'post_mime_type' => $picture['mime'],
 			'post_title'     => $picture['title'],
+			// Live's slug: one made from the title can be a post's (a featured picture titled as its post).
+			'post_name'      => isset( $picture['slug'] ) ? $picture['slug'] : '',
 			'post_status'    => 'inherit',
 			'post_date'      => str_replace( 'T', ' ', $picture['date'] ),
 			'guid'           => $uploads['baseurl'] . '/' . $picture['file'],
@@ -1146,6 +1160,58 @@ function harlow_install_shared_sections( $restore, &$report ) {
 }
 
 /**
+ * An item page template (live's single template for a type, theme/singles/) as a synced
+ * pattern the owner edits in Appearance → Patterns, found by its original: made with the
+ * theme's blocks, left as the owner made it, the theme's blocks put back with --restore.
+ * It carries the stylesheet documents its template loads, for the editor's canvas.
+ *
+ * @param string            $name    The template (single-project, ...).
+ * @param bool              $restore Put the theme's blocks back over the owner's.
+ * @param array<string,int> $report  Counts, updated.
+ */
+function harlow_install_single_template( $name, $restore, &$report ) {
+	$file = get_theme_file_path( 'singles/' . $name . '.html' );
+	if ( ! file_exists( $file ) ) {
+		return;
+	}
+	$blocks    = harlow_with_shared_section( (string) file_get_contents( $file ) ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents -- a file inside the theme.
+	$documents = harlow_kinds()['singles'][ $name ]['documents'] ?? array();
+	$id        = harlow_single_template_id( $name );
+	if ( $id ) {
+		add_post_meta( $id, '_harlow_documents', $documents, true );
+		if ( $restore ) {
+			wp_update_post(
+				wp_slash(
+					array(
+						'ID'           => $id,
+						'post_content' => $blocks,
+					)
+				)
+			);
+			++$report['singles'];
+		}
+		return;
+	}
+	$id = wp_insert_post(
+		wp_slash(
+			array(
+				'post_type'    => 'wp_block',
+				'post_status'  => 'publish',
+				'post_author'  => harlow_install_author(),
+				'post_title'   => harlow_single_templates()[ $name ],
+				'post_content' => $blocks,
+			)
+		),
+		true
+	);
+	if ( ! is_wp_error( $id ) ) {
+		update_post_meta( $id, '_harlow_original', $name );
+		update_post_meta( $id, '_harlow_documents', $documents );
+		++$report['singles'];
+	}
+}
+
+/**
  * `wp harlow install [--restore]`: install the site and say what was done.
  *
  * @param string[]             $args       Positional arguments (none).
@@ -1163,8 +1229,10 @@ function harlow_cli_install( $args = array(), $assoc_args = array() ) {
  * @return string
  */
 function harlow_install_summary( $report ) {
+	// A run recorded before a count was added does not have it.
+	$report = wp_parse_args( $report, array_fill_keys( harlow_install_counts(), 0 ) );
 	return sprintf(
-		'pages: %d made (%d with live\'s id), %d found, %d filled with their blocks (%d replaced, kept as revisions); pictures: %d made (%d files), %d found; forms: %d made, %d found; items: %d made, %d found; menus: %d made (%d items), %d kept; the major clients\' pattern: %d made or put back; SEO: %d pages and items given theirs',
+		'pages: %d made (%d with live\'s id), %d found, %d filled with their blocks (%d replaced, kept as revisions); pictures: %d made (%d files), %d found; forms: %d made, %d found; items: %d made, %d found; menus: %d made (%d items), %d kept; the major clients\' pattern: %d made or put back; item page templates: %d made or put back; SEO: %d pages and items given theirs',
 		$report['pages_made'],
 		$report['ids_kept'],
 		$report['pages_found'],
@@ -1181,6 +1249,7 @@ function harlow_install_summary( $report ) {
 		$report['items_made'],
 		$report['menus_kept'],
 		$report['shared'],
+		$report['singles'],
 		$report['seo']
 	);
 }

@@ -1,0 +1,64 @@
+{
+	"parts": [
+		{
+			"key": "grid",
+			"label": "Grid",
+			"selector": " .elementor-loop-container",
+			"controls": [
+				"columns",
+				"gap"
+			]
+		},
+		{
+			"key": "arrows",
+			"label": "Arrows",
+			"selector": " .elementor-swiper-button",
+			"controls": [
+				"icon",
+				"background",
+				"padding",
+				"border"
+			],
+			"states": {
+				"hover": {
+					"label": "Hover",
+					"selector": " .elementor-swiper-button:hover"
+				}
+			}
+		},
+		{
+			"key": "dots",
+			"label": "Dots",
+			"selector": " .swiper-pagination-bullet",
+			"controls": [
+				"background",
+				"size",
+				"margin"
+			],
+			"states": {
+				"active": {
+					"label": "Active",
+					"selector": " .swiper-pagination-bullet-active"
+				}
+			}
+		},
+		{
+			"key": "pager",
+			"label": "Page numbers",
+			"selector": " .elementor-pagination .page-numbers",
+			"controls": [
+				"color",
+				"typography",
+				"textShadow",
+				"padding",
+				"background"
+			],
+			"states": {
+				"active": {
+					"label": "Current",
+					"selector": " .elementor-pagination .page-numbers.current"
+				}
+			}
+		}
+	]
+}

@@ -15,6 +15,9 @@ import {
 	IconPicker,
 	LinkFields,
 	linkUrl,
+	PicturePicker,
+	pictureStyle,
+	usePictureUrl,
 } from '../../editor/shared';
 
 export default function Edit( { attributes, setAttributes } ) {
@@ -28,7 +31,9 @@ export default function Edit( { attributes, setAttributes } ) {
 		linkTarget,
 		linkRel,
 		linkId,
+		picture,
 	} = attributes;
+	const pictureUrl = usePictureUrl( picture );
 	const blockProps = useBlockProps(
 		elementProps( attributes, 'widget', 'button.default' )
 	);
@@ -89,10 +94,24 @@ export default function Edit( { attributes, setAttributes } ) {
 						}
 					/>
 				</PanelBody>
+				<PanelBody
+					title={ __( 'Background', 'harlow' ) }
+					initialOpen={ false }
+				>
+					<PicturePicker
+						label={ __( 'Background picture', 'harlow' ) }
+						value={ picture }
+						onChange={ ( id ) => setAttributes( { picture: id } ) }
+						none={ __( 'Default', 'harlow' ) }
+					/>
+				</PanelBody>
 			</InspectorControls>
 			<div { ...blockProps }>
 				{ '\n' }
-				<div className="elementor-widget-container">
+				<div
+					className="elementor-widget-container"
+					style={ pictureStyle( pictureUrl ) }
+				>
 					{ '\n' }
 					<div className="elementor-button-wrapper">
 						{ '\n' }

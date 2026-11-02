@@ -1,0 +1,51 @@
+/*
+ * Spacer (Elementor's spacer widget): an empty box as tall as its space. The space of each
+ * device is a custom property of the element (--harlow-spacer, -tablet, -mobile), turned
+ * here into Elementor's --spacer-size; a device without its own takes the larger one's.
+ */
+
+/* The space, per device */
+.elementor-widget-spacer {
+  --spacer-size: var(--harlow-spacer, 50px);
+}
+
+@media (max-width: 1024px) {
+  .elementor-widget-spacer {
+    --spacer-size: var(--harlow-spacer-tablet, var(--harlow-spacer, 50px));
+  }
+}
+
+@media (max-width: 767px) {
+  .elementor-widget-spacer {
+    --spacer-size: var(--harlow-spacer-mobile, var(--harlow-spacer-tablet, var(--harlow-spacer, 50px)));
+  }
+}
+
+/* The box */
+.elementor-spacer-inner {
+  height: var(--spacer-size);
+}
+
+/* In a container: as wide as the container allows, never shrunk */
+.e-con-inner > .elementor-widget-spacer,
+.e-con > .elementor-widget-spacer {
+  width: var(--container-widget-width, var(--spacer-size));
+  --align-self: var(--container-widget-align-self, initial);
+  --flex-shrink: 0;
+}
+
+.e-con-inner > .elementor-widget-spacer > .elementor-widget-container,
+.e-con > .elementor-widget-spacer > .elementor-widget-container {
+  height: 100%;
+  width: 100%;
+}
+
+.e-con-inner > .elementor-widget-spacer > .elementor-widget-container > .elementor-spacer,
+.e-con > .elementor-widget-spacer > .elementor-widget-container > .elementor-spacer {
+  height: 100%;
+}
+
+.e-con-inner > .elementor-widget-spacer > .elementor-widget-container > .elementor-spacer > .elementor-spacer-inner,
+.e-con > .elementor-widget-spacer > .elementor-widget-container > .elementor-spacer > .elementor-spacer-inner {
+  height: var(--container-widget-height, var(--spacer-size));
+}

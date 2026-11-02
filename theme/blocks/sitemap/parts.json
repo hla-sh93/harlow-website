@@ -1,0 +1,60 @@
+{
+	"parts": [
+		{
+			"key": "section",
+			"label": "Sections",
+			"selector": " .elementor-sitemap-section",
+			"controls": [
+				"padding",
+				"margin",
+				"background",
+				"border"
+			]
+		},
+		{
+			"key": "title",
+			"label": "Title",
+			"selector": " .elementor-sitemap-title",
+			"controls": [
+				"color",
+				"typography",
+				"textShadow",
+				"margin",
+				"align"
+			]
+		},
+		{
+			"key": "list",
+			"label": "List",
+			"selector": " .elementor-sitemap-list| .elementor-sitemap-list .children",
+			"controls": [
+				"padding",
+				"margin"
+			]
+		},
+		{
+			"key": "item",
+			"label": "List item",
+			"selector": " .elementor-sitemap-item| .elementor-sitemap-item > a",
+			"controls": [
+				"color",
+				"typography",
+				"padding"
+			],
+			"states": {
+				"hover": {
+					"label": "Hover",
+					"selector": " .elementor-sitemap-item > a:hover"
+				}
+			}
+		},
+		{
+			"key": "bullet",
+			"label": "Bullet",
+			"selector": " .elementor-sitemap-item::marker",
+			"controls": [
+				"color"
+			]
+		}
+	]
+}

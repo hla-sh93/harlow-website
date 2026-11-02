@@ -1,0 +1,136 @@
+{
+	"parts": [
+		{
+			"key": "front",
+			"label": "Front (background, border)",
+			"selector": " .elementor-flip-box__front",
+			"controls": [
+				"background",
+				"border",
+				"shadow"
+			]
+		},
+		{
+			"key": "frontOverlay",
+			"label": "Front (alignment, padding, overlay)",
+			"selector": " .elementor-flip-box__front .elementor-flip-box__layer__overlay",
+			"controls": [
+				"align",
+				"padding",
+				"background"
+			]
+		},
+		{
+			"key": "frontImage",
+			"label": "Front image",
+			"selector": " .elementor-flip-box__image img",
+			"controls": [
+				"size",
+				"border",
+				"opacity"
+			]
+		},
+		{
+			"key": "frontGraphicSpacing",
+			"label": "Front graphic spacing",
+			"selector": " .elementor-flip-box__image| .elementor-flip-box__front .elementor-icon-wrapper",
+			"controls": [
+				"margin"
+			]
+		},
+		{
+			"key": "frontIcon",
+			"label": "Front icon",
+			"selector": " .elementor-flip-box__front .elementor-icon",
+			"controls": [
+				"icon",
+				"background",
+				"padding",
+				"border",
+				"transform"
+			]
+		},
+		{
+			"key": "frontTitle",
+			"label": "Front title",
+			"selector": " .elementor-flip-box__front .elementor-flip-box__layer__title",
+			"controls": [
+				"color",
+				"typography",
+				"textShadow",
+				"margin"
+			]
+		},
+		{
+			"key": "frontDescription",
+			"label": "Front description",
+			"selector": " .elementor-flip-box__front .elementor-flip-box__layer__description",
+			"controls": [
+				"color",
+				"typography",
+				"textShadow"
+			]
+		},
+		{
+			"key": "back",
+			"label": "Back (background, border)",
+			"selector": " .elementor-flip-box__back",
+			"controls": [
+				"background",
+				"border",
+				"shadow"
+			]
+		},
+		{
+			"key": "backOverlay",
+			"label": "Back (alignment, padding, overlay)",
+			"selector": " .elementor-flip-box__back .elementor-flip-box__layer__overlay",
+			"controls": [
+				"align",
+				"padding",
+				"background"
+			]
+		},
+		{
+			"key": "backTitle",
+			"label": "Back title",
+			"selector": " .elementor-flip-box__back .elementor-flip-box__layer__title",
+			"controls": [
+				"color",
+				"typography",
+				"textShadow",
+				"margin"
+			]
+		},
+		{
+			"key": "backDescription",
+			"label": "Back description",
+			"selector": " .elementor-flip-box__back .elementor-flip-box__layer__description",
+			"controls": [
+				"color",
+				"typography",
+				"textShadow",
+				"margin"
+			]
+		},
+		{
+			"key": "button",
+			"label": "Button",
+			"selector": " .elementor-flip-box__button",
+			"controls": [
+				"color",
+				"typography",
+				"background",
+				"padding",
+				"border",
+				"shadow"
+			],
+			"states": {
+				"hover": {
+					"label": "Hover",
+					"selector": " .elementor-flip-box__button:hover"
+				}
+			}
+		}
+	]
+}

@@ -175,3 +175,651 @@ e-page-transition .e-page-transition--preloader {
 .cookie-modal-lock {
   overflow: hidden;
 }
+
+/*
+ * The entrance animations Elementor offers beyond the seven live's pages use (those are in
+ * animations.css, from live): Animate.css's keyframes, as Elementor's library has them, for
+ * the Styles tab's Motion (assets/js/reveal.js adds "animated <name>").
+ */
+@keyframes zoomIn {
+  from {
+    opacity: 0;
+    transform: scale3d(0.3, 0.3, 0.3);
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+.zoomIn {
+  animation-name: zoomIn;
+}
+
+@keyframes bounceIn {
+  from, 20%, 40%, 60%, 80%, to {
+    animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+  }
+  0% {
+    opacity: 0;
+    transform: scale3d(0.3, 0.3, 0.3);
+  }
+  20% {
+    transform: scale3d(1.1, 1.1, 1.1);
+  }
+  40% {
+    transform: scale3d(0.9, 0.9, 0.9);
+  }
+  60% {
+    opacity: 1;
+    transform: scale3d(1.03, 1.03, 1.03);
+  }
+  80% {
+    transform: scale3d(0.97, 0.97, 0.97);
+  }
+  to {
+    opacity: 1;
+    transform: scale3d(1, 1, 1);
+  }
+}
+
+.bounceIn {
+  animation-name: bounceIn;
+}
+
+@keyframes slideInUp {
+  from {
+    transform: translate3d(0, 100%, 0);
+    visibility: visible;
+  }
+  to {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.slideInUp {
+  animation-name: slideInUp;
+}
+
+@keyframes slideInDown {
+  from {
+    transform: translate3d(0, -100%, 0);
+    visibility: visible;
+  }
+  to {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.slideInDown {
+  animation-name: slideInDown;
+}
+
+@keyframes flipInX {
+  from {
+    transform: perspective(400px) rotate3d(1, 0, 0, 90deg);
+    animation-timing-function: ease-in;
+    opacity: 0;
+  }
+  40% {
+    transform: perspective(400px) rotate3d(1, 0, 0, -20deg);
+    animation-timing-function: ease-in;
+  }
+  60% {
+    transform: perspective(400px) rotate3d(1, 0, 0, 10deg);
+    opacity: 1;
+  }
+  80% {
+    transform: perspective(400px) rotate3d(1, 0, 0, -5deg);
+  }
+  to {
+    transform: perspective(400px);
+  }
+}
+
+.flipInX {
+  backface-visibility: visible;
+  animation-name: flipInX;
+}
+
+@keyframes flipInY {
+  from {
+    transform: perspective(400px) rotate3d(0, 1, 0, 90deg);
+    animation-timing-function: ease-in;
+    opacity: 0;
+  }
+  40% {
+    transform: perspective(400px) rotate3d(0, 1, 0, -20deg);
+    animation-timing-function: ease-in;
+  }
+  60% {
+    transform: perspective(400px) rotate3d(0, 1, 0, 10deg);
+    opacity: 1;
+  }
+  80% {
+    transform: perspective(400px) rotate3d(0, 1, 0, -5deg);
+  }
+  to {
+    transform: perspective(400px);
+  }
+}
+
+.flipInY {
+  backface-visibility: visible;
+  animation-name: flipInY;
+}
+
+@keyframes rotateIn {
+  from {
+    transform-origin: center;
+    transform: rotate3d(0, 0, 1, -200deg);
+    opacity: 0;
+  }
+  to {
+    transform-origin: center;
+    transform: translate3d(0, 0, 0);
+    opacity: 1;
+  }
+}
+
+.rotateIn {
+  animation-name: rotateIn;
+}
+
+@keyframes lightSpeedIn {
+  from {
+    transform: translate3d(100%, 0, 0) skewX(-30deg);
+    opacity: 0;
+  }
+  60% {
+    transform: skewX(20deg);
+    opacity: 1;
+  }
+  80% {
+    transform: skewX(-5deg);
+  }
+  to {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.lightSpeedIn {
+  animation-name: lightSpeedIn;
+  animation-timing-function: ease-out;
+}
+
+@keyframes rollIn {
+  from {
+    opacity: 0;
+    transform: translate3d(-100%, 0, 0) rotate3d(0, 0, 1, -120deg);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.rollIn {
+  animation-name: rollIn;
+}
+
+/*
+ * Hover animations (an element's Motion → Hover animation): the keyframes the per-element
+ * rules name (theme/editor/hover-animations.json).
+ */
+@keyframes harlow-hover-pulse {
+  25% { transform: scale(1.1); }
+  75% { transform: scale(0.9); }
+}
+
+@keyframes harlow-hover-pulse-grow {
+  to { transform: scale(1.1); }
+}
+
+@keyframes harlow-hover-pulse-shrink {
+  to { transform: scale(0.9); }
+}
+
+@keyframes harlow-hover-push {
+  50% { transform: scale(0.8); }
+  100% { transform: scale(1); }
+}
+
+@keyframes harlow-hover-pop {
+  50% { transform: scale(1.2); }
+}
+
+@keyframes harlow-hover-bob-float {
+  100% { transform: translateY(-8px); }
+}
+
+@keyframes harlow-hover-bob {
+  0% { transform: translateY(-8px); }
+  50% { transform: translateY(-4px); }
+  100% { transform: translateY(-8px); }
+}
+
+@keyframes harlow-hover-hang-sink {
+  100% { transform: translateY(8px); }
+}
+
+@keyframes harlow-hover-hang {
+  0% { transform: translateY(8px); }
+  50% { transform: translateY(4px); }
+  100% { transform: translateY(8px); }
+}
+
+@keyframes harlow-hover-wobble-vertical {
+  16.65% { transform: translateY(8px); }
+  33.3% { transform: translateY(-6px); }
+  49.95% { transform: translateY(4px); }
+  66.6% { transform: translateY(-2px); }
+  83.25% { transform: translateY(1px); }
+  100% { transform: translateY(0); }
+}
+
+@keyframes harlow-hover-wobble-horizontal {
+  16.65% { transform: translateX(8px); }
+  33.3% { transform: translateX(-6px); }
+  49.95% { transform: translateX(4px); }
+  66.6% { transform: translateX(-2px); }
+  83.25% { transform: translateX(1px); }
+  100% { transform: translateX(0); }
+}
+
+@keyframes harlow-hover-wobble-to-bottom-right {
+  16.65% { transform: translate(8px, 8px); }
+  33.3% { transform: translate(-6px, -6px); }
+  49.95% { transform: translate(4px, 4px); }
+  66.6% { transform: translate(-2px, -2px); }
+  83.25% { transform: translate(1px, 1px); }
+  100% { transform: translate(0, 0); }
+}
+
+@keyframes harlow-hover-wobble-to-top-right {
+  16.65% { transform: translate(8px, -8px); }
+  33.3% { transform: translate(-6px, 6px); }
+  49.95% { transform: translate(4px, -4px); }
+  66.6% { transform: translate(-2px, 2px); }
+  83.25% { transform: translate(1px, -1px); }
+  100% { transform: translate(0, 0); }
+}
+
+@keyframes harlow-hover-wobble-skew {
+  16.65% { transform: skew(-12deg); }
+  33.3% { transform: skew(10deg); }
+  49.95% { transform: skew(-6deg); }
+  66.6% { transform: skew(4deg); }
+  83.25% { transform: skew(-2deg); }
+  100% { transform: skew(0); }
+}
+
+@keyframes harlow-hover-buzz {
+  50% { transform: translateX(3px) rotate(2deg); }
+  100% { transform: translateX(-3px) rotate(-2deg); }
+}
+
+@keyframes harlow-hover-buzz-out {
+  10%, 50%, 90% { transform: translateX(3px) rotate(2deg); }
+  20%, 60%, 100% { transform: translateX(-3px) rotate(-2deg); }
+  30%, 70% { transform: translateX(3px) rotate(2deg); }
+  40%, 80% { transform: translateX(-3px) rotate(-2deg); }
+}
+
+/*
+ * Shape dividers at a container's top and bottom (container.php prints them from the
+ * owner's style; their size, colour and flip are the element's own rules).
+ */
+.elementor-shape {
+  direction: ltr;
+  left: 0;
+  line-height: 0;
+  overflow: hidden;
+  position: absolute;
+  width: 100%;
+  pointer-events: none;
+}
+
+.elementor-shape-top {
+  top: -1px;
+}
+
+.elementor-shape-bottom {
+  bottom: -1px;
+  transform: rotate(180deg);
+}
+
+.elementor-shape svg {
+  display: block;
+  left: 50%;
+  position: relative;
+  transform: translateX(-50%);
+  width: calc(100% + 1.3px);
+  height: 50px;
+}
+
+.elementor-shape .elementor-shape-fill {
+  fill: #fff;
+}
+
+.elementor-shape[data-front="true"] {
+  z-index: 2;
+}
+
+/*
+ * A container's background slideshow (assets/js/slideshow.js): the slides lie on top of one
+ * another and the one showing is "is-active"; how one gives way to the next and the slow
+ * zoom (Ken Burns) are its classes.
+ */
+.elementor-background-slideshow {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  z-index: 0;
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+.elementor-background-slideshow::before {
+  content: var(--background-overlay);
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  mix-blend-mode: var(--overlay-mix-blend-mode);
+  opacity: var(--overlay-opacity);
+}
+
+.elementor-background-slideshow__slide {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition-property: opacity, transform;
+  transition-duration: var(--harlow-slide-transition, 500ms);
+  transition-timing-function: ease-in-out;
+}
+
+.elementor-background-slideshow__slide.is-active {
+  opacity: 1;
+  z-index: 1;
+}
+
+.elementor-background-slideshow[data-transition^="slide"] .elementor-background-slideshow__slide {
+  opacity: 1;
+}
+
+.elementor-background-slideshow[data-transition="slide_left"] .elementor-background-slideshow__slide { transform: translateX(100%); }
+.elementor-background-slideshow[data-transition="slide_right"] .elementor-background-slideshow__slide { transform: translateX(-100%); }
+.elementor-background-slideshow[data-transition="slide_up"] .elementor-background-slideshow__slide { transform: translateY(100%); }
+.elementor-background-slideshow[data-transition="slide_down"] .elementor-background-slideshow__slide { transform: translateY(-100%); }
+
+.elementor-background-slideshow[data-transition^="slide"] .elementor-background-slideshow__slide.is-active {
+  transform: none;
+}
+
+.elementor-background-slideshow[data-transition^="slide"] .elementor-background-slideshow__slide.was-active {
+  opacity: 1;
+}
+
+.elementor-background-slideshow__slide__image {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+
+.elementor-ken-burns {
+  transition-property: transform;
+  transition-duration: 10s;
+  transition-timing-function: linear;
+}
+
+.elementor-ken-burns--out {
+  transform: scale(1.3);
+}
+
+.elementor-ken-burns--in.elementor-ken-burns--active {
+  transform: scale(1.3);
+}
+
+.elementor-ken-burns--out.elementor-ken-burns--active {
+  transform: scale(1);
+}
+
+/* A sticky element while it is held (assets/js/motion.js), and the room it leaves. */
+.elementor-sticky--active {
+  z-index: 99;
+}
+
+.harlow-sticky-spacer {
+  visibility: hidden;
+}
+
+/* A YouTube or Vimeo background video, centred and covering its box as a file does. */
+.elementor-background-video-embed {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: 0;
+  max-width: none;
+  pointer-events: none;
+}
+
+/* An icon drawn by its outline (the icon library's): its colour is its line's, never a fill. */
+.e-font-icon-svg[fill="none"] {
+  fill: none !important;
+  stroke: currentColor;
+}
+
+/*
+ * Popups made in the Theme Builder (assets/js/popup.js): a box over the page, at its
+ * position, over an overlay, with a close button.
+ */
+.harlow-popup {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.harlow-popup[hidden] {
+  display: none;
+}
+
+.harlow-popup--top, .harlow-popup--top-left, .harlow-popup--top-right { align-items: flex-start; }
+.harlow-popup--bottom, .harlow-popup--bottom-left, .harlow-popup--bottom-right { align-items: flex-end; }
+.harlow-popup--left, .harlow-popup--top-left, .harlow-popup--bottom-left { justify-content: flex-start; }
+.harlow-popup--right, .harlow-popup--top-right, .harlow-popup--bottom-right { justify-content: flex-end; }
+
+.harlow-popup__overlay {
+  position: absolute;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.8);
+  pointer-events: auto;
+}
+
+.harlow-popup__box {
+  position: relative;
+  width: 640px;
+  max-width: 100%;
+  max-height: 100vh;
+  overflow: auto;
+  background-color: #fff;
+  box-shadow: 2px 8px 23px 3px rgba(0, 0, 0, 0.2);
+  pointer-events: auto;
+  animation-duration: 0.6s;
+}
+
+.harlow-popup__close {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  z-index: 1;
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: #000;
+  font-size: 30px;
+  line-height: 30px;
+  cursor: pointer;
+}
+
+.harlow-popup-lock,
+.harlow-popup-lock body {
+  overflow: hidden;
+}
+
+/*
+ * Options of the site's widgets that its pages do not use, as Elementor draws them: an
+ * icon's view (stacked, framed) and shape; social icons' shape and columns; a divider's
+ * line style, its pattern, and the word or icon in its middle.
+ */
+.elementor-widget-icon.elementor-view-stacked .elementor-icon {
+  padding: 0.5em;
+  background-color: #69727d;
+  color: #fff;
+  fill: #fff;
+}
+
+.elementor-widget-icon.elementor-view-framed .elementor-icon {
+  padding: 0.5em;
+  color: #69727d;
+  border: 3px solid #69727d;
+  background-color: transparent;
+}
+
+.elementor-widget-icon.elementor-shape-circle .elementor-icon {
+  border-radius: 50%;
+}
+
+.elementor-widget-social-icons.elementor-shape-rounded .elementor-social-icon {
+  border-radius: 10%;
+}
+
+.elementor-widget-social-icons.elementor-shape-circle .elementor-social-icon {
+  border-radius: 50%;
+}
+
+.elementor-widget-social-icons.elementor-shape-square .elementor-social-icon {
+  border-radius: 0;
+}
+
+.elementor-widget-social-icons.elementor-grid-1 .elementor-social-icons-wrapper {
+  display: grid;
+  grid-template-columns: repeat(1, auto);
+}
+
+.elementor-widget-social-icons.elementor-grid-2 .elementor-social-icons-wrapper {
+  display: grid;
+  grid-template-columns: repeat(2, auto);
+}
+
+.elementor-widget-social-icons.elementor-grid-3 .elementor-social-icons-wrapper {
+  display: grid;
+  grid-template-columns: repeat(3, auto);
+}
+
+.elementor-widget-social-icons.elementor-grid-4 .elementor-social-icons-wrapper {
+  display: grid;
+  grid-template-columns: repeat(4, auto);
+}
+
+.elementor-widget-social-icons.elementor-grid-5 .elementor-social-icons-wrapper {
+  display: grid;
+  grid-template-columns: repeat(5, auto);
+}
+
+.elementor-widget-social-icons.elementor-grid-6 .elementor-social-icons-wrapper {
+  display: grid;
+  grid-template-columns: repeat(6, auto);
+}
+
+.harlow-divider-style-solid { --divider-border-style: solid !important; }
+.harlow-divider-style-double { --divider-border-style: double !important; }
+.harlow-divider-style-dotted { --divider-border-style: dotted !important; }
+.harlow-divider-style-dashed { --divider-border-style: dashed !important; }
+
+.elementor-widget-divider--view-line_text .elementor-divider-separator,
+.elementor-widget-divider--view-line_icon .elementor-divider-separator {
+  display: flex;
+  align-items: center;
+  border: 0 !important;
+}
+
+.elementor-widget-divider--view-line_text .elementor-divider-separator::before,
+.elementor-widget-divider--view-line_text .elementor-divider-separator::after,
+.elementor-widget-divider--view-line_icon .elementor-divider-separator::before,
+.elementor-widget-divider--view-line_icon .elementor-divider-separator::after {
+  content: "";
+  display: block;
+  flex-grow: 1;
+  border-block-start: var(--divider-border-width, 1px) var(--divider-border-style, solid) var(--divider-color, #0c0d0e);
+}
+
+.elementor-widget-divider--element-align-left .elementor-divider-separator::before,
+.elementor-widget-divider--element-align-right .elementor-divider-separator::after {
+  content: none;
+}
+
+.elementor-divider__element {
+  flex-shrink: 0;
+  margin: 0 var(--divider-element-spacing, 10px);
+}
+
+.elementor-widget-divider--element-align-left .elementor-divider__element { margin-left: 0; }
+.elementor-widget-divider--element-align-right .elementor-divider__element { margin-right: 0; }
+
+.elementor-divider__text {
+  font-size: 15px;
+  line-height: 1;
+  max-width: 95%;
+}
+
+.elementor-widget-divider .elementor-divider__element.elementor-icon {
+  font-size: var(--divider-icon-size, 20px);
+}
+
+/* A pattern in the line's place: the line's colour painted through the pattern's shape. */
+.harlow-divider-pattern .elementor-divider-separator {
+  border: 0 !important;
+  min-height: var(--divider-pattern-height, 24px);
+  background-color: var(--divider-color, #0c0d0e);
+  -webkit-mask-image: var(--divider-pattern-url);
+  mask-image: var(--divider-pattern-url);
+  -webkit-mask-size: var(--divider-pattern-size, 20px) 100%;
+  mask-size: var(--divider-pattern-size, 20px) 100%;
+  -webkit-mask-repeat: repeat-x;
+  mask-repeat: repeat-x;
+}
+.harlow-divider-pattern-curly { --divider-pattern-url: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' preserveAspectRatio='none' viewBox='0 0 20 24' fill='none' stroke='black' stroke-width='2'%3E%3Cpath d='M0 12 C5 2 10 2 10 12 S15 22 20 12'/%3E%3C/svg%3E"); }
+.harlow-divider-pattern-curved { --divider-pattern-url: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' preserveAspectRatio='none' viewBox='0 0 20 24' fill='none' stroke='black' stroke-width='2'%3E%3Cpath d='M0 6 Q10 22 20 6'/%3E%3C/svg%3E"); }
+.harlow-divider-pattern-slashes { --divider-pattern-url: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' preserveAspectRatio='none' viewBox='0 0 20 24' fill='none' stroke='black' stroke-width='2'%3E%3Cpath d='M4 22 L16 2'/%3E%3C/svg%3E"); }
+.harlow-divider-pattern-squared { --divider-pattern-url: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' preserveAspectRatio='none' viewBox='0 0 20 24' fill='none' stroke='black' stroke-width='2'%3E%3Cpath d='M0 18 H5 V6 H15 V18 H20'/%3E%3C/svg%3E"); }
+.harlow-divider-pattern-wavy { --divider-pattern-url: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' preserveAspectRatio='none' viewBox='0 0 20 24' fill='none' stroke='black' stroke-width='2'%3E%3Cpath d='M0 12 Q5 4 10 12 T20 12'/%3E%3C/svg%3E"); }
+.harlow-divider-pattern-zigzag { --divider-pattern-url: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' preserveAspectRatio='none' viewBox='0 0 20 24' fill='none' stroke='black' stroke-width='2'%3E%3Cpath d='M0 18 L10 6 L20 18'/%3E%3C/svg%3E"); }
+.harlow-divider-pattern-dots { --divider-pattern-url: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' preserveAspectRatio='none' viewBox='0 0 20 24' fill='none' stroke='black' stroke-width='2'%3E%3Ccircle cx='10' cy='12' r='3' fill='black' stroke='none'/%3E%3C/svg%3E"); }
+
+/*
+ * The page transition's movements (Site settings → Page transition): how the cover leaves
+ * a page that appears, how it comes over a page that is left, how the preloader moves.
+ */
+@keyframes harlow-transition-fade-in { from { opacity: 0; } to { opacity: 1; } }
+@keyframes harlow-transition-slide-out-up { from { transform: translateY(0); } to { transform: translateY(-100%); } }
+@keyframes harlow-transition-slide-out-down { from { transform: translateY(0); } to { transform: translateY(100%); } }
+@keyframes harlow-transition-slide-out-left { from { transform: translateX(0); } to { transform: translateX(-100%); } }
+@keyframes harlow-transition-slide-out-right { from { transform: translateX(0); } to { transform: translateX(100%); } }
+@keyframes harlow-transition-slide-in-up { from { transform: translateY(100%); } to { transform: translateY(0); } }
+@keyframes harlow-transition-slide-in-down { from { transform: translateY(-100%); } to { transform: translateY(0); } }
+@keyframes harlow-transition-slide-in-left { from { transform: translateX(100%); } to { transform: translateX(0); } }
+@keyframes harlow-transition-slide-in-right { from { transform: translateX(-100%); } to { transform: translateX(0); } }
+@keyframes harlow-transition-zoom-out { from { opacity: 1; transform: scale(1); } to { opacity: 0; transform: scale(1.5); } }
+@keyframes harlow-transition-zoom-in { from { opacity: 0; transform: scale(1.5); } to { opacity: 1; transform: scale(1); } }
+@keyframes harlow-preloader-spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+@keyframes harlow-preloader-pulse { 50% { transform: scale(0.85); opacity: 0.6; } }
+@keyframes harlow-preloader-bounce { 50% { transform: translateY(-20px); } }

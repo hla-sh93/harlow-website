@@ -74,6 +74,18 @@
 		"widgetType": {
 			"type": "string",
 			"default": "image.default"
+		},
+		"caption": {
+			"type": "string",
+			"default": ""
+		},
+		"captionText": {
+			"type": "string",
+			"default": ""
+		},
+		"style": {
+			"type": "object",
+			"default": {}
 		}
 	},
 	"supports": {

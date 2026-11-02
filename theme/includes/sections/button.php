@@ -26,7 +26,7 @@ if ( $attributes['hasIcon'] ) {
 }
 
 $harlow_html = '<div' . harlow_element_attributes( $attributes, 'widget', 'button.default' ) . '>' . "\n"
-	. '<div class="elementor-widget-container">' . "\n"
+	. '<div class="elementor-widget-container"' . harlow_picture_style( $attributes['picture'] ) . '>' . "\n"
 	. '<div class="elementor-button-wrapper">' . "\n"
 	. '<a class="' . esc_attr( $attributes['buttonClass'] ) . '"' . $harlow_link . '>' . "\n"
 	. '<span class="elementor-button-content-wrapper">' . "\n" . implode( "\n", $harlow_parts ) . "\n" . '</span>' . "\n"

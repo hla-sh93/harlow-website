@@ -1,0 +1,103 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "harlow/code-highlight",
+	"title": "Code Highlight",
+	"category": "text",
+	"description": "Code in a box, coloured by its language, with line numbers and a copy button.",
+	"textdomain": "harlow",
+	"attributes": {
+		"element": {
+			"type": "string",
+			"default": ""
+		},
+		"classes": {
+			"type": "string",
+			"default": ""
+		},
+		"settings": {
+			"type": "string",
+			"default": ""
+		},
+		"htmlId": {
+			"type": "string",
+			"default": ""
+		},
+		"language": {
+			"type": "string",
+			"default": "javascript"
+		},
+		"code": {
+			"type": "string",
+			"default": "console.log( 'Code is Poetry' );"
+		},
+		"lineNumbers": {
+			"type": "boolean",
+			"default": true
+		},
+		"copyToClipboard": {
+			"type": "boolean",
+			"default": true
+		},
+		"highlightLines": {
+			"type": "string",
+			"default": ""
+		},
+		"wordWrap": {
+			"type": "boolean",
+			"default": false
+		},
+		"theme": {
+			"type": "string",
+			"default": "default"
+		},
+		"height": {
+			"type": "string",
+			"default": ""
+		},
+		"heightTablet": {
+			"type": "string",
+			"default": ""
+		},
+		"heightMobile": {
+			"type": "string",
+			"default": ""
+		},
+		"heightUnit": {
+			"type": "string",
+			"default": "px"
+		},
+		"fontSize": {
+			"type": "string",
+			"default": ""
+		},
+		"fontSizeTablet": {
+			"type": "string",
+			"default": ""
+		},
+		"fontSizeMobile": {
+			"type": "string",
+			"default": ""
+		},
+		"fontSizeUnit": {
+			"type": "string",
+			"default": "px"
+		},
+		"style": {
+			"type": "object",
+			"default": {}
+		}
+	},
+	"supports": {
+		"html": false,
+		"className": false,
+		"customClassName": false
+	},
+	"example": {
+		"attributes": {
+			"element": "a1b2c3d",
+			"classes": "elementor-element elementor-widget elementor-widget-code-highlight"
+		}
+	},
+	"render": "file:../../includes/sections/code-highlight.php"
+}

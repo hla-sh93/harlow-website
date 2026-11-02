@@ -1,0 +1,493 @@
+/*
+ * Call to action (Elementor Pro's call to action widget): a picture and a content of a
+ * graphic, a title, words and a button. The classic skin (elementor-cta--skin-classic) puts
+ * the content in a grey box beside the picture (above it, at its left or at its right:
+ * elementor-cta--layout-image-*); the cover skin puts the content over the picture, in
+ * white, and moves it on hover (elementor-animated-item--*). The picture zooms or moves on
+ * hover (elementor-bg-transform-*); a ribbon may cross a top corner.
+ */
+
+/* The box */
+.elementor-cta {
+  position: relative;
+  display: flex;
+  overflow: hidden;
+  transition: 0.5s;
+}
+
+a.elementor-cta,
+a.elementor-cta:hover {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* The picture and its overlay */
+.elementor-cta__bg-wrapper {
+  z-index: 1;
+  overflow: hidden;
+}
+
+.elementor-cta__bg,
+.elementor-cta__bg-overlay {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  transition: all 0.4s;
+}
+
+.elementor-cta__bg {
+  z-index: 1;
+  background-position: 50%;
+  background-size: cover;
+}
+
+.elementor-cta__bg-overlay {
+  z-index: 2;
+}
+
+/* The content */
+.elementor-cta__content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-wrap: wrap;
+  align-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 35px;
+  overflow: hidden;
+  color: #fff;
+  text-align: center;
+}
+
+.elementor-cta__content-item {
+  position: relative;
+  width: 100%;
+  margin: 0;
+  transition: all 0.4s;
+}
+
+.elementor-cta__content-item:not(:last-child) {
+  margin-bottom: 15px;
+}
+
+.elementor-cta--valign-top .elementor-cta__content {
+  align-content: flex-start;
+  align-items: flex-start;
+}
+
+.elementor-cta--valign-middle .elementor-cta__content {
+  align-content: center;
+  align-items: center;
+}
+
+.elementor-cta--valign-bottom .elementor-cta__content {
+  align-content: flex-end;
+  align-items: flex-end;
+}
+
+/* The title, the words, the button: the kit's fonts */
+.elementor-cta__title {
+  font-size: 23px;
+}
+
+.elementor-widget-call-to-action .elementor-cta__title {
+  font-family: var(--e-global-typography-primary-font-family), Sans-serif;
+  font-weight: var(--e-global-typography-primary-font-weight);
+}
+
+.elementor-widget-call-to-action .elementor-cta__description {
+  font-family: var(--e-global-typography-text-font-family), Sans-serif;
+  font-weight: var(--e-global-typography-text-font-weight);
+}
+
+.elementor-cta__button.elementor-button {
+  align-self: center;
+  margin-left: auto;
+  margin-right: auto;
+  border: 2px solid #fff;
+  background: transparent;
+  cursor: pointer;
+}
+
+.elementor-widget-call-to-action .elementor-cta__button {
+  font-family: var(--e-global-typography-accent-font-family), Sans-serif;
+  font-weight: var(--e-global-typography-accent-font-weight);
+}
+
+.elementor-cta__button.elementor-button:hover {
+  background: transparent;
+}
+
+.elementor-widget-call-to-action .elementor-button.elementor-size-xs {
+  padding: 10px 20px;
+  border-radius: 2px;
+  font-size: 13px;
+}
+
+.elementor-widget-call-to-action .elementor-button.elementor-size-md {
+  padding: 15px 30px;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+.elementor-widget-call-to-action .elementor-button.elementor-size-lg {
+  padding: 20px 40px;
+  border-radius: 5px;
+  font-size: 18px;
+}
+
+.elementor-widget-call-to-action .elementor-button.elementor-size-xl {
+  padding: 25px 50px;
+  border-radius: 6px;
+  font-size: 20px;
+}
+
+/* The graphic: a picture or an icon */
+.elementor-cta__image img {
+  display: inline-block;
+  max-width: 100%;
+  height: auto;
+}
+
+.elementor-cta__icon .elementor-icon {
+  display: inline-block;
+}
+
+.elementor-cta__icon.elementor-view-stacked .elementor-icon {
+  padding: 0.5em;
+  background-color: #69727d;
+  color: #fff;
+  fill: #fff;
+}
+
+.elementor-cta__icon.elementor-view-framed .elementor-icon {
+  padding: 0.5em;
+  border: 3px solid;
+  background-color: transparent;
+}
+
+.elementor-cta__icon.elementor-shape-square .elementor-icon {
+  border-radius: 0;
+}
+
+.elementor-cta__icon.elementor-shape-rounded .elementor-icon {
+  border-radius: 10%;
+}
+
+.elementor-cta__icon.elementor-shape-circle .elementor-icon {
+  border-radius: 50%;
+}
+
+/* Classic skin: the content in a grey box, beside the picture */
+.elementor-cta--skin-classic .elementor-cta {
+  flex-wrap: wrap;
+}
+
+.elementor-cta--skin-classic .elementor-cta__bg-wrapper {
+  position: relative;
+  width: 100%;
+  min-height: 200px;
+}
+
+.elementor-cta--skin-classic .elementor-cta__content {
+  width: 100%;
+  background-color: #f9fafa;
+  transition: all 0.4s;
+}
+
+.elementor-cta--skin-classic .elementor-cta__content-item {
+  border-color: #55595c;
+  color: #55595c;
+  fill: #55595c;
+}
+
+.elementor-cta--skin-classic .elementor-cta__icon .elementor-icon {
+  color: #55595c;
+  fill: #55595c;
+}
+
+.elementor-cta--skin-classic .elementor-cta__icon.elementor-view-stacked .elementor-icon {
+  color: #fff;
+  fill: #fff;
+}
+
+.elementor-cta--skin-classic .elementor-cta__button.elementor-button {
+  border-color: #55595c;
+  color: #55595c;
+}
+
+.elementor-cta--layout-image-above .elementor-cta {
+  flex-direction: column;
+}
+
+.elementor-cta--layout-image-left .elementor-cta,
+.elementor-cta--layout-image-right .elementor-cta {
+  flex-wrap: nowrap;
+}
+
+.elementor-cta--layout-image-left .elementor-cta {
+  flex-direction: row;
+}
+
+.elementor-cta--layout-image-right .elementor-cta {
+  flex-direction: row-reverse;
+}
+
+.elementor-cta--layout-image-left .elementor-cta__bg-wrapper,
+.elementor-cta--layout-image-right .elementor-cta__bg-wrapper {
+  width: auto;
+  min-width: 50%;
+}
+
+.elementor-cta--layout-image-left .elementor-cta__content,
+.elementor-cta--layout-image-right .elementor-cta__content {
+  flex-grow: 1;
+}
+
+/* Beside the picture only from tablets up; above it on phones */
+@media (max-width: 767px) {
+  .elementor-cta--layout-image-left .elementor-cta,
+  .elementor-cta--layout-image-right .elementor-cta {
+    flex-direction: column;
+  }
+
+  .elementor-cta--layout-image-left .elementor-cta__bg-wrapper,
+  .elementor-cta--layout-image-right .elementor-cta__bg-wrapper {
+    width: 100%;
+  }
+}
+
+/* Cover skin: the content over the picture, in white */
+.elementor-cta--skin-cover .elementor-cta {
+  display: block;
+}
+
+.elementor-cta--skin-cover .elementor-cta__bg-wrapper {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  transition: all 0.4s;
+}
+
+.elementor-cta--skin-cover .elementor-cta__content {
+  min-height: 280px;
+}
+
+.elementor-cta--skin-cover .elementor-cta__content-item,
+.elementor-cta--skin-cover .elementor-cta__button.elementor-button {
+  border-color: #fff;
+  color: #fff;
+}
+
+.elementor-cta--skin-cover .elementor-cta__icon .elementor-icon {
+  border-color: #fff;
+  color: #fff;
+  fill: #fff;
+}
+
+.elementor-cta--skin-cover .elementor-cta:not(:hover) .elementor-cta__bg-overlay {
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
+.elementor-cta--skin-cover .elementor-cta:hover .elementor-cta__bg-overlay {
+  background-color: rgba(0, 0, 0, 0.6);
+}
+
+/* The ribbon: the kit's accent colour */
+.elementor-widget-call-to-action .elementor-ribbon {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: auto;
+  z-index: 2;
+  width: 150px;
+  height: 150px;
+  overflow: hidden;
+  transform: rotate(90deg);
+}
+
+.elementor-widget-call-to-action .elementor-ribbon.elementor-ribbon-left {
+  right: auto;
+  left: 0;
+  transform: rotate(0);
+}
+
+.elementor-widget-call-to-action .elementor-ribbon-inner {
+  left: 0;
+  width: 200%;
+  margin-top: 35px;
+  background-color: var(--e-global-color-accent);
+  color: #fff;
+  font-family: var(--e-global-typography-accent-font-family), Sans-serif;
+  font-size: 13px;
+  font-weight: 800;
+  line-height: 2;
+  text-align: center;
+  text-transform: uppercase;
+  transform: translateY(-50%) translateX(-50%) translateX(35px) rotate(-45deg);
+}
+
+/* The picture's hover effect */
+.elementor-bg-transform .elementor-bg {
+  will-change: transform;
+}
+
+.elementor-bg-transform-zoom-in:hover .elementor-bg {
+  transform: scale(1.2);
+}
+
+.elementor-bg-transform-zoom-out .elementor-bg {
+  transform: scale(1.2);
+}
+
+.elementor-bg-transform-zoom-out:hover .elementor-bg {
+  transform: scale(1);
+}
+
+.elementor-bg-transform-move-left .elementor-bg {
+  transform: scale(1.2) translateX(8%);
+}
+
+.elementor-bg-transform-move-left:hover .elementor-bg {
+  transform: scale(1.2) translateX(-8%);
+}
+
+.elementor-bg-transform-move-right .elementor-bg {
+  transform: scale(1.2) translateX(-8%);
+}
+
+.elementor-bg-transform-move-right:hover .elementor-bg {
+  transform: scale(1.2) translateX(8%);
+}
+
+.elementor-bg-transform-move-up .elementor-bg {
+  transform: scale(1.2) translateY(8%);
+}
+
+.elementor-bg-transform-move-up:hover .elementor-bg {
+  transform: scale(1.2) translateY(-8%);
+}
+
+.elementor-bg-transform-move-down .elementor-bg {
+  transform: scale(1.2) translateY(-8%);
+}
+
+.elementor-bg-transform-move-down:hover .elementor-bg {
+  transform: scale(1.2) translateY(8%);
+}
+
+/* The content's hover animation (cover skin): what enters starts out of sight */
+.elementor-animated-content .elementor-animated-item--enter-from-right,
+.elementor-animated-content .elementor-animated-item--enter-from-left,
+.elementor-animated-content .elementor-animated-item--enter-from-top,
+.elementor-animated-content .elementor-animated-item--enter-from-bottom,
+.elementor-animated-content .elementor-animated-item--enter-zoom-in,
+.elementor-animated-content .elementor-animated-item--enter-zoom-out,
+.elementor-animated-content .elementor-animated-item--fade-in {
+  opacity: 0;
+}
+
+.elementor-animated-content .elementor-animated-item--enter-from-right {
+  transform: translateX(50px);
+}
+
+.elementor-animated-content .elementor-animated-item--enter-from-left {
+  transform: translateX(-50px);
+}
+
+.elementor-animated-content .elementor-animated-item--enter-from-top {
+  transform: translateY(-50px);
+}
+
+.elementor-animated-content .elementor-animated-item--enter-from-bottom {
+  transform: translateY(50px);
+}
+
+.elementor-animated-content .elementor-animated-item--enter-zoom-in {
+  transform: scale(0.5);
+}
+
+.elementor-animated-content .elementor-animated-item--enter-zoom-out {
+  transform: scale(1.2);
+}
+
+.elementor-animated-content:is(:hover, :focus-within) .elementor-animated-item--enter-from-right,
+.elementor-animated-content:is(:hover, :focus-within) .elementor-animated-item--enter-from-left,
+.elementor-animated-content:is(:hover, :focus-within) .elementor-animated-item--enter-from-top,
+.elementor-animated-content:is(:hover, :focus-within) .elementor-animated-item--enter-from-bottom,
+.elementor-animated-content:is(:hover, :focus-within) .elementor-animated-item--enter-zoom-in,
+.elementor-animated-content:is(:hover, :focus-within) .elementor-animated-item--enter-zoom-out,
+.elementor-animated-content:is(:hover, :focus-within) .elementor-animated-item--fade-in {
+  opacity: 1;
+  transform: none;
+}
+
+.elementor-animated-content:is(:hover, :focus-within) .elementor-animated-item--grow {
+  transform: scale(1.1);
+}
+
+.elementor-animated-content:is(:hover, :focus-within) .elementor-animated-item--shrink {
+  transform: scale(0.85);
+}
+
+.elementor-animated-content:is(:hover, :focus-within) .elementor-animated-item--move-right {
+  transform: translateX(20px);
+}
+
+.elementor-animated-content:is(:hover, :focus-within) .elementor-animated-item--move-left {
+  transform: translateX(-20px);
+}
+
+.elementor-animated-content:is(:hover, :focus-within) .elementor-animated-item--move-up {
+  transform: translateY(-20px);
+}
+
+.elementor-animated-content:is(:hover, :focus-within) .elementor-animated-item--move-down {
+  transform: translateY(20px);
+}
+
+.elementor-animated-content:is(:hover, :focus-within) .elementor-animated-item--exit-to-right {
+  opacity: 0;
+  transform: translateX(50px);
+}
+
+.elementor-animated-content:is(:hover, :focus-within) .elementor-animated-item--exit-to-left {
+  opacity: 0;
+  transform: translateX(-50px);
+}
+
+.elementor-animated-content:is(:hover, :focus-within) .elementor-animated-item--exit-to-top {
+  opacity: 0;
+  transform: translateY(-50px);
+}
+
+.elementor-animated-content:is(:hover, :focus-within) .elementor-animated-item--exit-to-bottom {
+  opacity: 0;
+  transform: translateY(50px);
+}
+
+.elementor-animated-content:is(:hover, :focus-within) .elementor-animated-item--exit-zoom-in {
+  opacity: 0;
+  transform: scale(1.2);
+}
+
+.elementor-animated-content:is(:hover, :focus-within) .elementor-animated-item--exit-zoom-out {
+  opacity: 0;
+  transform: scale(0.5);
+}
+
+.elementor-animated-content:is(:hover, :focus-within) .elementor-animated-item--fade-out {
+  opacity: 0;
+}
+
+/* In the editor's canvas, the box being edited shows its content as it is, to be typed in */
+.editor-styles-wrapper .elementor-widget-call-to-action.is-selected .elementor-cta__content-item {
+  opacity: 1 !important;
+  transform: none !important;
+}

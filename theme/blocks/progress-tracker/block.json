@@ -1,0 +1,72 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "harlow/progress-tracker",
+	"title": "Progress Tracker",
+	"category": "widgets",
+	"description": "A bar or a circle that fills as the visitor scrolls through the page or a part of it.",
+	"textdomain": "harlow",
+	"attributes": {
+		"element": {
+			"type": "string",
+			"default": ""
+		},
+		"classes": {
+			"type": "string",
+			"default": ""
+		},
+		"settings": {
+			"type": "string",
+			"default": ""
+		},
+		"htmlId": {
+			"type": "string",
+			"default": ""
+		},
+		"trackerType": {
+			"type": "string",
+			"default": "horizontal"
+		},
+		"relativeTo": {
+			"type": "string",
+			"default": "entire_page"
+		},
+		"selector": {
+			"type": "string",
+			"default": ""
+		},
+		"direction": {
+			"type": "string",
+			"default": "ltr"
+		},
+		"percentage": {
+			"type": "boolean",
+			"default": false
+		},
+		"progressWidth": {
+			"type": "number",
+			"default": 4
+		},
+		"trackWidth": {
+			"type": "number",
+			"default": 4
+		},
+		"style": {
+			"type": "object",
+			"default": {}
+		}
+	},
+	"supports": {
+		"html": false,
+		"className": false,
+		"customClassName": false
+	},
+	"example": {
+		"attributes": {
+			"element": "a1b2c3d",
+			"classes": "elementor-element elementor-widget elementor-widget-progress-tracker",
+			"percentage": true
+		}
+	},
+	"render": "file:../../includes/sections/progress-tracker.php"
+}

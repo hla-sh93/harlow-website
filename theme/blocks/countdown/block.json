@@ -1,0 +1,116 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "harlow/countdown",
+	"title": "Countdown",
+	"category": "widgets",
+	"description": "Days, hours, minutes and seconds counting down to a date, or for each visitor.",
+	"textdomain": "harlow",
+	"attributes": {
+		"element": {
+			"type": "string",
+			"default": ""
+		},
+		"classes": {
+			"type": "string",
+			"default": ""
+		},
+		"settings": {
+			"type": "string",
+			"default": ""
+		},
+		"htmlId": {
+			"type": "string",
+			"default": ""
+		},
+		"countdownType": {
+			"type": "string",
+			"default": "due_date"
+		},
+		"dueDate": {
+			"type": "string",
+			"default": ""
+		},
+		"evergreenHours": {
+			"type": "number",
+			"default": 47
+		},
+		"evergreenMinutes": {
+			"type": "number",
+			"default": 59
+		},
+		"labelDisplay": {
+			"type": "string",
+			"default": "block"
+		},
+		"showDays": {
+			"type": "boolean",
+			"default": true
+		},
+		"showHours": {
+			"type": "boolean",
+			"default": true
+		},
+		"showMinutes": {
+			"type": "boolean",
+			"default": true
+		},
+		"showSeconds": {
+			"type": "boolean",
+			"default": true
+		},
+		"showLabels": {
+			"type": "boolean",
+			"default": true
+		},
+		"customLabels": {
+			"type": "boolean",
+			"default": false
+		},
+		"labelDays": {
+			"type": "string",
+			"default": "Days"
+		},
+		"labelHours": {
+			"type": "string",
+			"default": "Hours"
+		},
+		"labelMinutes": {
+			"type": "string",
+			"default": "Minutes"
+		},
+		"labelSeconds": {
+			"type": "string",
+			"default": "Seconds"
+		},
+		"expireActions": {
+			"type": "array",
+			"default": []
+		},
+		"expireMessage": {
+			"type": "string",
+			"default": ""
+		},
+		"expireRedirect": {
+			"type": "string",
+			"default": ""
+		},
+		"style": {
+			"type": "object",
+			"default": {}
+		}
+	},
+	"supports": {
+		"html": false,
+		"className": false,
+		"customClassName": false
+	},
+	"example": {
+		"attributes": {
+			"element": "a1b2c3d",
+			"classes": "elementor-element elementor-widget elementor-widget-countdown",
+			"countdownType": "evergreen"
+		}
+	},
+	"render": "file:../../includes/sections/countdown.php"
+}

@@ -15,6 +15,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 $harlow_tag  = in_array( $attributes['tag'], array( 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p', 'div', 'span' ), true ) ? $attributes['tag'] : 'h2';
 $harlow_text = '' !== $attributes['source'] ? harlow_item_text( $attributes['source'] ) : harlow_resolve_links( $attributes['text'] );
+// A heading with a link: the words inside it, as Elementor prints them.
+if ( '' !== $attributes['link'] ) {
+	$harlow_text = '<a href="' . esc_url( harlow_link_url( $attributes['link'] ) ) . '"'
+		. ( '' !== $attributes['linkTarget'] ? ' target="' . esc_attr( $attributes['linkTarget'] ) . '"' : '' )
+		. ( '' !== $attributes['linkRel'] ? ' rel="' . esc_attr( $attributes['linkRel'] ) . '"' : '' )
+		. '>' . $harlow_text . '</a>';
+}
 ?>
 <div<?php echo harlow_element_attributes( $attributes, 'widget', 'heading.default' ); ?>>
 <div class="elementor-widget-container">

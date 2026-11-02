@@ -1,0 +1,107 @@
+/*
+ * The item pager (post-navigation): the previous item on the left, the next on the right,
+ * each with its label over its title and an arrow outside, a thin line between them and
+ * borders above and below, as Elementor Pro's post navigation widget draws it before it is
+ * styled: the labels in the kit's text colour, the titles in its secondary colour, both in
+ * its secondary font.
+ */
+
+/* The two halves */
+.elementor-post-navigation {
+  display: flex;
+  overflow: hidden;
+}
+
+.elementor-post-navigation__link {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: calc(50% - 1px / 2);
+}
+
+.elementor-post-navigation__link a {
+  align-items: center;
+  color: inherit;
+  display: flex;
+  max-width: 100%;
+  text-decoration: none;
+}
+
+.elementor-post-navigation__prev {
+  text-align: start;
+}
+
+.elementor-post-navigation__next {
+  text-align: end;
+}
+
+.elementor-post-navigation__next a {
+  justify-content: flex-end;
+}
+
+.elementor-post-navigation__link__prev,
+.elementor-post-navigation__link__next {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Label and title */
+.elementor-post-navigation .post-navigation__prev--label,
+.elementor-post-navigation .post-navigation__next--label {
+  color: var(--e-global-color-text);
+  display: block;
+  font-family: var(--e-global-typography-secondary-font-family), Sans-serif;
+  font-weight: var(--e-global-typography-secondary-font-weight);
+  text-transform: uppercase;
+}
+
+.elementor-post-navigation .post-navigation__prev--title,
+.elementor-post-navigation .post-navigation__next--title {
+  color: var(--e-global-color-secondary);
+  display: block;
+  font-family: var(--e-global-typography-secondary-font-family), Sans-serif;
+  font-size: 0.8em;
+  font-weight: var(--e-global-typography-secondary-font-weight);
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Arrows */
+.elementor-post-navigation .post-navigation__arrow-wrapper {
+  color: var(--e-global-color-secondary);
+  display: inline-flex;
+  font-size: 25px;
+}
+
+.elementor-post-navigation .post-navigation__arrow-wrapper svg {
+  fill: currentColor;
+  height: 1em;
+  width: 1em;
+}
+
+.elementor-post-navigation .post-navigation__arrow-prev {
+  padding-inline-end: 10px;
+}
+
+.elementor-post-navigation .post-navigation__arrow-next {
+  padding-inline-start: 10px;
+}
+
+/* The line between and the borders */
+.elementor-post-navigation__separator-wrapper {
+  text-align: center;
+}
+
+.elementor-post-navigation__separator {
+  background-color: #d5d8dc;
+  height: 100%;
+  margin: 0 auto;
+  width: 1px;
+}
+
+.elementor-post-navigation-borders-yes .elementor-post-navigation {
+  border: 1px solid #d5d8dc;
+  border-left: none;
+  border-right: none;
+  padding: 10px 0;
+}

@@ -1,0 +1,43 @@
+{
+	"parts": [
+		{
+			"key": "columns",
+			"label": "Text columns",
+			"selector": " > .elementor-widget-container",
+			"controls": [
+				"textColumns"
+			]
+		},
+		{
+			"key": "dropCap",
+			"label": "Drop cap",
+			"selector": " p:first-of-type::first-letter",
+			"controls": [
+				"dropCap",
+				"color",
+				"typography",
+				"textShadow",
+				"background",
+				"padding",
+				"margin",
+				"border"
+			]
+		},
+		{
+			"key": "links",
+			"label": "Links",
+			"selector": " a",
+			"controls": [
+				"color",
+				"typography",
+				"textShadow"
+			],
+			"states": {
+				"hover": {
+					"label": "Hover",
+					"selector": " a:hover"
+				}
+			}
+		}
+	]
+}

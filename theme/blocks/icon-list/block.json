@@ -30,6 +30,10 @@
 		"items": {
 			"type": "array",
 			"default": []
+		},
+		"style": {
+			"type": "object",
+			"default": {}
 		}
 	},
 	"supports": {

@@ -1,0 +1,205 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "harlow/media-carousel",
+	"title": "Media Carousel",
+	"category": "media",
+	"description": "Pictures and videos in a carousel, a slideshow with thumbnails or a coverflow, opened in the lightbox.",
+	"textdomain": "harlow",
+	"attributes": {
+		"element": {
+			"type": "string",
+			"default": ""
+		},
+		"classes": {
+			"type": "string",
+			"default": ""
+		},
+		"settings": {
+			"type": "string",
+			"default": ""
+		},
+		"htmlId": {
+			"type": "string",
+			"default": ""
+		},
+		"skin": {
+			"type": "string",
+			"default": "carousel"
+		},
+		"slides": {
+			"type": "array",
+			"default": [
+				{
+					"id": "d3a7c01",
+					"type": "image",
+					"image": 0
+				},
+				{
+					"id": "d3a7c02",
+					"type": "image",
+					"image": 0
+				},
+				{
+					"id": "d3a7c03",
+					"type": "image",
+					"image": 0
+				},
+				{
+					"id": "d3a7c04",
+					"type": "image",
+					"image": 0
+				},
+				{
+					"id": "d3a7c05",
+					"type": "image",
+					"image": 0
+				}
+			],
+			"items": {
+				"type": "object"
+			}
+		},
+		"carouselName": {
+			"type": "string",
+			"default": "Media Carousel"
+		},
+		"effect": {
+			"type": "string",
+			"default": "slide"
+		},
+		"slidesPerView": {
+			"type": "string",
+			"default": ""
+		},
+		"slidesPerViewTablet": {
+			"type": "string",
+			"default": ""
+		},
+		"slidesPerViewMobile": {
+			"type": "string",
+			"default": ""
+		},
+		"slidesToScroll": {
+			"type": "string",
+			"default": ""
+		},
+		"slidesToScrollTablet": {
+			"type": "string",
+			"default": ""
+		},
+		"slidesToScrollMobile": {
+			"type": "string",
+			"default": ""
+		},
+		"height": {
+			"type": "string",
+			"default": ""
+		},
+		"heightTablet": {
+			"type": "string",
+			"default": ""
+		},
+		"heightMobile": {
+			"type": "string",
+			"default": ""
+		},
+		"spaceBetween": {
+			"type": "string",
+			"default": "10"
+		},
+		"spaceBetweenTablet": {
+			"type": "string",
+			"default": ""
+		},
+		"spaceBetweenMobile": {
+			"type": "string",
+			"default": ""
+		},
+		"thumbsRatio": {
+			"type": "string",
+			"default": "219"
+		},
+		"showArrows": {
+			"type": "boolean",
+			"default": true
+		},
+		"pagination": {
+			"type": "string",
+			"default": "bullets"
+		},
+		"paginationPosition": {
+			"type": "string",
+			"default": "outside"
+		},
+		"speed": {
+			"type": "number",
+			"default": 500
+		},
+		"autoplay": {
+			"type": "boolean",
+			"default": true
+		},
+		"autoplaySpeed": {
+			"type": "number",
+			"default": 5000
+		},
+		"loop": {
+			"type": "boolean",
+			"default": true
+		},
+		"pauseOnHover": {
+			"type": "boolean",
+			"default": true
+		},
+		"pauseOnInteraction": {
+			"type": "boolean",
+			"default": true
+		},
+		"imageSize": {
+			"type": "string",
+			"default": "full"
+		},
+		"imageFit": {
+			"type": "string",
+			"default": "cover"
+		},
+		"lazyload": {
+			"type": "boolean",
+			"default": false
+		},
+		"overlay": {
+			"type": "string",
+			"default": ""
+		},
+		"caption": {
+			"type": "string",
+			"default": "title"
+		},
+		"overlayIcon": {
+			"type": "string",
+			"default": ""
+		},
+		"overlayAnimation": {
+			"type": "string",
+			"default": "fade"
+		},
+		"style": {
+			"type": "object",
+			"default": {}
+		}
+	},
+	"supports": {
+		"html": false,
+		"className": false,
+		"customClassName": false
+	},
+	"example": {
+		"attributes": {
+			"element": "a1b2c3d",
+			"classes": "elementor-element elementor-widget elementor-widget-media-carousel",
+			"autoplay": false
+		}
+	},
+	"render": "file:../../includes/sections/media-carousel.php"
+}

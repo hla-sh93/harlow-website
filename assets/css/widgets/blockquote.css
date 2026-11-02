@@ -1,0 +1,197 @@
+/*
+ * Blockquote (Elementor Pro's blockquote widget): a quotation, then its author and the
+ * button that shares it on X side by side. Four skins (elementor-blockquote--skin-*): a
+ * thick start border, a large quotation mark, a grey box, or nothing; the button's view,
+ * skin and colour are classes of the element too.
+ */
+
+/* The quotation and its footer */
+.elementor-blockquote {
+  margin: 0;
+  transition: 0.3s;
+}
+
+.elementor-blockquote__content,
+.elementor-blockquote__author {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.elementor-widget-blockquote .elementor-blockquote__content {
+  color: var(--e-global-color-text);
+}
+
+.elementor-blockquote__author {
+  font-style: normal;
+  font-weight: 700;
+}
+
+.elementor-widget-blockquote .elementor-blockquote__author {
+  color: var(--e-global-color-secondary);
+}
+
+.elementor-blockquote footer {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 12px;
+}
+
+/* The button */
+.elementor-blockquote__tweet-button {
+  display: flex;
+  align-self: flex-end;
+  transition: 0.3s;
+}
+
+.elementor-blockquote__tweet-button:first-child {
+  margin-inline-start: auto;
+}
+
+.elementor-blockquote__tweet-button,
+.elementor-blockquote__tweet-button:hover {
+  color: #fff;
+  text-decoration: none;
+}
+
+.elementor-blockquote__tweet-button span {
+  font-weight: 600;
+}
+
+.elementor-blockquote__tweet-button svg,
+.elementor-blockquote__tweet-button span {
+  align-self: center;
+}
+
+.elementor-blockquote__tweet-button svg {
+  width: 1em;
+  height: 1em;
+  fill: currentColor;
+}
+
+.elementor-blockquote__tweet-button svg + span {
+  margin-inline-start: 0.5em;
+}
+
+.elementor-blockquote--button-skin-classic .elementor-blockquote__tweet-button,
+.elementor-blockquote--button-skin-bubble .elementor-blockquote__tweet-button {
+  padding: 0.7em 1.2em;
+}
+
+.elementor-blockquote--button-skin-classic .elementor-blockquote__tweet-button {
+  border-radius: 100px;
+}
+
+.elementor-blockquote--button-skin-bubble .elementor-blockquote__tweet-button {
+  position: relative;
+  border-radius: 1em;
+}
+
+.elementor-blockquote--button-skin-bubble .elementor-blockquote__tweet-button::before {
+  content: "";
+  position: absolute;
+  bottom: -0.5em;
+  inset-inline-start: 1em;
+  border: 0.5em solid transparent;
+  border-top-color: inherit;
+  border-bottom-width: 0;
+}
+
+.elementor-blockquote--button-skin-link .elementor-blockquote__tweet-button {
+  padding: 0;
+}
+
+.elementor-blockquote--button-view-icon.elementor-blockquote--button-skin-classic .elementor-blockquote__tweet-button,
+.elementor-blockquote--button-view-icon.elementor-blockquote--button-skin-bubble .elementor-blockquote__tweet-button {
+  justify-content: center;
+  width: 2.4em;
+  height: 2.4em;
+  padding: 0;
+}
+
+/* The button's official colour */
+.elementor-blockquote--button-color-official .elementor-blockquote__tweet-button {
+  border-color: #1da1f2;
+  background-color: #1da1f2;
+}
+
+.elementor-blockquote--button-color-official.elementor-blockquote--button-skin-link .elementor-blockquote__tweet-button {
+  background-color: transparent;
+  color: #1da1f2;
+}
+
+.elementor-blockquote--button-color-custom .elementor-blockquote__tweet-button {
+  border-color: #69727d;
+  background-color: #69727d;
+}
+
+.elementor-blockquote--button-color-custom.elementor-blockquote--button-skin-link .elementor-blockquote__tweet-button {
+  background-color: transparent;
+  color: #69727d;
+}
+
+/* Skins */
+.elementor-blockquote--skin-border .elementor-blockquote {
+  border-style: solid;
+  border-width: 0;
+  border-inline-start-width: 7px;
+  border-color: #d5d8dc;
+  padding-inline-start: 20px;
+}
+
+.elementor-blockquote--skin-quotation .elementor-blockquote::before {
+  content: "\201C";
+  display: block;
+  height: 0.6em;
+  color: #d5d8dc;
+  font-family: "Times New Roman", Times, serif;
+  font-size: 100px;
+  font-weight: 900;
+  line-height: 1;
+}
+
+.elementor-blockquote--skin-quotation .elementor-blockquote footer {
+  margin-top: 15px;
+}
+
+.elementor-blockquote--skin-boxed .elementor-blockquote {
+  padding: 30px;
+  background-color: #f9fafa;
+}
+
+/* Alignment (every skin but the border) */
+.elementor-blockquote--align-left .elementor-blockquote {
+  text-align: left;
+}
+
+.elementor-blockquote--align-left .elementor-blockquote footer {
+  flex-direction: row;
+}
+
+.elementor-blockquote--align-right .elementor-blockquote {
+  text-align: right;
+}
+
+.elementor-blockquote--align-right .elementor-blockquote footer {
+  flex-direction: row-reverse;
+}
+
+.elementor-blockquote--align-center .elementor-blockquote {
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
+.elementor-blockquote--align-center .elementor-blockquote footer {
+  flex-direction: column;
+  align-items: center;
+}
+
+.elementor-blockquote--align-center .elementor-blockquote__tweet-button {
+  align-self: center;
+  margin-top: 12px;
+}
+
+.elementor-blockquote--align-center .elementor-blockquote__tweet-button:first-child {
+  margin-top: 0;
+  margin-inline-start: 0;
+}

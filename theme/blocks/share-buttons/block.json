@@ -1,0 +1,120 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "harlow/share-buttons",
+	"title": "Share Buttons",
+	"category": "widgets",
+	"description": "Buttons that share the page on social networks, by e-mail or print it.",
+	"textdomain": "harlow",
+	"attributes": {
+		"element": {
+			"type": "string",
+			"default": ""
+		},
+		"classes": {
+			"type": "string",
+			"default": ""
+		},
+		"settings": {
+			"type": "string",
+			"default": ""
+		},
+		"htmlId": {
+			"type": "string",
+			"default": ""
+		},
+		"buttons": {
+			"type": "array",
+			"default": [
+				{
+					"network": "facebook",
+					"text": ""
+				},
+				{
+					"network": "x-twitter",
+					"text": ""
+				},
+				{
+					"network": "linkedin",
+					"text": ""
+				}
+			]
+		},
+		"view": {
+			"type": "string",
+			"default": "icon-text"
+		},
+		"showLabel": {
+			"type": "boolean",
+			"default": true
+		},
+		"skin": {
+			"type": "string",
+			"default": "gradient"
+		},
+		"shape": {
+			"type": "string",
+			"default": "square"
+		},
+		"columns": {
+			"type": "string",
+			"default": "0"
+		},
+		"columnsTablet": {
+			"type": "string",
+			"default": ""
+		},
+		"columnsMobile": {
+			"type": "string",
+			"default": ""
+		},
+		"align": {
+			"type": "string",
+			"default": ""
+		},
+		"shareUrlType": {
+			"type": "string",
+			"default": "current_page"
+		},
+		"shareUrl": {
+			"type": "string",
+			"default": ""
+		},
+		"colorMode": {
+			"type": "string",
+			"default": "official"
+		},
+		"primaryColor": {
+			"type": "string",
+			"default": ""
+		},
+		"secondaryColor": {
+			"type": "string",
+			"default": ""
+		},
+		"primaryHover": {
+			"type": "string",
+			"default": ""
+		},
+		"secondaryHover": {
+			"type": "string",
+			"default": ""
+		},
+		"style": {
+			"type": "object",
+			"default": {}
+		}
+	},
+	"supports": {
+		"html": false,
+		"className": false,
+		"customClassName": false
+	},
+	"example": {
+		"attributes": {
+			"view": "icon-text",
+			"skin": "gradient"
+		}
+	},
+	"render": "file:../../includes/sections/share-buttons.php"
+}

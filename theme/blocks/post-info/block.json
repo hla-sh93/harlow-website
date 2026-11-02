@@ -1,0 +1,79 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "harlow/post-info",
+	"title": "Post Info",
+	"category": "theme",
+	"description": "The item's author, date, time, comments, terms or words of your own, each with its icon and link (Elementor Pro's post info widget).",
+	"textdomain": "harlow",
+	"attributes": {
+		"element": {
+			"type": "string",
+			"default": ""
+		},
+		"classes": {
+			"type": "string",
+			"default": ""
+		},
+		"settings": {
+			"type": "string",
+			"default": ""
+		},
+		"htmlId": {
+			"type": "string",
+			"default": ""
+		},
+		"layout": {
+			"type": "string",
+			"enum": [
+				"inline",
+				"default"
+			],
+			"default": "inline"
+		},
+		"items": {
+			"type": "array",
+			"default": [
+				{
+					"id": "a1b2c31",
+					"type": "author",
+					"link": true,
+					"icon": "default"
+				},
+				{
+					"id": "a1b2c32",
+					"type": "date",
+					"link": true,
+					"icon": "default"
+				},
+				{
+					"id": "a1b2c33",
+					"type": "time",
+					"link": true,
+					"icon": "default"
+				},
+				{
+					"id": "a1b2c34",
+					"type": "comments",
+					"link": true,
+					"icon": "default"
+				}
+			]
+		},
+		"style": {
+			"type": "object",
+			"default": {}
+		}
+	},
+	"supports": {
+		"html": false,
+		"className": false,
+		"customClassName": false
+	},
+	"example": {
+		"attributes": {
+			"layout": "inline"
+		}
+	},
+	"render": "file:../../includes/sections/post-info.php"
+}

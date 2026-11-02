@@ -411,10 +411,12 @@ async def open_editor(browser, post, width, settle=True):
         await page.set_viewport_size({"width": 2 * width - inner[0], "height": 2 * HEIGHT - inner[1]})
         await page.wait_for_timeout(800)
         frame = page.frame(name="editor-canvas")   # the editor may draw the canvas anew
-    # every stylesheet of the canvas in, and the blocks' server markup
+    # every stylesheet of the canvas in, the blocks' server markup, and every synced
+    # pattern's blocks (the editor shows a spinner while it fetches a pattern)
     await frame.wait_for_function("() => document.readyState === 'complete'"
                                   " && [...document.querySelectorAll('link[rel=stylesheet]')].every((l) => l.sheet)"
-                                  f" && document.querySelector(\"{CANVAS_DOC}\") && !document.querySelector('.harlow-loading')",
+                                  f" && document.querySelector(\"{CANVAS_DOC}\")"
+                                  " && !document.querySelector('.harlow-loading, .components-spinner')",
                                   timeout=90000)
     if settle:
         await frame.evaluate(SETTLE)

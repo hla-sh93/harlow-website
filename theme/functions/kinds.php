@@ -99,7 +99,12 @@ function harlow_post_documents( $post_id ) {
 		}
 	}
 	$documents = $documents ? $documents : HARLOW_CHROME_DOCUMENTS;
-	foreach ( harlow_held_documents( (string) get_post_field( 'post_content', $post_id ) ) as $held ) {
+	$blocks    = (string) get_post_field( 'post_content', $post_id );
+	if ( isset( HARLOW_SINGLES[ get_post_type( $post_id ) ] ) ) {
+		// An item's page holds its template's lists too.
+		$blocks = harlow_single_template_blocks( HARLOW_SINGLES[ get_post_type( $post_id ) ] ) . $blocks;
+	}
+	foreach ( harlow_held_documents( $blocks ) as $held ) {
 		if ( in_array( $held, $documents, true ) ) {
 			continue;
 		}

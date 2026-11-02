@@ -1,0 +1,38 @@
+/*
+ * Google Maps (harlow/google-maps): Elementor's Google Maps widget (widget-google_maps.css),
+ * the map as wide as the element, 300px tall unless a height is chosen for the device.
+ */
+.e-con .elementor-widget-google_maps {
+  width: 100%;
+}
+
+.elementor-widget-google_maps .elementor-widget-container,
+.elementor-widget-google_maps:not(:has(.elementor-widget-container)) {
+  overflow: hidden;
+}
+
+.elementor-widget-google_maps .elementor-custom-embed {
+  --e-google-maps-height: var(--e-google-maps-height-desktop, 300px);
+  line-height: 0;
+}
+
+.elementor-widget-google_maps iframe {
+  width: 100%;
+  max-width: 100%;
+  height: var(--e-google-maps-height);
+  margin: 0;
+  border: none;
+  line-height: 1;
+}
+
+@media (max-width: 1024px) {
+  .elementor-widget-google_maps .elementor-custom-embed {
+    --e-google-maps-height: var(--e-google-maps-height-tablet, var(--e-google-maps-height-desktop, 300px));
+  }
+}
+
+@media (max-width: 767px) {
+  .elementor-widget-google_maps .elementor-custom-embed {
+    --e-google-maps-height: var(--e-google-maps-height-mobile, var(--e-google-maps-height-tablet, var(--e-google-maps-height-desktop, 300px)));
+  }
+}

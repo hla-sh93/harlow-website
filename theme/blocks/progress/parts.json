@@ -1,0 +1,45 @@
+{
+	"parts": [
+		{
+			"key": "bar",
+			"label": "Bar (its colour and corners)",
+			"selector": " .elementor-progress-wrapper .elementor-progress-bar",
+			"controls": [
+				"background",
+				"border",
+				"shadow"
+			]
+		},
+		{
+			"key": "track",
+			"label": "Bar background (height, colour, corners)",
+			"selector": " .elementor-progress-wrapper",
+			"controls": [
+				"background",
+				"size",
+				"border",
+				"shadow"
+			]
+		},
+		{
+			"key": "innerText",
+			"label": "Inner text",
+			"selector": " .elementor-progress-bar",
+			"controls": [
+				"color",
+				"typography",
+				"textShadow"
+			]
+		},
+		{
+			"key": "title",
+			"label": "Title",
+			"selector": " .elementor-title",
+			"controls": [
+				"color",
+				"typography",
+				"textShadow"
+			]
+		}
+	]
+}

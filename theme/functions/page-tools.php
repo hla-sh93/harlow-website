@@ -108,8 +108,41 @@ function harlow_menu_links_follow( $post_id, $after, $before ) {
 			update_post_meta( $item, '_menu_item_url', $new . substr( $url, strlen( $old ) ) );
 		}
 	}
+	harlow_text_links_follow( $old, $new );
 }
 add_action( 'post_updated', 'harlow_menu_links_follow', 10, 3 );
+
+/**
+ * Links written as addresses in texts (an item's text, a link typed in a block) to a page
+ * or item whose address changed, and to the pages under it, written with the new address.
+ * Straight into the database: following a page is not an edit of the text, so it makes no
+ * revision and keeps the text's modified date (Rank Math prints it in the head).
+ *
+ * @param string $before The address before.
+ * @param string $after  The address now.
+ */
+function harlow_text_links_follow( $before, $after ) {
+	global $wpdb;
+	$from = untrailingslashit( $before );
+	$to   = untrailingslashit( $after );
+
+	// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching -- once, when an address changes; every text that holds it.
+	$posts   = $wpdb->get_results(
+		$wpdb->prepare(
+			"SELECT ID, post_content FROM {$wpdb->posts} WHERE post_type NOT IN ( 'revision', 'nav_menu_item' ) AND post_status <> 'auto-draft' AND post_content LIKE %s",
+			'%' . $wpdb->esc_like( 'href="' . $from ) . '%'
+		)
+	);
+	$pattern = '#(href=")' . preg_quote( $from, '#' ) . '(?=[/"\#?])#';
+	foreach ( $posts as $post ) {
+		$content = preg_replace( $pattern, '${1}' . str_replace( '$', '\$', $to ), $post->post_content );
+		if ( $content !== $post->post_content ) {
+			// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching -- as above; the post's cache is cleaned after.
+			$wpdb->update( $wpdb->posts, array( 'post_content' => $content ), array( 'ID' => (int) $post->ID ) );
+			clean_post_cache( (int) $post->ID );
+		}
+	}
+}
 
 /**
  * An address changed back to an earlier one: Rank Math keeps the earlier address among the

@@ -1,0 +1,115 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "harlow/animated-headline",
+	"title": "Animated Headline",
+	"category": "text",
+	"description": "A headline with words a drawn shape highlights, or words that take turns.",
+	"textdomain": "harlow",
+	"attributes": {
+		"element": {
+			"type": "string",
+			"default": ""
+		},
+		"classes": {
+			"type": "string",
+			"default": ""
+		},
+		"settings": {
+			"type": "string",
+			"default": ""
+		},
+		"htmlId": {
+			"type": "string",
+			"default": ""
+		},
+		"headlineStyle": {
+			"type": "string",
+			"default": "highlight"
+		},
+		"marker": {
+			"type": "string",
+			"default": "circle"
+		},
+		"animationType": {
+			"type": "string",
+			"default": "typing"
+		},
+		"beforeText": {
+			"type": "string",
+			"default": "This page is"
+		},
+		"highlightedText": {
+			"type": "string",
+			"default": "Amazing"
+		},
+		"rotatingText": {
+			"type": "string",
+			"default": "Better\nBigger\nFaster"
+		},
+		"afterText": {
+			"type": "string",
+			"default": ""
+		},
+		"loop": {
+			"type": "boolean",
+			"default": true
+		},
+		"highlightDuration": {
+			"type": "number",
+			"default": 1200
+		},
+		"highlightDelay": {
+			"type": "number",
+			"default": 8000
+		},
+		"rotateDelay": {
+			"type": "number",
+			"default": 2500
+		},
+		"link": {
+			"type": "string",
+			"default": ""
+		},
+		"linkTarget": {
+			"type": "string",
+			"default": ""
+		},
+		"linkRel": {
+			"type": "string",
+			"default": ""
+		},
+		"tag": {
+			"type": "string",
+			"default": "h3"
+		},
+		"markerWidth": {
+			"type": "number",
+			"default": 9
+		},
+		"markerRounded": {
+			"type": "boolean",
+			"default": false
+		},
+		"markerFront": {
+			"type": "boolean",
+			"default": false
+		},
+		"style": {
+			"type": "object",
+			"default": {}
+		}
+	},
+	"supports": {
+		"html": false,
+		"className": false,
+		"customClassName": false
+	},
+	"example": {
+		"attributes": {
+			"element": "a1b2c3d",
+			"classes": "elementor-element elementor-widget elementor-widget-animated-headline"
+		}
+	},
+	"render": "file:../../includes/sections/animated-headline.php"
+}

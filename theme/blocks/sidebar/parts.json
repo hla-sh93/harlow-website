@@ -1,0 +1,40 @@
+{
+	"parts": [
+		{
+			"key": "widget",
+			"label": "Widgets",
+			"selector": " .widget",
+			"controls": [
+				"background",
+				"padding",
+				"margin",
+				"border"
+			]
+		},
+		{
+			"key": "title",
+			"label": "Widget titles",
+			"selector": " .widget-title",
+			"controls": [
+				"color",
+				"typography",
+				"margin"
+			]
+		},
+		{
+			"key": "links",
+			"label": "Links",
+			"selector": " a",
+			"controls": [
+				"color",
+				"typography"
+			],
+			"states": {
+				"hover": {
+					"label": "Hover",
+					"selector": " a:hover"
+				}
+			}
+		}
+	]
+}

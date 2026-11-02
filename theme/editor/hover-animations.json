@@ -1,0 +1,137 @@
+{
+	"grow": [
+		"Grow",
+		"transition-duration:.3s;transition-property:transform",
+		"transform:scale(1.1)"
+	],
+	"shrink": [
+		"Shrink",
+		"transition-duration:.3s;transition-property:transform",
+		"transform:scale(.9)"
+	],
+	"pulse": [
+		"Pulse",
+		"",
+		"animation:harlow-hover-pulse 1s linear infinite"
+	],
+	"pulse-grow": [
+		"Pulse grow",
+		"",
+		"animation:harlow-hover-pulse-grow .3s linear infinite alternate"
+	],
+	"pulse-shrink": [
+		"Pulse shrink",
+		"",
+		"animation:harlow-hover-pulse-shrink .3s linear infinite alternate"
+	],
+	"push": [
+		"Push",
+		"",
+		"animation:harlow-hover-push .3s linear 1"
+	],
+	"pop": [
+		"Pop",
+		"",
+		"animation:harlow-hover-pop .3s linear 1"
+	],
+	"bounce-in": [
+		"Bounce in",
+		"transition-duration:.5s;transition-property:transform",
+		"transform:scale(1.2);transition-timing-function:cubic-bezier(.47,2.02,.31,-.36)"
+	],
+	"bounce-out": [
+		"Bounce out",
+		"transition-duration:.5s;transition-property:transform",
+		"transform:scale(.8);transition-timing-function:cubic-bezier(.47,2.02,.31,-.36)"
+	],
+	"rotate": [
+		"Rotate",
+		"transition-duration:.3s;transition-property:transform",
+		"transform:rotate(4deg)"
+	],
+	"grow-rotate": [
+		"Grow rotate",
+		"transition-duration:.3s;transition-property:transform",
+		"transform:scale(1.1) rotate(4deg)"
+	],
+	"float": [
+		"Float",
+		"transition-duration:.3s;transition-property:transform;transition-timing-function:ease-out",
+		"transform:translateY(-8px)"
+	],
+	"sink": [
+		"Sink",
+		"transition-duration:.3s;transition-property:transform;transition-timing-function:ease-out",
+		"transform:translateY(8px)"
+	],
+	"bob": [
+		"Bob",
+		"",
+		"animation:harlow-hover-bob-float .3s ease-out forwards,harlow-hover-bob 1.5s ease-in-out .3s infinite alternate"
+	],
+	"hang": [
+		"Hang",
+		"",
+		"animation:harlow-hover-hang-sink .3s ease-out forwards,harlow-hover-hang 1.5s ease-in-out .3s infinite alternate"
+	],
+	"skew": [
+		"Skew",
+		"transition-duration:.3s;transition-property:transform",
+		"transform:skew(-10deg)"
+	],
+	"skew-forward": [
+		"Skew forward",
+		"transition-duration:.3s;transition-property:transform;transform-origin:0 100%",
+		"transform:skew(-10deg)"
+	],
+	"skew-backward": [
+		"Skew backward",
+		"transition-duration:.3s;transition-property:transform;transform-origin:0 100%",
+		"transform:skew(10deg)"
+	],
+	"wobble-vertical": [
+		"Wobble vertical",
+		"",
+		"animation:harlow-hover-wobble-vertical 1s ease-in-out 1"
+	],
+	"wobble-horizontal": [
+		"Wobble horizontal",
+		"",
+		"animation:harlow-hover-wobble-horizontal 1s ease-in-out 1"
+	],
+	"wobble-to-bottom-right": [
+		"Wobble to bottom right",
+		"",
+		"animation:harlow-hover-wobble-to-bottom-right 1s ease-in-out 1"
+	],
+	"wobble-to-top-right": [
+		"Wobble to top right",
+		"",
+		"animation:harlow-hover-wobble-to-top-right 1s ease-in-out 1"
+	],
+	"wobble-top": [
+		"Wobble top",
+		"transform-origin:0 100%",
+		"animation:harlow-hover-wobble-skew 1s ease-in-out 1"
+	],
+	"wobble-bottom": [
+		"Wobble bottom",
+		"transform-origin:100% 0",
+		"animation:harlow-hover-wobble-skew 1s ease-in-out 1"
+	],
+	"wobble-skew": [
+		"Wobble skew",
+		"",
+		"animation:harlow-hover-wobble-skew 1s ease-in-out 1"
+	],
+	"buzz": [
+		"Buzz",
+		"",
+		"animation:harlow-hover-buzz .15s linear infinite"
+	],
+	"buzz-out": [
+		"Buzz out",
+		"",
+		"animation:harlow-hover-buzz-out .75s linear 1"
+	]
+}

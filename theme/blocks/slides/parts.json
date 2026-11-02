@@ -1,0 +1,101 @@
+{
+	"parts": [
+		{
+			"key": "slides",
+			"label": "Slides",
+			"selector": " .swiper-slide-inner",
+			"controls": [
+				"align",
+				"padding",
+				"textShadow"
+			]
+		},
+		{
+			"key": "content",
+			"label": "Content",
+			"selector": " .swiper-slide-contents",
+			"controls": [
+				"size",
+				"background",
+				"padding",
+				"border"
+			]
+		},
+		{
+			"key": "title",
+			"label": "Title",
+			"selector": " .elementor-slide-heading",
+			"controls": [
+				"color",
+				"typography",
+				"textShadow",
+				"margin"
+			]
+		},
+		{
+			"key": "description",
+			"label": "Description",
+			"selector": " .elementor-slide-description",
+			"controls": [
+				"color",
+				"typography",
+				"textShadow",
+				"margin"
+			]
+		},
+		{
+			"key": "button",
+			"label": "Button",
+			"selector": " .elementor-slide-button",
+			"controls": [
+				"color",
+				"typography",
+				"background",
+				"padding",
+				"border",
+				"shadow"
+			],
+			"states": {
+				"hover": {
+					"label": "Hover",
+					"selector": " .elementor-slide-button:hover"
+				}
+			}
+		},
+		{
+			"key": "arrows",
+			"label": "Arrows",
+			"selector": " .elementor-swiper-button",
+			"controls": [
+				"icon",
+				"background",
+				"padding",
+				"border"
+			],
+			"states": {
+				"hover": {
+					"label": "Hover",
+					"selector": " .elementor-swiper-button:hover"
+				}
+			}
+		},
+		{
+			"key": "dots",
+			"label": "Dots",
+			"selector": " .swiper-pagination-bullet",
+			"controls": [
+				"size",
+				"background",
+				"opacity",
+				"margin",
+				"border"
+			],
+			"states": {
+				"active": {
+					"label": "Active",
+					"selector": " .swiper-pagination-bullet.swiper-pagination-bullet-active"
+				}
+			}
+		}
+	]
+}

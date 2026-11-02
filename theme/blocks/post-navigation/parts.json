@@ -1,0 +1,70 @@
+{
+	"parts": [
+		{
+			"key": "label",
+			"label": "Label",
+			"selector": " .post-navigation__prev--label| .post-navigation__next--label",
+			"controls": [
+				"color",
+				"typography",
+				"textShadow"
+			],
+			"states": {
+				"hover": {
+					"label": "Hover",
+					"selector": " .elementor-post-navigation__link a:hover .post-navigation__prev--label| .elementor-post-navigation__link a:hover .post-navigation__next--label"
+				}
+			}
+		},
+		{
+			"key": "title",
+			"label": "Title",
+			"selector": " .post-navigation__prev--title| .post-navigation__next--title",
+			"controls": [
+				"color",
+				"typography",
+				"textShadow"
+			],
+			"states": {
+				"hover": {
+					"label": "Hover",
+					"selector": " .elementor-post-navigation__link a:hover .post-navigation__prev--title| .elementor-post-navigation__link a:hover .post-navigation__next--title"
+				}
+			}
+		},
+		{
+			"key": "arrow",
+			"label": "Arrow",
+			"selector": " .post-navigation__arrow-wrapper",
+			"controls": [
+				"icon",
+				"padding"
+			],
+			"states": {
+				"hover": {
+					"label": "Hover",
+					"selector": " .elementor-post-navigation__link a:hover .post-navigation__arrow-wrapper"
+				}
+			}
+		},
+		{
+			"key": "borders",
+			"label": "Borders",
+			"selector": " .elementor-post-navigation",
+			"controls": [
+				"border",
+				"padding",
+				"background"
+			]
+		},
+		{
+			"key": "separator",
+			"label": "Separator",
+			"selector": " .elementor-post-navigation__separator",
+			"controls": [
+				"background",
+				"size"
+			]
+		}
+	]
+}

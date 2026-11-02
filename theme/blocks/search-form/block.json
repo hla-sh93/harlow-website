@@ -1,0 +1,83 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "harlow/search-form",
+	"title": "Search Form",
+	"category": "widgets",
+	"description": "The site's search: a field with its button, a field with an icon, or an icon that opens the search over the whole screen (Elementor Pro's search form widget).",
+	"textdomain": "harlow",
+	"attributes": {
+		"element": {
+			"type": "string",
+			"default": ""
+		},
+		"classes": {
+			"type": "string",
+			"default": ""
+		},
+		"settings": {
+			"type": "string",
+			"default": ""
+		},
+		"htmlId": {
+			"type": "string",
+			"default": ""
+		},
+		"skin": {
+			"type": "string",
+			"enum": [
+				"classic",
+				"minimal",
+				"full_screen"
+			],
+			"default": "classic"
+		},
+		"placeholder": {
+			"type": "string",
+			"default": "Search..."
+		},
+		"buttonType": {
+			"type": "string",
+			"enum": [
+				"icon",
+				"text"
+			],
+			"default": "icon"
+		},
+		"buttonText": {
+			"type": "string",
+			"default": "Search"
+		},
+		"icon": {
+			"type": "string",
+			"enum": [
+				"search",
+				"arrow"
+			],
+			"default": "search"
+		},
+		"size": {
+			"type": "integer",
+			"default": 50
+		},
+		"toggleSize": {
+			"type": "integer",
+			"default": 33
+		},
+		"style": {
+			"type": "object",
+			"default": {}
+		}
+	},
+	"supports": {
+		"html": false,
+		"className": false,
+		"customClassName": false
+	},
+	"example": {
+		"attributes": {
+			"skin": "classic"
+		}
+	},
+	"render": "file:../../includes/sections/search-form.php"
+}

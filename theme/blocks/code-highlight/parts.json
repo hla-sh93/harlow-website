@@ -1,0 +1,52 @@
+{
+	"parts": [
+		{
+			"key": "box",
+			"label": "Box",
+			"selector": " pre[class*=\"language-\"]",
+			"controls": [
+				"background",
+				"padding",
+				"border",
+				"shadow",
+				"size"
+			]
+		},
+		{
+			"key": "code",
+			"label": "Code",
+			"selector": " pre[class*=\"language-\"]| code[class*=\"language-\"]",
+			"controls": [
+				"typography",
+				"color"
+			]
+		},
+		{
+			"key": "lineNumbers",
+			"label": "Line numbers",
+			"selector": " .line-numbers-rows",
+			"controls": [
+				"color",
+				"border"
+			]
+		},
+		{
+			"key": "copyButton",
+			"label": "Copy button",
+			"selector": " .copy-to-clipboard-button",
+			"controls": [
+				"color",
+				"typography",
+				"background",
+				"padding",
+				"border"
+			],
+			"states": {
+				"hover": {
+					"label": "Hover",
+					"selector": " .copy-to-clipboard-button:hover"
+				}
+			}
+		}
+	]
+}

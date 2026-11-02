@@ -1,0 +1,62 @@
+/*
+ * A sitemap (sitemap): its sections side by side, four to a row (two on tablets, one on
+ * phones), each a title over a bulleted list with its children indented, as Elementor
+ * Pro's sitemap widget draws it before it is styled: the titles in the kit's primary
+ * colour and font, the items in its text colour and font. Columns and the bullet chosen in
+ * the sidebar come as custom properties on the wrap.
+ */
+
+/* The sections, in columns */
+.elementor-sitemap-wrap {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.elementor-sitemap-section {
+  flex-basis: calc(100% / var(--harlow-sitemap-columns, 4));
+  min-width: 0;
+  padding: 0 10px;
+}
+
+@media (max-width: 1024px) {
+  .elementor-sitemap-section {
+    flex-basis: calc(100% / var(--harlow-sitemap-columns-tablet, 2));
+  }
+}
+
+@media (max-width: 767px) {
+  .elementor-sitemap-section {
+    flex-basis: calc(100% / var(--harlow-sitemap-columns-mobile, 1));
+  }
+}
+
+/* Titles */
+.elementor-sitemap-title {
+  color: var(--e-global-color-primary);
+  font-family: var(--e-global-typography-primary-font-family), Sans-serif;
+  font-weight: var(--e-global-typography-primary-font-weight);
+  margin-top: 0;
+}
+
+/* Lists */
+.elementor-widget-sitemap .elementor-sitemap-list,
+.elementor-widget-sitemap .elementor-sitemap-list .children {
+  list-style-type: var(--harlow-sitemap-bullet, disc);
+  margin: 0;
+}
+
+.elementor-widget-sitemap .elementor-sitemap-list {
+  padding-inline-start: 0;
+  list-style-position: inside;
+}
+
+.elementor-widget-sitemap .elementor-sitemap-list .children {
+  padding-inline-start: 20px;
+}
+
+.elementor-sitemap-item,
+.elementor-sitemap-item > a {
+  color: var(--e-global-color-text);
+  font-family: var(--e-global-typography-text-font-family), Sans-serif;
+  font-weight: var(--e-global-typography-text-font-weight);
+}

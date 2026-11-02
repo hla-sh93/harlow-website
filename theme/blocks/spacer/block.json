@@ -1,0 +1,66 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "harlow/spacer",
+	"title": "Spacer",
+	"category": "design",
+	"description": "Empty space between elements, as tall as it is set for each device.",
+	"textdomain": "harlow",
+	"attributes": {
+		"element": {
+			"type": "string",
+			"default": ""
+		},
+		"classes": {
+			"type": "string",
+			"default": ""
+		},
+		"settings": {
+			"type": "string",
+			"default": ""
+		},
+		"htmlId": {
+			"type": "string",
+			"default": ""
+		},
+		"space": {
+			"type": "number",
+			"default": 50
+		},
+		"spaceUnit": {
+			"type": "string",
+			"default": "px"
+		},
+		"spaceTablet": {
+			"type": "string",
+			"default": ""
+		},
+		"spaceTabletUnit": {
+			"type": "string",
+			"default": "px"
+		},
+		"spaceMobile": {
+			"type": "string",
+			"default": ""
+		},
+		"spaceMobileUnit": {
+			"type": "string",
+			"default": "px"
+		},
+		"style": {
+			"type": "object",
+			"default": {}
+		}
+	},
+	"supports": {
+		"html": false,
+		"className": false,
+		"customClassName": false
+	},
+	"example": {
+		"attributes": {
+			"space": 50
+		}
+	},
+	"render": "file:../../includes/sections/spacer.php"
+}

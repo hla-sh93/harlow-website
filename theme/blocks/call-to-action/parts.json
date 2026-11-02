@@ -1,0 +1,175 @@
+{
+	"parts": [
+		{
+			"key": "box",
+			"label": "Box",
+			"selector": " .elementor-cta",
+			"controls": [
+				"border",
+				"shadow"
+			],
+			"states": {
+				"hover": {
+					"label": "Hover",
+					"selector": " .elementor-cta:hover"
+				}
+			}
+		},
+		{
+			"key": "content",
+			"label": "Content (alignment, padding, height, background)",
+			"selector": " .elementor-cta__content",
+			"controls": [
+				"align",
+				"padding",
+				"size",
+				"background"
+			],
+			"states": {
+				"hover": {
+					"label": "Hover",
+					"selector": " .elementor-cta:hover .elementor-cta__content"
+				}
+			}
+		},
+		{
+			"key": "image",
+			"label": "Image (width, minimum height)",
+			"selector": " .elementor-cta__bg-wrapper",
+			"controls": [
+				"size"
+			]
+		},
+		{
+			"key": "graphicImage",
+			"label": "Graphic image",
+			"selector": " .elementor-cta__image img",
+			"controls": [
+				"size",
+				"border",
+				"shadow",
+				"opacity"
+			]
+		},
+		{
+			"key": "graphicSpacing",
+			"label": "Graphic spacing",
+			"selector": " .elementor-cta__image| .elementor-cta__icon",
+			"controls": [
+				"margin"
+			]
+		},
+		{
+			"key": "icon",
+			"label": "Icon",
+			"selector": " .elementor-cta__icon .elementor-icon",
+			"controls": [
+				"icon",
+				"background",
+				"padding",
+				"border",
+				"transform"
+			],
+			"states": {
+				"hover": {
+					"label": "Hover",
+					"selector": " .elementor-cta:hover .elementor-cta__icon .elementor-icon"
+				}
+			}
+		},
+		{
+			"key": "title",
+			"label": "Title",
+			"selector": " .elementor-cta__title",
+			"controls": [
+				"color",
+				"typography",
+				"textShadow",
+				"margin"
+			],
+			"states": {
+				"hover": {
+					"label": "Hover",
+					"selector": " .elementor-cta:hover .elementor-cta__title"
+				}
+			}
+		},
+		{
+			"key": "description",
+			"label": "Description",
+			"selector": " .elementor-cta__description",
+			"controls": [
+				"color",
+				"typography",
+				"textShadow",
+				"margin"
+			],
+			"states": {
+				"hover": {
+					"label": "Hover",
+					"selector": " .elementor-cta:hover .elementor-cta__description"
+				}
+			}
+		},
+		{
+			"key": "button",
+			"label": "Button",
+			"selector": " .elementor-cta__button",
+			"controls": [
+				"color",
+				"typography",
+				"background",
+				"padding",
+				"border",
+				"shadow"
+			],
+			"states": {
+				"hover": {
+					"label": "Hover",
+					"selector": " .elementor-cta__button:hover"
+				}
+			}
+		},
+		{
+			"key": "ribbon",
+			"label": "Ribbon",
+			"selector": " .elementor-ribbon-inner",
+			"controls": [
+				"color",
+				"typography",
+				"background",
+				"shadow"
+			]
+		},
+		{
+			"key": "overlay",
+			"label": "Overlay",
+			"selector": " .elementor-cta__bg-overlay",
+			"controls": [
+				"background",
+				"opacity"
+			],
+			"states": {
+				"hover": {
+					"label": "Hover",
+					"selector": " .elementor-cta:hover .elementor-cta__bg-overlay"
+				}
+			}
+		},
+		{
+			"key": "background",
+			"label": "Background image",
+			"selector": " .elementor-cta__bg",
+			"controls": [
+				"opacity",
+				"transform"
+			],
+			"states": {
+				"hover": {
+					"label": "Hover",
+					"selector": " .elementor-cta:hover .elementor-cta__bg"
+				}
+			}
+		}
+	]
+}

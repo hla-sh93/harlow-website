@@ -1,0 +1,63 @@
+/* Counter (Elementor's counter widget, harlow/counter): a big number between its prefix
+   and suffix, its title below it (or above, before or after it). */
+
+.elementor-counter {
+  display: flex;
+  flex-direction: column-reverse;
+  justify-content: center;
+  align-items: stretch;
+}
+
+/* The number with its prefix and suffix */
+.elementor-counter .elementor-counter-number-wrapper {
+  flex-grow: 1;
+  display: flex;
+  font-size: 69px;
+  font-weight: 600;
+  line-height: 1;
+  text-align: center;
+}
+
+.elementor-counter .elementor-counter-number-prefix {
+  flex-grow: 1;
+  text-align: end;
+  white-space: pre-wrap;
+}
+
+.elementor-counter .elementor-counter-number-suffix {
+  flex-grow: 1;
+  text-align: start;
+  white-space: pre-wrap;
+}
+
+/* The title */
+.elementor-counter .elementor-counter-title {
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  font-size: 19px;
+  font-weight: 400;
+  line-height: 2.5;
+}
+
+/* In a flex container, the width a container gives its widgets */
+.e-con-inner > .elementor-widget-counter,
+.e-con > .elementor-widget-counter {
+  width: var(--container-widget-width);
+  --flex-grow: var(--container-widget-flex-grow);
+}
+
+/* The kit's colours and fonts, as Elementor gives a new counter */
+.elementor-widget-counter .elementor-counter-number-wrapper {
+  color: var(--e-global-color-primary);
+  font-family: var(--e-global-typography-primary-font-family), Sans-serif;
+  font-weight: var(--e-global-typography-primary-font-weight);
+}
+
+.elementor-widget-counter .elementor-counter-title {
+  color: var(--e-global-color-secondary);
+  font-family: var(--e-global-typography-secondary-font-family), Sans-serif;
+  font-weight: var(--e-global-typography-secondary-font-weight);
+}

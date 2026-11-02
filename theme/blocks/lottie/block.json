@@ -1,0 +1,141 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "harlow/lottie",
+	"title": "Lottie",
+	"category": "media",
+	"description": "A Lottie animation (a JSON file from the Media Library or an address), played on scroll, click, hover or by itself.",
+	"textdomain": "harlow",
+	"attributes": {
+		"element": {
+			"type": "string",
+			"default": ""
+		},
+		"classes": {
+			"type": "string",
+			"default": ""
+		},
+		"settings": {
+			"type": "string",
+			"default": ""
+		},
+		"htmlId": {
+			"type": "string",
+			"default": ""
+		},
+		"source": {
+			"type": "string",
+			"default": "media_file"
+		},
+		"sourceJson": {
+			"type": "integer",
+			"default": 0
+		},
+		"sourceExternalUrl": {
+			"type": "string",
+			"default": ""
+		},
+		"captionSource": {
+			"type": "string",
+			"default": "none"
+		},
+		"caption": {
+			"type": "string",
+			"default": ""
+		},
+		"linkTo": {
+			"type": "string",
+			"default": "none"
+		},
+		"link": {
+			"type": "string",
+			"default": ""
+		},
+		"linkTarget": {
+			"type": "string",
+			"default": ""
+		},
+		"linkRel": {
+			"type": "string",
+			"default": ""
+		},
+		"trigger": {
+			"type": "string",
+			"default": "arriving_to_viewport"
+		},
+		"viewportStart": {
+			"type": "number",
+			"default": 0
+		},
+		"viewportEnd": {
+			"type": "number",
+			"default": 100
+		},
+		"effectsRelativeTo": {
+			"type": "string",
+			"default": "viewport"
+		},
+		"loop": {
+			"type": "boolean",
+			"default": false
+		},
+		"numberOfTimes": {
+			"type": "string",
+			"default": ""
+		},
+		"linkTimeout": {
+			"type": "string",
+			"default": ""
+		},
+		"onHoverOut": {
+			"type": "string",
+			"default": "default"
+		},
+		"hoverArea": {
+			"type": "string",
+			"default": "animation"
+		},
+		"playSpeed": {
+			"type": "number",
+			"default": 1
+		},
+		"startPoint": {
+			"type": "number",
+			"default": 0
+		},
+		"endPoint": {
+			"type": "number",
+			"default": 100
+		},
+		"reverse": {
+			"type": "boolean",
+			"default": false
+		},
+		"renderer": {
+			"type": "string",
+			"default": "svg"
+		},
+		"lazyload": {
+			"type": "boolean",
+			"default": false
+		},
+		"style": {
+			"type": "object",
+			"default": {}
+		}
+	},
+	"supports": {
+		"html": false,
+		"className": false,
+		"customClassName": false
+	},
+	"example": {
+		"attributes": {
+			"element": "a1b2c3d",
+			"classes": "elementor-element elementor-widget elementor-widget-lottie",
+			"trigger": "none",
+			"loop": true
+		}
+	},
+	"render": "file:../../includes/sections/lottie.php"
+}

@@ -1,0 +1,41 @@
+{
+	"parts": [
+		{
+			"key": "items",
+			"label": "Images",
+			"selector": " .gallery-item",
+			"controls": [
+				"padding"
+			]
+		},
+		{
+			"key": "images",
+			"label": "Image",
+			"selector": " .gallery-item img",
+			"controls": [
+				"border",
+				"shadow",
+				"opacity"
+			],
+			"states": {
+				"hover": {
+					"label": "Hover",
+					"selector": " .gallery-item:hover img"
+				}
+			}
+		},
+		{
+			"key": "caption",
+			"label": "Caption",
+			"selector": " .gallery-item .gallery-caption",
+			"controls": [
+				"align",
+				"color",
+				"typography",
+				"textShadow",
+				"margin",
+				"padding"
+			]
+		}
+	]
+}

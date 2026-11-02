@@ -1,0 +1,43 @@
+{
+	"parts": [
+		{
+			"key": "box",
+			"label": "Box",
+			"selector": " .e-off-canvas__main",
+			"controls": [
+				"background",
+				"size",
+				"padding",
+				"border",
+				"shadow"
+			]
+		},
+		{
+			"key": "overlay",
+			"label": "Overlay",
+			"selector": " .e-off-canvas__overlay",
+			"controls": [
+				"background",
+				"opacity"
+			]
+		},
+		{
+			"key": "close",
+			"label": "Close icon",
+			"selector": " .e-off-canvas__close",
+			"controls": [
+				"icon",
+				"background",
+				"padding",
+				"border",
+				"margin"
+			],
+			"states": {
+				"hover": {
+					"label": "Hover",
+					"selector": " .e-off-canvas__close:hover"
+				}
+			}
+		}
+	]
+}

@@ -1,0 +1,20 @@
+{
+	"parts": [
+		{
+			"key": "link",
+			"label": "Link",
+			"selector": " .more-link",
+			"controls": [
+				"color",
+				"typography",
+				"textShadow"
+			],
+			"states": {
+				"hover": {
+					"label": "Hover",
+					"selector": " .more-link:hover"
+				}
+			}
+		}
+	]
+}

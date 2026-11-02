@@ -1,0 +1,125 @@
+{
+	"parts": [
+		{
+			"key": "slides",
+			"label": "Slides",
+			"selector": " .elementor-main-swiper .swiper-slide",
+			"controls": [
+				"background",
+				"padding",
+				"border",
+				"shadow"
+			]
+		},
+		{
+			"key": "carousel",
+			"label": "Carousel",
+			"selector": " .elementor-main-swiper",
+			"controls": [
+				"size"
+			]
+		},
+		{
+			"key": "arrows",
+			"label": "Navigation arrows",
+			"selector": " .elementor-swiper-button",
+			"controls": [
+				"icon",
+				"background",
+				"padding",
+				"border"
+			],
+			"states": {
+				"hover": {
+					"label": "Hover",
+					"selector": " .elementor-swiper-button:hover"
+				}
+			}
+		},
+		{
+			"key": "dots",
+			"label": "Pagination",
+			"selector": " .swiper-pagination-bullet| .swiper-pagination-progressbar-fill",
+			"controls": [
+				"size",
+				"background",
+				"opacity",
+				"margin"
+			],
+			"states": {
+				"active": {
+					"label": "Active",
+					"selector": " .swiper-pagination-bullet.swiper-pagination-bullet-active"
+				}
+			}
+		},
+		{
+			"key": "fraction",
+			"label": "Fraction",
+			"selector": " .swiper-pagination-fraction",
+			"controls": [
+				"color",
+				"typography"
+			]
+		},
+		{
+			"key": "playIcon",
+			"label": "Play Icon",
+			"selector": " .elementor-custom-embed-play",
+			"controls": [
+				"icon",
+				"textShadow",
+				"opacity"
+			]
+		},
+		{
+			"key": "overlay",
+			"label": "Overlay",
+			"selector": " .elementor-carousel-image-overlay",
+			"controls": [
+				"background",
+				"color",
+				"typography",
+				"icon",
+				"padding"
+			]
+		},
+		{
+			"key": "thumbnails",
+			"label": "Thumbnails",
+			"selector": " .elementor-thumbnails-swiper .swiper-slide",
+			"controls": [
+				"border",
+				"opacity"
+			],
+			"states": {
+				"active": {
+					"label": "Active",
+					"selector": " .elementor-thumbnails-swiper .swiper-slide.swiper-slide-active"
+				}
+			}
+		},
+		{
+			"key": "lightbox",
+			"label": "Lightbox",
+			"selector": " > .elementor-lightbox",
+			"controls": [
+				"background"
+			]
+		},
+		{
+			"key": "lightboxClose",
+			"label": "Lightbox UI",
+			"selector": " > .elementor-lightbox .dialog-lightbox-close-button",
+			"controls": [
+				"icon"
+			],
+			"states": {
+				"hover": {
+					"label": "Hover",
+					"selector": " > .elementor-lightbox .dialog-lightbox-close-button:hover"
+				}
+			}
+		}
+	]
+}

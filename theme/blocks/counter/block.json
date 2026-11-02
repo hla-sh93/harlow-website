@@ -1,0 +1,86 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "harlow/counter",
+	"title": "Counter",
+	"category": "widgets",
+	"description": "A number that counts up to its value when it comes into view, with a title.",
+	"textdomain": "harlow",
+	"attributes": {
+		"element": {
+			"type": "string",
+			"default": ""
+		},
+		"classes": {
+			"type": "string",
+			"default": ""
+		},
+		"settings": {
+			"type": "string",
+			"default": ""
+		},
+		"htmlId": {
+			"type": "string",
+			"default": ""
+		},
+		"startingNumber": {
+			"type": "number",
+			"default": 0
+		},
+		"endingNumber": {
+			"type": "number",
+			"default": 100
+		},
+		"prefix": {
+			"type": "string",
+			"default": ""
+		},
+		"suffix": {
+			"type": "string",
+			"default": ""
+		},
+		"duration": {
+			"type": "number",
+			"default": 2000
+		},
+		"thousandSeparator": {
+			"type": "boolean",
+			"default": true
+		},
+		"separator": {
+			"type": "string",
+			"default": ","
+		},
+		"title": {
+			"type": "string",
+			"default": "Cool Number"
+		},
+		"titleTag": {
+			"type": "string",
+			"default": "div"
+		},
+		"titlePosition": {
+			"type": "string",
+			"default": "after"
+		},
+		"style": {
+			"type": "object",
+			"default": {}
+		}
+	},
+	"supports": {
+		"html": false,
+		"className": false,
+		"customClassName": false
+	},
+	"example": {
+		"attributes": {
+			"element": "a1b2c3d",
+			"classes": "elementor-element elementor-widget elementor-widget-counter",
+			"endingNumber": 1500,
+			"suffix": "+",
+			"title": "Projects"
+		}
+	},
+	"render": "file:../../includes/sections/counter.php"
+}

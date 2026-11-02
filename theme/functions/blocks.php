@@ -39,8 +39,19 @@ add_action( 'init', 'harlow_register_blocks' );
  * @return string Attributes, each with its leading space.
  */
 function harlow_element_attributes( $attributes, $kind, $widget = '' ) {
-	$out = ' class="' . esc_attr( $attributes['classes'] ) . '" data-id="' . esc_attr( $attributes['element'] ) . '"'
+	// The owner's own style of this element (functions/styles.php): its classes join the
+	// element's; its rules go to the page's style element, printed once in the footer.
+	$style   = harlow_block_style( $attributes );
+	$classes = $attributes['classes'];
+	if ( ! empty( $style['classes'] ) && is_string( $style['classes'] ) ) {
+		$classes .= ' ' . implode( ' ', array_filter( array_map( 'sanitize_html_class', preg_split( '/\s+/', $style['classes'] ) ) ) );
+	}
+	$out = ' class="' . esc_attr( trim( $classes ) ) . '" data-id="' . esc_attr( $attributes['element'] ) . '"'
 		. ' data-element_type="' . esc_attr( $kind ) . '" data-e-type="' . esc_attr( $kind ) . '"';
+	if ( $style ) {
+		$block_kind = '' !== $widget ? harlow_widget_kind( $widget ) : $kind;
+		harlow_collected_styles( harlow_element_css( $attributes['element'], $style, $block_kind ) );
+	}
 	if ( '' !== $attributes['settings'] ) {
 		$out .= ' data-settings="' . esc_attr( $attributes['settings'] ) . '"';
 	}
@@ -50,7 +61,93 @@ function harlow_element_attributes( $attributes, $kind, $widget = '' ) {
 	if ( '' !== $attributes['htmlId'] ) {
 		$out .= ' id="' . esc_attr( $attributes['htmlId'] ) . '"';
 	}
-	return $out;
+	// Motion effects and sticky (assets/js/motion.js).
+	$motion = harlow_style_motion( $style );
+	if ( $motion ) {
+		$out .= ' data-harlow-motion="' . esc_attr( (string) wp_json_encode( $motion ) ) . '"';
+		harlow_enqueue_module( 'motion' );
+	}
+	return $out . harlow_style_attributes( $style );
+}
+
+/**
+ * The block (its folder in blocks/) of an Elementor widget type: the type's name before
+ * its skin, without Elementor's `theme-` prefix, with `-` for `_`; the few whose block has
+ * another name are named here.
+ *
+ * @param string $widget The widget type (heading.default, theme-site-logo.default...).
+ * @return string
+ */
+function harlow_widget_kind( $widget ) {
+	$base  = preg_replace( '/\..*$/', '', $widget );
+	$named = array(
+		'text-editor'   => 'text',
+		'loop-grid'     => 'loop',
+		'loop-carousel' => 'loop',
+	);
+	if ( isset( $named[ $base ] ) ) {
+		return $named[ $base ];
+	}
+	return str_replace( '_', '-', preg_replace( '/^theme-/', '', $base ) );
+}
+
+/**
+ * Display conditions (Elementor Pro's): an element with conditions the visit does not meet
+ * is not printed at all. Who (logged in or out, their role), when (from a date, until a
+ * date, on some days of the week, between two times of day, in the site's time zone).
+ *
+ * @param string              $html  The block as printed.
+ * @param array<string,mixed> $block The block.
+ * @return string
+ */
+function harlow_display_conditions( $html, $block ) {
+	if ( empty( $block['blockName'] ) || 0 !== strpos( $block['blockName'], 'harlow/' ) || empty( $block['attrs']['style']['conditions'] ) ) {
+		return $html;
+	}
+	return harlow_conditions_met( $block['attrs']['style']['conditions'] ) ? $html : '';
+}
+add_filter( 'render_block', 'harlow_display_conditions', 5, 2 );
+
+/**
+ * Whether this visit meets an element's display conditions.
+ *
+ * @param mixed $c The conditions: login ('in' or 'out'), roles, from, until (dates), days
+ *                 (0 Sunday to 6 Saturday), timeFrom, timeTo (HH:MM).
+ * @return bool
+ */
+function harlow_conditions_met( $c ) {
+	if ( ! is_array( $c ) ) {
+		return true;
+	}
+	$login = isset( $c['login'] ) ? $c['login'] : '';
+	if ( ( 'in' === $login && ! is_user_logged_in() ) || ( 'out' === $login && is_user_logged_in() ) ) {
+		return false;
+	}
+	if ( ! empty( $c['roles'] ) && is_array( $c['roles'] ) ) {
+		$user = wp_get_current_user();
+		if ( ! $user->exists() || ! array_intersect( $c['roles'], (array) $user->roles ) ) {
+			return false;
+		}
+	}
+	$now   = current_datetime();
+	$today = $now->format( 'Y-m-d' );
+	if ( ! empty( $c['from'] ) && is_string( $c['from'] ) && $today < substr( $c['from'], 0, 10 ) ) {
+		return false;
+	}
+	if ( ! empty( $c['until'] ) && is_string( $c['until'] ) && $today > substr( $c['until'], 0, 10 ) ) {
+		return false;
+	}
+	if ( ! empty( $c['days'] ) && is_array( $c['days'] ) && ! in_array( (int) $now->format( 'w' ), array_map( 'intval', $c['days'] ), true ) ) {
+		return false;
+	}
+	$time = $now->format( 'H:i' );
+	if ( ! empty( $c['timeFrom'] ) && is_string( $c['timeFrom'] ) && $time < $c['timeFrom'] ) {
+		return false;
+	}
+	if ( ! empty( $c['timeTo'] ) && is_string( $c['timeTo'] ) && $time > $c['timeTo'] ) {
+		return false;
+	}
+	return true;
 }
 
 /**
@@ -64,6 +161,10 @@ function harlow_element_attributes( $attributes, $kind, $widget = '' ) {
  * @return string
  */
 function harlow_link_url( $link ) {
+	// A dynamic link (functions/dynamic-tags.php): the post's, the site's, the archive's...
+	if ( 0 === strpos( $link, 'dynamic:' ) ) {
+		return harlow_dynamic_link( $link );
+	}
 	if ( '' === $link || preg_match( '#^([a-z][a-z0-9+.-]*:|/|\#|\?)#i', $link ) ) {
 		return $link;
 	}
@@ -229,7 +330,8 @@ function harlow_item_text( $source ) {
 }
 
 /**
- * An icon of the site's set (inline SVG), kept to the elements and attributes an icon has.
+ * An icon (inline SVG: the site's, the icon library's, or one the owner uploaded), kept to
+ * the elements and attributes an icon has: nothing that runs, nothing that loads.
  *
  * @param string $svg The icon's markup.
  * @return string
@@ -253,25 +355,39 @@ function harlow_icon( $svg ) {
 		'width'           => true,
 		'height'          => true,
 		'points'          => true,
+		'fill-rule'       => true,
+		'clip-rule'       => true,
+		'fill-opacity'    => true,
+		'stroke-opacity'  => true,
+		'opacity'         => true,
+		'rx'              => true,
+		'ry'              => true,
+		'x1'              => true,
+		'y1'              => true,
+		'x2'              => true,
+		'y2'              => true,
 	);
 	return wp_kses(
 		$svg,
 		array(
-			'svg'     => array_merge(
+			'svg'      => array_merge(
 				$shape,
 				array(
-					'aria-hidden' => true,
-					'role'        => true,
-					'viewbox'     => true,
-					'xmlns'       => true,
+					'aria-hidden'         => true,
+					'role'                => true,
+					'viewbox'             => true,
+					'xmlns'               => true,
+					'preserveaspectratio' => true,
 				)
 			),
-			'path'    => $shape,
-			'g'       => $shape,
-			'circle'  => $shape,
-			'rect'    => $shape,
-			'polygon' => $shape,
-			'line'    => $shape,
+			'path'     => $shape,
+			'g'        => $shape,
+			'circle'   => $shape,
+			'ellipse'  => $shape,
+			'rect'     => $shape,
+			'polygon'  => $shape,
+			'polyline' => $shape,
+			'line'     => $shape,
 		)
 	);
 }
@@ -308,6 +424,19 @@ function harlow_block_image( $attributes ) {
 		$img .= ' title="' . esc_attr( $attributes['title'] ) . '"';
 	}
 	return $img . ' alt="' . esc_attr( $attributes['alt'] ) . '">';
+}
+
+/**
+ * A background picture chosen for an element, in its own style: it covers the design's
+ * picture (a class of the vocabulary) at every width. Nothing when none is chosen, and the
+ * design's picture shows.
+ *
+ * @param int $picture The picture (Media Library), or 0 for the design's own.
+ * @return string The style attribute with its leading space, or ''.
+ */
+function harlow_picture_style( $picture ) {
+	$url = $picture ? wp_get_attachment_image_url( (int) $picture, 'full' ) : '';
+	return $url ? ' style="' . esc_attr( 'background-image: url("' . esc_url( $url ) . '")' ) . '"' : '';
 }
 
 /**

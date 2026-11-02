@@ -1,0 +1,62 @@
+{
+	"parts": [
+		{
+			"key": "tabs",
+			"label": "Tabs: border",
+			"selector": " .elementor-tab-title| .elementor-tab-title:before| .elementor-tab-title:after| .elementor-tab-content| .elementor-tabs-content-wrapper",
+			"controls": [
+				"border"
+			]
+		},
+		{
+			"key": "background",
+			"label": "Tabs: background",
+			"selector": " .elementor-tab-desktop-title.elementor-active| .elementor-tabs-content-wrapper",
+			"controls": [
+				"background"
+			]
+		},
+		{
+			"key": "navigation",
+			"label": "Navigation (titles' column)",
+			"selector": " .elementor-tabs-wrapper",
+			"controls": [
+				"size"
+			]
+		},
+		{
+			"key": "title",
+			"label": "Title",
+			"selector": " .elementor-tab-title",
+			"controls": [
+				"color",
+				"typography",
+				"textShadow",
+				"padding",
+				"align"
+			],
+			"states": {
+				"hover": {
+					"label": "Hover",
+					"selector": " .elementor-tab-title:hover"
+				},
+				"active": {
+					"label": "Active",
+					"selector": " .elementor-tab-title.elementor-active"
+				}
+			}
+		},
+		{
+			"key": "content",
+			"label": "Content",
+			"selector": " .elementor-tab-content",
+			"controls": [
+				"color",
+				"typography",
+				"textShadow",
+				"background",
+				"padding"
+			]
+		}
+	]
+}

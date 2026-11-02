@@ -1,0 +1,89 @@
+/* Progress bar (Elementor's progress bar widget, harlow/progress): a title, then a light
+   grey bar that a coloured bar fills from the start, with words and the percentage in
+   white inside it. The coloured bar stretches to the height the grey one is given. */
+
+.elementor-widget-progress {
+  text-align: start;
+}
+
+.elementor-widget-progress .elementor-title {
+  display: block;
+}
+
+/* The grey background */
+.elementor-progress-wrapper {
+  display: flex;
+  position: relative;
+  height: 100%;
+  overflow: hidden;
+  border-radius: 2px;
+  background-color: #eee;
+  color: #fff;
+}
+
+/* The coloured bar, its width set when it comes into view */
+.elementor-progress-bar {
+  display: flex;
+  align-items: center;
+  align-self: stretch;
+  width: 0;
+  min-height: 30px;
+  border-radius: 2px;
+  background-color: #69727d;
+  font-size: 11px;
+  line-height: 30px;
+  transition: width 1s ease-in-out;
+}
+
+.elementor-progress-text {
+  flex-grow: 1;
+  overflow: hidden;
+  padding-inline-start: 15px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.elementor-progress-percentage {
+  padding-inline-end: 15px;
+}
+
+/* The types' colours */
+.elementor-widget-progress .elementor-progress-wrapper.progress-info .elementor-progress-bar {
+  background-color: #5bc0de;
+}
+
+.elementor-widget-progress .elementor-progress-wrapper.progress-success .elementor-progress-bar {
+  background-color: #5cb85c;
+}
+
+.elementor-widget-progress .elementor-progress-wrapper.progress-warning .elementor-progress-bar {
+  background-color: #f0ad4e;
+}
+
+.elementor-widget-progress .elementor-progress-wrapper.progress-danger .elementor-progress-bar {
+  background-color: #d9534f;
+}
+
+@media (max-width: 767px) {
+  .elementor-progress-text {
+    padding-inline-start: 10px;
+  }
+}
+
+/* In a flex container, the width a container gives its widgets */
+.e-con-inner > .elementor-widget-progress,
+.e-con > .elementor-widget-progress {
+  width: var(--container-widget-width);
+  --flex-grow: var(--container-widget-flex-grow);
+}
+
+/* The kit's colours and fonts, as Elementor gives a new progress bar */
+.elementor-widget-progress .elementor-progress-wrapper .elementor-progress-bar {
+  background-color: var(--e-global-color-primary);
+}
+
+.elementor-widget-progress .elementor-title {
+  color: var(--e-global-color-primary);
+  font-family: var(--e-global-typography-primary-font-family), Sans-serif;
+  font-weight: var(--e-global-typography-primary-font-weight);
+}

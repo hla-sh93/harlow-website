@@ -1,0 +1,44 @@
+/*
+ * Facebook page (Elementor Pro's Facebook page widget): what Facebook's SDK draws takes the
+ * element's width, as on Elementor. In the editor, where the SDK does not run, a box says
+ * what Facebook will draw there.
+ */
+
+/* What the SDK draws, as wide as the element */
+.elementor-widget-facebook-page .elementor-facebook-widget.fb_iframe_widget,
+.elementor-widget-facebook-page .elementor-facebook-widget.fb_iframe_widget span {
+  width: 100% !important;
+}
+
+.elementor-widget-facebook-page .elementor-facebook-widget.fb_iframe_widget iframe {
+  position: relative;
+  width: 100% !important;
+}
+
+.elementor-widget-facebook-page .elementor-facebook-widget.fb-comments,
+.elementor-widget-facebook-page .elementor-facebook-widget.fb-comments iframe {
+  width: 100% !important;
+}
+
+/* The editor's box in its place */
+.elementor-widget-facebook-page .harlow-facebook-placeholder {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 40px;
+  padding: 10px 14px;
+  border: 1px dashed #c5cdd6;
+  border-radius: 4px;
+  background-color: #f5f6f8;
+  color: #1c1e21;
+  font-size: 13px;
+  line-height: 1.4;
+  overflow-wrap: anywhere;
+}
+
+.elementor-widget-facebook-page .harlow-facebook-placeholder svg {
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  fill: #1877f2;
+}

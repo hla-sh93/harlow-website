@@ -1,0 +1,225 @@
+/*
+ * A search form (search-form), as Elementor Pro's search form widget draws it before it is
+ * styled: a light grey field 50px tall in the kit's text colour and font with a dark
+ * square button (classic), the field with a faint search icon in it (minimal), or a round
+ * grey icon that opens a dark overlay with a large underlined field (full screen). The
+ * input's and the toggle's size chosen in the sidebar come as custom properties on the
+ * form (--harlow-search-form-size, --e-search-form-toggle-size).
+ */
+
+/* The form and its field */
+.elementor-search-form {
+  display: block;
+  transition: 0.2s;
+}
+
+.elementor-search-form .e-font-icon-svg-container {
+  align-items: center;
+  display: flex;
+  height: 100%;
+  justify-content: center;
+  width: 100%;
+}
+
+.elementor-search-form button,
+.elementor-search-form input[type="search"] {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background: none;
+  border: 0;
+  display: inline-block;
+  font-size: 15px;
+  line-height: 1;
+  margin: 0;
+  min-width: 0;
+  padding: 0;
+  vertical-align: middle;
+  white-space: normal;
+}
+
+.elementor-search-form button:focus,
+.elementor-search-form input[type="search"]:focus {
+  color: inherit;
+  outline: 0;
+}
+
+.elementor-widget-search-form input[type="search"].elementor-search-form__input {
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+  flex-basis: 100%;
+  outline: 0;
+  padding-left: calc(var(--harlow-search-form-size, 50px) / 3);
+  padding-right: calc(var(--harlow-search-form-size, 50px) / 3);
+}
+
+.elementor-search-form__container {
+  border: 0 solid transparent;
+  display: flex;
+  min-height: var(--harlow-search-form-size, 50px);
+  overflow: hidden;
+  transition: 0.2s;
+}
+
+.elementor-search-form__container:not(.elementor-search-form--full-screen) {
+  background: #f1f2f3;
+}
+
+.elementor-search-form__input {
+  color: var(--e-global-color-text);
+  flex-basis: 100%;
+  font-family: var(--e-global-typography-text-font-family), Sans-serif;
+  font-weight: var(--e-global-typography-text-font-weight);
+  transition: color 0.2s;
+}
+
+.elementor-search-form__input::placeholder {
+  color: inherit;
+  font-family: inherit;
+  opacity: 0.6;
+}
+
+/* The button (classic) */
+.elementor-search-form .elementor-search-form__submit {
+  background-color: var(--e-global-color-secondary);
+  border: none;
+  border-radius: 0;
+  color: var(--e-search-form-submit-text-color, #fff);
+  cursor: pointer;
+  font-family: var(--e-global-typography-text-font-family), Sans-serif;
+  font-size: var(--e-search-form-submit-icon-size, 16px);
+  font-weight: var(--e-global-typography-text-font-weight);
+  min-width: var(--harlow-search-form-size, 50px);
+  transition: color 0.2s, background 0.2s;
+}
+
+.elementor-search-form .elementor-search-form__submit:hover {
+  border: none;
+  border-radius: 0;
+  color: var(--e-search-form-submit-text-color, #fff);
+}
+
+.elementor-search-form__submit svg {
+  fill: var(--e-search-form-submit-text-color, #fff);
+  height: var(--e-search-form-submit-icon-size, 16px);
+  width: var(--e-search-form-submit-icon-size, 16px);
+}
+
+.elementor-search-form--button-type-text .elementor-search-form__submit {
+  flex-shrink: 0;
+  padding-left: calc(var(--harlow-search-form-size, 50px) / 3);
+  padding-right: calc(var(--harlow-search-form-size, 50px) / 3);
+}
+
+/* The icon in the field (minimal) */
+.elementor-search-form--skin-minimal .elementor-search-form__icon {
+  align-items: center;
+  color: var(--e-global-color-text);
+  display: flex;
+  fill: var(--e-global-color-text);
+  font-size: var(--e-search-form-icon-size-minimal, 15px);
+  justify-content: flex-end;
+  opacity: 0.6;
+  padding-inline-start: calc(var(--harlow-search-form-size, 50px) / 3);
+}
+
+.elementor-search-form--skin-minimal .elementor-search-form__icon svg {
+  height: var(--e-search-form-icon-size-minimal, 15px);
+  width: var(--e-search-form-icon-size-minimal, 15px);
+}
+
+.elementor-search-form--skin-minimal .elementor-search-form--focus .elementor-search-form__icon {
+  opacity: 1;
+}
+
+/* The toggle (full screen) */
+.elementor-search-form--skin-full_screen .elementor-search-form {
+  text-align: center;
+}
+
+.elementor-search-form--skin-full_screen .elementor-search-form__toggle {
+  color: var(--e-search-form-toggle-color, #33373d);
+  cursor: pointer;
+  display: inline-block;
+  font-size: var(--e-search-form-toggle-size, 33px);
+  vertical-align: middle;
+}
+
+.elementor-search-form--skin-full_screen .elementor-search-form__toggle .e-font-icon-svg-container {
+  background-color: var(--e-search-form-toggle-background-color, rgba(0, 0, 0, 0.05));
+  border-color: var(--e-search-form-toggle-color, #33373d);
+  border-radius: var(--e-search-form-toggle-border-radius, 3px);
+  border-style: solid;
+  border-width: var(--e-search-form-toggle-border-width, 0);
+  display: block;
+  height: var(--e-search-form-toggle-size, 33px);
+  position: relative;
+  transition: 0.2s;
+  width: var(--e-search-form-toggle-size, 33px);
+}
+
+.elementor-search-form--skin-full_screen .elementor-search-form__toggle .e-font-icon-svg-container svg {
+  fill: var(--e-search-form-toggle-color, #33373d);
+  height: var(--e-search-form-toggle-icon-size, 0.55em);
+  left: 50%;
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: var(--e-search-form-toggle-icon-size, 0.55em);
+}
+
+/* The overlay (full screen) */
+.elementor-search-form--skin-full_screen .elementor-search-form__container {
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.8);
+  height: 100vh;
+  left: 0;
+  padding: 0 15%;
+  position: fixed;
+  top: 0;
+  transition: 0.3s;
+  width: 100vw;
+  z-index: 9998;
+}
+
+.elementor-search-form--skin-full_screen .elementor-search-form__container:not(.elementor-search-form--full-screen) {
+  opacity: 0;
+  overflow: hidden;
+  transform: scale(0);
+}
+
+.elementor-search-form--skin-full_screen .elementor-search-form__container:not(.elementor-search-form--full-screen) .dialog-lightbox-close-button {
+  display: none;
+}
+
+.elementor-search-form--skin-full_screen input[type="search"].elementor-search-form__input {
+  border: solid #fff;
+  border-width: 0 0 1px;
+  color: #fff;
+  font-size: 50px;
+  line-height: 1.5;
+  text-align: center;
+}
+
+.elementor-search-form--skin-full_screen input[type="search"].elementor-search-form__input::placeholder {
+  color: #fff;
+}
+
+.elementor-search-form--skin-full_screen .dialog-lightbox-close-button {
+  color: #fff;
+  cursor: pointer;
+  display: flex;
+  font-size: 20px;
+  inset-inline-end: 0.75em;
+  padding: 0.25em;
+  position: absolute;
+  top: 20px;
+  z-index: 2;
+}
+
+.elementor-search-form--skin-full_screen .dialog-lightbox-close-button svg {
+  fill: currentColor;
+  height: 1em;
+  width: 1em;
+}

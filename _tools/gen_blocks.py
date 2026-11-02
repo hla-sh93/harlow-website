@@ -775,6 +775,70 @@ def design_classes():
     return sorted(names)
 
 
+# The media conditions of the vocabulary as the devices the editor's Design panel names.
+DEVICES = {"(max-width:767px)": "m", "(max-width:1024px)": "t", "(min-width:768px)": "d",
+           "(min-width:1025px)": "xl", "(max-width:1024px) and (min-width:768px)": "tb"}
+
+
+def design_vocabulary(blocks_by_type):
+    """What each class of the vocabulary sets, for the editor's Design panel: name ->
+    [axis, property, value, part, device], read from its one rule in assets/css/design/
+    (the part is what the class's tail names: '' the element, 'ht' its heading text, …;
+    the device '' every width, 't' tablet and smaller, 'm' mobile, …). And per kind of
+    block the (part, property) pairs the site's own blocks of that kind wear, which the
+    panel offers to add."""
+    import tinycss2
+
+    classes = {}
+
+    def read(rules, axis, device):
+        for rule in rules:
+            if rule.type == "at-rule" and rule.lower_at_keyword == "media" and rule.content:
+                cond = re.sub(r"\s+", "", tinycss2.serialize(rule.prelude)).replace("and", " and ")
+                read(tinycss2.parse_rule_list(rule.content, skip_whitespace=True, skip_comments=True),
+                     axis, DEVICES.get(cond, re.sub(r"[^a-z0-9]+", "-", cond.lower()).strip("-")))
+            elif rule.type == "qualified-rule":
+                found = re.search(r"\.(hl-(?:[A-Za-z0-9_-]|\\.)+)", tinycss2.serialize(rule.prelude))
+                decls = [d for d in tinycss2.parse_declaration_list(rule.content, skip_whitespace=True,
+                                                                    skip_comments=True) if d.type == "declaration"]
+                if not found or not decls:
+                    continue
+                name = re.sub(r"\\(.)", r"\1", found.group(1))
+                bits = name.split("--")
+                if device and bits[-1] == device:
+                    bits = bits[:-1]
+                value = tinycss2.serialize(decls[0].value).strip() + (" !important" if decls[0].important else "")
+                classes[name] = [axis, decls[0].lower_name, value, "--".join(bits[1:]), device]
+
+    for css in sorted(DESIGN_CSS.glob("*.css")):
+        if css.name.startswith("globals-") or css.name == "brand.css":
+            continue
+        # The palette's classes (the Design panel's swatches) join the surface axis.
+        read(tinycss2.parse_stylesheet(css.read_text(encoding="utf-8"), skip_whitespace=True, skip_comments=True),
+             "surface" if css.stem == "palette" else css.stem, "")
+    offers = {}
+    for kind, worn in sorted(blocks_by_type.items()):
+        pairs = {(classes[c][3], classes[c][1]) for c in worn if c in classes}
+        # A kind whose text or background is coloured anywhere offers the whole palette there.
+        offers[kind] = sorted([list(p) for p in pairs])
+    return OrderedDict(classes=OrderedDict(sorted(classes.items())), offers=offers)
+
+
+def worn_by_type():
+    """The vocabulary's classes each kind of block wears in the pages and item templates
+    written (theme/pages/, theme/singles/)."""
+    decoder, worn = json.JSONDecoder(), {}
+    for path in sorted(OUT_PAGES.glob("*.html")) + sorted((ROOT / "theme" / "singles").glob("*.html")):
+        text = path.read_text(encoding="utf-8")
+        for m in re.finditer(r"<!-- wp:harlow/([a-z-]+) ", text):
+            if text[m.end()] != "{":
+                continue
+            attrs, _ = decoder.raw_decode(text, m.end())
+            worn.setdefault(m.group(1), set()).update(
+                c for c in str(attrs.get("classes", "")).split() if c.startswith("hl-"))
+    return worn
+
+
 def pattern_file(slug, title, category, description, content):
     """A pattern of the theme: WordPress registers every file in patterns/ by its header."""
     return (f"<?php\n/**\n * Title: {title}\n * Slug: harlow/{slug}\n * Categories: {category}\n"
@@ -876,13 +940,17 @@ def main(only_names):
             icons_of(block, icons)
         if clients:
             icons_of(clients, icons)
-        classes = design_classes()
+        vocabulary = design_vocabulary(worn_by_type())
+        missing = set(design_classes()) - set(vocabulary["classes"])
+        if missing:
+            problems.append(f"design classes the Design panel cannot read: {sorted(missing)[:5]}")
         (OUT_EDITOR / "icons.json").write_text(json.dumps(list(icons), ensure_ascii=False, indent="\t") + "\n",
                                               encoding="utf-8", newline="\n")
-        (OUT_EDITOR / "design-classes.json").write_text(json.dumps(classes, indent="\t") + "\n",
+        (OUT_EDITOR / "design-classes.json").write_text(json.dumps(vocabulary, ensure_ascii=False) + "\n",
                                                        encoding="utf-8", newline="\n")
-        print(f"editor: {len(icons)} icons -> theme/editor/icons.json; "
-              f"{len(classes)} design classes -> theme/editor/design-classes.json")
+        print(f"editor: {len(icons)} icons -> theme/editor/icons.json; {len(vocabulary['classes'])} design classes "
+              f"(property, value, part, device) and the choices of {len(vocabulary['offers'])} kinds of block "
+              f"-> theme/editor/design-classes.json")
 
     for p in problems:
         print("  STOP", p)

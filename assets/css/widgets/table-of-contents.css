@@ -1,0 +1,195 @@
+/* Table of contents (Elementor Pro's table of contents widget, harlow/table-of-contents):
+   a box with a grey border, a title over a line, then the list of the page's headings,
+   numbered or with bullets, nested by level. The title's buttons minimise and open the
+   box. */
+
+/* The box */
+.elementor-widget-table-of-contents .elementor-widget-container {
+  min-height: var(--box-min-height);
+  overflow: hidden;
+  border: var(--box-border-width, 1px) solid var(--box-border-color, #9da5ae);
+  border-radius: var(--box-border-radius, 3px);
+  background-color: var(--box-background-color);
+  transition: min-height 0.4s;
+}
+
+/* The title and its buttons */
+.elementor-toc__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--box-padding, 20px);
+  border-bottom: var(--separator-width, 1px) solid var(--box-border-color, #9da5ae);
+  background-color: var(--header-background-color);
+}
+
+.elementor-toc__header-title {
+  flex-grow: 1;
+  margin: 0;
+  color: var(--header-color);
+  font-size: 18px;
+}
+
+.elementor-toc__toggle-button {
+  display: inline-flex;
+  cursor: pointer;
+}
+
+.elementor-toc__toggle-button svg {
+  width: 1em;
+  height: 1em;
+  fill: var(--toggle-button-color);
+}
+
+.elementor-widget-table-of-contents.elementor-toc--collapsed .elementor-toc__toggle-button--collapse,
+.elementor-widget-table-of-contents:not(.elementor-toc--collapsed) .elementor-toc__toggle-button--expand {
+  display: none;
+}
+
+/* The list's place: a spinner until the script has made the list */
+.elementor-toc__body {
+  max-height: var(--toc-body-max-height);
+  overflow-y: auto;
+  padding: var(--box-padding, 20px);
+}
+
+.elementor-toc__body::-webkit-scrollbar {
+  width: 7px;
+}
+
+.elementor-toc__body::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background-color: #babfc5;
+}
+
+.elementor-widget-table-of-contents.elementor-toc--collapsed .elementor-toc__header {
+  border-bottom-color: transparent;
+}
+
+.elementor-widget-table-of-contents.elementor-toc--collapsed .elementor-toc__body {
+  display: none;
+}
+
+.elementor-toc__spinner-container {
+  text-align: center;
+}
+
+.elementor-toc__spinner {
+  width: 2em;
+  height: 2em;
+  fill: currentColor;
+}
+
+.eicon-animation-spin {
+  animation: eicon-spin 2s infinite linear;
+}
+
+@keyframes eicon-spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(359deg);
+  }
+}
+
+/* The list */
+.elementor-toc__list-wrapper {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.elementor-toc__list-item {
+  margin-bottom: 0.5em;
+  list-style: none;
+}
+
+.elementor-toc__list-item .elementor-toc__list-wrapper {
+  margin-top: 0.5em;
+  margin-inline-start: var(--nested-list-indent, 1em);
+}
+
+.elementor-toc__list-item-text-wrapper {
+  display: flex;
+  align-items: center;
+}
+
+.elementor-toc__list-item-text {
+  color: var(--item-text-color);
+  text-decoration: var(--item-text-decoration, none);
+}
+
+.elementor-toc__list-item-text:hover {
+  color: var(--item-text-hover-color);
+  text-decoration: var(--item-text-hover-decoration, underline);
+}
+
+.elementor-toc__list-item-text.elementor-item-active {
+  color: var(--item-text-active-color, var(--item-text-hover-color));
+  text-decoration: var(--item-text-active-decoration, none);
+}
+
+/* The markers: numbers made by the list's counters, or the bullet icon */
+ol.elementor-toc__list-wrapper {
+  counter-reset: item;
+}
+
+ol.elementor-toc__list-wrapper > .elementor-toc__list-item {
+  counter-increment: item;
+}
+
+ol.elementor-toc__list-wrapper > .elementor-toc__list-item > .elementor-toc__list-item-text-wrapper:before {
+  content: counters(item, ".") ". ";
+  margin-inline-end: 8px;
+  color: var(--marker-color);
+}
+
+.elementor-toc__list-item-text-wrapper > svg {
+  flex-shrink: 0;
+  width: var(--marker-size, 0.5em);
+  height: var(--marker-size, 0.5em);
+  margin-inline-end: 8px;
+  fill: currentColor;
+  color: var(--marker-color);
+}
+
+/* Collapsed subitems: a heading's subitems show while it is the one being read */
+.elementor-toc__list-items--collapsible > .elementor-toc__list-wrapper > .elementor-toc__list-item > .elementor-toc__list-wrapper {
+  display: none;
+}
+
+.elementor-toc__list-items--collapsible > .elementor-toc__list-wrapper > .elementor-toc__list-item.elementor-item-active > .elementor-toc__list-wrapper {
+  display: block;
+}
+
+.elementor-toc__no-headings {
+  text-align: center;
+}
+
+/* In a flex container, the width a container gives its widgets */
+.e-con-inner > .elementor-widget-table-of-contents,
+.e-con > .elementor-widget-table-of-contents {
+  width: var(--container-widget-width, 100%);
+  --flex-grow: var(--container-widget-flex-grow);
+}
+
+/* The kit's colours and fonts, as Elementor gives a new table of contents */
+.elementor-widget-table-of-contents {
+  --header-color: var(--e-global-color-secondary);
+  --item-text-color: var(--e-global-color-text);
+  --item-text-hover-color: var(--e-global-color-accent);
+  --marker-color: var(--e-global-color-text);
+}
+
+.elementor-widget-table-of-contents .elementor-toc__header,
+.elementor-widget-table-of-contents .elementor-toc__header-title {
+  font-family: var(--e-global-typography-primary-font-family), Sans-serif;
+  font-weight: var(--e-global-typography-primary-font-weight);
+}
+
+.elementor-widget-table-of-contents .elementor-toc__list-item {
+  font-family: var(--e-global-typography-text-font-family), Sans-serif;
+  font-weight: var(--e-global-typography-text-font-weight);
+}

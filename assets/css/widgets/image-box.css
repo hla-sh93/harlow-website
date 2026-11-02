@@ -1,0 +1,109 @@
+/*
+ * Image box (Elementor's image box widget): a picture with a title and words, the picture
+ * above them (elementor-position-top) or beside them (-left, -right; above them on
+ * phones), the content aligned to the top, middle or bottom of the picture beside it.
+ */
+
+/* The box */
+.elementor-widget-image-box .elementor-image-box-wrapper {
+  text-align: center;
+}
+
+.elementor-widget-image-box .elementor-image-box-content {
+  width: 100%;
+}
+
+/* The picture: 30% of the box wide, 15px from the words (Elementor's defaults) */
+.elementor-widget-image-box .elementor-image-box-img {
+  display: inline-block;
+  margin: 0;
+}
+
+.elementor-widget-image-box .elementor-image-box-wrapper .elementor-image-box-img {
+  width: 30%;
+}
+
+.elementor-widget-image-box .elementor-image-box-img img {
+  width: 100%;
+  vertical-align: middle;
+  transition-duration: 0.3s;
+}
+
+.elementor-widget-image-box.elementor-position-top .elementor-image-box-img {
+  margin-bottom: 15px;
+}
+
+.elementor-widget-image-box.elementor-position-left .elementor-image-box-img {
+  margin-right: 15px;
+}
+
+.elementor-widget-image-box.elementor-position-right .elementor-image-box-img {
+  margin-left: 15px;
+}
+
+/* Beside the words, from tablets up */
+@media (min-width: 768px) {
+  .elementor-widget-image-box.elementor-position-left .elementor-image-box-wrapper,
+  .elementor-widget-image-box.elementor-position-right .elementor-image-box-wrapper {
+    display: flex;
+  }
+
+  .elementor-widget-image-box.elementor-position-right .elementor-image-box-wrapper {
+    flex-direction: row-reverse;
+    text-align: end;
+  }
+
+  .elementor-widget-image-box.elementor-position-left .elementor-image-box-wrapper {
+    flex-direction: row;
+    text-align: start;
+  }
+
+  .elementor-widget-image-box.elementor-position-left .elementor-image-box-img,
+  .elementor-widget-image-box.elementor-position-right .elementor-image-box-img {
+    flex-shrink: 0;
+  }
+
+  .elementor-widget-image-box.elementor-position-top .elementor-image-box-img {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .elementor-widget-image-box.elementor-vertical-align-top .elementor-image-box-wrapper {
+    align-items: flex-start;
+  }
+
+  .elementor-widget-image-box.elementor-vertical-align-middle .elementor-image-box-wrapper {
+    align-items: center;
+  }
+
+  .elementor-widget-image-box.elementor-vertical-align-bottom .elementor-image-box-wrapper {
+    align-items: flex-end;
+  }
+}
+
+/* Above the words on phones */
+@media (max-width: 767px) {
+  .elementor-widget-image-box .elementor-image-box-img {
+    margin-left: auto !important;
+    margin-right: auto !important;
+    margin-bottom: 15px;
+  }
+}
+
+/* The words: the kit's primary colour and font for the title, its text ones for the words */
+.elementor-widget-image-box .elementor-image-box-title {
+  color: var(--e-global-color-primary);
+  font-family: var(--e-global-typography-primary-font-family), Sans-serif;
+  font-weight: var(--e-global-typography-primary-font-weight);
+}
+
+.elementor-widget-image-box .elementor-image-box-title a {
+  color: inherit;
+}
+
+.elementor-widget-image-box .elementor-image-box-description {
+  margin: 0;
+  color: var(--e-global-color-text);
+  font-family: var(--e-global-typography-text-font-family), Sans-serif;
+  font-weight: var(--e-global-typography-text-font-weight);
+}

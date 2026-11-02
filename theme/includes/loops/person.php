@@ -32,7 +32,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 				</div>
 				<div class="elementor-element he-read-more elementor-widget elementor-widget-heading hl-c-000000--ht hl-ff-plus-jakarta-san-4f7b99--ht hl-fs-16--ht hl-fw-600--ht hl-ta-center" data-id="5948674" data-element_type="widget" data-e-type="widget" data-widget_type="heading.default">
 					<div class="elementor-widget-container">
-						<span class="elementor-heading-title elementor-size-default"><a href="#"><?php esc_html_e( 'Read More', 'harlow' ); ?></a></span>
+						<span class="elementor-heading-title elementor-size-default"><a href="#"><?php echo esc_html( harlow_card_option( 'more', __( 'Read More', 'harlow' ) ) ); ?></a></span>
 					</div>
 				</div>
 				<div class="elementor-element bottom-line e-flex e-con-boxed e-con e-child hl-v-content-width-100pct--d hl-v-display-flex hl-v-position-absolute hl-v-z-index-1 hl-bottom-0 hl-ltr-left-0 hl-v-min-height-4 hl-v-margin-bottom-0 hl-v-margin-left-0 hl-v-margin-right-0 hl-v-margin-top-0 hl-v-padding-bottom-0 hl-v-padding-left-0 hl-v-padding-right-0 hl-v-padding-top-0 hl-bgc-0165a1--bg" data-id="ee8b743" data-element_type="container" data-e-type="container">

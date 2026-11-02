@@ -1,0 +1,557 @@
+/* Animated headline (Elementor Pro's animated headline widget, harlow/animated-headline):
+   a headline in the middle, its highlighted words with a shape drawn over them, or words
+   that take turns in one place. The rotating animations are Elementor's keyframes. */
+
+.elementor-widget-animated-headline {
+  text-align: center;
+}
+
+.elementor-headline {
+  font-size: 43px;
+  line-height: 1.2;
+  word-spacing: var(--word-spacing);
+}
+
+.elementor-headline .elementor-headline-text-wrapper {
+  vertical-align: bottom;
+}
+
+.elementor-headline-dynamic-wrapper {
+  display: inline-block;
+  position: relative;
+}
+
+.elementor-headline-dynamic-wrapper .elementor-headline-dynamic-letter {
+  display: inline-block;
+}
+
+/* Highlighted: the shape stretched over the words, drawn when the headline is in view */
+.elementor-headline--style-highlight .elementor-headline-plain-text,
+.elementor-headline--style-highlight .elementor-headline-dynamic-text {
+  position: relative;
+  z-index: 1;
+}
+
+.elementor-headline--style-highlight .elementor-headline-dynamic-wrapper svg {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: calc(100% + 20px);
+  height: calc(100% + 20px);
+  transform: translate(-50%, -50%);
+  overflow: visible;
+  pointer-events: none;
+}
+
+.elementor-headline--style-highlight .elementor-headline-dynamic-wrapper path {
+  fill: none;
+  stroke: currentColor;
+  opacity: 0;
+  stroke-dasharray: 0 1500;
+  transition: 0.3s;
+}
+
+.elementor-headline--style-highlight .elementor-headline-dynamic-wrapper.e-animated path {
+  animation: elementor-headline-dash forwards;
+  animation-duration: var(--animation-duration, 1.2s);
+  animation-iteration-count: 1;
+}
+
+.elementor-headline--style-highlight .elementor-headline-dynamic-wrapper.e-animated path:nth-of-type(2) {
+  animation-delay: calc(var(--animation-duration, 1.2s) / 2);
+}
+
+.elementor-headline--style-highlight .elementor-headline-dynamic-wrapper.e-hide-highlight svg {
+  opacity: 0;
+  transition: opacity 0.4s;
+}
+
+@keyframes elementor-headline-dash {
+  0% {
+    stroke-dasharray: 0 1500;
+    opacity: 1;
+  }
+
+  to {
+    stroke-dasharray: 1500 1500;
+    opacity: 1;
+  }
+}
+
+/* Rotating: the words in one place, the shown one in the flow */
+.elementor-headline--style-rotate .elementor-headline-dynamic-wrapper {
+  text-align: start;
+}
+
+.elementor-headline--style-rotate .elementor-headline-dynamic-text {
+  display: inline-block;
+  position: absolute;
+  top: 0;
+  inset-inline-start: 0;
+  white-space: nowrap;
+}
+
+.elementor-headline--style-rotate .elementor-headline-dynamic-text.elementor-headline-text-active {
+  position: relative;
+}
+
+/* Letter animations: a word not shown yet stays out of sight until the script splits it */
+.elementor-headline-letters .elementor-headline-dynamic-text:not(.elementor-headline-text-active):not(.elementor-headline-text-inactive) {
+  opacity: 0;
+}
+
+/* Typing: the word is selected, then typed letter by letter after a blinking cursor */
+.elementor-headline-animation-type-typing .elementor-headline-dynamic-wrapper {
+  vertical-align: top;
+}
+
+.elementor-headline-animation-type-typing .elementor-headline-dynamic-wrapper:after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  inset-inline-end: -4px;
+  width: 1px;
+  height: 90%;
+  transform: translateY(-50%);
+  background-color: currentColor;
+  animation: elementor-headline-pulse 1s infinite;
+}
+
+.elementor-headline-animation-type-typing .elementor-headline-dynamic-wrapper.elementor-headline-typing-selected {
+  background-color: var(--e-global-color-accent);
+}
+
+.elementor-headline-animation-type-typing .elementor-headline-dynamic-wrapper.elementor-headline-typing-selected:after {
+  visibility: hidden;
+}
+
+.elementor-headline-animation-type-typing .elementor-headline-dynamic-wrapper.elementor-headline-typing-selected .elementor-headline-dynamic-text {
+  color: #fff;
+}
+
+.elementor-headline-animation-type-typing .elementor-headline-dynamic-text {
+  visibility: hidden;
+}
+
+.elementor-headline-animation-type-typing .elementor-headline-dynamic-text.elementor-headline-text-active {
+  visibility: visible;
+}
+
+.elementor-headline-animation-type-typing .elementor-headline-dynamic-letter {
+  position: absolute;
+  visibility: hidden;
+}
+
+.elementor-headline-animation-type-typing .elementor-headline-dynamic-letter.elementor-headline-animation-in {
+  position: relative;
+  visibility: visible;
+}
+
+@keyframes elementor-headline-pulse {
+  0%,
+  40% {
+    opacity: 1;
+  }
+
+  50%,
+  90% {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+/* Clip: the box closes to its cursor and opens on the next word */
+.elementor-headline-animation-type-clip .elementor-headline-dynamic-wrapper {
+  overflow: hidden;
+  vertical-align: top;
+}
+
+.elementor-headline-animation-type-clip .elementor-headline-dynamic-wrapper:after {
+  content: "";
+  position: absolute;
+  top: 0;
+  inset-inline-end: 0;
+  width: 2px;
+  height: 100%;
+  background-color: currentColor;
+}
+
+.elementor-headline-animation-type-clip .elementor-headline-dynamic-text {
+  opacity: 0;
+}
+
+.elementor-headline-animation-type-clip .elementor-headline-dynamic-text.elementor-headline-text-active {
+  opacity: 1;
+}
+
+/* Flip */
+.elementor-headline-animation-type-flip .elementor-headline-dynamic-wrapper {
+  perspective: 300px;
+}
+
+.elementor-headline-animation-type-flip .elementor-headline-dynamic-text {
+  opacity: 0;
+  transform-origin: 50% 100%;
+  transform: rotateX(180deg);
+}
+
+.elementor-headline-animation-type-flip .elementor-headline-dynamic-text.elementor-headline-text-active {
+  opacity: 1;
+  transform: rotateX(0deg);
+  animation: elementor-headline-flip-in 1.2s;
+}
+
+.elementor-headline-animation-type-flip .elementor-headline-dynamic-text.elementor-headline-text-inactive {
+  transform: rotateX(180deg);
+  animation: elementor-headline-flip-out 1.2s;
+}
+
+@keyframes elementor-headline-flip-in {
+  0% {
+    transform: rotateX(180deg);
+    opacity: 0;
+  }
+
+  35% {
+    transform: rotateX(120deg);
+    opacity: 0;
+  }
+
+  65% {
+    opacity: 0;
+  }
+
+  to {
+    transform: rotateX(360deg);
+    opacity: 1;
+  }
+}
+
+@keyframes elementor-headline-flip-out {
+  0% {
+    transform: rotateX(0deg);
+    opacity: 1;
+  }
+
+  35% {
+    transform: rotateX(-40deg);
+    opacity: 1;
+  }
+
+  65% {
+    opacity: 0;
+  }
+
+  to {
+    transform: rotateX(180deg);
+    opacity: 0;
+  }
+}
+
+/* Swirl: the letters turn in and out one after another */
+.elementor-headline-animation-type-swirl .elementor-headline-dynamic-wrapper {
+  perspective: 300px;
+}
+
+.elementor-headline-animation-type-swirl .elementor-headline-dynamic-letter {
+  opacity: 0;
+  transform-origin: 50% 50% 25px;
+}
+
+.elementor-headline-animation-type-swirl .elementor-headline-dynamic-letter.elementor-headline-animation-in {
+  opacity: 1;
+  animation: elementor-headline-swirl-in 0.4s forwards;
+}
+
+.elementor-headline-animation-type-swirl .elementor-headline-dynamic-letter.elementor-headline-animation-out {
+  animation: elementor-headline-swirl-out 0.4s forwards;
+}
+
+@keyframes elementor-headline-swirl-in {
+  0% {
+    opacity: 0;
+    transform: translateZ(-20px) rotateX(90deg);
+  }
+
+  60% {
+    opacity: 1;
+    transform: translateZ(-20px) rotateX(-10deg);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateZ(-20px) rotateX(0deg);
+  }
+}
+
+@keyframes elementor-headline-swirl-out {
+  0% {
+    opacity: 1;
+    transform: translateZ(-20px) rotateX(0);
+  }
+
+  60% {
+    opacity: 0;
+    transform: translateZ(-20px) rotateX(-100deg);
+  }
+
+  to {
+    opacity: 0;
+    transform: translateZ(-20px) rotateX(-90deg);
+  }
+}
+
+/* Blinds: the letters turn round like slats */
+.elementor-headline-animation-type-blinds .elementor-headline-dynamic-wrapper {
+  perspective: 300px;
+}
+
+.elementor-headline-animation-type-blinds .elementor-headline-dynamic-letter {
+  transform: rotateY(180deg);
+  backface-visibility: hidden;
+}
+
+.elementor-headline-animation-type-blinds .elementor-headline-dynamic-letter.elementor-headline-animation-in {
+  transform: rotateY(0deg);
+  animation: elementor-headline-blinds-in 0.6s forwards;
+}
+
+.elementor-headline-animation-type-blinds .elementor-headline-dynamic-letter.elementor-headline-animation-out {
+  animation: elementor-headline-blinds-out 0.6s forwards;
+}
+
+@keyframes elementor-headline-blinds-in {
+  0% {
+    transform: rotateY(180deg);
+  }
+
+  to {
+    transform: rotateY(0deg);
+  }
+}
+
+@keyframes elementor-headline-blinds-out {
+  0% {
+    transform: rotateY(0);
+  }
+
+  to {
+    transform: rotateY(-180deg);
+  }
+}
+
+/* Drop-in */
+.elementor-headline-animation-type-drop-in .elementor-headline-dynamic-wrapper {
+  perspective: 300px;
+}
+
+.elementor-headline-animation-type-drop-in .elementor-headline-dynamic-text {
+  opacity: 0;
+}
+
+.elementor-headline-animation-type-drop-in .elementor-headline-dynamic-text.elementor-headline-text-active {
+  opacity: 1;
+  animation: elementor-headline-drop-in-in 0.8s;
+}
+
+.elementor-headline-animation-type-drop-in .elementor-headline-dynamic-text.elementor-headline-text-inactive {
+  animation: elementor-headline-drop-in-out 0.8s;
+}
+
+@keyframes elementor-headline-drop-in-in {
+  0% {
+    opacity: 0;
+    transform: translateZ(100px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateZ(0);
+  }
+}
+
+@keyframes elementor-headline-drop-in-out {
+  0% {
+    opacity: 1;
+    transform: translateZ(0);
+  }
+
+  to {
+    opacity: 0;
+    transform: translateZ(-100px);
+  }
+}
+
+/* Wave: the letters grow in and shrink away one after another */
+.elementor-headline-animation-type-wave .elementor-headline-dynamic-letter {
+  opacity: 0;
+  transform: scale(0);
+}
+
+.elementor-headline-animation-type-wave .elementor-headline-dynamic-letter.elementor-headline-animation-in {
+  opacity: 1;
+  transform: scale(1);
+  animation: elementor-headline-wave-up 0.6s forwards;
+}
+
+.elementor-headline-animation-type-wave .elementor-headline-dynamic-letter.elementor-headline-animation-out {
+  animation: elementor-headline-wave-down 0.6s forwards;
+}
+
+@keyframes elementor-headline-wave-up {
+  0% {
+    opacity: 0;
+    transform: scale(0);
+  }
+
+  60% {
+    opacity: 1;
+    transform: scale(1.2);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes elementor-headline-wave-down {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  60% {
+    opacity: 0;
+    transform: scale(0);
+  }
+
+  to {
+    opacity: 0;
+    transform: scale(0);
+  }
+}
+
+/* Slide: the next word comes up from below */
+.elementor-headline-animation-type-slide .elementor-headline-dynamic-wrapper,
+.elementor-headline-animation-type-slide-down .elementor-headline-dynamic-wrapper {
+  overflow: hidden;
+  vertical-align: top;
+}
+
+.elementor-headline-animation-type-slide .elementor-headline-dynamic-text,
+.elementor-headline-animation-type-slide-down .elementor-headline-dynamic-text {
+  opacity: 0;
+}
+
+.elementor-headline-animation-type-slide .elementor-headline-dynamic-text.elementor-headline-text-active {
+  opacity: 1;
+  animation: elementor-headline-slide-in 0.6s;
+}
+
+.elementor-headline-animation-type-slide .elementor-headline-dynamic-text.elementor-headline-text-inactive {
+  animation: elementor-headline-slide-out 0.6s;
+}
+
+@keyframes elementor-headline-slide-in {
+  0% {
+    opacity: 0;
+    transform: translateY(100%);
+  }
+
+  60% {
+    opacity: 1;
+    transform: translateY(-20%);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes elementor-headline-slide-out {
+  0% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  60% {
+    opacity: 0;
+    transform: translateY(-120%);
+  }
+
+  to {
+    opacity: 0;
+    transform: translateY(-100%);
+  }
+}
+
+/* Slide down: the next word comes down from above */
+.elementor-headline-animation-type-slide-down .elementor-headline-dynamic-text.elementor-headline-text-active {
+  opacity: 1;
+  animation: elementor-headline-slide-down-in 0.6s;
+}
+
+.elementor-headline-animation-type-slide-down .elementor-headline-dynamic-text.elementor-headline-text-inactive {
+  animation: elementor-headline-slide-down-out 0.6s;
+}
+
+@keyframes elementor-headline-slide-down-in {
+  0% {
+    opacity: 0;
+    transform: translateY(-100%);
+  }
+
+  60% {
+    opacity: 1;
+    transform: translateY(20%);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes elementor-headline-slide-down-out {
+  0% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  60% {
+    opacity: 0;
+    transform: translateY(120%);
+  }
+
+  to {
+    opacity: 0;
+    transform: translateY(100%);
+  }
+}
+
+/* In a flex container, the width a container gives its widgets */
+.e-con-inner > .elementor-widget-animated-headline,
+.e-con > .elementor-widget-animated-headline {
+  width: var(--container-widget-width, 100%);
+  --flex-grow: var(--container-widget-flex-grow);
+}
+
+/* The kit's colours and fonts, as Elementor gives a new animated headline */
+.elementor-widget-animated-headline .elementor-headline {
+  font-family: var(--e-global-typography-primary-font-family), Sans-serif;
+  font-weight: var(--e-global-typography-primary-font-weight);
+}
+
+.elementor-widget-animated-headline .elementor-headline-plain-text,
+.elementor-widget-animated-headline .elementor-headline-dynamic-wrapper {
+  color: var(--e-global-color-secondary);
+}
+
+.elementor-widget-animated-headline .elementor-headline-dynamic-wrapper svg {
+  color: var(--e-global-color-accent);
+}

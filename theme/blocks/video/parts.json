@@ -1,0 +1,58 @@
+{
+	"parts": [
+		{
+			"key": "video",
+			"label": "Video",
+			"selector": " .elementor-wrapper",
+			"controls": [
+				"opacity",
+				"border",
+				"shadow"
+			],
+			"states": {
+				"hover": {
+					"label": "Hover",
+					"selector": " .elementor-wrapper:hover"
+				}
+			}
+		},
+		{
+			"key": "playIcon",
+			"label": "Play Icon",
+			"selector": " .elementor-custom-embed-play",
+			"controls": [
+				"icon",
+				"textShadow",
+				"opacity"
+			],
+			"states": {
+				"hover": {
+					"label": "Hover",
+					"selector": " .elementor-custom-embed-image-overlay:hover .elementor-custom-embed-play"
+				}
+			}
+		},
+		{
+			"key": "lightbox",
+			"label": "Lightbox",
+			"selector": " > .elementor-lightbox",
+			"controls": [
+				"background"
+			]
+		},
+		{
+			"key": "lightboxClose",
+			"label": "Lightbox UI",
+			"selector": " > .elementor-lightbox .dialog-lightbox-close-button",
+			"controls": [
+				"icon"
+			],
+			"states": {
+				"hover": {
+					"label": "Hover",
+					"selector": " > .elementor-lightbox .dialog-lightbox-close-button:hover"
+				}
+			}
+		}
+	]
+}

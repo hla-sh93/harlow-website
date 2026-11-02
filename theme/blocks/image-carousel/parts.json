@@ -1,0 +1,73 @@
+{
+	"parts": [
+		{
+			"key": "arrows",
+			"label": "Arrows",
+			"selector": " .elementor-swiper-button",
+			"controls": [
+				"icon",
+				"background",
+				"padding",
+				"border",
+				"shadow"
+			],
+			"states": {
+				"hover": {
+					"label": "Hover",
+					"selector": " .elementor-swiper-button:hover"
+				}
+			}
+		},
+		{
+			"key": "dots",
+			"label": "Dots",
+			"selector": " .swiper-pagination-bullet",
+			"controls": [
+				"size",
+				"background",
+				"opacity",
+				"margin",
+				"border"
+			],
+			"states": {
+				"active": {
+					"label": "Active",
+					"selector": " .swiper-pagination-bullet.swiper-pagination-bullet-active"
+				}
+			}
+		},
+		{
+			"key": "dotsPlace",
+			"label": "Dots place",
+			"selector": " .swiper-pagination",
+			"controls": [
+				"align",
+				"margin"
+			]
+		},
+		{
+			"key": "image",
+			"label": "Image",
+			"selector": " .swiper-slide-image",
+			"controls": [
+				"border",
+				"shadow",
+				"opacity"
+			]
+		},
+		{
+			"key": "caption",
+			"label": "Caption",
+			"selector": " .elementor-image-carousel-caption",
+			"controls": [
+				"align",
+				"color",
+				"typography",
+				"textShadow",
+				"background",
+				"padding",
+				"margin"
+			]
+		}
+	]
+}

@@ -1,0 +1,76 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "harlow/toggle",
+	"title": "Toggle",
+	"category": "text",
+	"description": "Titles that each open and close their own content; several can be open at once.",
+	"textdomain": "harlow",
+	"attributes": {
+		"element": {
+			"type": "string",
+			"default": ""
+		},
+		"classes": {
+			"type": "string",
+			"default": ""
+		},
+		"settings": {
+			"type": "string",
+			"default": ""
+		},
+		"htmlId": {
+			"type": "string",
+			"default": ""
+		},
+		"tabs": {
+			"type": "array",
+			"default": [
+				{
+					"title": "Toggle #1",
+					"content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec ullamcorper mattis, pulvinar dapibus leo."
+				},
+				{
+					"title": "Toggle #2",
+					"content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec ullamcorper mattis, pulvinar dapibus leo."
+				}
+			]
+		},
+		"iconClosed": {
+			"type": "string",
+			"default": "<svg aria-hidden=\"true\" class=\"e-font-icon-svg e-fas-caret-right\" viewBox=\"0 0 192 512\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M0 384.662V127.338c0-17.818 21.543-26.741 34.142-14.142l128.662 128.662c7.81 7.81 7.81 20.474 0 28.284L34.142 398.804C21.543 411.404 0 402.48 0 384.662z\"></path></svg>"
+		},
+		"iconOpened": {
+			"type": "string",
+			"default": "<svg aria-hidden=\"true\" class=\"e-font-icon-svg e-fas-caret-up\" viewBox=\"0 0 320 512\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M288.662 352H31.338c-17.818 0-26.741-21.543-14.142-34.142l128.662-128.662c7.81-7.81 20.474-7.81 28.284 0l128.662 128.662c12.6 12.599 3.676 34.142-14.142 34.142z\"></path></svg>"
+		},
+		"iconAlign": {
+			"type": "string",
+			"default": "left"
+		},
+		"titleTag": {
+			"type": "string",
+			"default": "div"
+		},
+		"faqSchema": {
+			"type": "boolean",
+			"default": false
+		},
+		"style": {
+			"type": "object",
+			"default": {}
+		}
+	},
+	"supports": {
+		"html": false,
+		"className": false,
+		"customClassName": false
+	},
+	"example": {
+		"attributes": {
+			"element": "a1b2c3d",
+			"classes": "elementor-element elementor-widget elementor-widget-toggle"
+		}
+	},
+	"render": "file:../../includes/sections/toggle.php"
+}

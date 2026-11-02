@@ -36,7 +36,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 							<div class="elementor-button-wrapper">
 								<a class="elementor-button elementor-button-link elementor-size-sm" href="<?php the_permalink(); ?>">
 									<span class="elementor-button-content-wrapper">
-										<span class="elementor-button-text"><?php esc_html_e( 'Read More', 'harlow' ); ?></span>
+										<span class="elementor-button-text"><?php echo esc_html( harlow_card_option( 'more', __( 'Read More', 'harlow' ) ) ); ?></span>
 									</span>
 								</a>
 							</div>

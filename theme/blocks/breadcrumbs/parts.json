@@ -1,0 +1,39 @@
+{
+	"parts": [
+		{
+			"key": "text",
+			"label": "Text",
+			"selector": " #breadcrumbs",
+			"controls": [
+				"color",
+				"typography",
+				"textShadow",
+				"align"
+			]
+		},
+		{
+			"key": "link",
+			"label": "Links",
+			"selector": " #breadcrumbs a",
+			"controls": [
+				"color",
+				"typography"
+			],
+			"states": {
+				"hover": {
+					"label": "Hover",
+					"selector": " #breadcrumbs a:hover"
+				}
+			}
+		},
+		{
+			"key": "last",
+			"label": "Current page",
+			"selector": " .breadcrumb_last",
+			"controls": [
+				"color",
+				"typography"
+			]
+		}
+	]
+}

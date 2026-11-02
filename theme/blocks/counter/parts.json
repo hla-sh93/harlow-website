@@ -1,0 +1,32 @@
+{
+	"parts": [
+		{
+			"key": "number",
+			"label": "Number",
+			"selector": " .elementor-counter-number-wrapper",
+			"controls": [
+				"color",
+				"typography",
+				"textShadow"
+			]
+		},
+		{
+			"key": "title",
+			"label": "Title",
+			"selector": " .elementor-counter-title",
+			"controls": [
+				"color",
+				"typography",
+				"textShadow"
+			]
+		},
+		{
+			"key": "counter",
+			"label": "Counter (gap between title and number)",
+			"selector": " .elementor-counter",
+			"controls": [
+				"gap"
+			]
+		}
+	]
+}

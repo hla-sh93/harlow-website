@@ -1,0 +1,148 @@
+/*
+ * Icon box (Elementor's icon box widget): an icon with a title and words, the icon above
+ * them (elementor-position-top) or beside them (-left, -right; above them on phones). The
+ * icon is plain (elementor-view-default), on a filled shape (-stacked) or in a frame
+ * (-framed), the shape a circle, a rounded square or a square (elementor-shape-*).
+ */
+
+/* The box */
+.elementor-widget-icon-box {
+  --icon-box-icon-margin: 15px;
+}
+
+.elementor-widget-icon-box .elementor-icon-box-wrapper {
+  display: block;
+  text-align: center;
+}
+
+.elementor-widget-icon-box .elementor-icon-box-icon {
+  margin-bottom: var(--icon-box-icon-margin, 15px);
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.elementor-widget-icon-box .elementor-icon-box-content {
+  flex-grow: 1;
+}
+
+/* Beside the words */
+.elementor-widget-icon-box.elementor-position-left .elementor-icon-box-wrapper,
+.elementor-widget-icon-box.elementor-position-right .elementor-icon-box-wrapper {
+  display: flex;
+}
+
+.elementor-widget-icon-box.elementor-position-left .elementor-icon-box-icon,
+.elementor-widget-icon-box.elementor-position-right .elementor-icon-box-icon {
+  display: inline-flex;
+  flex: 0 0 auto;
+  margin-bottom: unset;
+}
+
+.elementor-widget-icon-box.elementor-position-left .elementor-icon-box-wrapper {
+  flex-direction: row;
+  text-align: start;
+}
+
+.elementor-widget-icon-box.elementor-position-left .elementor-icon-box-icon {
+  margin-right: var(--icon-box-icon-margin, 15px);
+  margin-left: 0;
+}
+
+.elementor-widget-icon-box.elementor-position-right .elementor-icon-box-wrapper {
+  flex-direction: row-reverse;
+  text-align: end;
+}
+
+.elementor-widget-icon-box.elementor-position-right .elementor-icon-box-icon {
+  margin-left: var(--icon-box-icon-margin, 15px);
+  margin-right: 0;
+}
+
+.elementor-widget-icon-box.elementor-vertical-align-top .elementor-icon-box-wrapper {
+  align-items: flex-start;
+}
+
+.elementor-widget-icon-box.elementor-vertical-align-middle .elementor-icon-box-wrapper {
+  align-items: center;
+}
+
+.elementor-widget-icon-box.elementor-vertical-align-bottom .elementor-icon-box-wrapper {
+  align-items: flex-end;
+}
+
+/* Above the words on phones */
+@media (max-width: 767px) {
+  .elementor-widget-icon-box.elementor-position-left .elementor-icon-box-wrapper,
+  .elementor-widget-icon-box.elementor-position-right .elementor-icon-box-wrapper {
+    display: block;
+    text-align: center;
+  }
+
+  .elementor-widget-icon-box.elementor-position-left .elementor-icon-box-icon,
+  .elementor-widget-icon-box.elementor-position-right .elementor-icon-box-icon {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: var(--icon-box-icon-margin, 15px);
+  }
+}
+
+/* The icon: its views and shapes */
+.elementor-widget-icon-box .elementor-icon {
+  display: inline-block;
+}
+
+.elementor-widget-icon-box.elementor-view-stacked .elementor-icon {
+  padding: 0.5em;
+  background-color: #69727d;
+  color: #fff;
+  fill: #fff;
+}
+
+.elementor-widget-icon-box.elementor-view-framed .elementor-icon {
+  padding: 0.5em;
+  border: 3px solid #69727d;
+  background-color: transparent;
+  color: #69727d;
+}
+
+.elementor-widget-icon-box.elementor-shape-square .elementor-icon {
+  border-radius: 0;
+}
+
+.elementor-widget-icon-box.elementor-shape-rounded .elementor-icon {
+  border-radius: 10%;
+}
+
+.elementor-widget-icon-box.elementor-shape-circle .elementor-icon {
+  border-radius: 50%;
+}
+
+/* The kit's primary colour for the icon, the title and its font; its text ones for the words */
+.elementor-widget-icon-box.elementor-view-stacked .elementor-icon {
+  background-color: var(--e-global-color-primary);
+}
+
+.elementor-widget-icon-box.elementor-view-framed .elementor-icon,
+.elementor-widget-icon-box.elementor-view-default .elementor-icon {
+  border-color: var(--e-global-color-primary);
+  color: var(--e-global-color-primary);
+  fill: var(--e-global-color-primary);
+}
+
+.elementor-widget-icon-box .elementor-icon-box-title {
+  color: var(--e-global-color-primary);
+  font-family: var(--e-global-typography-primary-font-family), Sans-serif;
+  font-weight: var(--e-global-typography-primary-font-weight);
+}
+
+.elementor-widget-icon-box .elementor-icon-box-title a {
+  color: inherit;
+}
+
+.elementor-widget-icon-box .elementor-icon-box-description {
+  margin: 0;
+  color: var(--e-global-color-text);
+  font-family: var(--e-global-typography-text-font-family), Sans-serif;
+  font-weight: var(--e-global-typography-text-font-weight);
+}

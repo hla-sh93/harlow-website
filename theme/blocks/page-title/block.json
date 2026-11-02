@@ -1,0 +1,77 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "harlow/page-title",
+	"title": "Page Title",
+	"category": "theme",
+	"description": "The title of the page being shown, or of the list of posts it shows, as a heading (Elementor Pro's page title widget).",
+	"textdomain": "harlow",
+	"harlowWidget": "theme-page-title",
+	"attributes": {
+		"element": {
+			"type": "string",
+			"default": ""
+		},
+		"classes": {
+			"type": "string",
+			"default": ""
+		},
+		"settings": {
+			"type": "string",
+			"default": ""
+		},
+		"htmlId": {
+			"type": "string",
+			"default": ""
+		},
+		"tag": {
+			"type": "string",
+			"default": "h1"
+		},
+		"size": {
+			"type": "string",
+			"default": "default"
+		},
+		"linkTo": {
+			"type": "string",
+			"enum": [
+				"none",
+				"home",
+				"item",
+				"custom"
+			],
+			"default": "none"
+		},
+		"link": {
+			"type": "string",
+			"default": ""
+		},
+		"linkTarget": {
+			"type": "string",
+			"default": ""
+		},
+		"linkRel": {
+			"type": "string",
+			"default": ""
+		},
+		"context": {
+			"type": "boolean",
+			"default": false
+		},
+		"style": {
+			"type": "object",
+			"default": {}
+		}
+	},
+	"supports": {
+		"html": false,
+		"className": false,
+		"customClassName": false
+	},
+	"example": {
+		"attributes": {
+			"tag": "h1"
+		}
+	},
+	"render": "file:../../includes/sections/page-title.php"
+}

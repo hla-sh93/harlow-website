@@ -1,0 +1,160 @@
+{
+	"parts": [
+		{
+			"key": "header",
+			"label": "Header",
+			"selector": " .elementor-price-table__header",
+			"controls": [
+				"background",
+				"padding",
+				"border"
+			]
+		},
+		{
+			"key": "heading",
+			"label": "Header: title",
+			"selector": " .elementor-price-table__heading",
+			"controls": [
+				"color",
+				"typography",
+				"textShadow"
+			]
+		},
+		{
+			"key": "subheading",
+			"label": "Header: description",
+			"selector": " .elementor-price-table__subheading",
+			"controls": [
+				"color",
+				"typography"
+			]
+		},
+		{
+			"key": "pricing",
+			"label": "Pricing",
+			"selector": " .elementor-price-table__price",
+			"controls": [
+				"background",
+				"padding",
+				"color",
+				"typography"
+			]
+		},
+		{
+			"key": "currency",
+			"label": "Pricing: currency symbol",
+			"selector": " .elementor-price-table__price > .elementor-price-table__currency",
+			"controls": [
+				"typography",
+				"margin"
+			]
+		},
+		{
+			"key": "fraction",
+			"label": "Pricing: fractional part",
+			"selector": " .elementor-price-table__fractional-part",
+			"controls": [
+				"typography"
+			]
+		},
+		{
+			"key": "original",
+			"label": "Pricing: original price",
+			"selector": " .elementor-price-table__original-price",
+			"controls": [
+				"color",
+				"typography",
+				"margin"
+			]
+		},
+		{
+			"key": "period",
+			"label": "Pricing: period",
+			"selector": " .elementor-price-table__period",
+			"controls": [
+				"color",
+				"typography"
+			]
+		},
+		{
+			"key": "features",
+			"label": "Features",
+			"selector": " .elementor-price-table__features-list",
+			"controls": [
+				"background",
+				"padding",
+				"color",
+				"typography",
+				"align"
+			]
+		},
+		{
+			"key": "featureIcons",
+			"label": "Features: icons",
+			"selector": " .elementor-price-table__features-list .elementor-price-table__feature-inner",
+			"controls": [
+				"icon"
+			]
+		},
+		{
+			"key": "divider",
+			"label": "Features: divider",
+			"selector": " .elementor-price-table__features-list li:not(:first-child):before",
+			"controls": [
+				"border",
+				"margin"
+			]
+		},
+		{
+			"key": "footer",
+			"label": "Footer",
+			"selector": " .elementor-price-table__footer",
+			"controls": [
+				"background",
+				"padding",
+				"border"
+			]
+		},
+		{
+			"key": "button",
+			"label": "Footer: button",
+			"selector": " .elementor-price-table__button",
+			"controls": [
+				"color",
+				"typography",
+				"background",
+				"border",
+				"padding",
+				"shadow"
+			],
+			"states": {
+				"hover": {
+					"label": "Hover",
+					"selector": " .elementor-price-table__button:hover"
+				}
+			}
+		},
+		{
+			"key": "info",
+			"label": "Footer: additional info",
+			"selector": " .elementor-price-table__additional_info",
+			"controls": [
+				"color",
+				"typography",
+				"margin"
+			]
+		},
+		{
+			"key": "ribbon",
+			"label": "Ribbon",
+			"selector": " .elementor-price-table__ribbon-inner",
+			"controls": [
+				"background",
+				"color",
+				"typography",
+				"shadow",
+				"margin"
+			]
+		}
+	]
+}

@@ -1,0 +1,66 @@
+{
+	"parts": [
+		{
+			"key": "image",
+			"label": "Image",
+			"selector": " img",
+			"controls": [
+				"size",
+				"opacity",
+				"border",
+				"shadow"
+			]
+		},
+		{
+			"key": "hotspot",
+			"label": "Hotspot (colour and size)",
+			"selector": " .e-hotspot__button",
+			"controls": [
+				"icon",
+				"gap"
+			]
+		},
+		{
+			"key": "box",
+			"label": "Hotspot box (an icon's or a label's)",
+			"selector": " .e-hotspot:not(.e-hotspot--circle) .e-hotspot__button",
+			"controls": [
+				"background",
+				"padding",
+				"border",
+				"shadow",
+				"size"
+			],
+			"states": {
+				"hover": {
+					"label": "Hover",
+					"selector": " .e-hotspot:not(.e-hotspot--circle) .e-hotspot__button:hover"
+				}
+			}
+		},
+		{
+			"key": "label",
+			"label": "Hotspot label",
+			"selector": " .e-hotspot__label",
+			"controls": [
+				"typography"
+			]
+		},
+		{
+			"key": "tooltip",
+			"label": "Tooltip",
+			"selector": " .e-hotspot__tooltip",
+			"controls": [
+				"align",
+				"color",
+				"typography",
+				"textShadow",
+				"background",
+				"size",
+				"padding",
+				"border",
+				"shadow"
+			]
+		}
+	]
+}

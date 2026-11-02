@@ -37,14 +37,16 @@ $harlow_items     = new WP_Query(
 );
 $harlow_pages     = (int) $harlow_items->max_num_pages;
 $harlow_permalink = trailingslashit( (string) get_permalink() );
+harlow_current_list( $attributes );
 
 if ( $harlow_plain ) {
 	ob_start();
 	while ( $harlow_items->have_posts() ) {
 		$harlow_items->the_post();
-		get_template_part( 'includes/loops/' . $harlow_template );
+		harlow_loop_card( $harlow_template, (int) $attributes['cardTemplate'] );
 	}
 	wp_reset_postdata();
+	harlow_current_list( array() );
 	$harlow_cards = (string) ob_get_clean();
 	if ( 'box' === $attributes['layout'] ) {
 		$harlow_box   = array(
@@ -73,19 +75,22 @@ if ( $harlow_plain ) {
 			harlow_loop_is_carousel( $harlow_carousel );
 			while ( $harlow_items->have_posts() ) {
 				$harlow_items->the_post();
-				get_template_part( 'includes/loops/' . $harlow_template );
+				harlow_loop_card( $harlow_template, (int) $attributes['cardTemplate'] );
 			}
 			harlow_loop_is_carousel( false );
+			harlow_current_list( array() );
 			wp_reset_postdata();
 			?>
 		</div>
 		<?php if ( $harlow_carousel ) : ?>
 		</div>
 		<div class="elementor-swiper-button elementor-swiper-button-prev" role="button" tabindex="0" aria-label="<?php esc_attr_e( 'Previous', 'harlow' ); ?>">
-			<svg aria-hidden="true" class="e-font-icon-svg e-fas-arrow-left" viewBox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><path d="M257.5 445.1l-22.2 22.2c-9.4 9.4-24.6 9.4-33.9 0L7 273c-9.4-9.4-9.4-24.6 0-33.9L201.4 44.7c9.4-9.4 24.6-9.4 33.9 0l22.2 22.2c9.5 9.5 9.3 25-.4 34.3L136.6 216H424c13.3 0 24 10.7 24 24v32c0 13.3-10.7 24-24 24H136.6l120.5 114.8c9.8 9.3 10 24.8.4 34.3z"></path></svg>
+			<?php echo '' !== $attributes['iconPrevious'] ? harlow_icon( $attributes['iconPrevious'] ) : '<svg aria-hidden="true" class="e-font-icon-svg e-fas-arrow-left" viewBox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><path d="M257.5 445.1l-22.2 22.2c-9.4 9.4-24.6 9.4-33.9 0L7 273c-9.4-9.4-9.4-24.6 0-33.9L201.4 44.7c9.4-9.4 24.6-9.4 33.9 0l22.2 22.2c9.5 9.5 9.3 25-.4 34.3L136.6 216H424c13.3 0 24 10.7 24 24v32c0 13.3-10.7 24-24 24H136.6l120.5 114.8c9.8 9.3 10 24.8.4 34.3z"></path></svg>'; ?>
+
 		</div>
 		<div class="elementor-swiper-button elementor-swiper-button-next" role="button" tabindex="0" aria-label="<?php esc_attr_e( 'Next', 'harlow' ); ?>">
-			<svg aria-hidden="true" class="e-font-icon-svg e-fas-arrow-right" viewBox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><path d="M190.5 66.9l22.2-22.2c9.4-9.4 24.6-9.4 33.9 0L441 239c9.4 9.4 9.4 24.6 0 33.9L246.6 467.3c-9.4 9.4-24.6 9.4-33.9 0l-22.2-22.2c-9.5-9.5-9.3-25 .4-34.3L311.4 296H24c-13.3 0-24-10.7-24-24v-32c0-13.3 10.7-24 24-24h287.4L190.9 101.2c-9.8-9.3-10-24.8-.4-34.3z"></path></svg>
+			<?php echo '' !== $attributes['iconNext'] ? harlow_icon( $attributes['iconNext'] ) : '<svg aria-hidden="true" class="e-font-icon-svg e-fas-arrow-right" viewBox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><path d="M190.5 66.9l22.2-22.2c9.4-9.4 24.6-9.4 33.9 0L441 239c9.4 9.4 9.4 24.6 0 33.9L246.6 467.3c-9.4 9.4-24.6 9.4-33.9 0l-22.2-22.2c-9.5-9.5-9.3-25 .4-34.3L311.4 296H24c-13.3 0-24-10.7-24-24v-32c0-13.3 10.7-24 24-24h287.4L190.9 101.2c-9.8-9.3-10-24.8-.4-34.3z"></path></svg>'; ?>
+
 		</div>
 		<?php endif; ?>
 		<?php if ( 'numbers' === $attributes['pagination'] && $harlow_pages > 1 ) : ?>

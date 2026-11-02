@@ -1,0 +1,73 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "harlow/post-title",
+	"title": "Post Title",
+	"category": "theme",
+	"description": "The title of the item the page shows, as a heading (Elementor Pro's post title widget).",
+	"textdomain": "harlow",
+	"harlowWidget": "theme-post-title",
+	"attributes": {
+		"element": {
+			"type": "string",
+			"default": ""
+		},
+		"classes": {
+			"type": "string",
+			"default": ""
+		},
+		"settings": {
+			"type": "string",
+			"default": ""
+		},
+		"htmlId": {
+			"type": "string",
+			"default": ""
+		},
+		"tag": {
+			"type": "string",
+			"default": "h1"
+		},
+		"size": {
+			"type": "string",
+			"default": "default"
+		},
+		"linkTo": {
+			"type": "string",
+			"enum": [
+				"none",
+				"home",
+				"item",
+				"custom"
+			],
+			"default": "none"
+		},
+		"link": {
+			"type": "string",
+			"default": ""
+		},
+		"linkTarget": {
+			"type": "string",
+			"default": ""
+		},
+		"linkRel": {
+			"type": "string",
+			"default": ""
+		},
+		"style": {
+			"type": "object",
+			"default": {}
+		}
+	},
+	"supports": {
+		"html": false,
+		"className": false,
+		"customClassName": false
+	},
+	"example": {
+		"attributes": {
+			"tag": "h1"
+		}
+	},
+	"render": "file:../../includes/sections/post-title.php"
+}

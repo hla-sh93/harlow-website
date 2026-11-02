@@ -1,0 +1,71 @@
+{
+	"parts": [
+		{
+			"key": "grid",
+			"label": "Buttons: column and row gap",
+			"selector": " .elementor-grid",
+			"controls": [
+				"gap"
+			]
+		},
+		{
+			"key": "buttons",
+			"label": "Buttons (size, height, border, colours)",
+			"selector": " .elementor-share-btn",
+			"controls": [
+				"typography",
+				"size",
+				"color",
+				"background",
+				"border",
+				"shadow"
+			],
+			"states": {
+				"hover": {
+					"label": "Hover",
+					"selector": " .elementor-share-btn:hover"
+				}
+			}
+		},
+		{
+			"key": "icon",
+			"label": "Buttons: icon",
+			"selector": " .elementor-share-btn__icon",
+			"controls": [
+				"icon",
+				"background",
+				"size"
+			],
+			"states": {
+				"hover": {
+					"label": "Hover",
+					"selector": " .elementor-share-btn:hover .elementor-share-btn__icon"
+				}
+			}
+		},
+		{
+			"key": "title",
+			"label": "Buttons: name",
+			"selector": " .elementor-share-btn__title",
+			"controls": [
+				"color",
+				"typography"
+			],
+			"states": {
+				"hover": {
+					"label": "Hover",
+					"selector": " .elementor-share-btn:hover .elementor-share-btn__title"
+				}
+			}
+		},
+		{
+			"key": "text",
+			"label": "Buttons: name's box",
+			"selector": " .elementor-share-btn__text",
+			"controls": [
+				"background",
+				"padding"
+			]
+		}
+	]
+}

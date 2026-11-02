@@ -1,0 +1,85 @@
+{
+	"parts": [
+		{
+			"key": "form",
+			"label": "Form: rows gap",
+			"selector": " .elementor-field-group",
+			"controls": [
+				"margin"
+			]
+		},
+		{
+			"key": "links",
+			"label": "Form: links",
+			"selector": " .elementor-field-group > a",
+			"controls": [
+				"color",
+				"typography"
+			],
+			"states": {
+				"hover": {
+					"label": "Hover",
+					"selector": " .elementor-field-group > a:hover"
+				}
+			}
+		},
+		{
+			"key": "labels",
+			"label": "Labels",
+			"selector": " .elementor-field-group > .elementor-field-label| .elementor-remember-me label",
+			"controls": [
+				"color",
+				"typography",
+				"padding"
+			]
+		},
+		{
+			"key": "fields",
+			"label": "Fields",
+			"selector": " .elementor-field-group .elementor-field",
+			"controls": [
+				"color",
+				"typography",
+				"background",
+				"border",
+				"padding",
+				"shadow"
+			],
+			"states": {
+				"focus": {
+					"label": "Focus",
+					"selector": " .elementor-field-group .elementor-field:focus"
+				}
+			}
+		},
+		{
+			"key": "button",
+			"label": "Button",
+			"selector": " .elementor-button",
+			"controls": [
+				"color",
+				"typography",
+				"background",
+				"border",
+				"padding",
+				"shadow"
+			],
+			"states": {
+				"hover": {
+					"label": "Hover",
+					"selector": " .elementor-button:hover"
+				}
+			}
+		},
+		{
+			"key": "message",
+			"label": "Logged in message",
+			"selector": " .elementor-login__logged-in-message",
+			"controls": [
+				"color",
+				"typography",
+				"align"
+			]
+		}
+	]
+}

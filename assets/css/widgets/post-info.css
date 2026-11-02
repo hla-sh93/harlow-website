@@ -1,0 +1,52 @@
+/*
+ * The item's details (post-info): an icon list of the author, date, time, comments and
+ * terms, as Elementor Pro's post info widget draws it before it is styled (the icon
+ * list's own rules come with the elementor-icon-list-* classes): the icons in the kit's
+ * primary colour, 14px, the words in its secondary colour and text font.
+ */
+
+/* The icons */
+.elementor-widget-post-info {
+  --e-icon-list-icon-size: 14px;
+}
+
+.elementor-widget-post-info .elementor-icon-list-icon {
+  color: var(--e-global-color-primary);
+}
+
+.elementor-widget-post-info .elementor-icon-list-icon svg {
+  fill: var(--e-global-color-primary);
+}
+
+/* The author's picture in place of an icon */
+.elementor-widget-post-info .elementor-icon-list-icon .elementor-avatar {
+  border-radius: 100%;
+  height: auto;
+  width: var(--e-icon-list-icon-size, 14px);
+}
+
+/* The words */
+.elementor-widget-post-info .elementor-icon-list-text,
+.elementor-widget-post-info .elementor-icon-list-text a {
+  color: var(--e-global-color-secondary);
+}
+
+.elementor-widget-post-info .elementor-icon-list-item {
+  font-family: var(--e-global-typography-text-font-family), Sans-serif;
+  font-weight: var(--e-global-typography-text-font-weight);
+}
+
+.elementor-widget-post-info .elementor-icon-list-items .elementor-icon-list-item .elementor-icon-list-text {
+  display: inline-block;
+}
+
+.elementor-widget-post-info .elementor-icon-list-items .elementor-icon-list-item .elementor-icon-list-text a,
+.elementor-widget-post-info .elementor-icon-list-items .elementor-icon-list-item .elementor-icon-list-text span {
+  display: inline;
+}
+
+/* One line under another */
+.elementor-widget-post-info .elementor-icon-list-items:not(.elementor-inline-items) .elementor-icon-list-item {
+  align-items: center;
+  display: flex;
+}

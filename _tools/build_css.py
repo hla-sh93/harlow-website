@@ -27,6 +27,7 @@ Usage:
 Prints counts per layer and re-parses every file it wrote.
 """
 
+import hashlib
 import json
 import re
 import shutil
@@ -131,7 +132,8 @@ def page_sheets(raw_html):
             css = el.text or ""
             sid = el.get("id") or ("lazyload" if "e-lazyloaded" in css else "")
             if not sid:
-                sid = "anon-" + str(abs(hash(css)) % 10**8)
+                # The same name on every run: Python's hash() is salted per process.
+                sid = "anon-" + hashlib.sha1(css.encode("utf-8")).hexdigest()[:8]
             out.append(("inline", sid, css))
     return out
 

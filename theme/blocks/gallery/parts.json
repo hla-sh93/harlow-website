@@ -1,0 +1,29 @@
+{
+	"parts": [
+		{
+			"key": "items",
+			"label": "Gallery items",
+			"selector": " .e-gallery-item",
+			"controls": [
+				"border",
+				"shadow",
+				"opacity"
+			],
+			"states": {
+				"hover": {
+					"label": "Hover",
+					"selector": " .e-gallery-item:hover"
+				}
+			}
+		},
+		{
+			"key": "grid",
+			"label": "Grid",
+			"selector": " .e-gallery-container",
+			"controls": [
+				"columns",
+				"gap"
+			]
+		}
+	]
+}

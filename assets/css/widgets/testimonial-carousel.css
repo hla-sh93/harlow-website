@@ -1,0 +1,350 @@
+/*
+ * Testimonial carousel (Elementor Pro's testimonial carousel), and the carousel it shares
+ * with the reviews (Elementor Pro's carousel base): slides laid out per view, arrows beside
+ * the slides, dots, a fraction or a progress bar under them.
+ */
+
+/* The carousel: slides per view and the space between them, per device, from the custom
+   properties the widget prints on it; the script measures the same */
+.elementor-widget-testimonial-carousel,
+.elementor-widget-reviews {
+  --swiper-pagination-bullet-size: 6px;
+  --swiper-pagination-bullet-horizontal-gap: 6px;
+  --swiper-theme-color: #000;
+}
+
+.elementor-widget-testimonial-carousel .elementor-main-swiper,
+.elementor-widget-reviews .elementor-main-swiper {
+  --harlow-carousel-view: var(--e-slides-per-view, 1);
+  --harlow-carousel-space: var(--e-space-between, 10px);
+  /* The arrows and the pagination sit on the widget, outside the slides' clipping. */
+  position: static;
+}
+
+@media (max-width: 1024px) {
+  .elementor-widget-testimonial-carousel .elementor-main-swiper,
+  .elementor-widget-reviews .elementor-main-swiper {
+    --harlow-carousel-view: var(--e-slides-per-view-tablet, var(--e-slides-per-view, 1));
+    --harlow-carousel-space: var(--e-space-between-tablet, var(--e-space-between, 10px));
+  }
+}
+
+@media (max-width: 767px) {
+  .elementor-widget-testimonial-carousel .elementor-main-swiper,
+  .elementor-widget-reviews .elementor-main-swiper {
+    --harlow-carousel-view: var(--e-slides-per-view-mobile, var(--e-slides-per-view-tablet, var(--e-slides-per-view, 1)));
+    --harlow-carousel-space: var(--e-space-between-mobile, var(--e-space-between-tablet, var(--e-space-between, 10px)));
+  }
+}
+
+.elementor-widget-testimonial-carousel .elementor-main-swiper > .swiper-wrapper,
+.elementor-widget-reviews .elementor-main-swiper > .swiper-wrapper {
+  gap: var(--harlow-carousel-space);
+  transition-timing-function: ease;
+}
+
+.elementor-widget-testimonial-carousel .elementor-main-swiper .swiper-slide,
+.elementor-widget-reviews .elementor-main-swiper .swiper-slide {
+  height: auto;
+}
+
+/* Before the script runs (and in the editor): the first slides, as many as the view holds */
+.elementor-widget-testimonial-carousel .elementor-main-swiper:not(.swiper-initialized) .swiper-slide,
+.elementor-widget-reviews .elementor-main-swiper:not(.swiper-initialized) .swiper-slide {
+  width: calc((100% - (var(--harlow-carousel-view) - 1) * var(--harlow-carousel-space)) / var(--harlow-carousel-view));
+}
+
+/* Room for the arrows beside the slides */
+.elementor-widget-testimonial-carousel.elementor-arrows-yes .elementor-main-swiper,
+.elementor-widget-reviews.elementor-arrows-yes .elementor-main-swiper {
+  width: calc(95% - 40px);
+}
+
+/* Room for the dots under the slides */
+.elementor-widget-testimonial-carousel.elementor-pagination-type-bullets .elementor-main-swiper,
+.elementor-widget-reviews.elementor-pagination-type-bullets .elementor-main-swiper,
+.elementor-widget-testimonial-carousel.elementor-pagination-type-fraction .elementor-main-swiper,
+.elementor-widget-reviews.elementor-pagination-type-fraction .elementor-main-swiper {
+  padding-bottom: 40px;
+}
+
+/* The arrows */
+.elementor-widget-testimonial-carousel .elementor-swiper-button,
+.elementor-widget-reviews .elementor-swiper-button {
+  position: absolute;
+  display: inline-flex;
+  z-index: 1;
+  cursor: pointer;
+  font-size: 25px;
+  color: #000;
+  top: 50%;
+  transform: translateY(-50%);
+  outline: none;
+}
+
+.elementor-widget-testimonial-carousel.elementor-pagination-type-bullets .elementor-swiper-button,
+.elementor-widget-reviews.elementor-pagination-type-bullets .elementor-swiper-button,
+.elementor-widget-testimonial-carousel.elementor-pagination-type-fraction .elementor-swiper-button,
+.elementor-widget-reviews.elementor-pagination-type-fraction .elementor-swiper-button {
+  top: calc(50% - 20px);
+}
+
+.elementor-widget-testimonial-carousel .elementor-swiper-button svg,
+.elementor-widget-reviews .elementor-swiper-button svg {
+  fill: currentColor;
+  height: 1em;
+  width: 1em;
+}
+
+.elementor-widget-testimonial-carousel .elementor-swiper-button-prev,
+.elementor-widget-reviews .elementor-swiper-button-prev {
+  left: 10px;
+}
+
+.elementor-widget-testimonial-carousel .elementor-swiper-button-next,
+.elementor-widget-reviews .elementor-swiper-button-next {
+  right: 10px;
+}
+
+.elementor-widget-testimonial-carousel .elementor-swiper-button.swiper-button-disabled,
+.elementor-widget-reviews .elementor-swiper-button.swiper-button-disabled {
+  opacity: 0.3;
+  cursor: auto;
+}
+
+/* The pagination: dots, a fraction, or a progress bar */
+.elementor-widget-testimonial-carousel .swiper-pagination,
+.elementor-widget-reviews .swiper-pagination {
+  position: absolute;
+  text-align: center;
+  transition: 0.3s opacity;
+  transform: translate3d(0, 0, 0);
+  z-index: 10;
+  bottom: 5px;
+  left: 0;
+  width: 100%;
+  line-height: 1;
+}
+
+.elementor-widget-testimonial-carousel .swiper-pagination-bullet,
+.elementor-widget-reviews .swiper-pagination-bullet {
+  display: inline-block;
+  width: var(--swiper-pagination-bullet-width, var(--swiper-pagination-bullet-size, 8px));
+  height: var(--swiper-pagination-bullet-height, var(--swiper-pagination-bullet-size, 8px));
+  margin: 0 var(--swiper-pagination-bullet-horizontal-gap, 4px);
+  border-radius: 50%;
+  background: var(--swiper-pagination-bullet-inactive-color, #000);
+  opacity: var(--swiper-pagination-bullet-inactive-opacity, 0.2);
+  cursor: pointer;
+}
+
+.elementor-widget-testimonial-carousel .swiper-pagination-bullet-active,
+.elementor-widget-reviews .swiper-pagination-bullet-active {
+  opacity: var(--swiper-pagination-bullet-opacity, 1);
+  background: var(--swiper-pagination-color, var(--swiper-theme-color));
+}
+
+.elementor-widget-testimonial-carousel .swiper-pagination-fraction,
+.elementor-widget-reviews .swiper-pagination-fraction {
+  font-size: 14px;
+}
+
+.elementor-widget-testimonial-carousel .swiper-pagination-progressbar,
+.elementor-widget-reviews .swiper-pagination-progressbar {
+  top: auto;
+  bottom: 0;
+  height: 4px;
+  background: rgba(0, 0, 0, 0.25);
+}
+
+.elementor-widget-testimonial-carousel .swiper-pagination-progressbar .swiper-pagination-progressbar-fill,
+.elementor-widget-reviews .swiper-pagination-progressbar .swiper-pagination-progressbar-fill {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--swiper-pagination-color, var(--swiper-theme-color));
+  transform: scale(0);
+  transform-origin: left top;
+}
+
+/* A testimonial: the words, then the picture with the name and title */
+.elementor-widget-testimonial-carousel .elementor-testimonial {
+  display: flex;
+  flex-direction: column;
+}
+
+.elementor-widget-testimonial-carousel .elementor-testimonial__text {
+  font-size: 1.3em;
+  font-style: italic;
+  line-height: 1.5;
+  color: var(--e-global-color-text);
+  font-family: var(--e-global-typography-text-font-family), Sans-serif;
+  font-weight: var(--e-global-typography-text-font-weight);
+}
+
+.elementor-widget-testimonial-carousel .elementor-testimonial__cite {
+  display: flex;
+  flex-direction: column;
+  font-style: normal;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.elementor-widget-testimonial-carousel .elementor-testimonial__name {
+  font-weight: 700;
+  color: var(--e-global-color-primary);
+  font-family: var(--e-global-typography-primary-font-family), Sans-serif;
+}
+
+.elementor-widget-testimonial-carousel .elementor-testimonial__title {
+  color: var(--e-global-color-secondary);
+  font-family: var(--e-global-typography-secondary-font-family), Sans-serif;
+  font-weight: var(--e-global-typography-secondary-font-weight);
+}
+
+.elementor-widget-testimonial-carousel .elementor-testimonial__image img {
+  width: 60px;
+  height: 60px;
+  max-width: none;
+  border-radius: 999px;
+  box-sizing: content-box;
+  object-fit: cover;
+}
+
+.elementor-widget-testimonial-carousel .elementor-testimonial__footer {
+  display: flex;
+  align-items: center;
+}
+
+/* The picture inline with the name and title (and the bubble skin) */
+.elementor-testimonial--layout-image_inline .elementor-testimonial__footer {
+  margin-top: 20px;
+}
+
+.elementor-testimonial--layout-image_inline .elementor-testimonial__image + cite {
+  margin-inline-start: 15px;
+  text-align: start;
+}
+
+/* The picture stacked over the name and title */
+.elementor-testimonial--layout-image_stacked .elementor-testimonial__footer {
+  flex-direction: column;
+  margin-top: 20px;
+}
+
+.elementor-testimonial--layout-image_stacked .elementor-testimonial__image + cite {
+  margin-top: 15px;
+}
+
+/* The picture above the words, the name and title under them */
+.elementor-testimonial--layout-image_above .elementor-testimonial {
+  flex-direction: column-reverse;
+}
+
+.elementor-testimonial--layout-image_above .elementor-testimonial__footer {
+  margin-bottom: 20px;
+}
+
+.elementor-testimonial--layout-image_above .elementor-testimonial__content .elementor-testimonial__cite,
+.elementor-testimonial--layout-image_left .elementor-testimonial__content .elementor-testimonial__cite,
+.elementor-testimonial--layout-image_right .elementor-testimonial__content .elementor-testimonial__cite {
+  margin-top: 15px;
+}
+
+/* The picture left or right of the words */
+.elementor-testimonial--layout-image_left .elementor-testimonial,
+.elementor-testimonial--layout-image_right .elementor-testimonial {
+  align-items: center;
+}
+
+.elementor-testimonial--layout-image_left .elementor-testimonial {
+  flex-direction: row-reverse;
+}
+
+.elementor-testimonial--layout-image_right .elementor-testimonial {
+  flex-direction: row;
+}
+
+.elementor-testimonial--layout-image_left .elementor-testimonial__footer {
+  margin-inline-end: 20px;
+  flex-shrink: 0;
+}
+
+.elementor-testimonial--layout-image_right .elementor-testimonial__footer {
+  margin-inline-start: 20px;
+  flex-shrink: 0;
+}
+
+.elementor-testimonial--layout-image_left .elementor-testimonial__content,
+.elementor-testimonial--layout-image_right .elementor-testimonial__content {
+  flex-grow: 1;
+}
+
+/* Alignment */
+.elementor-testimonial--align-center .elementor-testimonial {
+  text-align: center;
+}
+
+.elementor-testimonial--align-center .elementor-testimonial__footer {
+  justify-content: center;
+}
+
+.elementor-testimonial--align-left .elementor-testimonial {
+  text-align: left;
+}
+
+.elementor-testimonial--align-left .elementor-testimonial__footer {
+  justify-content: flex-start;
+}
+
+.elementor-testimonial--align-left.elementor-testimonial--layout-image_stacked .elementor-testimonial__footer {
+  align-items: flex-start;
+}
+
+.elementor-testimonial--align-right .elementor-testimonial {
+  text-align: right;
+}
+
+.elementor-testimonial--align-right .elementor-testimonial__footer {
+  justify-content: flex-end;
+}
+
+.elementor-testimonial--align-right.elementor-testimonial--layout-image_stacked .elementor-testimonial__footer {
+  align-items: flex-end;
+}
+
+.elementor-testimonial--align-center.elementor-testimonial--layout-image_stacked .elementor-testimonial__footer {
+  align-items: center;
+}
+
+/* The bubble skin: the words in a speech bubble pointing at the picture */
+.elementor-testimonial--skin-bubble .elementor-testimonial__content {
+  position: relative;
+  padding: 20px;
+  background-color: #f9fafa;
+}
+
+.elementor-testimonial--skin-bubble .elementor-testimonial__content:after {
+  content: "";
+  display: block;
+  position: absolute;
+  bottom: -7px;
+  width: 14px;
+  height: 14px;
+  background-color: #f9fafa;
+  transform: scaleX(0.75) rotate(45deg);
+}
+
+.elementor-testimonial--skin-bubble.elementor-testimonial--align-center .elementor-testimonial__content:after {
+  left: calc(50% - 7px);
+}
+
+.elementor-testimonial--skin-bubble.elementor-testimonial--align-left .elementor-testimonial__content:after {
+  left: 23px;
+}
+
+.elementor-testimonial--skin-bubble.elementor-testimonial--align-right .elementor-testimonial__content:after {
+  right: 23px;
+}

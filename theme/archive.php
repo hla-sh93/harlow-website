@@ -11,6 +11,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 get_header();
+// A Theme Builder template for this page, else the base theme's own.
+if ( harlow_theme_template( 'archive' ) ) {
+	get_footer();
+	return;
+}
 ?>
 <main id="content" class="site-main">
 

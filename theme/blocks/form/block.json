@@ -1,0 +1,237 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "harlow/form",
+	"title": "Form",
+	"category": "widgets",
+	"description": "A form of your own: its fields, its button, and what happens when it is sent (emails, a redirect, a webhook, the submissions kept).",
+	"textdomain": "harlow",
+	"attributes": {
+		"element": {
+			"type": "string",
+			"default": ""
+		},
+		"classes": {
+			"type": "string",
+			"default": ""
+		},
+		"settings": {
+			"type": "string",
+			"default": ""
+		},
+		"htmlId": {
+			"type": "string",
+			"default": ""
+		},
+		"formName": {
+			"type": "string",
+			"default": "New Form"
+		},
+		"fields": {
+			"type": "array",
+			"default": [
+				{
+					"id": "name",
+					"type": "text",
+					"label": "Name",
+					"placeholder": "Name",
+					"required": false,
+					"width": "100"
+				},
+				{
+					"id": "email",
+					"type": "email",
+					"label": "Email",
+					"placeholder": "Email",
+					"required": true,
+					"width": "100"
+				},
+				{
+					"id": "message",
+					"type": "textarea",
+					"label": "Message",
+					"placeholder": "Message",
+					"required": false,
+					"width": "100",
+					"rows": 4
+				}
+			]
+		},
+		"inputSize": {
+			"type": "string",
+			"default": "sm"
+		},
+		"showLabels": {
+			"type": "boolean",
+			"default": true
+		},
+		"markRequired": {
+			"type": "boolean",
+			"default": false
+		},
+		"buttonText": {
+			"type": "string",
+			"default": "Send"
+		},
+		"buttonSize": {
+			"type": "string",
+			"default": "sm"
+		},
+		"buttonWidth": {
+			"type": "string",
+			"default": "100"
+		},
+		"buttonWidthTablet": {
+			"type": "string",
+			"default": ""
+		},
+		"buttonWidthMobile": {
+			"type": "string",
+			"default": ""
+		},
+		"buttonAlign": {
+			"type": "string",
+			"default": "stretch"
+		},
+		"buttonAlignTablet": {
+			"type": "string",
+			"default": ""
+		},
+		"buttonAlignMobile": {
+			"type": "string",
+			"default": ""
+		},
+		"buttonIcon": {
+			"type": "string",
+			"default": ""
+		},
+		"buttonIconAlign": {
+			"type": "string",
+			"default": "left"
+		},
+		"buttonId": {
+			"type": "string",
+			"default": ""
+		},
+		"stepType": {
+			"type": "string",
+			"default": "number_text"
+		},
+		"stepShape": {
+			"type": "string",
+			"default": "circle"
+		},
+		"stepPrevious": {
+			"type": "string",
+			"default": "Previous"
+		},
+		"stepNext": {
+			"type": "string",
+			"default": "Next"
+		},
+		"actions": {
+			"type": "array",
+			"default": [
+				"email",
+				"collect"
+			]
+		},
+		"email": {
+			"type": "object",
+			"default": {
+				"to": "",
+				"subject": "",
+				"content": "[all-fields]",
+				"from": "",
+				"fromName": "",
+				"replyTo": "",
+				"cc": "",
+				"bcc": "",
+				"html": true,
+				"meta": [
+					"date",
+					"time",
+					"page_url",
+					"user_agent",
+					"remote_ip"
+				]
+			}
+		},
+		"email2": {
+			"type": "object",
+			"default": {
+				"to": "",
+				"subject": "",
+				"content": "[all-fields]",
+				"from": "",
+				"fromName": "",
+				"replyTo": "",
+				"cc": "",
+				"bcc": "",
+				"html": true,
+				"meta": []
+			}
+		},
+		"redirectTo": {
+			"type": "string",
+			"default": ""
+		},
+		"webhookUrl": {
+			"type": "string",
+			"default": ""
+		},
+		"webhookAdvanced": {
+			"type": "boolean",
+			"default": false
+		},
+		"popupAction": {
+			"type": "string",
+			"default": "open"
+		},
+		"popupId": {
+			"type": "integer",
+			"default": 0
+		},
+		"formId": {
+			"type": "string",
+			"default": ""
+		},
+		"customMessages": {
+			"type": "boolean",
+			"default": false
+		},
+		"messages": {
+			"type": "object",
+			"default": {
+				"success": "Your submission was successful.",
+				"error": "Your submission failed because of an error.",
+				"required": "This field is required.",
+				"invalid": "There's something wrong. The form is invalid."
+			}
+		},
+		"honeypot": {
+			"type": "boolean",
+			"default": true
+		},
+		"formStyle": {
+			"type": "object",
+			"default": {}
+		},
+		"style": {
+			"type": "object",
+			"default": {}
+		}
+	},
+	"supports": {
+		"html": false,
+		"className": false,
+		"customClassName": false
+	},
+	"render": "file:../../includes/sections/form.php",
+	"example": {
+		"attributes": {
+			"element": "a1b2c3d",
+			"classes": "elementor-element elementor-widget elementor-widget-form"
+		}
+	}
+}

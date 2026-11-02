@@ -58,6 +58,14 @@
 		"hasIcon": {
 			"type": "boolean",
 			"default": false
+		},
+		"picture": {
+			"type": "integer",
+			"default": 0
+		},
+		"style": {
+			"type": "object",
+			"default": {}
 		}
 	},
 	"supports": {

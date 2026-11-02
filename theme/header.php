@@ -28,4 +28,7 @@ if ( ! is_404() ) {
 ?>
 <a class="skip-link screen-reader-text" href="#content"><?php esc_html_e( 'Skip to content', 'harlow' ); ?></a>
 <?php
-get_template_part( 'includes/parts/site-header' );
+// A Theme Builder header that fits the page, else the design's.
+if ( ! harlow_theme_template( 'header' ) ) {
+	get_template_part( 'includes/parts/site-header' );
+}

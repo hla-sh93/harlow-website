@@ -9,6 +9,7 @@
    "width": 5,
    "height": 22,
    "title": "title-img-1",
+   "slug": "title-img-1",
    "alt": "",
    "date": "2024-05-27T10:18:31",
    "sizes": {}
@@ -21,6 +22,7 @@
    "width": 5,
    "height": 22,
    "title": "title-img",
+   "slug": "title-img",
    "alt": "",
    "date": "2024-05-27T11:21:57",
    "sizes": {}
@@ -33,6 +35,7 @@
    "width": 244,
    "height": 119,
    "title": "132980464797921816client9",
+   "slug": "132980464797921816client9",
    "alt": "",
    "date": "2024-05-27T13:09:57",
    "sizes": {}
@@ -45,6 +48,7 @@
    "width": 244,
    "height": 119,
    "title": "133118610134869596132980464459612466client7",
+   "slug": "133118610134869596132980464459612466client7",
    "alt": "",
    "date": "2024-05-27T13:09:57",
    "sizes": {}
@@ -57,6 +61,7 @@
    "width": 182,
    "height": 90,
    "title": "133118609652797189Exxon_Mobil_Logo",
+   "slug": "133118609652797189exxon_mobil_logo",
    "alt": "",
    "date": "2024-05-27T13:09:58",
    "sizes": {}
@@ -69,6 +74,7 @@
    "width": 250,
    "height": 120,
    "title": "133257702786824982133118613842358880132980464237899785client6",
+   "slug": "133257702786824982133118613842358880132980464237899785client6",
    "alt": "",
    "date": "2024-05-27T13:09:58",
    "sizes": {}
@@ -81,6 +87,7 @@
    "width": 175,
    "height": 86,
    "title": "133257702608443431132980463914111265client5",
+   "slug": "133257702608443431132980463914111265client5",
    "alt": "",
    "date": "2024-05-27T13:09:59",
    "sizes": {}
@@ -93,6 +100,7 @@
    "width": 182,
    "height": 90,
    "title": "133118613056007184citic",
+   "slug": "133118613056007184citic",
    "alt": "",
    "date": "2024-05-27T13:09:59",
    "sizes": {}
@@ -105,6 +113,7 @@
    "width": 185,
    "height": 90,
    "title": "132980463282055113client3",
+   "slug": "132980463282055113client3",
    "alt": "",
    "date": "2024-05-27T13:10:00",
    "sizes": {}
@@ -117,6 +126,7 @@
    "width": 182,
    "height": 90,
    "title": "133117809753436685Hyundai",
+   "slug": "133117809753436685hyundai",
    "alt": "",
    "date": "2024-05-27T13:10:00",
    "sizes": {}
@@ -129,6 +139,7 @@
    "width": 182,
    "height": 90,
    "title": "132980460472324406client1",
+   "slug": "132980460472324406client1",
    "alt": "",
    "date": "2024-05-27T13:10:01",
    "sizes": {}
@@ -141,6 +152,7 @@
    "width": 182,
    "height": 90,
    "title": "133098541108043280Fichtner",
+   "slug": "133098541108043280fichtner",
    "alt": "",
    "date": "2024-05-27T13:10:01",
    "sizes": {}
@@ -153,6 +165,7 @@
    "width": 314,
    "height": 166,
    "title": "left-lineimg",
+   "slug": "left-lineimg",
    "alt": "",
    "date": "2024-05-28T07:34:16",
    "sizes": {}
@@ -165,6 +178,7 @@
    "width": 319,
    "height": 160,
    "title": "right-lineimg",
+   "slug": "right-lineimg",
    "alt": "",
    "date": "2024-05-28T07:34:17",
    "sizes": {}
@@ -177,6 +191,7 @@
    "width": 380,
    "height": 280,
    "title": "133098592430306380constructionpre",
+   "slug": "133098592430306380constructionpre",
    "alt": "",
    "date": "2024-05-28T08:27:16",
    "sizes": {}
@@ -189,6 +204,7 @@
    "width": 380,
    "height": 280,
    "title": "133098588155849409Energy",
+   "slug": "133098588155849409energy",
    "alt": "",
    "date": "2024-05-28T08:27:17",
    "sizes": {}
@@ -201,6 +217,7 @@
    "width": 380,
    "height": 280,
    "title": "133098659500739231consultancy",
+   "slug": "133098659500739231consultancy",
    "alt": "",
    "date": "2024-05-28T08:27:17",
    "sizes": {}
@@ -213,6 +230,7 @@
    "width": 380,
    "height": 280,
    "title": "133098600249350080industrial",
+   "slug": "133098600249350080industrial",
    "alt": "",
    "date": "2024-05-28T08:27:19",
    "sizes": {}
@@ -225,6 +243,7 @@
    "width": 380,
    "height": 280,
    "title": "133098599423686232security",
+   "slug": "133098599423686232security",
    "alt": "",
    "date": "2024-05-28T08:27:19",
    "sizes": {}
@@ -237,6 +256,7 @@
    "width": 94,
    "height": 94,
    "title": "event-boxlogo",
+   "slug": "event-boxlogo",
    "alt": "",
    "date": "2024-05-28T09:54:17",
    "sizes": {}
@@ -249,6 +269,7 @@
    "width": 850,
    "height": 560,
    "title": "133086720156971608A-technician-controlling-a-valve-in-an-oil-facility-in-Iraq.-Photo-AFP-1",
+   "slug": "133086720156971608a-technician-controlling-a-valve-in-an-oil-facility-in-iraq-photo-afp-1",
    "alt": "",
    "date": "2024-05-28T09:54:17",
    "sizes": {}
@@ -261,6 +282,7 @@
    "width": 1080,
    "height": 1080,
    "title": "footer-logo",
+   "slug": "footer-logo",
    "alt": "Harlow International",
    "date": "2024-05-28T10:35:50",
    "sizes": {}
@@ -273,6 +295,7 @@
    "width": 569,
    "height": 510,
    "title": "ourclient-main-image",
+   "slug": "ourclient-main-image-2",
    "alt": "",
    "date": "2024-05-30T09:06:36",
    "sizes": {}
@@ -285,6 +308,7 @@
    "width": 26,
    "height": 22,
    "title": "133087364501143877Private-Security",
+   "slug": "133087364501143877private-security",
    "alt": "",
    "date": "2024-06-02T12:43:57",
    "sizes": {}
@@ -297,6 +321,7 @@
    "width": 26,
    "height": 22,
    "title": "133104658423977275Industrial-Sector",
+   "slug": "133104658423977275industrial-sector",
    "alt": "",
    "date": "2024-06-02T12:56:21",
    "sizes": {}
@@ -309,6 +334,7 @@
    "width": 26,
    "height": 22,
    "title": "133087363992284461International-Alliances-and-Business-Consulting",
+   "slug": "133087363992284461international-alliances-and-business-consulting",
    "alt": "",
    "date": "2024-06-02T13:05:17",
    "sizes": {}
@@ -321,6 +347,7 @@
    "width": 26,
    "height": 22,
    "title": "133087363715641785Construction",
+   "slug": "133087363715641785construction",
    "alt": "",
    "date": "2024-06-02T13:08:17",
    "sizes": {}
@@ -333,6 +360,7 @@
    "width": 26,
    "height": 22,
    "title": "133087363372513662Energy-and-Utilities",
+   "slug": "133087363372513662energy-and-utilities",
    "alt": "",
    "date": "2024-06-02T13:08:19",
    "sizes": {}
@@ -345,6 +373,7 @@
    "width": 200,
    "height": 86,
    "title": "chairman_sign-white",
+   "slug": "chairman_sign-white",
    "alt": "",
    "date": "2024-06-05T08:24:25",
    "sizes": {
@@ -430,6 +459,7 @@
    "width": 372,
    "height": 216,
    "title": "133281066665792975WhatsApp2",
+   "slug": "133281066665792975whatsapp2",
    "alt": "",
    "date": "2024-06-06T10:42:02",
    "sizes": {
@@ -461,6 +491,7 @@
    "width": 2030,
    "height": 1360,
    "title": "Meeting Room",
+   "slug": "133216166053072913meeting-room",
    "alt": "",
    "date": "2024-06-06T12:00:03",
    "sizes": {
@@ -510,6 +541,7 @@
    "width": 2030,
    "height": 1360,
    "title": "Premium Room",
+   "slug": "133216165035519982riverside-room",
    "alt": "",
    "date": "2024-06-06T12:00:16",
    "sizes": {
@@ -559,6 +591,7 @@
    "width": 2030,
    "height": 1360,
    "title": "VIP Lounge",
+   "slug": "133216165544684431vip-lobby",
    "alt": "",
    "date": "2024-06-06T12:00:35",
    "sizes": {
@@ -608,6 +641,7 @@
    "width": 2030,
    "height": 1360,
    "title": "Hallways",
+   "slug": "133216160975090272hallways",
    "alt": "",
    "date": "2024-06-06T13:31:32",
    "sizes": {
@@ -657,6 +691,7 @@
    "width": 2030,
    "height": 1360,
    "title": "Interior",
+   "slug": "133216162043443065interior",
    "alt": "",
    "date": "2024-06-06T13:31:49",
    "sizes": {
@@ -706,6 +741,7 @@
    "width": 2048,
    "height": 1360,
    "title": "Hotel's Building",
+   "slug": "133216147158444517alrasheed1",
    "alt": "",
    "date": "2024-06-06T13:31:52",
    "sizes": {
@@ -755,6 +791,7 @@
    "width": 2030,
    "height": 1360,
    "title": "Basmaiya City Construction",
+   "slug": "basmaiya-3-1",
    "alt": "",
    "date": "2024-06-06T13:35:52",
    "sizes": {
@@ -804,6 +841,7 @@
    "width": 2030,
    "height": 1360,
    "title": "Basmaiya City Construction",
+   "slug": "basmaiya-2-1",
    "alt": "",
    "date": "2024-06-06T13:36:06",
    "sizes": {
@@ -853,6 +891,7 @@
    "width": 2030,
    "height": 1360,
    "title": "Suwayrah Air Base Work Progress",
+   "slug": "suwayrah-air-base-work-progress",
    "alt": "",
    "date": "2024-06-06T13:38:28",
    "sizes": {
@@ -902,6 +941,7 @@
    "width": 2030,
    "height": 1360,
    "title": "Suwayrah Air Base 1",
+   "slug": "suwayrah-air-base-2",
    "alt": "",
    "date": "2024-06-06T13:38:40",
    "sizes": {
@@ -951,6 +991,7 @@
    "width": 2030,
    "height": 1360,
    "title": "Watchtower Base Construction",
+   "slug": "133216164389856145watchtower-base-construction",
    "alt": "",
    "date": "2024-06-06T13:40:23",
    "sizes": {
@@ -1000,6 +1041,7 @@
    "width": 2030,
    "height": 1360,
    "title": "Watchtower Construction",
+   "slug": "133216163466332735watchtower-construction",
    "alt": "",
    "date": "2024-06-06T13:40:36",
    "sizes": {
@@ -1049,6 +1091,7 @@
    "width": 794,
    "height": 246,
    "title": "PowerPlant1",
+   "slug": "powerplant1",
    "alt": "",
    "date": "2024-06-10T11:51:45",
    "sizes": {
@@ -1086,6 +1129,7 @@
    "width": 500,
    "height": 200,
    "title": "Smart Meters",
+   "slug": "smart-meters",
    "alt": "",
    "date": "2024-06-10T12:32:50",
    "sizes": {
@@ -1117,6 +1161,7 @@
    "width": 380,
    "height": 280,
    "title": "smartmeters",
+   "slug": "smartmeters",
    "alt": "",
    "date": "2024-06-10T12:34:12",
    "sizes": {
@@ -1148,6 +1193,7 @@
    "width": 380,
    "height": 280,
    "title": "security1",
+   "slug": "security1",
    "alt": "",
    "date": "2024-06-10T13:07:35",
    "sizes": {
@@ -1179,6 +1225,7 @@
    "width": 500,
    "height": 200,
    "title": "DRC",
+   "slug": "drc",
    "alt": "",
    "date": "2024-06-10T13:17:39",
    "sizes": {
@@ -1210,6 +1257,7 @@
    "width": 380,
    "height": 280,
    "title": "cementfactory",
+   "slug": "cementfactory",
    "alt": "",
    "date": "2024-06-10T13:20:10",
    "sizes": {
@@ -1241,6 +1289,7 @@
    "width": 500,
    "height": 500,
    "title": "Harlow DMCC",
+   "slug": "harlow-dmcc-2",
    "alt": "",
    "date": "2024-06-10T13:45:50",
    "sizes": {
@@ -1272,6 +1321,7 @@
    "width": 1280,
    "height": 960,
    "title": "133225573834439662133091706762494290DSC02720",
+   "slug": "133225573834439662133091706762494290dsc02720",
    "alt": "",
    "date": "2024-06-12T07:38:09",
    "sizes": {
@@ -1315,6 +1365,7 @@
    "width": 2048,
    "height": 1536,
    "title": "133226717739353287133091706762494290DSC00520",
+   "slug": "133226717739353287133091706762494290dsc00520",
    "alt": "",
    "date": "2024-06-12T07:38:17",
    "sizes": {
@@ -1364,6 +1415,7 @@
    "width": 2043,
    "height": 1362,
    "title": "133224984806904646Britsh Embassy 2",
+   "slug": "133224984806904646britsh-embassy-2",
    "alt": "",
    "date": "2024-06-12T07:38:22",
    "sizes": {
@@ -1413,6 +1465,7 @@
    "width": 2048,
    "height": 1360,
    "title": "133224984806904646Britsh Embassy 3",
+   "slug": "133224984806904646britsh-embassy-3",
    "alt": "",
    "date": "2024-06-12T07:38:27",
    "sizes": {
@@ -1462,6 +1515,7 @@
    "width": 1280,
    "height": 960,
    "title": "133224992951210169133091706762338042DSC02507",
+   "slug": "133224992951210169133091706762338042dsc02507",
    "alt": "",
    "date": "2024-06-12T07:38:35",
    "sizes": {
@@ -1505,6 +1559,7 @@
    "width": 2560,
    "height": 1707,
    "title": "133229908183711001Alrasheed 4",
+   "slug": "133229908183711001alrasheed-4",
    "alt": "",
    "date": "2024-06-12T08:10:35",
    "sizes": {
@@ -1560,6 +1615,7 @@
    "width": 2048,
    "height": 1360,
    "title": "133229908183711001Alrasheed5",
+   "slug": "133229908183711001alrasheed5",
    "alt": "",
    "date": "2024-06-12T08:10:46",
    "sizes": {
@@ -1609,6 +1665,7 @@
    "width": 2560,
    "height": 1707,
    "title": "133229908183711001133226732498887064Al Rasheed 6",
+   "slug": "133229908183711001133226732498887064al-rasheed-6",
    "alt": "",
    "date": "2024-06-12T08:10:53",
    "sizes": {
@@ -1664,6 +1721,7 @@
    "width": 2560,
    "height": 1707,
    "title": "133229907097057667Alrasheed",
+   "slug": "133229907097057667alrasheed",
    "alt": "",
    "date": "2024-06-12T08:11:03",
    "sizes": {
@@ -1719,6 +1777,7 @@
    "width": 1500,
    "height": 945,
    "title": "133229907097057667Alrasheed 2",
+   "slug": "133229907097057667alrasheed-2",
    "alt": "",
    "date": "2024-06-12T08:11:12",
    "sizes": {
@@ -1762,6 +1821,7 @@
    "width": 2560,
    "height": 1707,
    "title": "133229908183711001Alrasheed 3",
+   "slug": "133229908183711001alrasheed-3",
    "alt": "",
    "date": "2024-06-12T08:11:17",
    "sizes": {
@@ -1817,6 +1877,7 @@
    "width": 2560,
    "height": 1920,
    "title": "133229977128768329P4",
+   "slug": "133229977128768329p4",
    "alt": "",
    "date": "2024-06-12T08:13:51",
    "sizes": {
@@ -1872,6 +1933,7 @@
    "width": 2560,
    "height": 1920,
    "title": "133229977128768329P5",
+   "slug": "133229977128768329p5",
    "alt": "",
    "date": "2024-06-12T08:14:01",
    "sizes": {
@@ -1927,6 +1989,7 @@
    "width": 2560,
    "height": 1920,
    "title": "133229977129237075P6",
+   "slug": "133229977129237075p6",
    "alt": "",
    "date": "2024-06-12T08:14:11",
    "sizes": {
@@ -1982,6 +2045,7 @@
    "width": 1280,
    "height": 960,
    "title": "133229977128612078P1",
+   "slug": "133229977128612078p1",
    "alt": "",
    "date": "2024-06-12T08:14:18",
    "sizes": {
@@ -2025,6 +2089,7 @@
    "width": 1280,
    "height": 960,
    "title": "133229977128612078P2",
+   "slug": "133229977128612078p2",
    "alt": "",
    "date": "2024-06-12T08:14:23",
    "sizes": {
@@ -2068,6 +2133,7 @@
    "width": 2560,
    "height": 1920,
    "title": "133229977128768329P3",
+   "slug": "133229977128768329p3",
    "alt": "",
    "date": "2024-06-12T08:14:28",
    "sizes": {
@@ -2123,6 +2189,7 @@
    "width": 2560,
    "height": 1920,
    "title": "133091713753628292DSC00437",
+   "slug": "133091713753628292dsc00437",
    "alt": "",
    "date": "2024-06-12T08:17:20",
    "sizes": {
@@ -2178,6 +2245,7 @@
    "width": 2560,
    "height": 1920,
    "title": "133091713753628292DSC00026",
+   "slug": "133091713753628292dsc00026",
    "alt": "",
    "date": "2024-06-12T08:17:44",
    "sizes": {
@@ -2233,6 +2301,7 @@
    "width": 2560,
    "height": 1920,
    "title": "133091713753472027DSC00455",
+   "slug": "133091713753472027dsc00455",
    "alt": "",
    "date": "2024-06-12T08:18:14",
    "sizes": {
@@ -2288,6 +2357,7 @@
    "width": 2560,
    "height": 1920,
    "title": "133091713753472027DSC00464",
+   "slug": "133091713753472027dsc00464",
    "alt": "",
    "date": "2024-06-12T08:18:47",
    "sizes": {
@@ -2343,6 +2413,7 @@
    "width": 2128,
    "height": 1416,
    "title": "133091713753315774DSC_4259",
+   "slug": "133091713753315774dsc_4259",
    "alt": "",
    "date": "2024-06-12T08:18:59",
    "sizes": {
@@ -2398,6 +2469,7 @@
    "width": 2560,
    "height": 1340,
    "title": "133091713753315774image",
+   "slug": "133091713753315774image",
    "alt": "",
    "date": "2024-06-12T08:19:13",
    "sizes": {
@@ -2453,6 +2525,7 @@
    "width": 1397,
    "height": 936,
    "title": "najaf-cement-workshop",
+   "slug": "najaf-cement-workshop",
    "alt": "",
    "date": "2024-06-12T08:47:45",
    "sizes": {
@@ -2496,6 +2569,7 @@
    "width": 1412,
    "height": 937,
    "title": "najaf-cement-silo",
+   "slug": "najaf-cement-silo",
    "alt": "",
    "date": "2024-06-12T08:47:51",
    "sizes": {
@@ -2539,6 +2613,7 @@
    "width": 1280,
    "height": 853,
    "title": "133228379131114597factory-g82c2609f1_1280",
+   "slug": "133228379131114597factory-g82c2609f1_1280",
    "alt": "",
    "date": "2024-06-12T08:47:58",
    "sizes": {
@@ -2582,6 +2657,7 @@
    "width": 938,
    "height": 936,
    "title": "alkhairat3",
+   "slug": "alkhairat3",
    "alt": "",
    "date": "2024-06-12T08:50:42",
    "sizes": {
@@ -2619,6 +2695,7 @@
    "width": 941,
    "height": 943,
    "title": "alkhairat2",
+   "slug": "alkhairat2",
    "alt": "",
    "date": "2024-06-12T08:50:46",
    "sizes": {
@@ -2656,6 +2733,7 @@
    "width": 936,
    "height": 935,
    "title": "alkhairat",
+   "slug": "alkhairat",
    "alt": "",
    "date": "2024-06-12T08:50:49",
    "sizes": {
@@ -2693,6 +2771,7 @@
    "width": 1241,
    "height": 1755,
    "title": "quality_assurance_policy",
+   "slug": "quality_assurance_policy",
    "alt": "",
    "date": "2024-06-23T09:23:19",
    "sizes": {
@@ -2742,6 +2821,7 @@
    "width": 1241,
    "height": 1755,
    "title": "anti-bribery",
+   "slug": "anti-bribery",
    "alt": "",
    "date": "2024-06-23T09:32:53",
    "sizes": {
@@ -2791,6 +2871,7 @@
    "width": 1810,
    "height": 2560,
    "title": "anti-money",
+   "slug": "anti-money",
    "alt": "",
    "date": "2024-06-23T09:38:07",
    "sizes": {
@@ -2846,6 +2927,7 @@
    "width": 1241,
    "height": 1755,
    "title": "kyc",
+   "slug": "kyc",
    "alt": "",
    "date": "2024-06-23T09:38:31",
    "sizes": {
@@ -2895,6 +2977,7 @@
    "width": 1241,
    "height": 1755,
    "title": "vendor_management_policy",
+   "slug": "vendor_management_policy",
    "alt": "",
    "date": "2024-06-23T09:40:17",
    "sizes": {
@@ -2944,6 +3027,7 @@
    "width": 500,
    "height": 200,
    "title": "Harlow International",
+   "slug": "harlow-international",
    "alt": "Harlow International",
    "date": "2024-06-23T10:05:17",
    "sizes": {
@@ -2975,6 +3059,7 @@
    "width": 500,
    "height": 200,
    "title": "Al Murabit",
+   "slug": "al-murabit",
    "alt": "",
    "date": "2024-06-23T10:19:15",
    "sizes": {
@@ -3006,6 +3091,7 @@
    "width": 1193,
    "height": 355,
    "title": "New-Harlow-Group-Logo-v01",
+   "slug": "new-harlow-group-logo-v01",
    "alt": "",
    "date": "2024-08-05T08:51:35",
    "sizes": {
@@ -3055,6 +3141,7 @@
    "width": 800,
    "height": 212,
    "title": "New-Harlow-Group-Logo-v01",
+   "slug": "new-harlow-group-logo-v01-2",
    "alt": "",
    "date": "2024-08-05T09:56:00",
    "sizes": {
@@ -3098,6 +3185,7 @@
    "width": 2560,
    "height": 1718,
    "title": "KPP 3 units new",
+   "slug": "kpp-3-units-new",
    "alt": "",
    "date": "2024-10-21T08:52:32",
    "sizes": {
@@ -3159,6 +3247,7 @@
    "width": 385,
    "height": 505,
    "title": "harlow-who-we-are-min",
+   "slug": "harlow-who-we-are-min",
    "alt": "",
    "date": "2024-12-19T07:41:21",
    "sizes": {
@@ -3196,6 +3285,7 @@
    "width": 555,
    "height": 510,
    "title": "harlow-join-our-team-min",
+   "slug": "harlow-join-our-team-min",
    "alt": "",
    "date": "2024-12-19T07:41:43",
    "sizes": {
@@ -3233,6 +3323,7 @@
    "width": 315,
    "height": 359,
    "title": "harolow-group-min",
+   "slug": "harolow-group-min",
    "alt": "",
    "date": "2024-12-22T06:48:18",
    "sizes": {
@@ -3264,6 +3355,7 @@
    "width": 341,
    "height": 312,
    "title": "harlow-group-chairman-min",
+   "slug": "harlow-group-chairman-min",
    "alt": "",
    "date": "2024-12-22T06:53:16",
    "sizes": {
@@ -3295,6 +3387,7 @@
    "width": 526,
    "height": 383,
    "title": "harlow-our-mission",
+   "slug": "harlow-our-mission",
    "alt": "",
    "date": "2024-12-22T07:04:29",
    "sizes": {
@@ -3326,6 +3419,7 @@
    "width": 526,
    "height": 383,
    "title": "harlow-our-vision",
+   "slug": "harlow-our-vision",
    "alt": "",
    "date": "2024-12-22T07:07:40",
    "sizes": {
@@ -3357,6 +3451,7 @@
    "width": 580,
    "height": 660,
    "title": "harlow-csr",
+   "slug": "harlow-csr",
    "alt": "",
    "date": "2024-12-22T07:09:42",
    "sizes": {
@@ -3388,6 +3483,7 @@
    "width": 360,
    "height": 285,
    "title": "CONSTRUCTION DEVELOPMENT",
+   "slug": "construction-development",
    "alt": "",
    "date": "2024-12-22T07:51:00",
    "sizes": {
@@ -3419,6 +3515,7 @@
    "width": 360,
    "height": 285,
    "title": "prime-miniter",
+   "slug": "prime-miniter-2",
    "alt": "",
    "date": "2024-12-22T07:54:04",
    "sizes": {
@@ -3450,6 +3547,7 @@
    "width": 360,
    "height": 285,
    "title": "British Embassy",
+   "slug": "british-embassy",
    "alt": "",
    "date": "2024-12-22T07:55:36",
    "sizes": {
@@ -3481,6 +3579,7 @@
    "width": 360,
    "height": 285,
    "title": "AL RASHEED HOTEL",
+   "slug": "al-rasheed-hotel",
    "alt": "",
    "date": "2024-12-22T07:56:19",
    "sizes": {
@@ -3512,6 +3611,7 @@
    "width": 360,
    "height": 285,
    "title": "Bismayah New City Project",
+   "slug": "bismayah-new-city-project",
    "alt": "",
    "date": "2024-12-22T07:58:09",
    "sizes": {
@@ -3543,6 +3643,7 @@
    "width": 360,
    "height": 285,
    "title": "AL SUWAYRAH AIR BASE",
+   "slug": "al-suwayrah-air-base",
    "alt": "",
    "date": "2024-12-22T07:58:36",
    "sizes": {
@@ -3574,6 +3675,7 @@
    "width": 580,
    "height": 660,
    "title": "guard",
+   "slug": "guard",
    "alt": "",
    "date": "2024-12-22T08:24:48",
    "sizes": {
@@ -3605,6 +3707,7 @@
    "width": 365,
    "height": 365,
    "title": "AL KHAIRAT THERMAL POWER PLANT",
+   "slug": "al-khairat-thermal-power-plant-2",
    "alt": "",
    "date": "2024-12-22T08:43:32",
    "sizes": {
@@ -3636,6 +3739,7 @@
    "width": 478,
    "height": 1024,
    "title": "silver_tower-min",
+   "slug": "silver_tower-min",
    "alt": "",
    "date": "2024-12-22T10:31:32",
    "sizes": {
@@ -3667,6 +3771,7 @@
    "width": 1024,
    "height": 478,
    "title": "download-min",
+   "slug": "download-min-6",
    "alt": "",
    "date": "2024-12-22T10:33:01",
    "sizes": {
@@ -3704,6 +3809,7 @@
    "width": 382,
    "height": 554,
    "title": "Baraa Mohammed",
+   "slug": "baraa-mohammed",
    "alt": "",
    "date": "2024-12-22T11:01:56",
    "sizes": {
@@ -3735,6 +3841,7 @@
    "width": 382,
    "height": 554,
    "title": "Kiyoung Ko",
+   "slug": "kiyoung-ko",
    "alt": "",
    "date": "2024-12-22T11:02:37",
    "sizes": {
@@ -3766,6 +3873,7 @@
    "width": 382,
    "height": 554,
    "title": "Abdullah Tariq",
+   "slug": "abdullah-tariq",
    "alt": "",
    "date": "2024-12-22T11:03:18",
    "sizes": {
@@ -3797,6 +3905,7 @@
    "width": 382,
    "height": 554,
    "title": "Mohammed Firas",
+   "slug": "mohammed-firas",
    "alt": "",
    "date": "2024-12-22T11:03:42",
    "sizes": {
@@ -3828,6 +3937,7 @@
    "width": 364,
    "height": 275,
    "title": "Riverside Business Center",
+   "slug": "riverside-business-center",
    "alt": "",
    "date": "2024-12-22T11:57:59",
    "sizes": {
@@ -3859,6 +3969,7 @@
    "width": 1024,
    "height": 522,
    "title": "download-min",
+   "slug": "download-min-8",
    "alt": "",
    "date": "2024-12-22T12:23:43",
    "sizes": {
@@ -3896,6 +4007,7 @@
    "width": 2048,
    "height": 985,
    "title": "470644952_893451099635281_6052839218648569387_n-min",
+   "slug": "470644952_893451099635281_6052839218648569387_n-min",
    "alt": "",
    "date": "2024-12-24T11:12:47",
    "sizes": {
@@ -3945,6 +4057,7 @@
    "width": 2560,
    "height": 1706,
    "title": "Commencement of Civil and Engineering Activities of Al Khairat Thermal Power plant",
+   "slug": "whatsapp-image-2024-12-15-at-7-30-23-pm",
    "alt": "",
    "date": "2025-01-22T08:29:22",
    "sizes": {
@@ -4000,6 +4113,7 @@
    "width": 658,
    "height": 300,
    "title": "Wet-flue-gas-desulfurization-FGD-system",
+   "slug": "wet-flue-gas-desulfurization-fgd-system",
    "alt": "",
    "date": "2025-04-10T12:58:08",
    "sizes": {
@@ -4031,6 +4145,7 @@
    "width": 1658,
    "height": 2009,
    "title": "FGD_Process",
+   "slug": "fgd_process",
    "alt": "",
    "date": "2025-04-10T12:58:13",
    "sizes": {
@@ -4080,6 +4195,7 @@
    "width": 1040,
    "height": 425,
    "title": "The Importance of Infrastructure Investment in Iraq: A Look at Harlow Group’s Role",
+   "slug": "viewpoints-tl-13190-powering-your-portfolio-with-infrastructure-investing-hero-jhi-1040x425",
    "alt": "",
    "date": "2025-04-17T13:39:04",
    "sizes": {
@@ -4123,6 +4239,7 @@
    "width": 1233,
    "height": 676,
    "title": "Iraq Renaissance",
+   "slug": "maxresdefault-2",
    "alt": "",
    "date": "2025-04-27T11:18:22",
    "sizes": {
@@ -4166,6 +4283,7 @@
    "width": 2560,
    "height": 1657,
    "title": "ACC Air Cooling Condenser",
+   "slug": "screenshot-2025-04-30-at-11-12-04-am",
    "alt": "",
    "date": "2025-04-30T07:13:16",
    "sizes": {
@@ -4221,6 +4339,7 @@
    "width": 2476,
    "height": 1446,
    "title": "ACC Air Cooling Condenser",
+   "slug": "screenshot-2025-04-30-at-10-30-50-am-2",
    "alt": "",
    "date": "2025-04-30T07:16:09",
    "sizes": {
@@ -4276,6 +4395,7 @@
    "width": 2326,
    "height": 1372,
    "title": "ACC Air Cooling Condenser",
+   "slug": "screenshot-2025-04-30-at-11-18-18-am",
    "alt": "",
    "date": "2025-04-30T07:18:37",
    "sizes": {
@@ -4331,6 +4451,7 @@
    "width": 1600,
    "height": 914,
    "title": "Harlow Smart Meters",
+   "slug": "34396f35-fce0-4bca-8b14-6501e5fa2b54",
    "alt": "",
    "date": "2025-05-07T07:56:04",
    "sizes": {
@@ -4380,6 +4501,7 @@
    "width": 2560,
    "height": 1440,
    "title": "business-investor-analyzing-stock-market-trend-monitor-trading-capital-profit-exchange-investment-young-broker-investing-funds-using-financial-forex-market-sales-close-up-handheld-shot",
+   "slug": "business-investor-analyzing-stock-market-trend-monitor-trading-capital-profit-exchange-investment-young-broker-investing-funds-using-financial-forex-market-sales-close-up-handheld-shot",
    "alt": "",
    "date": "2025-05-07T07:58:34",
    "sizes": {
@@ -4435,6 +4557,7 @@
    "width": 2560,
    "height": 1704,
    "title": "Screenshot 2025-05-18 at 1.02.53 pm",
+   "slug": "screenshot-2025-05-18-at-1-02-53-pm",
    "alt": "",
    "date": "2025-05-18T09:09:18",
    "sizes": {
@@ -4490,6 +4613,7 @@
    "width": 1127,
    "height": 356,
    "title": "ARC Logo web",
+   "slug": "arc-logo-web",
    "alt": "",
    "date": "2025-09-07T09:54:31",
    "sizes": {
@@ -4533,6 +4657,7 @@
    "width": 600,
    "height": 400,
    "title": "",
+   "slug": "alkhairat-thermal-power-plant",
    "alt": "AlKhairat Thermal Power Plant",
    "date": "2025-10-07T11:00:45",
    "sizes": {

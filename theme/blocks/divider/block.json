@@ -22,6 +22,30 @@
 		"htmlId": {
 			"type": "string",
 			"default": ""
+		},
+		"lineStyle": {
+			"type": "string",
+			"default": ""
+		},
+		"pattern": {
+			"type": "string",
+			"default": ""
+		},
+		"elementType": {
+			"type": "string",
+			"default": ""
+		},
+		"elementText": {
+			"type": "string",
+			"default": "Divider"
+		},
+		"elementIcon": {
+			"type": "string",
+			"default": ""
+		},
+		"style": {
+			"type": "object",
+			"default": {}
 		}
 	},
 	"supports": {

@@ -1,0 +1,119 @@
+/*
+ * The author box (author-box): the author's round picture beside (or above) their name,
+ * biography and button, as Elementor Pro's author box widget draws it before it is
+ * styled: the name in the kit's secondary colour and primary font, the biography in its
+ * text colour and font, the button outlined.
+ */
+
+/* The box: the picture beside the words */
+.elementor-author-box {
+  align-items: center;
+  display: flex;
+}
+
+.elementor-author-box__avatar {
+  flex-shrink: 0;
+  margin-inline-end: 25px;
+}
+
+.elementor-author-box__avatar img {
+  border-radius: 500px;
+  height: auto;
+  object-fit: cover;
+  width: 100px;
+}
+
+.elementor-author-box__text {
+  flex-grow: 1;
+  font-size: 17px;
+}
+
+/* The name */
+.elementor-author-box__name {
+  color: var(--e-global-color-secondary);
+  font-family: var(--e-global-typography-primary-font-family), Sans-serif;
+  font-size: 24px;
+  font-weight: var(--e-global-typography-primary-font-weight);
+  margin-bottom: 5px;
+}
+
+.elementor-author-box__text > a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* The biography */
+.elementor-author-box__bio {
+  color: var(--e-global-color-text);
+  font-family: var(--e-global-typography-text-font-family), Sans-serif;
+  font-weight: var(--e-global-typography-text-font-weight);
+}
+
+.elementor-author-box__bio p:last-of-type {
+  margin-bottom: 0;
+}
+
+/* The button */
+.elementor-widget-author-box .elementor-author-box__button {
+  background-color: transparent;
+  border: 2px solid var(--e-global-color-secondary);
+  border-radius: 3px;
+  color: var(--e-global-color-secondary);
+  font-family: var(--e-global-typography-accent-font-family), Sans-serif;
+  font-size: 15px;
+  font-weight: var(--e-global-typography-accent-font-weight);
+  margin-top: 15px;
+  padding: 12px 24px;
+  transition: all 0.3s;
+}
+
+.elementor-widget-author-box .elementor-author-box__button:hover {
+  border-color: var(--e-global-color-secondary);
+  color: var(--e-global-color-secondary);
+}
+
+/* The picture above the words */
+.elementor-author-box--layout-image-above .elementor-author-box {
+  display: block;
+}
+
+.elementor-author-box--layout-image-above .elementor-author-box__avatar {
+  display: inline-block;
+  margin: 0 auto 15px;
+}
+
+/* The picture on the right */
+.elementor-author-box--layout-image-right .elementor-author-box {
+  flex-direction: row-reverse;
+}
+
+.elementor-author-box--layout-image-right .elementor-author-box__avatar {
+  margin-inline-end: 0;
+  margin-inline-start: 25px;
+}
+
+/* Alignment */
+.elementor-author-box--align-left .elementor-author-box {
+  text-align: left;
+}
+
+.elementor-author-box--align-center .elementor-author-box {
+  text-align: center;
+}
+
+.elementor-author-box--align-right .elementor-author-box {
+  text-align: right;
+}
+
+.elementor-author-box--align-center.elementor-author-box--layout-image-above .elementor-author-box__avatar {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.elementor-author-box--align-left.elementor-author-box--layout-image-above .elementor-author-box__avatar {
+  margin-left: 0;
+}
+
+.elementor-author-box--align-right.elementor-author-box--layout-image-above .elementor-author-box__avatar {
+  margin-right: 0;
+}

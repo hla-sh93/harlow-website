@@ -1,0 +1,321 @@
+/*
+ * Video playlist (harlow/video-playlist): Elementor Pro's video playlist widget. The list
+ * beside the player (left or right), as tall as the player, scrolling; under it the video's
+ * own tabs. On a phone the list goes under the player and folds away.
+ */
+.e-con .elementor-widget-video-playlist {
+  width: 100%;
+}
+
+.elementor-widget-video-playlist .e-tabs {
+  --e-video-playlist-height: var(--e-video-playlist-height-desktop, auto);
+  display: flex;
+  flex-direction: column;
+}
+
+@media (max-width: 1024px) {
+  .elementor-widget-video-playlist .e-tabs {
+    --e-video-playlist-height: var(--e-video-playlist-height-tablet, var(--e-video-playlist-height-desktop, auto));
+  }
+}
+
+@media (max-width: 767px) {
+  .elementor-widget-video-playlist .e-tabs {
+    --e-video-playlist-height: var(--e-video-playlist-height-mobile, auto);
+  }
+}
+
+/* The list and the player, side by side. */
+.elementor-widget-video-playlist .e-tabs-main-area {
+  display: flex;
+  height: var(--e-video-playlist-height);
+}
+
+.e-video-playlist-layout-right .e-tabs-main-area {
+  flex-direction: row-reverse;
+}
+
+.elementor-widget-video-playlist .e-tabs-wrapper {
+  position: relative;
+  display: flex;
+  flex: 0 0 33%;
+  flex-direction: column;
+  min-width: 0;
+  background-color: #fff;
+}
+
+.elementor-widget-video-playlist .e-tabs-content-wrapper {
+  position: relative;
+  flex: 1 1 67%;
+  min-width: 0;
+  background-color: #000;
+}
+
+/* The top bar: the playlist's name and how many videos it has. */
+.elementor-widget-video-playlist .e-tabs-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 20px;
+  background-color: #333;
+}
+
+.elementor-widget-video-playlist .e-tabs-title {
+  margin: 0;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.3;
+}
+
+.elementor-widget-video-playlist .e-tabs-header-right-side {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.elementor-widget-video-playlist .e-tabs-videos-count {
+  color: #d5d8dc;
+  font-size: 13px;
+  white-space: nowrap;
+}
+
+.elementor-widget-video-playlist .e-tabs-toggle-videos-display-button {
+  display: none;
+  color: #fff;
+  font-size: 14px;
+  cursor: pointer;
+  transition: transform 0.3s;
+}
+
+.elementor-widget-video-playlist .e-tabs-toggle-videos-display-button svg {
+  display: block;
+  width: 1em;
+  height: 1em;
+  fill: currentColor;
+}
+
+/* The videos: each line its thumbnail, icon, name and duration; the chosen one marked. */
+/* The list scrolls within the player's height: it does not make the row taller. */
+.elementor-widget-video-playlist .e-tabs-items-wrapper {
+  position: relative;
+  flex: 1 1 auto;
+  min-height: 120px;
+}
+
+.elementor-widget-video-playlist .e-tabs-items {
+  position: absolute;
+  inset: 0;
+  overflow-y: auto;
+}
+
+.elementor-widget-video-playlist .e-section-title {
+  padding: 12px 20px;
+  border-bottom: 1px solid #d5d8dc;
+  background-color: #f1f2f3;
+  color: #333;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.elementor-widget-video-playlist .e-tab-title {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 20px;
+  border-bottom: 1px solid #d5d8dc;
+  color: #333;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.elementor-widget-video-playlist .e-tab-title:hover {
+  background-color: #f1f2f3;
+}
+
+.elementor-widget-video-playlist .e-tab-title.e-active {
+  background-color: #e6e8ea;
+}
+
+.elementor-widget-video-playlist .e-tab-thumbnail {
+  flex: 0 0 72px;
+}
+
+.elementor-widget-video-playlist .e-tab-thumbnail img {
+  display: block;
+  width: 72px;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+}
+
+.elementor-widget-video-playlist .e-tab-title-text {
+  display: flex;
+  flex: 1 1 auto;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+
+.elementor-widget-video-playlist .e-tab-icon {
+  display: inline-flex;
+  flex: 0 0 auto;
+  color: #556068;
+  font-size: 15px;
+}
+
+.elementor-widget-video-playlist .e-tab-icon svg {
+  display: block;
+  width: 1em;
+  height: 1em;
+  fill: currentColor;
+}
+
+.elementor-widget-video-playlist .e-tab-icon .icon-watched,
+.elementor-widget-video-playlist .e-tab-title.e-watched .e-tab-icon .icon-play {
+  display: none;
+}
+
+.elementor-widget-video-playlist .e-tab-title.e-watched .e-tab-icon .icon-watched {
+  display: inline-flex;
+}
+
+.elementor-widget-video-playlist .e-tab-title-name {
+  flex: 1 1 auto;
+  margin: 0;
+  color: inherit;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.4;
+}
+
+.elementor-widget-video-playlist .e-tab-duration {
+  flex: 0 0 auto;
+  color: #556068;
+  font-size: 12px;
+}
+
+/* The player of the video chosen. */
+.elementor-widget-video-playlist .e-tab-content {
+  width: 100%;
+  height: 100%;
+}
+
+.elementor-widget-video-playlist .e-tab-content[hidden] {
+  display: none;
+}
+
+.elementor-widget-video-playlist .e-tab-video {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  height: 100%;
+  min-height: 100%;
+  margin: 0;
+  border: 0;
+  background-color: #000;
+  aspect-ratio: 16 / 9;
+}
+
+/* The video's own tabs. */
+.elementor-widget-video-playlist .e-inner-tabs-wrapper[hidden] {
+  display: none;
+}
+
+.elementor-widget-video-playlist .e-inner-tabs-header {
+  display: flex;
+  gap: 24px;
+  padding: 0 20px;
+  border-bottom: 1px solid #d5d8dc;
+}
+
+.elementor-widget-video-playlist .e-inner-tab-title a {
+  display: block;
+  padding: 14px 0;
+  border-bottom: 2px solid transparent;
+  color: #556068;
+  font-size: 14px;
+  text-decoration: none;
+}
+
+.elementor-widget-video-playlist .e-inner-tab-title.e-inner-tab-active a {
+  border-bottom-color: currentColor;
+  color: #333;
+  font-weight: 600;
+}
+
+.elementor-widget-video-playlist .e-inner-tab-content {
+  display: none;
+  padding: 20px;
+  color: #333;
+  font-size: 14px;
+}
+
+.elementor-widget-video-playlist .e-inner-tab-content.e-inner-tab-active {
+  display: block;
+}
+
+.elementor-widget-video-playlist .e-inner-tab-text--collapsible {
+  max-height: var(--e-video-playlist-collapsed, 100px);
+  overflow: hidden;
+  transition: max-height 0.3s;
+}
+
+.elementor-widget-video-playlist .e-inner-tab-content.e-inner-tab-expanded .e-inner-tab-text--collapsible {
+  max-height: none;
+}
+
+.elementor-widget-video-playlist .e-inner-tab-text-visible > :last-child {
+  margin-bottom: 0;
+}
+
+.elementor-widget-video-playlist .e-inner-tab-text-toggle {
+  margin-top: 10px;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: #333;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.elementor-widget-video-playlist .e-inner-tab-text-toggle[hidden] {
+  display: none;
+}
+
+/* A phone: the player first, the list under it, folding away. */
+@media (max-width: 767px) {
+  .elementor-widget-video-playlist .e-tabs-main-area,
+  .e-video-playlist-layout-right .e-tabs-main-area {
+    flex-direction: column-reverse;
+    height: auto;
+  }
+
+  .elementor-widget-video-playlist .e-tabs-wrapper {
+    flex-basis: auto;
+  }
+
+  .elementor-widget-video-playlist .e-tabs-items-wrapper {
+    min-height: 0;
+    max-height: 300px;
+    overflow-y: auto;
+  }
+
+  .elementor-widget-video-playlist .e-tabs-items {
+    position: static;
+  }
+
+  .elementor-widget-video-playlist .e-tabs-toggle-videos-display-button {
+    display: inline-flex;
+  }
+
+  .elementor-widget-video-playlist .e-tabs.e-tabs-folded .e-tabs-items-wrapper {
+    display: none;
+  }
+
+  .elementor-widget-video-playlist .e-tabs.e-tabs-folded .e-tabs-toggle-videos-display-button {
+    transform: rotate(180deg);
+  }
+}

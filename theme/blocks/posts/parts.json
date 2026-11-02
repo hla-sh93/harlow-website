@@ -1,0 +1,263 @@
+{
+	"parts": [
+		{
+			"key": "layout",
+			"label": "Layout",
+			"selector": " .elementor-posts-container",
+			"controls": [
+				"gap",
+				"align"
+			]
+		},
+		{
+			"key": "box",
+			"label": "Box",
+			"selector": " .elementor-post",
+			"controls": [
+				"background",
+				"border",
+				"padding",
+				"shadow"
+			],
+			"states": {
+				"hover": {
+					"label": "Hover",
+					"selector": " .elementor-post:hover"
+				}
+			}
+		},
+		{
+			"key": "card",
+			"label": "Card (cards skin)",
+			"selector": " .elementor-post__card",
+			"controls": [
+				"background",
+				"border",
+				"padding",
+				"shadow"
+			],
+			"states": {
+				"hover": {
+					"label": "Hover",
+					"selector": " .elementor-post__card:hover"
+				}
+			}
+		},
+		{
+			"key": "text",
+			"label": "Content",
+			"selector": " .elementor-post__text",
+			"controls": [
+				"padding",
+				"margin",
+				"align"
+			]
+		},
+		{
+			"key": "image",
+			"label": "Image",
+			"selector": " .elementor-post__thumbnail",
+			"controls": [
+				"border",
+				"margin",
+				"opacity",
+				"size"
+			],
+			"states": {
+				"hover": {
+					"label": "Hover",
+					"selector": " .elementor-post:hover .elementor-post__thumbnail"
+				}
+			}
+		},
+		{
+			"key": "badge",
+			"label": "Badge (cards skin)",
+			"selector": " .elementor-post__badge",
+			"controls": [
+				"color",
+				"typography",
+				"background",
+				"padding",
+				"margin",
+				"border"
+			]
+		},
+		{
+			"key": "avatar",
+			"label": "Avatar (cards skin)",
+			"selector": " .elementor-post__avatar img",
+			"controls": [
+				"size",
+				"border"
+			]
+		},
+		{
+			"key": "title",
+			"label": "Title",
+			"selector": " .elementor-post__title| .elementor-post__title a",
+			"controls": [
+				"color",
+				"typography",
+				"textShadow",
+				"margin"
+			],
+			"states": {
+				"hover": {
+					"label": "Hover",
+					"selector": " .elementor-post__title a:hover"
+				}
+			}
+		},
+		{
+			"key": "meta",
+			"label": "Meta",
+			"selector": " .elementor-post__meta-data",
+			"controls": [
+				"color",
+				"typography",
+				"margin",
+				"border",
+				"padding"
+			]
+		},
+		{
+			"key": "separator",
+			"label": "Meta separator",
+			"selector": " .elementor-post__meta-data span + span:before",
+			"controls": [
+				"color"
+			]
+		},
+		{
+			"key": "excerpt",
+			"label": "Excerpt",
+			"selector": " .elementor-post__excerpt p",
+			"controls": [
+				"color",
+				"typography",
+				"margin"
+			]
+		},
+		{
+			"key": "more",
+			"label": "Read More",
+			"selector": " .elementor-post__read-more",
+			"controls": [
+				"color",
+				"typography",
+				"margin"
+			],
+			"states": {
+				"hover": {
+					"label": "Hover",
+					"selector": " .elementor-post__read-more:hover"
+				}
+			}
+		},
+		{
+			"key": "pagination",
+			"label": "Pagination",
+			"selector": " .elementor-pagination",
+			"controls": [
+				"typography",
+				"align",
+				"margin"
+			]
+		},
+		{
+			"key": "pages",
+			"label": "Page numbers",
+			"selector": " .elementor-pagination .page-numbers",
+			"controls": [
+				"color",
+				"padding",
+				"margin",
+				"background",
+				"border"
+			],
+			"states": {
+				"hover": {
+					"label": "Hover",
+					"selector": " .elementor-pagination a.page-numbers:hover"
+				},
+				"active": {
+					"label": "Active",
+					"selector": " .elementor-pagination .page-numbers.current"
+				}
+			}
+		},
+		{
+			"key": "loadMore",
+			"label": "Load More button",
+			"selector": " .elementor-button-wrapper .elementor-button",
+			"controls": [
+				"color",
+				"typography",
+				"background",
+				"border",
+				"padding",
+				"shadow"
+			],
+			"states": {
+				"hover": {
+					"label": "Hover",
+					"selector": " .elementor-button-wrapper .elementor-button:hover"
+				}
+			}
+		},
+		{
+			"key": "message",
+			"label": "No more posts",
+			"selector": " .e-load-more-message",
+			"controls": [
+				"color",
+				"typography",
+				"align"
+			]
+		},
+		{
+			"key": "filters",
+			"label": "Filter Bar",
+			"selector": " .elementor-portfolio__filters",
+			"controls": [
+				"align",
+				"gap",
+				"margin"
+			]
+		},
+		{
+			"key": "filter",
+			"label": "Filter Bar items",
+			"selector": " .elementor-portfolio__filter",
+			"controls": [
+				"color",
+				"typography",
+				"padding",
+				"background",
+				"border"
+			],
+			"states": {
+				"hover": {
+					"label": "Hover",
+					"selector": " .elementor-portfolio__filter:hover"
+				},
+				"active": {
+					"label": "Active",
+					"selector": " .elementor-portfolio__filter.elementor-active"
+				}
+			}
+		},
+		{
+			"key": "nothing",
+			"label": "Nothing Found",
+			"selector": " .elementor-posts-nothing-found",
+			"controls": [
+				"color",
+				"typography",
+				"align",
+				"padding"
+			]
+		}
+	]
+}

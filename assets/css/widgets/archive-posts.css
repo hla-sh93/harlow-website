@@ -1,0 +1,5 @@
+/*
+ * The posts of a list (archive-posts): the posts widget's cards, pager and filter bar, as
+ * Elementor Pro draws the archive posts widget with the posts widget's own stylesheet.
+ */
+@import url("posts.css");

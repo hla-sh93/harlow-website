@@ -47,6 +47,34 @@ function harlow_loop_is_carousel( $set = null ) {
 }
 
 /**
+ * The attributes of the list whose cards are being printed, for the parts of a card the
+ * list sets (its button's words and arrow, the badge picture). Set by the block around its
+ * cards; empty outside a list.
+ *
+ * @param array<string,mixed>|null $set The list's attributes, or null to read.
+ * @return array<string,mixed>
+ */
+function harlow_current_list( $set = null ) {
+	static $list = array();
+	if ( null !== $set ) {
+		$list = $set;
+	}
+	return $list;
+}
+
+/**
+ * A part of a card as the list sets it, or the card's own when the list leaves it empty.
+ *
+ * @param string $key The list's attribute.
+ * @param mixed  $own The card's own value.
+ * @return mixed
+ */
+function harlow_card_option( $key, $own ) {
+	$list = harlow_current_list();
+	return empty( $list[ $key ] ) ? $own : $list[ $key ];
+}
+
+/**
  * The classes of a card: Elementor's (and Swiper's, in a carousel), then WordPress's own
  * post classes (type, status, picture, category), as live prints them.
  *

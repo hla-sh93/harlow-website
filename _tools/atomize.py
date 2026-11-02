@@ -296,6 +296,10 @@ def shorthand_conflicts(elem):
 
 
 COLOUR = re.compile(r"^(#[0-9a-fA-F]{3,8}|rgba?\(.*\)|transparent|white|black)$")
+
+
+def is_colour_prop(prop):
+    return prop == "color" or prop.endswith("-color") or prop in ("fill", "stroke")
 PX = re.compile(r"(-?\d+(?:\.\d+)?)px")
 
 
@@ -424,7 +428,9 @@ def ordered_atoms(names, elem, first_seq, extra):
     for k in names:
         groups[(axis_of(k[3]), wrap_rank(k[0], extra), k[3])].append(k)
     for gk in sorted(groups):
-        todo = sorted(groups[gk], key=lambda k: first_seq[k])
+        # Keys with one first_seq (two tails of one element's rule) are tied by the key, not by
+        # the order they were met in, so the files read the same on every run.
+        todo = sorted(groups[gk], key=lambda k: (first_seq[k], k))
         placed = set()
         while todo:
             ready = next((k for k in todo if before[k] <= placed or not (before[k] & set(todo))), None)
@@ -491,12 +497,38 @@ def main():
         sel = f"{'body:not(.rtl) ' if ltr else ''}.elementor .elementor-element.{name}{post}"
         sheets[axis_of(prop)].add(at_rules(wrap), f"{sel} {{\n  {prop}: {brand_value(prop, value)};\n}}")
 
+    # The palette, offered whole: for every part and colour property an element wears, one
+    # class per colour of the palette (the editor's Design panel shows them as swatches),
+    # the classes the pages wear included. In a sheet of its own, after the others, so what
+    # is chosen there outranks nothing the design wears by itself. No live element wears
+    # the added ones: the reference pages do not change (refcheck).
+    palette_sheet = Sheet("design/palette", OUT, "atomize.py")
+    palette_sheet.add_source("the palette, for every part and colour property the design uses")
+    palette = sorted({v.upper() for (_, _, _, prop, v) in names if is_colour_prop(prop) and COLOUR.match(v)})
+    colour_places = sorted({(ltr, post, prop) for (wrap, ltr, post, prop, v) in names
+                            if is_colour_prop(prop) and not wrap and COLOUR.match(v)})
+    palette_names, palette_added = {}, 0
+    for ltr, post, prop in colour_places:
+        for value in palette:
+            key = ((), ltr, post, prop, value)
+            name = names.get(key) or names.get(((), ltr, post, prop, value.lower()))
+            if name is None:
+                name = class_name(*key)
+                if name in used and used[name] != key:
+                    name += "-" + hashlib.sha1(repr(key).encode()).hexdigest()[:5]
+                used[name] = key
+                sel = f"{'body:not(.rtl) ' if ltr else ''}.elementor .elementor-element.{name}{post}"
+                palette_sheet.add((), f"{sel} {{\n  {prop}: {brand_value(prop, value)};\n}}")
+                palette_added += 1
+            palette_names.setdefault((ltr, post, prop), []).append(name)
+
     OUT.mkdir(parents=True, exist_ok=True)
     for old in OUT.glob("*.css"):
         old.unlink()
     written = {"brand.css": brand_sheet().render()}
     for a, s in sheets.items():
         written[f"{a}.css"] = s.render()
+    written["palette.css"] = palette_sheet.render()
 
     for stem, rules in globals_.items():
         g = Sheet(f"design/globals-{stem}", OUT, "atomize.py")
@@ -536,6 +568,8 @@ def main():
           f"({sum(1 for n in names.values() if usage[n] == 1)} used once)")
     for a in sheets:
         print(f"  design/{a}.css: {len(by_axis[a])} classes")
+    print(f"  design/palette.css: {len(palette)} colours x {len(colour_places)} places, {palette_added} classes added "
+          f"for the Design panel's swatches")
     print(f"  design/globals-<document>.css: {len(globals_)} files, {sum(len(r) for r in globals_.values())} rules; "
           f"dynamic per-post rules: {len(dynamic)}")
     print(f"order conflicts (a media query overrides differently in the new order): {len(oc)}")

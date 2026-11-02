@@ -1,6 +1,7 @@
 <?php
 /**
- * An icon (harlow/icon): Elementor's icon widget, an icon of the site's set.
+ * An icon (harlow/icon): Elementor's icon widget, an icon of the library, its view and
+ * shape (the element's classes), a link if it has one.
  *
  * @package Harlow
  *
@@ -11,10 +12,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+// With a link, the icon itself is the link, as Elementor prints it.
+$harlow_box  = '' !== $attributes['link'] ? '<a class="elementor-icon"' . harlow_link_attributes( $attributes ) . '>' : '<div class="elementor-icon">';
 $harlow_html = '<div' . harlow_element_attributes( $attributes, 'widget', 'icon.default' ) . '>' . "\n"
 	. '<div class="elementor-widget-container">' . "\n"
 	. '<div class="elementor-icon-wrapper">' . "\n"
-	. '<div class="elementor-icon">' . "\n" . harlow_icon( $attributes['icon'] ) . "\n" . '</div>' . "\n"
+	. $harlow_box . "\n" . harlow_icon( $attributes['icon'] ) . "\n" . ( '' !== $attributes['link'] ? '</a>' : '</div>' ) . "\n"
 	. '</div>' . "\n"
 	. '</div>' . "\n"
 	. '</div>';
