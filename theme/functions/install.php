@@ -70,7 +70,7 @@ function harlow_site_data( $name = 'site.json' ) {
  * @return string[]
  */
 function harlow_install_steps() {
-	return array( 'pages', 'media', 'forms', 'items', 'shared', 'blocks', 'seo', 'menus', 'finish' );
+	return array( 'settings', 'pages', 'media', 'forms', 'items', 'shared', 'blocks', 'seo', 'menus', 'finish' );
 }
 
 /**
@@ -135,7 +135,7 @@ function harlow_install_start( $options = array() ) {
  * @return string[]
  */
 function harlow_install_counts() {
-	return array( 'pages_made', 'pages_found', 'ids_kept', 'filled', 'replaced', 'media_made', 'media_found', 'files', 'forms_made', 'forms_found', 'posts_made', 'posts_found', 'menus_made', 'menus_kept', 'items_made', 'shared', 'singles', 'seo' );
+	return array( 'pages_made', 'pages_found', 'ids_kept', 'filled', 'replaced', 'media_made', 'media_found', 'files', 'media_absent', 'forms_made', 'forms_found', 'posts_made', 'posts_found', 'menus_made', 'menus_kept', 'items_made', 'shared', 'singles', 'seo', 'settings' );
 }
 
 /**
@@ -229,6 +229,9 @@ function harlow_install_unit( $step, $n, &$run ) {
 	$data    = harlow_site_data();
 	$options = $run['options'];
 	switch ( $step ) {
+		case 'settings':
+			harlow_install_site_settings( $run['report'] );
+			break;
 		case 'pages':
 			$page = $data['pages'][ $n ];
 			$id   = harlow_install_page( $page, $data, $run['report'] );
@@ -485,6 +488,58 @@ function harlow_install_menu_items( $menu_id, $items, $parent_id, $ids, &$report
 }
 
 /**
+ * What the site needs that a new WordPress has at its defaults, set only where it still has
+ * them, so a site with settings of its own (live's) keeps its own: addresses by name, as
+ * live's; live's timezone, in which Rank Math prints the dates; Rank Math's first screen
+ * answered (it prints nothing in a head before) and its redirections, with Auto Post
+ * Redirect, so a changed address redirects; WordPress's own sample post and page, never
+ * edited, moved to the trash (never deleted), as the site has neither.
+ *
+ * @param array<string,int> $report Counts, updated.
+ */
+function harlow_install_site_settings( &$report ) {
+	if ( '' === (string) get_option( 'permalink_structure' ) ) {
+		global $wp_rewrite;
+		$wp_rewrite->set_permalink_structure( '/%postname%/' );
+		// As Settings > Permalinks saves them: the rules written to .htaccess too (on Apache),
+		// or every address by name answers the server's 404 (a plugin's activation can have
+		// written the plain site's empty rules there).
+		require_once ABSPATH . 'wp-admin/includes/file.php';
+		require_once ABSPATH . 'wp-admin/includes/misc.php';
+		flush_rewrite_rules( true );
+		++$report['settings'];
+	}
+	if ( '' === (string) get_option( 'timezone_string' ) && 0.0 === (float) get_option( 'gmt_offset' ) ) {
+		update_option( 'timezone_string', 'Asia/Baghdad' );
+		++$report['settings'];
+	}
+	if ( class_exists( 'RankMath\Helper' ) ) {
+		if ( ! get_option( 'rank_math_registration_skip' ) ) {
+			update_option( 'rank_math_registration_skip', 1 );
+			++$report['settings'];
+		}
+		if ( ! RankMath\Helper::is_module_active( 'redirections' ) ) {
+			RankMath\Helper::update_modules( array( 'redirections' => 'on' ) );
+			$general                               = (array) get_option( 'rank-math-options-general' );
+			$general['redirections_post_redirect'] = 'on';
+			update_option( 'rank-math-options-general', $general );
+			++$report['settings'];
+		}
+	}
+	$samples = array(
+		'post' => 'hello-world',
+		'page' => 'sample-page',
+	);
+	foreach ( $samples as $type => $slug ) {
+		$sample = get_page_by_path( $slug, OBJECT, $type );
+		if ( $sample && 'publish' === $sample->post_status && $sample->post_date === $sample->post_modified ) {
+			wp_trash_post( $sample->ID );
+			++$report['settings'];
+		}
+	}
+}
+
+/**
  * Put one picture into the Media Library, as it is on live; a picture already there under
  * its id is kept.
  *
@@ -498,8 +553,15 @@ function harlow_install_picture( $picture, &$report ) {
 		return;
 	}
 	$uploads = wp_upload_dir( null, false );
-	$folder  = dirname( $picture['file'] );
-	$names   = array( basename( $picture['file'] ) );
+	// A picture whose file is neither in the uploads nor in the theme's pictures folder is
+	// not made (it would print nothing): on a new host the pictures come as their own zip
+	// (README: unpacked into the theme's assets/), and installing again makes it then.
+	if ( ! file_exists( $uploads['basedir'] . '/' . $picture['file'] ) && ! file_exists( get_theme_file_path( 'assets/uploads/' . $picture['file'] ) ) ) {
+		++$report['media_absent'];
+		return;
+	}
+	$folder = dirname( $picture['file'] );
+	$names  = array( basename( $picture['file'] ) );
 	foreach ( $picture['sizes'] as $size ) {
 		$names[] = $size['file'];
 	}
@@ -1232,7 +1294,8 @@ function harlow_install_summary( $report ) {
 	// A run recorded before a count was added does not have it.
 	$report = wp_parse_args( $report, array_fill_keys( harlow_install_counts(), 0 ) );
 	return sprintf(
-		'pages: %d made (%d with live\'s id), %d found, %d filled with their blocks (%d replaced, kept as revisions); pictures: %d made (%d files), %d found; forms: %d made, %d found; items: %d made, %d found; menus: %d made (%d items), %d kept; the major clients\' pattern: %d made or put back; item page templates: %d made or put back; SEO: %d pages and items given theirs',
+		'site settings: %d set; pages: %d made (%d with live\'s id), %d found, %d filled with their blocks (%d replaced, kept as revisions); pictures: %d made (%d files), %d found, %d without their file here; forms: %d made, %d found; items: %d made, %d found; menus: %d made (%d items), %d kept; the major clients\' pattern: %d made or put back; item page templates: %d made or put back; SEO: %d pages and items given theirs',
+		$report['settings'],
 		$report['pages_made'],
 		$report['ids_kept'],
 		$report['pages_found'],
@@ -1241,6 +1304,7 @@ function harlow_install_summary( $report ) {
 		$report['media_made'],
 		$report['files'],
 		$report['media_found'],
+		$report['media_absent'],
 		$report['forms_made'],
 		$report['forms_found'],
 		$report['posts_made'],

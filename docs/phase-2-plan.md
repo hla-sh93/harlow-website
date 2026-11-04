@@ -80,8 +80,12 @@ tab per element and device with each widget's own parts; Site settings, the Them
 Builder with popups, dynamic tags, copy and paste style, the role manager and
 maintenance mode; every Elementor widget as a block (58 added, `verify_widgets.py`); the
 map of all of it in `docs/elementor-parity.md`.
-Next: stage 10 (handoff: the theme's zip, installed on a WordPress that has never seen the
-repository), after Hla's go.
+Stage 9.1 done 2026-11-04: the Styles tab as a property panel, item screens, card design
+and the link window. Stage 10 done 2026-11-04: `harlow.zip` (the theme, 13.7 MB) and
+`harlow-pictures.zip` (93.0 MB, a new host only), with notes in English and Arabic
+(`docs/handoff.md`, `docs/handoff-ar.md`), uploaded in the dashboard of a WordPress that has
+never seen the repository and making the reference site there (`verify_handoff.py`).
+Next: stage 11 (Arabic), after Hla's go.
 
 Starting point: `html-v1` (github.com/hla-sh93/harlow-website), the 49 English pages
 matching live at 1440x900 and 479x900. It stays in the repository as the reference every

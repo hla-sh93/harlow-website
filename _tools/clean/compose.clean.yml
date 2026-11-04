@@ -1,0 +1,23 @@
+# A WordPress that has never seen the repository's theme (stage 10's handoff check): the
+# same stack as docker-compose.yml, its theme and assets folders not mounted, so the theme
+# comes only from harlow.zip uploaded in the dashboard and the pictures from
+# harlow-pictures.zip. Kept: the static reference the checks measure against, the local
+# must-use plugins (mail to Mailpit, no calls to wordpress.org) and the 64 MB upload limit.
+# Paths are the project's (the repository's root), as in docker-compose.yml.
+#
+#   ./_tools/env.sh clean --yes      wipe the database and the WordPress files, start this
+#   ./_tools/env.sh rebuild --yes    back to the development stack
+
+services:
+  wordpress:
+    volumes: !override
+      - wp:/var/www/html
+      - ./:/var/www/html/static:ro
+      - ./_tools/local/mu-plugins:/var/www/html/wp-content/mu-plugins:ro
+      - ./_tools/local/php/uploads.ini:/usr/local/etc/php/conf.d/uploads.ini:ro
+
+  cli:
+    volumes: !override
+      - wp:/var/www/html
+      - ./_tools/local/mu-plugins:/var/www/html/wp-content/mu-plugins:ro
+      - ./_env:/env

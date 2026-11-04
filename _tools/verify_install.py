@@ -120,9 +120,29 @@ async def press_install(page, replace):
         will = await page.locator(".harlow-site-pages__table tr[data-state='theirs'] .harlow-site-pages__will").all_inner_texts()
         if will and not all("Replace" in w for w in will):
             raise AssertionError(f"the box does not change what the table says: {will[:2]}")
+    answers = []
+
+    async def answered(r):
+        if "harlow/v1/install" in r.url or "rest_route=%2Fharlow" in r.url or "rest_route=/harlow" in r.url:
+            try:
+                answers.append(f"{r.status} {(await r.text())[:300]}")
+            except Exception:  # noqa: BLE001
+                answers.append(f"{r.status}")
+    page.on("response", answered)
     await page.click("#harlow-install")
-    await page.wait_for_url(re.compile(r"installed=1"), timeout=900000)
-    return (await page.inner_text(".notice-success")).strip()
+    # done (the screen again, installed=1) or stopped (the screen says why)
+    for _ in range(1800):
+        if "installed=1" in page.url:
+            return (await page.inner_text(".notice-success")).strip()
+        try:
+            said = await page.evaluate("() => (document.getElementById('harlow-install-message') || {}).textContent || ''")
+        except Exception:  # noqa: BLE001 - the screen is being shown again (done)
+            await page.wait_for_timeout(500)
+            continue
+        if "stopped" in said:
+            raise AssertionError(f"installing stopped on the screen: {said!r}; the server's answers: {answers[-3:]}")
+        await page.wait_for_timeout(500)
+    raise AssertionError(f"not installed after 15 minutes; the server's answers: {answers[-3:]}")
 
 
 def last_run():

@@ -65,8 +65,12 @@ function harlow_site_pages_status() {
 	$data     = harlow_site_data();
 	$pages    = harlow_site_pages_pages();
 	$pictures = 0;
+	$absent   = 0;
+	$uploads  = wp_upload_dir( null, false );
 	foreach ( harlow_site_data( 'media.json' )['media'] as $picture ) {
-		$pictures += (int) ( 'attachment' !== get_post_type( (int) $picture['id'] ) );
+		$missing   = 'attachment' !== get_post_type( (int) $picture['id'] );
+		$pictures += (int) $missing;
+		$absent   += (int) ( $missing && ! file_exists( $uploads['basedir'] . '/' . $picture['file'] ) && ! file_exists( get_theme_file_path( 'assets/uploads/' . $picture['file'] ) ) );
 	}
 	$items = 0;
 	foreach ( harlow_site_data( 'items.json' )['items'] as $n => $item ) {
@@ -79,7 +83,7 @@ function harlow_site_pages_status() {
 	}
 	return array(
 		'pages'    => $pages,
-		'pictures' => array( $pictures, count( harlow_site_data( 'media.json' )['media'] ) ),
+		'pictures' => array( $pictures, count( harlow_site_data( 'media.json' )['media'] ), $absent ),
 		'items'    => array( $items, count( harlow_site_data( 'items.json' )['items'] ) ),
 		'menus'    => array( $menus, count( $data['menus'] ) ),
 	);
@@ -150,6 +154,19 @@ function harlow_site_pages_screen() {
 			);
 			?>
 		</p>
+		<?php if ( $status['pictures'][2] ) : ?>
+			<div class="notice notice-warning inline"><p>
+				<?php
+				echo esc_html(
+					sprintf(
+						/* translators: %d: pictures whose files are not on the site yet. */
+						_n( '%d picture has no file on this site yet. On a new host, unpack harlow-pictures.zip into wp-content/themes/harlow/assets/ (the host\'s File Manager or FTP), then install: the pictures are made then. Until then they are left out.', '%d pictures have no file on this site yet. On a new host, unpack harlow-pictures.zip into wp-content/themes/harlow/assets/ (the host\'s File Manager or FTP), then install: the pictures are made then. Until then they are left out.', $status['pictures'][2], 'harlow' ),
+						$status['pictures'][2]
+					)
+				);
+				?>
+			</p></div>
+		<?php endif; ?>
 		<table class="widefat striped harlow-site-pages__table">
 			<thead>
 				<tr>

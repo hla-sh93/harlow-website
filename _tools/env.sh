@@ -14,6 +14,8 @@
 #                                   the volume is gone, or on another machine
 #   ./_tools/env.sh rebuild --yes --empty   ... without the site's pages, items and menus,
 #                                   for Appearance > Site pages to install them
+#   ./_tools/env.sh clean --yes     a WordPress that has never seen the theme, with the three
+#                                   plugins: for the handoff (verify_handoff.py)
 #   ./_tools/env.sh phpcs           the WordPress Coding Standards over theme/ (exit 0 = clean)
 #   ./_tools/env.sh phpcbf          ... and fix what they can fix
 #
@@ -73,7 +75,7 @@ ensure_standards() {
 }
 
 usage() {
-	sed -n '3,24p' "$0" | sed 's/^# \{0,1\}//'
+	sed -n '3,26p' "$0" | sed 's/^# \{0,1\}//'
 	exit 1
 }
 
@@ -239,6 +241,51 @@ rebuild)
 	echo
 	echo "Built. WordPress $(wp core version) at $SITE_URL  (login: see .env)"
 	echo "Prove it:  python -u _tools/verify_env.py && python -u _tools/verify_chrome.py"
+	;;
+
+clean)
+	# A WordPress that has never seen the repository's theme (_tools/clean/compose.clean.yml),
+	# for the handoff: WordPress and the three plugins only, as a new host starts; the theme
+	# and its pictures go in through the dashboard (_tools/verify_handoff.py). Every command
+	# for this stack needs the two COMPOSE_ variables below; `rebuild --yes` goes back.
+	if [ "${2:-}" != "--yes" ]; then
+		echo "This deletes the local database and WordPress files and starts a clean WordPress."
+		printf 'Type "yes" to continue: '
+		read -r answer
+		[ "$answer" = "yes" ] || { echo "nothing done"; exit 1; }
+	fi
+	admin_login
+	export COMPOSE_PATH_SEPARATOR=";"
+	export COMPOSE_FILE="docker-compose.yml;_tools/clean/compose.clean.yml"
+	docker compose down -v
+	docker compose up -d
+	wait_for_db
+	wait_for_core
+	wp core install \
+		--url="$SITE_URL" \
+		--title="$SITE_TITLE" \
+		--admin_user="$WP_ADMIN_USER" \
+		--admin_password="$WP_ADMIN_PASSWORD" \
+		--admin_email="$WP_ADMIN_EMAIL" \
+		--skip-email
+	mkdir -p _env/plugins
+	for entry in $PLUGINS; do
+		slug="${entry%%:*}"
+		version="latest-stable"
+		[ "$entry" != "$slug" ] && version="${entry#*:}"
+		# The zip fetched before is used when this machine cannot reach wordpress.org.
+		if curl -sSfL -o "_env/plugins/${slug}.zip.part" "https://downloads.wordpress.org/plugin/${slug}.${version}.zip"; then
+			mv "_env/plugins/${slug}.zip.part" "_env/plugins/${slug}.zip"
+		else
+			rm -f "_env/plugins/${slug}.zip.part"
+			[ -f "_env/plugins/${slug}.zip" ] || { echo "no ${slug}.zip and wordpress.org not reachable" >&2; exit 1; }
+		fi
+		wp plugin install "/env/plugins/${slug}.zip" --activate --force >/dev/null
+		echo "plugin  $slug  $(wp plugin get "$slug" --field=version)"
+	done
+	echo
+	echo "Clean WordPress $(wp core version) at $SITE_URL, theme $(wp theme list --status=active --field=name): no theme of the site yet."
+	echo "Next:  COMPOSE_PATH_SEPARATOR=';' COMPOSE_FILE='docker-compose.yml;_tools/clean/compose.clean.yml' python -u _tools/verify_handoff.py"
 	;;
 
 phpcs)
