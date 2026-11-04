@@ -400,10 +400,23 @@
 /* A segmented control: the choice on, raised on a grey strip. */
 .harlow-seg {
 	display: flex;
+	flex-wrap: wrap;
 	gap: 2px;
 	padding: 2px;
 	background: #f0f0f0;
 	border-radius: 4px;
+}
+
+/* Words in a grid of equal cells, as many to a row as fit (three in the sidebar), going on to
+   a second row rather than overlap (Default, None, Colour / Gradient, Picture, Slideshow);
+   icons share their row equally. */
+.harlow-row--choices:not(.is-icons) .harlow-seg {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(72px, 1fr));
+}
+
+.harlow-row--choices:not(.is-icons) .harlow-seg__item.components-button {
+	padding: 0 6px;
 }
 
 .harlow-seg__item.components-button {
