@@ -10,7 +10,7 @@ editor).
 
 | file | what |
 |---|---|
-| `theme/blocks/<name>/block.json` | the block: `apiVersion` 3, `name` `harlow/<name>`, Elementor's widget title, a category (`text`, `media`, `design`, `widgets`, `theme`, `embed`), a description, `textdomain` `harlow`; the attributes (below); `supports` `{ "html": false, "className": false, "customClassName": false }`; `"render": "file:../../includes/sections/<name>.php"`; an `example` with the attributes a preview shows; `harlowWidget` when Elementor's widget type is not `<name>` (`theme-site-logo` for `site-logo`) |
+| `theme/blocks/<name>/block.json` | the block: `apiVersion` 3, `name` `harlow/<name>`, Elementor's widget title, a category (`text`, `media`, `design`, `widgets`, `theme`, `embed`), a description, `textdomain` `harlow`; the attributes (below); `supports` `{ "html": false, "className": false, "customClassName": false, "customCSS": false }` (the Styles tab has the custom CSS: WordPress 7.1's own "Additional CSS" would repeat it, written into the same `style` attribute); `"render": "file:../../includes/sections/<name>.php"`; an `example` with the attributes a preview shows; `harlowWidget` when Elementor's widget type is not `<name>` (`theme-site-logo` for `site-logo`) |
 | `theme/includes/sections/<name>.php` | the widget as the page prints it: Elementor's own markup, class for class |
 | `theme/blocks/<name>/edit.js` | the widget in the editor: the same markup, with the content fields in the sidebar and words typed in place; `export default function Edit`; `export const save` only for a widget that holds other blocks |
 | `theme/blocks/<name>/parts.json` | the widget's style groups (Elementor's Style tab sections), below |
@@ -94,9 +94,19 @@ and a container takes every block of the theme but the parts of others (inContai
 
 ## Style groups (parts.json)
 
-The element's Style tab already has every general control (background, typography,
-spacing, border, motion, custom CSS…, on the whole element). A widget's own groups are its
-parts: each a part of its markup the owner styles on its own, per device, with states.
+The element's Styles tab shows the widget's own groups first, its parts: each a part of its
+markup the owner styles on its own, per device, with states. Then, under "The box around
+the element", the general groups (background, spacing, border, motion, custom CSS…, on the
+whole element), as Elementor's Advanced tab. One place per property (Hla, 2026-11-02): a
+general group a part covers is left out, the general Typography where the parts style the
+widget's words, the general Icon where a part has `icon`, the general Alignment where a
+part has `align`, the general Text shadow where a part has `textShadow`. A widget whose own
+box fills it and paints over it (an alert's coloured box) is listed in `HARLOW_STYLE_COVERS`
+(styles.php) and `COVERS` (styles.js): the box's background paints that box too, so a part
+of it does not offer a background of its own. A widget whose own layers cover it whole, each
+with its background (a flip box's front and back, each slide of the slides), is in
+`OWN_BACKGROUND` (styles.js): the
+box's Background, hidden behind them, is not offered.
 
 ```json
 {
@@ -118,10 +128,27 @@ parts: each a part of its markup the owner styles on its own, per device, with s
 `selector` is inside the element (it starts with a space or `>`; several with `|`). A
 state's `selector` is the whole selector of the part in that state. Controls offered:
 `color` (text colour), `typography`, `textShadow`, `background` (colour, gradient,
-picture), `padding`, `margin`, `border` (sides, corners), `shadow`, `size` (width, minimum
+picture), `padding`, `margin`, `border` (sides, corners), `line` (a border without corners: a divider between rows), `shadow`, `size` (width, minimum
 height), `icon` (an icon's colour and size, font or SVG), `gap`, `align`, `opacity`,
-`transform`, `columns` (a grid's), `textColumns`, `dropCap`. Name the parts and controls as
-Elementor's Style tab does for that widget; offer every group it has.
+`transform`, `columns` (a grid's), `textColumns`, `dropCap`, `divider` (a divider's line:
+colour, weight, width). Name the parts and controls as
+Elementor's Style tab does for that widget; offer every group it has. A part that is there
+only for some of the widget's settings has `when`, its block attributes and the values it
+is there for (`"when": { "headlineStyle": [ "rotate" ], "animationType": [ "typing", "clip" ] }`
+on the animated headline's cursor; `"*"` for any value (0 is none: a picture's id; an empty list is none); `{ "has": [ "message" ] }` for a
+list holding one of the values (a countdown's expiry actions); `{ "any": { "avatar": [ true ] } }`
+for a list with a line that fits: post info's author picture; a list of such objects for
+alternatives, any one enough: a hotspot's box with a label or an icon), as Elementor shows such a
+group only then; a part drawn
+only while something runs (typing selecting words) is labelled "While …", one drawn once
+something opens it "(shown when opened)" (a full screen search). A part whose selector is a
+first letter (a drop cap) is offered no text outline: browsers draw none there.
+
+The panel draws each group as a property panel (Gate 2, 2026-11-03): the part's label is the
+group's title with an icon by what it styles, a dot once it holds a value and its reset; each
+control is a row, its label on the left (the part's name before a colon read by screen
+readers only), so a control's label is written in full in the code ("Title: Size"), as the
+checks read it.
 
 ## The look (CSS) and the behaviour (JS)
 

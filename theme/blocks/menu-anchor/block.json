@@ -3,6 +3,7 @@
 	"apiVersion": 3,
 	"name": "harlow/menu-anchor",
 	"title": "Menu Anchor",
+	"icon": "paperclip",
 	"category": "widgets",
 	"description": "An invisible mark a link can lead to (#its-id), from a menu or a button.",
 	"textdomain": "harlow",
@@ -35,7 +36,8 @@
 	"supports": {
 		"html": false,
 		"className": false,
-		"customClassName": false
+		"customClassName": false,
+		"customCSS": false
 	},
 	"example": {
 		"attributes": {

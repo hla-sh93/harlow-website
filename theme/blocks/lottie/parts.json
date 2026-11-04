@@ -36,6 +36,21 @@
 				"typography",
 				"textShadow",
 				"margin"
+			],
+			"when": [
+				{
+					"captionSource": [
+						"custom"
+					],
+					"caption": "*"
+				},
+				{
+					"captionSource": [
+						"title",
+						"caption"
+					],
+					"sourceJson": "*"
+				}
 			]
 		}
 	]

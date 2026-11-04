@@ -3,6 +3,7 @@
 	"apiVersion": 3,
 	"name": "harlow/text",
 	"title": "Text",
+	"icon": "editor-paragraph",
 	"category": "text",
 	"description": "Paragraphs and lists.",
 	"textdomain": "harlow",
@@ -31,7 +32,8 @@
 	"supports": {
 		"html": false,
 		"className": false,
-		"customClassName": false
+		"customClassName": false,
+		"customCSS": false
 	},
 	"render": "file:../../includes/sections/text.php"
 }

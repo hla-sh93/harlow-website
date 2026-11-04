@@ -3,6 +3,7 @@
 	"apiVersion": 3,
 	"name": "harlow/price-list",
 	"title": "Price List",
+	"icon": "list-view",
 	"category": "widgets",
 	"description": "A list of items with their prices, words and pictures.",
 	"textdomain": "harlow",
@@ -78,7 +79,8 @@
 	"supports": {
 		"html": false,
 		"className": false,
-		"customClassName": false
+		"customClassName": false,
+		"customCSS": false
 	},
 	"example": {
 		"attributes": {

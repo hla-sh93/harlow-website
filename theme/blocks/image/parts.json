@@ -28,7 +28,13 @@
 				"padding",
 				"margin",
 				"align"
-			]
+			],
+			"when": {
+				"caption": [
+					"custom",
+					"attachment"
+				]
+			}
 		}
 	]
 }

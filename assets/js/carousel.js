@@ -8,6 +8,8 @@
  *   slide width       (inner width - (perView - 1) * space) / perView
  *   loop              ceil(perView) duplicates on each side, as Swiper's loop mode
  *   autoplay          autoplay_speed, slide speed `speed`, paused while hovered
+ *   dots              the server prints one per card (the block's Dots); the one of the slide
+ *                     shown wears swiper-pagination-bullet-active, a click goes to its slide
  */
 (() => {
   const DEVICES = ['desktop', 'tablet', 'mobile'];
@@ -74,8 +76,11 @@
       slides.forEach((el) => { el.style.width = `${size}px`; el.style.marginRight = `${space}px`; });
     };
 
+    const dots = [...widget.querySelectorAll('.swiper-pagination-bullet')];
     const go = (to, animate) => {
       index = to;
+      const real = ((index % originals.length) + originals.length) % originals.length;
+      dots.forEach((dot, i) => dot.classList.toggle('swiper-pagination-bullet-active', i === real));
       wrapper.style.transitionDuration = `${animate ? speed : 0}ms`;
       wrapper.style.transform = `translate3d(${-(index + looped) * (size + space)}px, 0px, 0px)`;
       slides.forEach((el, i) => {
@@ -109,6 +114,13 @@
     widget.querySelectorAll('.elementor-swiper-button-prev, .elementor-swiper-button-next').forEach((btn) => {
       btn.addEventListener('click', () => {
         step(btn.classList.contains('elementor-swiper-button-next') ? 1 : -1);
+        if (s.pause_on_interaction === 'yes') stopped = true;
+        play();
+      });
+    });
+    dots.forEach((dot, i) => {
+      dot.addEventListener('click', () => {
+        go(i, true);
         if (s.pause_on_interaction === 'yes') stopped = true;
         play();
       });

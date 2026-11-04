@@ -9,7 +9,10 @@
 				"typography",
 				"textShadow",
 				"margin"
-			]
+			],
+			"when": {
+				"title": "*"
+			}
 		},
 		{
 			"key": "stars",

@@ -3,6 +3,7 @@
 	"apiVersion": 3,
 	"name": "harlow/audio",
 	"title": "SoundCloud",
+	"icon": "format-audio",
 	"category": "media",
 	"description": "A SoundCloud track or playlist in SoundCloud's own player.",
 	"textdomain": "harlow",
@@ -83,7 +84,8 @@
 	"supports": {
 		"html": false,
 		"className": false,
-		"customClassName": false
+		"customClassName": false,
+		"customCSS": false
 	},
 	"example": {
 		"attributes": {

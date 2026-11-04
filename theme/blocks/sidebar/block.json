@@ -3,6 +3,7 @@
 	"apiVersion": 3,
 	"name": "harlow/sidebar",
 	"title": "Sidebar",
+	"icon": "welcome-widgets-menus",
 	"category": "widgets",
 	"description": "The widgets of a widget area (Appearance → Widgets), as Elementor's sidebar widget prints them.",
 	"textdomain": "harlow",
@@ -35,7 +36,8 @@
 	"supports": {
 		"html": false,
 		"className": false,
-		"customClassName": false
+		"customClassName": false,
+		"customCSS": false
 	},
 	"example": {
 		"attributes": {

@@ -3,6 +3,7 @@
 	"apiVersion": 3,
 	"name": "harlow/archive-title",
 	"title": "Archive Title",
+	"icon": "heading",
 	"category": "theme",
 	"description": "The title of the category, tag, author, date or search being shown, as a heading (Elementor Pro's archive title widget).",
 	"textdomain": "harlow",
@@ -66,7 +67,8 @@
 	"supports": {
 		"html": false,
 		"className": false,
-		"customClassName": false
+		"customClassName": false,
+		"customCSS": false
 	},
 	"example": {
 		"attributes": {

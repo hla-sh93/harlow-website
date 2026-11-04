@@ -488,7 +488,9 @@ function harlow_site_css() {
 	foreach ( harlow_custom_colours() as $colour ) {
 		$root .= '--e-global-color-' . $colour['slug'] . ':' . $colour['color'] . ';';
 	}
-	$css = '' !== $root ? ':root{' . $root . '}' : '';
+	// The elements the owner adds start in the brand's colours and fonts (`.harlow-brand`,
+	// modules.css); her own global values win there too.
+	$css = '' !== $root ? ':root{' . $root . '}:root .harlow-brand{' . $root . '}' : '';
 	if ( '' !== $desktop ) {
 		$css .= '@media (min-width: 1025px){' . $desktop . '}';
 	}

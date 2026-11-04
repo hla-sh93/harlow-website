@@ -12,7 +12,6 @@ import { __ } from '@wordpress/i18n';
 import { elementProps, LinkFields, sourceLabel } from '../../editor/shared';
 
 const TAGS = [ 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p', 'div', 'span' ];
-const SIZES = [ 'default', 'small', 'medium', 'large', 'xl', 'xxl' ];
 
 export default function Edit( { attributes, setAttributes } ) {
 	const { tag, size, text, source } = attributes;
@@ -54,6 +53,10 @@ export default function Edit( { attributes, setAttributes } ) {
 						__next40pxDefaultSize
 						__nextHasNoMarginBottom
 						label={ __( 'Element', 'harlow' ) }
+						help={ __(
+							'The heading’s level for search engines and screen readers; its look does not change. Its size and colour are in the Styles tab.',
+							'harlow'
+						) }
 						value={ tag }
 						options={ TAGS.map( ( t ) => ( {
 							value: t,
@@ -61,20 +64,6 @@ export default function Edit( { attributes, setAttributes } ) {
 						} ) ) }
 						onChange={ ( value ) =>
 							setAttributes( { tag: value } )
-						}
-					/>
-					<SelectControl
-						__next40pxDefaultSize
-						__nextHasNoMarginBottom
-						label={ __( 'Size', 'harlow' ) }
-						value={ size }
-						options={ SIZES.map( ( s ) => ( {
-							value: s,
-							label:
-								s === 'default' ? __( 'Default', 'harlow' ) : s,
-						} ) ) }
-						onChange={ ( value ) =>
-							setAttributes( { size: value } )
 						}
 					/>
 				</PanelBody>

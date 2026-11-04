@@ -3,6 +3,7 @@
 	"apiVersion": 3,
 	"name": "harlow/icon-box",
 	"title": "Icon Box",
+	"icon": "info",
 	"category": "design",
 	"description": "An icon with a title and words, above them or beside them, with a link if wanted.",
 	"textdomain": "harlow",
@@ -75,7 +76,8 @@
 	"supports": {
 		"html": false,
 		"className": false,
-		"customClassName": false
+		"customClassName": false,
+		"customCSS": false
 	},
 	"example": {
 		"attributes": {

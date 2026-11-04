@@ -3,6 +3,7 @@
 	"apiVersion": 3,
 	"name": "harlow/tabs",
 	"title": "Tabs",
+	"icon": "index-card",
 	"category": "text",
 	"description": "Titles in a row or a column, each showing its own content.",
 	"textdomain": "harlow",
@@ -52,7 +53,8 @@
 	"supports": {
 		"html": false,
 		"className": false,
-		"customClassName": false
+		"customClassName": false,
+		"customCSS": false
 	},
 	"example": {
 		"attributes": {

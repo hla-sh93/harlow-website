@@ -3,6 +3,7 @@
 	"apiVersion": 3,
 	"name": "harlow/progress",
 	"title": "Progress Bar",
+	"icon": "chart-bar",
 	"category": "widgets",
 	"description": "A bar that fills to its percentage when it comes into view, with a title and words inside.",
 	"textdomain": "harlow",
@@ -55,7 +56,8 @@
 	"supports": {
 		"html": false,
 		"className": false,
-		"customClassName": false
+		"customClassName": false,
+		"customCSS": false
 	},
 	"example": {
 		"attributes": {

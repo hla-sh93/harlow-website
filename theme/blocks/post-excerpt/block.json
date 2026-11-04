@@ -3,6 +3,7 @@
 	"apiVersion": 3,
 	"name": "harlow/post-excerpt",
 	"title": "Post Excerpt",
+	"icon": "excerpt-view",
 	"category": "theme",
 	"description": "The excerpt of the item the page shows (Elementor Pro's post excerpt widget).",
 	"textdomain": "harlow",
@@ -48,7 +49,8 @@
 	"supports": {
 		"html": false,
 		"className": false,
-		"customClassName": false
+		"customClassName": false,
+		"customCSS": false
 	},
 	"example": {
 		"attributes": {

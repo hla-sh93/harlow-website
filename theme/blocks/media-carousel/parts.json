@@ -34,6 +34,11 @@
 					"label": "Hover",
 					"selector": " .elementor-swiper-button:hover"
 				}
+			},
+			"when": {
+				"showArrows": [
+					true
+				]
 			}
 		},
 		{
@@ -51,6 +56,12 @@
 					"label": "Active",
 					"selector": " .swiper-pagination-bullet.swiper-pagination-bullet-active"
 				}
+			},
+			"when": {
+				"pagination": [
+					"bullets",
+					"progressbar"
+				]
 			}
 		},
 		{
@@ -60,7 +71,12 @@
 			"controls": [
 				"color",
 				"typography"
-			]
+			],
+			"when": {
+				"pagination": [
+					"fraction"
+				]
+			}
 		},
 		{
 			"key": "playIcon",
@@ -70,7 +86,17 @@
 				"icon",
 				"textShadow",
 				"opacity"
-			]
+			],
+			"when": {
+				"slides": {
+					"any": {
+						"type": [
+							"video"
+						],
+						"video": "*"
+					}
+				}
+			}
 		},
 		{
 			"key": "overlay",
@@ -78,11 +104,41 @@
 			"selector": " .elementor-carousel-image-overlay",
 			"controls": [
 				"background",
-				"color",
-				"typography",
-				"icon",
 				"padding"
-			]
+			],
+			"when": {
+				"overlay": [
+					"text",
+					"icon"
+				]
+			}
+		},
+		{
+			"key": "overlayWords",
+			"label": "Overlay: words",
+			"selector": " .elementor-carousel-image-overlay",
+			"controls": [
+				"color",
+				"typography"
+			],
+			"when": {
+				"overlay": [
+					"text"
+				]
+			}
+		},
+		{
+			"key": "overlayIcon",
+			"label": "Overlay: icon",
+			"selector": " .elementor-carousel-image-overlay",
+			"controls": [
+				"icon"
+			],
+			"when": {
+				"overlay": [
+					"icon"
+				]
+			}
 		},
 		{
 			"key": "thumbnails",
@@ -97,11 +153,16 @@
 					"label": "Active",
 					"selector": " .elementor-thumbnails-swiper .swiper-slide.swiper-slide-active"
 				}
+			},
+			"when": {
+				"skin": [
+					"slideshow"
+				]
 			}
 		},
 		{
 			"key": "lightbox",
-			"label": "Lightbox",
+			"label": "Lightbox (shown when a picture is opened)",
 			"selector": " > .elementor-lightbox",
 			"controls": [
 				"background"
@@ -109,7 +170,7 @@
 		},
 		{
 			"key": "lightboxClose",
-			"label": "Lightbox UI",
+			"label": "Lightbox UI (shown when a picture is opened)",
 			"selector": " > .elementor-lightbox .dialog-lightbox-close-button",
 			"controls": [
 				"icon"

@@ -20,6 +20,19 @@ $harlow_picture = $harlow_post ? (int) get_post_thumbnail_id( $harlow_post ) : 0
 if ( ! $harlow_picture || ! wp_attachment_is_image( $harlow_picture ) ) {
 	$harlow_picture = $attributes['fallback'] && wp_attachment_is_image( (int) $attributes['fallback'] ) ? (int) $attributes['fallback'] : 0;
 }
+// In the editor, an item without one (a new page) shows a post's featured picture as a
+// sample, so the picture can be seen and styled; the page shows nothing.
+if ( ! $harlow_picture && wp_is_serving_rest_request() ) {
+	$harlow_sample  = get_posts(
+		array(
+			'post_type'   => 'post',
+			'numberposts' => 1,
+			'meta_key'    => '_thumbnail_id', // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_key -- one post, in the editor only.
+			'fields'      => 'ids',
+		)
+	);
+	$harlow_picture = $harlow_sample ? (int) get_post_thumbnail_id( $harlow_sample[0] ) : 0;
+}
 $harlow_classes = harlow_theme_builder_classes( $attributes, 'theme-post-featured-image', array( 'elementor-widget-image' ) );
 if ( ! $harlow_picture ) {
 	// The editor shows where the picture goes; the page shows nothing.
@@ -58,6 +71,10 @@ if ( 'attachment' === $attributes['captionSource'] ) {
 	$harlow_caption = (string) wp_get_attachment_caption( $harlow_picture );
 } elseif ( 'custom' === $attributes['captionSource'] ) {
 	$harlow_caption = $attributes['caption'];
+}
+// In the editor a caption asked for and still empty shows where it goes.
+if ( '' === $harlow_caption && '' !== $attributes['captionSource'] && 'none' !== $attributes['captionSource'] && wp_is_serving_rest_request() ) {
+	$harlow_caption = esc_html__( 'The picture’s caption', 'harlow' );
 }
 if ( '' !== $harlow_caption ) {
 	$harlow_image = '<figure class="wp-caption">' . "\n" . $harlow_image . "\n"

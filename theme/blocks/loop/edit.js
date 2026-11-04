@@ -256,6 +256,13 @@ function CarouselPanel( { attributes, setAttributes } ) {
 				__( 'Transition duration (ms)', 'harlow' ),
 				5000
 			) }
+			<ToggleControl
+				__nextHasNoMarginBottom
+				label={ __( 'Dots', 'harlow' ) }
+				help={ __( 'One under the slides for each card.', 'harlow' ) }
+				checked={ !! attributes.dots }
+				onChange={ ( on ) => setAttributes( { dots: on } ) }
+			/>
 		</PanelBody>
 	);
 }

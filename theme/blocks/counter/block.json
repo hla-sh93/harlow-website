@@ -3,6 +3,7 @@
 	"apiVersion": 3,
 	"name": "harlow/counter",
 	"title": "Counter",
+	"icon": "performance",
 	"category": "widgets",
 	"description": "A number that counts up to its value when it comes into view, with a title.",
 	"textdomain": "harlow",
@@ -71,7 +72,8 @@
 	"supports": {
 		"html": false,
 		"className": false,
-		"customClassName": false
+		"customClassName": false,
+		"customCSS": false
 	},
 	"example": {
 		"attributes": {

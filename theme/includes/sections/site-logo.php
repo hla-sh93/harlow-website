@@ -43,6 +43,10 @@ if ( 'attachment' === $attributes['captionSource'] && $harlow_logo ) {
 } elseif ( 'custom' === $attributes['captionSource'] ) {
 	$harlow_caption = $attributes['caption'];
 }
+// In the editor a caption asked for and still empty shows where it goes.
+if ( '' === $harlow_caption && in_array( $attributes['captionSource'], array( 'attachment', 'custom' ), true ) && wp_is_serving_rest_request() ) {
+	$harlow_caption = esc_html__( 'The picture’s caption', 'harlow' );
+}
 if ( '' !== $harlow_caption ) {
 	$harlow_picture = '<figure class="wp-caption">' . "\n" . $harlow_picture . "\n"
 		. '<figcaption class="widget-image-caption wp-caption-text">' . wp_kses_post( $harlow_caption ) . '</figcaption>' . "\n"

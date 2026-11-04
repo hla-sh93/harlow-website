@@ -3,6 +3,7 @@
 	"apiVersion": 3,
 	"name": "harlow/video",
 	"title": "Video",
+	"icon": "video-alt3",
 	"category": "media",
 	"description": "A YouTube, Vimeo or Dailymotion video, or a video file, with a picture over it and the lightbox if wanted.",
 	"textdomain": "harlow",
@@ -171,7 +172,8 @@
 	"supports": {
 		"html": false,
 		"className": false,
-		"customClassName": false
+		"customClassName": false,
+		"customCSS": false
 	},
 	"example": {
 		"attributes": {

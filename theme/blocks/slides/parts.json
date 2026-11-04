@@ -77,6 +77,12 @@
 					"label": "Hover",
 					"selector": " .elementor-swiper-button:hover"
 				}
+			},
+			"when": {
+				"navigation": [
+					"both",
+					"arrows"
+				]
 			}
 		},
 		{
@@ -95,6 +101,12 @@
 					"label": "Active",
 					"selector": " .swiper-pagination-bullet.swiper-pagination-bullet-active"
 				}
+			},
+			"when": {
+				"navigation": [
+					"both",
+					"dots"
+				]
 			}
 		}
 	]

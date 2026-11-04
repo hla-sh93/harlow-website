@@ -41,6 +41,11 @@
 					"label": "Hover",
 					"selector": " .elementor-post__card:hover"
 				}
+			},
+			"when": {
+				"skin": [
+					"cards"
+				]
 			}
 		},
 		{
@@ -81,7 +86,15 @@
 				"padding",
 				"margin",
 				"border"
-			]
+			],
+			"when": {
+				"skin": [
+					"cards"
+				],
+				"showBadge": [
+					true
+				]
+			}
 		},
 		{
 			"key": "avatar",
@@ -90,7 +103,15 @@
 			"controls": [
 				"size",
 				"border"
-			]
+			],
+			"when": {
+				"skin": [
+					"cards"
+				],
+				"showAvatar": [
+					true
+				]
+			}
 		},
 		{
 			"key": "title",
@@ -107,6 +128,11 @@
 					"label": "Hover",
 					"selector": " .elementor-post__title a:hover"
 				}
+			},
+			"when": {
+				"showTitle": [
+					true
+				]
 			}
 		},
 		{
@@ -137,7 +163,12 @@
 				"color",
 				"typography",
 				"margin"
-			]
+			],
+			"when": {
+				"showExcerpt": [
+					true
+				]
+			}
 		},
 		{
 			"key": "more",
@@ -153,6 +184,11 @@
 					"label": "Hover",
 					"selector": " .elementor-post__read-more:hover"
 				}
+			},
+			"when": {
+				"showReadMore": [
+					true
+				]
 			}
 		},
 		{
@@ -163,7 +199,14 @@
 				"typography",
 				"align",
 				"margin"
-			]
+			],
+			"when": {
+				"pagination": [
+					"numbers",
+					"prev_next",
+					"numbers_and_prev_next"
+				]
+			}
 		},
 		{
 			"key": "pages",
@@ -185,6 +228,13 @@
 					"label": "Active",
 					"selector": " .elementor-pagination .page-numbers.current"
 				}
+			},
+			"when": {
+				"pagination": [
+					"numbers",
+					"prev_next",
+					"numbers_and_prev_next"
+				]
 			}
 		},
 		{
@@ -204,17 +254,28 @@
 					"label": "Hover",
 					"selector": " .elementor-button-wrapper .elementor-button:hover"
 				}
+			},
+			"when": {
+				"pagination": [
+					"load_more_on_click"
+				]
 			}
 		},
 		{
 			"key": "message",
-			"label": "No more posts",
+			"label": "No more posts (shown when all are loaded)",
 			"selector": " .e-load-more-message",
 			"controls": [
 				"color",
 				"typography",
 				"align"
-			]
+			],
+			"when": {
+				"pagination": [
+					"load_more_on_click",
+					"load_more_infinite_scroll"
+				]
+			}
 		},
 		{
 			"key": "filters",
@@ -224,7 +285,12 @@
 				"align",
 				"gap",
 				"margin"
-			]
+			],
+			"when": {
+				"filter": [
+					true
+				]
+			}
 		},
 		{
 			"key": "filter",
@@ -246,11 +312,16 @@
 					"label": "Active",
 					"selector": " .elementor-portfolio__filter.elementor-active"
 				}
+			},
+			"when": {
+				"filter": [
+					true
+				]
 			}
 		},
 		{
 			"key": "nothing",
-			"label": "Nothing Found",
+			"label": "Nothing found (shown when no posts match)",
 			"selector": " .elementor-posts-nothing-found",
 			"controls": [
 				"color",

@@ -65,7 +65,12 @@
 				"color",
 				"typography",
 				"margin"
-			]
+			],
+			"when": {
+				"sale": [
+					true
+				]
+			}
 		},
 		{
 			"key": "period",
@@ -101,7 +106,7 @@
 			"label": "Features: divider",
 			"selector": " .elementor-price-table__features-list li:not(:first-child):before",
 			"controls": [
-				"border",
+				"line",
 				"margin"
 			]
 		},
@@ -154,7 +159,12 @@
 				"typography",
 				"shadow",
 				"margin"
-			]
+			],
+			"when": {
+				"showRibbon": [
+					true
+				]
+			}
 		}
 	]
 }

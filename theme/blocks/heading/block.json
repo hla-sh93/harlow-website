@@ -3,6 +3,7 @@
 	"apiVersion": 3,
 	"name": "harlow/heading",
 	"title": "Heading",
+	"icon": "heading",
 	"category": "text",
 	"description": "A title or a short line of words, in the design's heading styles.",
 	"textdomain": "harlow",
@@ -59,7 +60,8 @@
 	"supports": {
 		"html": false,
 		"className": false,
-		"customClassName": false
+		"customClassName": false,
+		"customCSS": false
 	},
 	"render": "file:../../includes/sections/heading.php"
 }

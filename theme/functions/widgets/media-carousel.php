@@ -76,9 +76,27 @@ function harlow_media_carousel_slide( $slide, $attributes, $thumbs ) {
 		return isset( $slide[ $key ] ) && null !== $slide[ $key ] ? $slide[ $key ] : $fallback;
 	};
 	$picture = (int) $get( 'image', 0 );
-	$size    = '' !== $attributes['imageSize'] ? $attributes['imageSize'] : 'full';
-	$src     = $picture ? (string) wp_get_attachment_image_url( $picture, $size ) : '';
-	$video   = 'video' === $get( 'type', 'image' ) && '' !== (string) $get( 'video' );
+	// In the editor a slide without a picture yet shows one of the Media Library's, as
+	// Elementor shows its placeholder, so the slides and their overlay can be styled.
+	if ( ! $picture && wp_is_serving_rest_request() ) {
+		static $harlow_samples = null, $harlow_next = 0;
+		if ( null === $harlow_samples ) {
+			$harlow_samples = get_posts(
+				array(
+					'post_type'      => 'attachment',
+					'post_mime_type' => 'image/jpeg',
+					'post_status'    => 'inherit',
+					'numberposts'    => 6,
+					'fields'         => 'ids',
+				)
+			);
+		}
+		$picture = $harlow_samples ? (int) $harlow_samples[ $harlow_next % count( $harlow_samples ) ] : 0;
+		++$harlow_next;
+	}
+	$size  = '' !== $attributes['imageSize'] ? $attributes['imageSize'] : 'full';
+	$src   = $picture ? (string) wp_get_attachment_image_url( $picture, $size ) : '';
+	$video = 'video' === $get( 'type', 'image' ) && '' !== (string) $get( 'video' );
 
 	// The picture, as the slide's background.
 	$classes = 'elementor-carousel-image' . ( $thumbs ? ' elementor-fit-aspect-ratio' : '' );

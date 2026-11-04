@@ -30,19 +30,33 @@
 					"label": "Hover",
 					"selector": " .elementor-custom-embed-image-overlay:hover .elementor-custom-embed-play"
 				}
+			},
+			"when": {
+				"showImageOverlay": [
+					true
+				],
+				"imageOverlay": "*",
+				"showPlayIcon": [
+					true
+				]
 			}
 		},
 		{
 			"key": "lightbox",
-			"label": "Lightbox",
+			"label": "Lightbox (shown when the video is opened)",
 			"selector": " > .elementor-lightbox",
 			"controls": [
 				"background"
-			]
+			],
+			"when": {
+				"lightbox": [
+					true
+				]
+			}
 		},
 		{
 			"key": "lightboxClose",
-			"label": "Lightbox UI",
+			"label": "Lightbox UI (shown when the video is opened)",
 			"selector": " > .elementor-lightbox .dialog-lightbox-close-button",
 			"controls": [
 				"icon"
@@ -52,6 +66,11 @@
 					"label": "Hover",
 					"selector": " > .elementor-lightbox .dialog-lightbox-close-button:hover"
 				}
+			},
+			"when": {
+				"lightbox": [
+					true
+				]
 			}
 		}
 	]

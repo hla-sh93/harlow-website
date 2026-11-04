@@ -3,6 +3,7 @@
 	"apiVersion": 3,
 	"name": "harlow/box",
 	"title": "Box",
+	"icon": "editor-paragraph",
 	"category": "text",
 	"description": "A box around paragraphs, as the text of an older page has it.",
 	"textdomain": "harlow",
@@ -19,7 +20,8 @@
 	"supports": {
 		"html": false,
 		"className": false,
-		"customClassName": false
+		"customClassName": false,
+		"customCSS": false
 	},
 	"render": "file:../../includes/sections/box.php"
 }

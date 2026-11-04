@@ -17,6 +17,19 @@ if ( ! defined( 'ABSPATH' ) ) {
 $harlow_ids = 'meta:harlow_gallery' === $attributes['source']
 	? (array) get_post_meta( get_the_ID(), '_harlow_gallery', true )
 	: (array) $attributes['pictures'];
+// In the editor a gallery without pictures yet (a new one, a template with no item) shows a
+// few of the Media Library's, as samples, so its grid can be seen and styled.
+if ( ! array_filter( array_map( 'absint', $harlow_ids ) ) && wp_is_serving_rest_request() ) {
+	$harlow_ids = get_posts(
+		array(
+			'post_type'      => 'attachment',
+			'post_mime_type' => 'image/jpeg',
+			'post_status'    => 'inherit',
+			'numberposts'    => 6,
+			'fields'         => 'ids',
+		)
+	);
+}
 
 $harlow_items = '';
 foreach ( array_filter( array_map( 'absint', $harlow_ids ) ) as $harlow_id ) {

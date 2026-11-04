@@ -43,7 +43,19 @@
 				"size",
 				"border",
 				"shadow"
-			]
+			],
+			"when": {
+				"items": {
+					"any": {
+						"type": [
+							"author"
+						],
+						"avatar": [
+							true
+						]
+					}
+				}
+			}
 		},
 		{
 			"key": "text",
@@ -69,7 +81,14 @@
 			"controls": [
 				"color",
 				"typography"
-			]
+			],
+			"when": {
+				"items": {
+					"any": {
+						"prefix": "*"
+					}
+				}
+			}
 		}
 	]
 }

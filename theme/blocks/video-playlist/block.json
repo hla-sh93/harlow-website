@@ -3,6 +3,7 @@
 	"apiVersion": 3,
 	"name": "harlow/video-playlist",
 	"title": "Video Playlist",
+	"icon": "playlist-video",
 	"category": "media",
 	"description": "Videos in a list beside the player, each with its duration, thumbnail and tabs of its own.",
 	"textdomain": "harlow",
@@ -138,7 +139,8 @@
 	"supports": {
 		"html": false,
 		"className": false,
-		"customClassName": false
+		"customClassName": false,
+		"customCSS": false
 	},
 	"example": {
 		"attributes": {

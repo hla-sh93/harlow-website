@@ -20,6 +20,8 @@ import './page';
 import './theme-builder';
 import './dynamic-tags';
 import './copy-style';
+import './item-details';
+import './link-format';
 
 // The blocks that hold other blocks save them; the rest are printed by the server. A
 // block's edit.js may name its own `save`.

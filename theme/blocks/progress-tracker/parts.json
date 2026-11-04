@@ -2,11 +2,10 @@
 	"parts": [
 		{
 			"key": "tracker",
-			"label": "Tracker (size, track colour, border)",
+			"label": "Tracker (size, border)",
 			"selector": " .elementor-scrolling-tracker",
 			"controls": [
 				"size",
-				"background",
 				"border",
 				"padding",
 				"shadow"
@@ -19,7 +18,12 @@
 			"controls": [
 				"background",
 				"border"
-			]
+			],
+			"when": {
+				"trackerType": [
+					"horizontal"
+				]
+			}
 		},
 		{
 			"key": "circleProgress",
@@ -27,7 +31,12 @@
 			"selector": " .elementor-scrolling-tracker-circular .current-progress",
 			"controls": [
 				"color"
-			]
+			],
+			"when": {
+				"trackerType": [
+					"circular"
+				]
+			}
 		},
 		{
 			"key": "circleTrack",
@@ -35,7 +44,12 @@
 			"selector": " .elementor-scrolling-tracker-circular .circle-tracker-background",
 			"controls": [
 				"color"
-			]
+			],
+			"when": {
+				"trackerType": [
+					"circular"
+				]
+			}
 		},
 		{
 			"key": "percentage",
@@ -46,7 +60,12 @@
 				"typography",
 				"textShadow",
 				"padding"
-			]
+			],
+			"when": {
+				"percentage": [
+					true
+				]
+			}
 		}
 	]
 }

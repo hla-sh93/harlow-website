@@ -21,19 +21,21 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 /**
  * The content types: name => [plural label, singular label, address or '' for none, supports, menu icon].
+ * A type with fields of its own supports custom fields: the REST API, which the block editor
+ * reads and saves an item through, carries an item's fields only then (item-details.js).
  *
  * @return array<string,array{0:string,1:string,2:string,3:string[],4:string}>
  */
 function harlow_content_types() {
 	return array(
 		'news'            => array( __( 'News', 'harlow' ), __( 'News item', 'harlow' ), 'news', array( 'title', 'editor', 'excerpt', 'thumbnail' ), 'dashicons-megaphone' ),
-		'albahoo_project' => array( __( 'Projects', 'harlow' ), __( 'Project', 'harlow' ), 'albahoo-project', array( 'title', 'editor', 'excerpt', 'thumbnail' ), 'dashicons-building' ),
+		'albahoo_project' => array( __( 'Projects', 'harlow' ), __( 'Project', 'harlow' ), 'albahoo-project', array( 'title', 'editor', 'excerpt', 'thumbnail', 'custom-fields' ), 'dashicons-building' ),
 		'gallery_item'    => array( __( 'Gallery', 'harlow' ), __( 'Gallery item', 'harlow' ), 'gallery-item', array( 'title', 'thumbnail' ), 'dashicons-format-gallery' ),
 		'job'             => array( __( 'Jobs', 'harlow' ), __( 'Job', 'harlow' ), 'job', array( 'title', 'editor', 'excerpt' ), 'dashicons-id' ),
-		'business_model'  => array( __( 'Business models', 'harlow' ), __( 'Business model', 'harlow' ), 'business-model', array( 'title', 'editor', 'excerpt', 'thumbnail' ), 'dashicons-portfolio' ),
+		'business_model'  => array( __( 'Business models', 'harlow' ), __( 'Business model', 'harlow' ), 'business-model', array( 'title', 'editor', 'excerpt', 'thumbnail', 'custom-fields' ), 'dashicons-portfolio' ),
 		'harlows_person'  => array( __( 'Harlow\'s people', 'harlow' ), __( 'Person', 'harlow' ), 'harlows-person', array( 'title', 'editor', 'thumbnail' ), 'dashicons-groups' ),
 		'team_member'     => array( __( 'Team members', 'harlow' ), __( 'Team member', 'harlow' ), 'team-member', array( 'title', 'thumbnail' ), 'dashicons-businessperson' ),
-		'testimonial'     => array( __( 'Testimonials', 'harlow' ), __( 'Testimonial', 'harlow' ), '', array( 'title', 'editor', 'thumbnail' ), 'dashicons-format-quote' ),
+		'testimonial'     => array( __( 'Testimonials', 'harlow' ), __( 'Testimonial', 'harlow' ), '', array( 'title', 'editor', 'thumbnail', 'custom-fields' ), 'dashicons-format-quote' ),
 		'client_logo'     => array( __( 'Client logos', 'harlow' ), __( 'Client logo', 'harlow' ), '', array( 'title', 'thumbnail', 'page-attributes' ), 'dashicons-awards' ),
 	);
 }
@@ -126,12 +128,15 @@ function harlow_redirect_cards() {
 add_action( 'template_redirect', 'harlow_redirect_cards' );
 
 /**
- * The box of extra fields, on the types that have some.
+ * The box of extra fields, on the types that have some. In the block editor the fields are
+ * the sidebar's (editor/item-details.js, through the REST API): these boxes are the classic
+ * screen's only, and the gallery items' screen is classic.
  */
 function harlow_add_field_boxes() {
-	add_meta_box( 'harlow-model-fields', __( 'Card', 'harlow' ), 'harlow_model_fields_box', 'business_model', 'side' );
-	add_meta_box( 'harlow-testimonial-fields', __( 'Person', 'harlow' ), 'harlow_testimonial_fields_box', 'testimonial', 'side' );
-	add_meta_box( 'harlow-project-fields', __( 'Project page', 'harlow' ), 'harlow_project_fields_box', 'albahoo_project', 'normal' );
+	$classic_only = array( '__back_compat_meta_box' => true );
+	add_meta_box( 'harlow-model-fields', __( 'Card', 'harlow' ), 'harlow_model_fields_box', 'business_model', 'side', 'default', $classic_only );
+	add_meta_box( 'harlow-testimonial-fields', __( 'Person', 'harlow' ), 'harlow_testimonial_fields_box', 'testimonial', 'side', 'default', $classic_only );
+	add_meta_box( 'harlow-project-fields', __( 'Project page', 'harlow' ), 'harlow_project_fields_box', 'albahoo_project', 'normal', 'default', $classic_only );
 	add_meta_box( 'harlow-gallery-fields', __( 'Pictures', 'harlow' ), 'harlow_gallery_field', 'gallery_item', 'normal' );
 }
 add_action( 'add_meta_boxes', 'harlow_add_field_boxes' );

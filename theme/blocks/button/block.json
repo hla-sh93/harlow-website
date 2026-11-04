@@ -3,6 +3,7 @@
 	"apiVersion": 3,
 	"name": "harlow/button",
 	"title": "Button",
+	"icon": "button",
 	"category": "design",
 	"description": "A button with its words, its link and an icon if it has one.",
 	"textdomain": "harlow",
@@ -71,7 +72,8 @@
 	"supports": {
 		"html": false,
 		"className": false,
-		"customClassName": false
+		"customClassName": false,
+		"customCSS": false
 	},
 	"render": "file:../../includes/sections/button.php"
 }

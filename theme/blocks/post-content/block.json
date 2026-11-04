@@ -3,6 +3,7 @@
 	"apiVersion": 3,
 	"name": "harlow/post-content",
 	"title": "Item's text",
+	"icon": "text-page",
 	"category": "theme",
 	"description": "The text of the item the page shows (Elementor's post content widget).",
 	"textdomain": "harlow",
@@ -31,7 +32,8 @@
 	"supports": {
 		"html": false,
 		"className": false,
-		"customClassName": false
+		"customClassName": false,
+		"customCSS": false
 	},
 	"render": "file:../../includes/sections/post-content.php"
 }

@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Gate 1: editor direction</title>
+<style>
+  :root { --ink: #14171a; --muted: #5b6470; --line: #e3e6ea; --bg: #ffffff; --soft: #f6f7f9; --accent: #0165a1; }
+  body { margin: 0; font: 15px/1.6 "Segoe UI", Tahoma, sans-serif; color: var(--ink); background: var(--bg); }
+  main { max-width: 1180px; margin: 0 auto; padding: 32px 16px 64px; }
+  h1 { font-size: 26px; margin: 0 0 4px; }
+  h2 { font-size: 19px; margin: 40px 0 12px; padding-top: 16px; border-top: 1px solid var(--line); }
+  h3 { font-size: 15px; margin: 18px 0 6px; }
+  p, li { color: var(--ink); }
+  .muted { color: var(--muted); }
+  .grid { display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
+  figure { margin: 0; border: 1px solid var(--line); border-radius: 12px; overflow: hidden; background: var(--soft); }
+  figure img { display: block; width: 100%; height: auto; }
+  figcaption { padding: 10px 12px; font-size: 13px; color: var(--muted); background: #fff; border-top: 1px solid var(--line); }
+  .ltr { direction: ltr; unicode-bidi: isolate; }
+  table { width: 100%; border-collapse: collapse; font-size: 14px; }
+  th, td { text-align: start; padding: 8px 10px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th { color: var(--muted); font-weight: 600; }
+  .tag { display: inline-block; font-size: 12px; padding: 1px 8px; border: 1px solid var(--line); border-radius: 8px; color: var(--muted); }
+</style>
+</head>
+<body>
+<main>
+  <h1>Gate 1: اتجاه تصميم المحرّر</h1>
+  <p class="muted">Harlow theme: الشريط الجانبي (Styles)، إضافة عنصر جديد (مشروع، خبر…)، تصميم الكروت، والروابط. البراف نوعه Defined، يعني اتجاه واحد مع تبريره.</p>
+
+  <h2>١. الوضع الحالي (صور من المحرّر عندنا)</h2>
+  <div class="grid">
+    <figure><img src="issue1-new-project.png" alt=""><figcaption>مشروع جديد: صفحة فاضية فيها "Type / to choose a block"، وحقول المشروع مخبّاية تحت بـ Meta Boxes.</figcaption></figure>
+    <figure><img src="issue2-link-search.png" alt=""><figcaption>الرابط: مربع بحث صغير بس، بلا قائمة صفحات وبلا حقل واضح للرابط الخارجي، والبحث بطيء.</figcaption></figure>
+    <figure><img src="issue3-styles-open.png" alt=""><figcaption>الـ Styles: قائمة طويلة، أسماء طويلة بأحرف كبيرة، حقول بعرض كامل، والأزرار نصوص.</figcaption></figure>
+  </div>
+
+  <h2>٢. المراجع (صور حقيقية من البرامج نفسها)</h2>
+  <div class="grid">
+    <figure><img src="refs/figma-auto-layout-2-frame.jpg" alt=""><figcaption class="ltr">Figma, Design panel (help.figma.com): sections, two-column rows, an icon inside each field, icon toggles for alignment.</figcaption></figure>
+    <figure><img src="refs/elementor-style-tab-2.png" alt=""><figcaption class="ltr">Elementor, Edit Heading (elementor.com/help): Content / Style / Advanced with icons, label on the left and control on the right, a device icon beside the label.</figcaption></figure>
+    <figure><img src="refs/webflow-panel.jpg" alt=""><figcaption class="ltr">Webflow Designer, Add panel (webflow.com/feature/design): elements as an icon grid with search, grouped (Layout, Basic).</figcaption></figure>
+  </div>
+  <p class="muted">المصادر: Figma Help وElementor Help وصفحة Webflow Design انفتحوا فعلاً. صفحات Webflow Help Center وقّفتهم Cloudflare، وصفحات Elementor Help الأحدث صارت تحوّل عالصفحة الرئيسية، فما استعملتهم.</p>
+
+  <h2>٣. الاتجاه المقترح: Property panel (متل Figma وElementor، فاتح ومنسجم مع ووردبريس)</h2>
+  <table>
+    <tr><th>المنطقة</th><th>شو بيتغيّر</th><th>مأخوذ من</th></tr>
+    <tr><td>رأس اللوحة</td><td>اسم العنصر مع أيقونته، وتحته شريط الأجهزة (Desktop / Tablet / Mobile) كأيقونات، وبيضل ثابت فوق وقت تنزلي. وفي تبويبين: <span class="ltr">Style</span> و<span class="ltr">Advanced</span> (الحركة والشروط والـ CSS والخصائص المتقدمة).</td><td><span class="tag ltr">Elementor</span> <span class="tag ltr">Figma</span></td></tr>
+    <tr><td>الصفوف</td><td>الاسم عاليسار (قصير، بلا أحرف كبيرة) والتحكّم عاليمين بصف واحد. الأرقام بحقل واحد والوحدة جوّاتو (16 px). صفّين بكل سطر للأشياء المتقابلة (W / H، Top / Bottom).</td><td><span class="tag ltr">Figma</span></td></tr>
+    <tr><td>الأزرار</td><td>المحاذاة والاتجاه وحالة الأحرف والخط تحت الكلمة كأيقونات (segmented)، مش كلمات.</td><td><span class="tag ltr">Figma</span> <span class="tag ltr">Elementor</span></td></tr>
+    <tr><td>الألوان</td><td>مربع لون صغير مع الكود جنبه بنفس الصف، والضغط عليه بيفتح ألوان البراند وبعدين الـ palette.</td><td><span class="tag ltr">Figma</span></td></tr>
+    <tr><td>المجموعات</td><td>كل مجموعة إلها أيقونة، وبيبيّن جنبها نقطة لما يكون فيها تعديل، مع زر Reset لكل صف ولكل مجموعة. مجموعات العنصر نفسه أول، وبعدين "The box around the element".</td><td><span class="tag ltr">Webflow</span> <span class="tag ltr">Figma</span></td></tr>
+    <tr><td>مشروع أو خبر جديد</td><td>بالشريط الجانبي بتطلع لوحة "Project details" أول شي (الصورة، الوصف، السنة، الصور). وبالمكان الفاضي بيطلع شرح قصير بيقول شو بيروح وين. والحقول ما عادت مخبّاية تحت.</td><td><span class="tag ltr">Webflow CMS</span></td></tr>
+    <tr><td>تصميم الكروت</td><td>من قائمة العناصر (الـ list) تحت Styles بتطلع مجموعات للكرت: الصندوق، الصورة، العنوان، النص، التاريخ، الرابط. وبالمشروع والخبر في زر "Card design" بيوديكي لقائمة فيها كروته. والكرت بيضل نفس تصميم الموقع لحد ما تغيّري فيه.</td><td><span class="tag ltr">Elementor Loop Grid</span></td></tr>
+    <tr><td>الروابط</td><td>لما تحدّدي كلام وتضغطي Link، بتطلع نافذة فيها خيارين واضحين: "Page of the site" (قائمة بكل الصفحات والمشاريع والأخبار مع بحث) و"Custom URL"، ومعهم خيار "Open in a new tab".</td><td><span class="tag ltr">Elementor</span> <span class="tag ltr">Webflow</span></td></tr>
+  </table>
+
+  <h3>ليش هالاتجاه</h3>
+  <ul>
+    <li>بيضل ضمن ووردبريس (نفس الخطوط والعناصر)، فبيضل يشتغل مع تحديثات ووردبريس، بس ترتيبه وكثافته متل Figma وElementor.</li>
+    <li>صف واحد لكل خاصية بيخلّي الشريط أقصر بالنص تقريباً، فبتشوفي المجموعة كلها بلا ما تنزلي كتير.</li>
+    <li>النقطة جنب المجموعة المعدّلة بتخليكي تعرفي فوراً شو غيّرتي على كل جهاز.</li>
+  </ul>
+  <h3>شو ما رح يتغيّر</h3>
+  <ul>
+    <li>القيم والـ CSS يلي بتطلع على الصفحة نفسها، يعني كل يلي عدّلتيه بيضل متل ما هو.</li>
+    <li>تصميم الموقع: الكروت بتضل متطابقة مع الموقع الأصلي لحد ما تعدّلي فيها إنتي.</li>
+  </ul>
+  <h3>بعد موافقتك (Gate 2)</h3>
+  <p>ببني الشريط الجانبي الجديد للعنوان (Heading) بالمحرّر الحقيقي، وببعتلك صورته قبل ما عمّمه على كل العناصر.</p>
+</main>
+</body>
+</html>

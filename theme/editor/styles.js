@@ -27,16 +27,58 @@ import {
 	TextareaControl,
 	ToggleControl,
 	TextControl,
+	VisuallyHidden,
 } from '@wordpress/components';
+import { getBlockType } from '@wordpress/blocks';
 import { createHigherOrderComponent } from '@wordpress/compose';
 import { useDispatch, useSelect } from '@wordpress/data';
 import { useEffect, useState } from '@wordpress/element';
 import { addFilter } from '@wordpress/hooks';
 import { __, sprintf } from '@wordpress/i18n';
+import {
+	alignCenter,
+	alignJustify,
+	alignLeft,
+	alignNone,
+	alignRight,
+	arrowDown,
+	arrowLeft,
+	arrowRight,
+	arrowUp,
+	background as backgroundIcon,
+	border as borderIcon,
+	code,
+	desktop,
+	fullscreen,
+	justifyBottom,
+	justifyCenter,
+	justifyCenterVertical,
+	justifyLeft,
+	justifyRight,
+	justifySpaceAround,
+	justifySpaceBetween,
+	justifySpaceEvenly,
+	justifyStretchVertical,
+	justifyTop,
+	layout as layoutIcon,
+	mobile,
+	positionCenter,
+	rotateLeft as resetIcon,
+	rotateRight,
+	seen,
+	shadow as shadowIcon,
+	sidesAll,
+	styles as stylesIcon,
+	tablet,
+	tool,
+	typography as typographyIcon,
+} from '@wordpress/icons';
 
 import HOVER_ANIMATIONS from './hover-animations.json';
 import SHAPES from './shapes.json';
-import { usePictureUrl } from './shared';
+import { notePicked, PICKED, usePictureUrl } from './shared';
+import { DesignPicture } from '../blocks/button/edit';
+import { DesignBackground } from '../blocks/container/edit';
 
 const site = window.harlowEditor || {};
 
@@ -175,6 +217,29 @@ const UNITS = [ 'px', '%', 'em', 'rem', 'vw', 'vh' ].map( ( u ) => ( {
 	value: u,
 	label: u,
 } ) );
+
+/**
+ * Widgets whose own layers cover the whole box, each with its background (a flip box's
+ * front and back, each slide of the slides, a video and a playlist's list): the box's own
+ * Background, hidden behind them, is not offered.
+ */
+const OWN_BACKGROUND = [ 'flip-box', 'slides', 'video', 'video-playlist' ];
+
+/**
+ * Widgets whose own box fills the widget and paints over it: the box's background is that
+ * box's too (HARLOW_STYLE_COVERS).
+ */
+const COVERS = {
+	alert: ' .elementor-alert',
+	'off-canvas': ' .e-off-canvas__main',
+	// The classic skin's content fills the box beside its picture (the cover skin's lies over it).
+	'call-to-action': '.elementor-cta--skin-classic .elementor-cta__content',
+	'code-highlight': ' pre[class*="language-"]',
+	'progress-tracker': ' .elementor-scrolling-tracker-horizontal',
+	// The search box (never the full screen skin's overlay, which covers the page).
+	'search-form':
+		' .elementor-search-form__container:not(.elementor-search-form--full-screen)',
+};
 
 /** Where the words live inside each kind (harlow_style_rules()). */
 const TEXT_PART = {
@@ -359,12 +424,13 @@ function font( v ) {
  * The declarations of one device's style, as harlow_style_rules() makes them:
  * { selectorSuffix: { property: value } }.
  *
- * @param {Object} style One device's style.
- * @param {string} kind  The block's kind.
- * @param {Object} urls  Picture id -> address (the editor looks pictures up).
+ * @param {Object} style   One device's style.
+ * @param {string} kind    The block's kind.
+ * @param {Object} urls    Picture id -> address (the editor looks pictures up).
+ * @param {string} classes The element's classes (where its design paints it).
  * @return {Object} The rules.
  */
-export function styleRules( style, kind, urls = {} ) {
+export function styleRules( style, kind, urls = {}, classes = '' ) {
 	const rules = {};
 	const self = '';
 	const text = TEXT_PART[ kind ] || '';
@@ -386,10 +452,16 @@ export function styleRules( style, kind, urls = {} ) {
 		add( self, 'line-height', '1' );
 		add( self, 'margin-right', '10px' );
 	}
+	// A widget's box is its element and the widget container inside it (harlow_style_rules()).
+	const bgBox =
+		( [ 'container', 'part' ].includes( kind )
+			? self
+			: '| > .elementor-widget-container' ) +
+		( COVERS[ kind ] ? `|${ COVERS[ kind ] }` : '' );
 	for ( const [ prop, value ] of Object.entries(
 		background( style.background || {}, urls )
 	) ) {
-		add( self, prop, value );
+		add( bgBox, prop, value );
 	}
 	// The overlay over a container's background (Elementor's ::before layer).
 	if ( kind === 'container' ) {
@@ -485,8 +557,26 @@ export function styleRules( style, kind, urls = {} ) {
 		word( style.align, [ 'left', 'center', 'right', 'justify' ] )
 	);
 	if ( kind === 'button' ) {
-		add( text, 'background-color', colour( style.buttonColor ) );
-		add( text, 'border-radius', length( style.radius, 'px' ) );
+		// As harlow_style_rules(): the button as one piece. Where the design paints it on its
+		// box (the widget container: its colour, its arrow as a picture), the owner's colour
+		// goes there and the button in front turns clear; otherwise on the button itself.
+		const fill = colour( style.buttonColor );
+		const hover = colour( style.buttonHoverColor );
+		const radius = length( style.radius, 'px' );
+		if ( /(^|\s)hl-bg[ci]-\S*--wc(\s|$)/.test( classes || '' ) ) {
+			add( ' .elementor-widget-container', 'background-color', fill );
+			add(
+				':hover .elementor-widget-container',
+				'background-color',
+				hover
+			);
+			add( text, 'background-color', fill || hover ? 'transparent' : '' );
+			add( ' .elementor-widget-container', 'border-radius', radius );
+		} else {
+			add( text, 'background-color', fill );
+			add( ' .elementor-button:hover', 'background-color', hover );
+		}
+		add( text, 'border-radius', radius );
 	}
 	for ( const box of [ 'padding', 'margin' ] ) {
 		const sides = style[ box ] || {};
@@ -544,6 +634,10 @@ export function styleRules( style, kind, urls = {} ) {
 			word( style.align, [ 'left', 'center', 'right' ] )
 		);
 	}
+	// A divider's line: its Colour and Weight, the custom properties it is drawn with.
+	const line = style.divider || {};
+	add( self, '--divider-color', colour( line.color ) );
+	add( self, '--divider-border-width', length( line.weight, 'px' ) );
 	// Every side at once, then each side of its own, then the corners (harlow_style_rules()).
 	const border = style.border || {};
 	add( self, 'border-style', word( border.style, WORDS.borderStyle ) );
@@ -682,8 +776,13 @@ export function styleRules( style, kind, urls = {} ) {
 			colour( hover.background )
 		);
 	} else if ( colour( hover.background ) ) {
-		add( ':hover', 'background-color', colour( hover.background ) );
-		add( ':hover', 'background-image', 'none' );
+		const onBox =
+			( [ 'container', 'part' ].includes( kind )
+				? ':hover'
+				: ':hover|:hover > .elementor-widget-container' ) +
+			( COVERS[ kind ] ? `|:hover${ COVERS[ kind ] }` : '' );
+		add( onBox, 'background-color', colour( hover.background ) );
+		add( onBox, 'background-image', 'none' );
 	}
 	// A gradient or a picture on hover (a button's own box, or the element's).
 	for ( const [ prop, value ] of Object.entries(
@@ -1013,10 +1112,7 @@ function filters( f ) {
 		)
 		.map(
 			( [ k, u ] ) =>
-				`${ k === 'hue' ? 'hue-rotate' : k }(${ Math.max(
-					0,
-					Number( f[ k ] )
-				) }${ u })`
+				`${ k === 'hue' ? 'hue-rotate' : k }(${ Math.max( 0, Number( f[ k ] ) ) }${ u })`
 		)
 		.join( ' ' );
 }
@@ -1106,9 +1202,10 @@ function partsCss( base, one, kind, urls ) {
  * @param {Object} style   The block's style attribute.
  * @param {string} kind    The block's kind.
  * @param {Object} urls    Picture id -> address.
+ * @param {string} classes The element's classes.
  * @return {string} CSS.
  */
-export function elementCss( element, style, kind, urls = {} ) {
+export function elementCss( element, style, kind, urls = {}, classes = '' ) {
 	// As harlow_element_css(): the element by its data-id, named twice, and the :not() the
 	// design's background rules end in; each weighs a class.
 	const id = `[data-id="${ ( element || '' ).replace( /[^a-z0-9_-]/gi, '' ) }"]`;
@@ -1121,7 +1218,7 @@ export function elementCss( element, style, kind, urls = {} ) {
 		}
 		let css = '';
 		for ( const [ part, decls ] of Object.entries(
-			styleRules( one, kind, urls )
+			styleRules( one, kind, urls, classes )
 		) ) {
 			const body = Object.entries( decls )
 				.map( ( [ p, v ] ) => `${ p }:${ v } !important;` )
@@ -1286,15 +1383,26 @@ export function ShapeDivider( { side, shape } ) {
  * @param {string} element  Its element id.
  * @param {Object} style    Its style attribute.
  * @param {string} kind     Its kind.
+ * @param {string} classes  Its classes.
  */
-function useCanvasStyle( clientId, element, style, kind ) {
+function useCanvasStyle( clientId, element, style, kind, classes ) {
+	// Every picture of the style: the box's background, its overlay and hover, and its
+	// parts' backgrounds, on every device.
 	const ids = [];
-	for ( const device of Object.values( style || {} ) ) {
-		if ( device?.background?.image ) {
-			ids.push( device.background.image );
+	const walk = ( value ) => {
+		if ( ! value || typeof value !== 'object' ) {
+			return;
 		}
-	}
-	const idsKey = ids.join( ',' );
+		for ( const [ name, inner ] of Object.entries( value ) ) {
+			if ( name === 'image' && Number( inner ) > 0 ) {
+				ids.push( Number( inner ) );
+			} else {
+				walk( inner );
+			}
+		}
+	};
+	walk( style );
+	const idsKey = [ ...new Set( ids ) ].join( ',' );
 	const urls = useSelect(
 		( select ) => {
 			const out = {};
@@ -1304,8 +1412,8 @@ function useCanvasStyle( clientId, element, style, kind ) {
 					'attachment',
 					Number( id )
 				);
-				if ( r ) {
-					out[ id ] = r.source_url;
+				if ( r || PICKED[ id ] ) {
+					out[ id ] = r ? r.source_url : PICKED[ id ];
 				}
 			}
 			return out;
@@ -1314,7 +1422,7 @@ function useCanvasStyle( clientId, element, style, kind ) {
 	);
 	// The CSS itself is the dependency: a style or a picture's address that reads the same
 	// draws the same.
-	const css = elementCss( element, style, kind, urls );
+	const css = elementCss( element, style, kind, urls, classes );
 	useEffect( () => {
 		const frame = document.querySelector( 'iframe[name="editor-canvas"]' );
 		const doc = frame?.contentDocument || document;
@@ -1337,8 +1445,89 @@ function useCanvasStyle( clientId, element, style, kind ) {
 	}, [ clientId, css ] );
 }
 
+/** The names a row's label may start with: every part's, in each of its states. */
+let GROUP_NAMES = null;
+function groupNames() {
+	if ( ! GROUP_NAMES ) {
+		const names = new Set( [
+			'Overlay:',
+			'Overlay on hover:',
+			'On hover:',
+		] );
+		Object.values( PARTS ).forEach( ( parts ) =>
+			parts.forEach( ( part ) => {
+				names.add( `${ part.label }:` );
+				Object.values( part.states || {} ).forEach( ( state ) =>
+					names.add( `${ part.label } (${ state.label }):` )
+				);
+			} )
+		);
+		GROUP_NAMES = [ ...names ].sort( ( a, b ) => b.length - a.length );
+	}
+	return GROUP_NAMES;
+}
+
 /**
- * A colour control: the brand and the palette first, a picker for any colour.
+ * A row's label as the owner reads it: the words before a colon ("Title: Size") are the
+ * group's title, shown over the row already, so only screen readers read them there.
+ *
+ * @param {string} label The label.
+ * @return {Object|string} The label to show.
+ */
+function rowLabel( label ) {
+	if ( typeof label !== 'string' ) {
+		return label;
+	}
+	// A part's own name may hold a colon ("Card: title"): the longest known group name the
+	// label starts with is the one hidden, else the words before the first colon.
+	const known = groupNames().find( ( name ) =>
+		label.startsWith( `${ name } ` )
+	);
+	const at = known ? known.length - 1 : label.indexOf( ': ' );
+	if ( at < 1 ) {
+		return label;
+	}
+	return (
+		<>
+			<VisuallyHidden as="span">
+				{ label.slice( 0, at + 2 ) }
+			</VisuallyHidden>
+			<span className="harlow-row__name">{ label.slice( at + 2 ) }</span>
+		</>
+	);
+}
+
+/**
+ * A row's reset: a small icon, there only once the row has a value of its own (its place
+ * kept, so the rows do not move).
+ *
+ * @param {Object}   props
+ * @param {boolean}  props.active  Whether the row has a value.
+ * @param {string}   props.label   The row's label (read by screen readers).
+ * @param {Function} props.onClick Called to reset.
+ */
+function ResetButton( { active, label, onClick } ) {
+	return (
+		<Button
+			className="harlow-style__reset"
+			icon={ resetIcon }
+			size="small"
+			label={ sprintf(
+				/* translators: %s: a control's label */
+				__( 'Reset %s', 'harlow' ),
+				label
+			) }
+			showTooltip
+			style={ active ? undefined : { visibility: 'hidden' } }
+			tabIndex={ active ? undefined : -1 }
+			onClick={ onClick }
+		/>
+	);
+}
+
+/**
+ * A colour control: the brand and the palette first, a picker for any colour. One field,
+ * as Figma's: the swatch and the colour's name, the picker beside the sidebar; a reset.
  *
  * @param {Object}   props
  * @param {string}   props.label    The label.
@@ -1346,28 +1535,45 @@ function useCanvasStyle( clientId, element, style, kind ) {
  * @param {Function} props.onChange Called with the colour, '' for the default.
  */
 function Colour( { label, value, onChange } ) {
+	const id = `harlow-colour-${ label.replace( /\W+/g, '-' ) }`;
 	return (
 		<BaseControl
 			__nextHasNoMarginBottom
-			label={ label }
-			id={ `harlow-colour-${ label.replace( /\W+/g, '-' ) }` }
-			className="harlow-style__colour"
+			label={ rowLabel( label ) }
+			id={ id }
+			className="harlow-style__colour harlow-row"
 		>
 			<div className="harlow-style__colour-row">
 				<Dropdown
-					renderToggle={ ( { onToggle } ) => (
-						<Button
-							className="harlow-style__swatch"
-							style={ {
-								background:
-									shown( value ).paint || 'transparent',
-							} }
-							onClick={ onToggle }
-							label={
+					className="harlow-style__colour-dropdown"
+					popoverProps={ { placement: 'left-start', offset: 36 } }
+					renderToggle={ ( { isOpen, onToggle } ) => (
+						<button
+							type="button"
+							id={ id }
+							className="harlow-style__field"
+							aria-expanded={ isOpen }
+							aria-label={ `${ label }: ${
 								shown( value ).name || __( 'Default', 'harlow' )
-							}
-							showTooltip
-						/>
+							}` }
+							onClick={ onToggle }
+						>
+							<span
+								className={ `harlow-style__swatch${
+									value ? '' : ' is-none'
+								}` }
+								style={ {
+									background:
+										shown( value ).paint || 'transparent',
+								} }
+							/>
+							<span
+								className={ `harlow-style__value${ value ? '' : ' is-default' }` }
+							>
+								{ shown( value ).name ||
+									__( 'Default', 'harlow' ) }
+							</span>
+						</button>
 					) }
 					renderContent={ () => (
 						<div className="harlow-style__picker">
@@ -1395,18 +1601,11 @@ function Colour( { label, value, onChange } ) {
 						</div>
 					) }
 				/>
-				<span className="harlow-style__value">
-					{ shown( value ).name || __( 'Default', 'harlow' ) }
-				</span>
-				{ value && (
-					<Button
-						variant="link"
-						isDestructive
-						onClick={ () => onChange( '' ) }
-					>
-						{ __( 'Reset', 'harlow' ) }
-					</Button>
-				) }
+				<ResetButton
+					active={ !! value }
+					label={ label }
+					onClick={ () => onChange( '' ) }
+				/>
 			</div>
 		</BaseControl>
 	);
@@ -1435,7 +1634,10 @@ function Picture( { label, value, onChange } ) {
 				<MediaUpload
 					allowedTypes={ [ 'image' ] }
 					value={ value || undefined }
-					onSelect={ ( p ) => onChange( p.id ) }
+					onSelect={ ( p ) => {
+						notePicked( p );
+						onChange( p.id );
+					} }
 					render={ ( { open } ) => (
 						<Button variant="secondary" onClick={ open }>
 							{ value
@@ -1479,12 +1681,17 @@ function Length( {
 	units,
 } ) {
 	const u = unit || 'px';
+	const unitList = units || UNITS;
 	return (
-		<div className="harlow-style__length">
+		<div
+			className={ `harlow-style__length harlow-row${
+				unitList.length < 2 ? ' is-one-unit' : ''
+			}` }
+		>
 			<TextControl
 				__next40pxDefaultSize
 				__nextHasNoMarginBottom
-				label={ label }
+				label={ rowLabel( label ) }
 				type="number"
 				list={ list }
 				min={ negative ? undefined : 0 }
@@ -1498,7 +1705,7 @@ function Length( {
 				label={ __( 'Unit', 'harlow' ) }
 				hideLabelFromVision
 				value={ u }
-				options={ units || UNITS }
+				options={ unitList }
 				onChange={ ( nu ) => onChange( value ?? '', nu ) }
 			/>
 		</div>
@@ -1506,7 +1713,9 @@ function Length( {
 }
 
 /**
- * A row of choices, one pressed (the stable stand-in for a toggle group).
+ * A row of choices, one pressed (the stable stand-in for a toggle group): a segmented
+ * control, as Figma's and Elementor's, of icons where every choice has one (the words then
+ * a tooltip, and read by screen readers).
  *
  * @param {Object}   props
  * @param {string}   props.label    The row's label.
@@ -1518,30 +1727,44 @@ function Choices( { label, value, onChange, children } ) {
 	const items = ( Array.isArray( children ) ? children : [ children ] )
 		.flat()
 		.filter( Boolean );
+	const icons = items.every( ( c ) => c.props.icon );
 	return (
 		<BaseControl
 			__nextHasNoMarginBottom
-			label={ label }
+			label={ rowLabel( label ) }
 			id={ `harlow-choices-${ label.replace( /\W+/g, '-' ) }` }
+			className={ `harlow-row harlow-row--choices${ icons ? ' is-icons' : '' }` }
 		>
 			<div
-				className="harlow-style__choices"
+				className="harlow-style__choices harlow-seg"
 				role="radiogroup"
 				aria-label={ label }
 			>
-				{ items.map( ( c ) => (
-					<Button
-						key={ c.props.value }
-						role="radio"
-						aria-checked={ value === c.props.value }
-						isPressed={ value === c.props.value }
-						variant="secondary"
-						size="compact"
-						onClick={ () => onChange( c.props.value ) }
-					>
-						{ c.props.label }
-					</Button>
-				) ) }
+				{ items.map( ( c ) => {
+					const on = value === c.props.value;
+					return (
+						<Button
+							key={ c.props.value }
+							role="radio"
+							aria-checked={ on }
+							isPressed={ on }
+							size="compact"
+							className="harlow-seg__item"
+							icon={ icons ? c.props.icon : undefined }
+							label={ icons ? c.props.label : undefined }
+							showTooltip={ icons }
+							onClick={ () => onChange( c.props.value ) }
+						>
+							{ icons ? (
+								<VisuallyHidden as="span">
+									{ c.props.label }
+								</VisuallyHidden>
+							) : (
+								rowLabel( c.props.label )
+							) }
+						</Button>
+					);
+				} ) }
 			</div>
 		</BaseControl>
 	);
@@ -1553,9 +1776,10 @@ function Choices( { label, value, onChange, children } ) {
  * @param {Object} props
  * @param {string} props.value The value.
  * @param {string} props.label Its words.
+ * @param {Object} props.icon  Its icon (every choice of the row has one, or none has).
  */
 // eslint-disable-next-line no-unused-vars
-function Choice( { value, label } ) {
+function Choice( { value, label, icon } ) {
 	return null;
 }
 
@@ -1574,7 +1798,7 @@ function Words( { label, value, words, onChange, names = {} } ) {
 		<SelectControl
 			__next40pxDefaultSize
 			__nextHasNoMarginBottom
-			label={ label }
+			label={ rowLabel( label ) }
 			value={ value || '' }
 			options={ [
 				{ value: '', label: __( 'Default', 'harlow' ) },
@@ -1661,7 +1885,13 @@ function LayoutPanel( {
 	const isGrid = /(^|\s)e-grid(\s|$)/.test( classes );
 	const set = ( patch ) => setIn( 'layout', patch );
 	return (
-		<PanelBody title={ __( 'Layout', 'harlow' ) } className="harlow-style">
+		<Group
+			title={ __( 'Layout', 'harlow' ) }
+			icon={ layoutIcon }
+			changed={ ! isEmpty( layout ) }
+			onReset={ () => setIn( 'layout', undefined ) }
+			initialOpen
+		>
 			<Choices
 				label={ __( 'Content width', 'harlow' ) }
 				value={ attributes.boxed ? 'boxed' : 'full' }
@@ -1709,52 +1939,105 @@ function LayoutPanel( {
 						value={ layout.direction || '' }
 						onChange={ ( v ) => set( { direction: v } ) }
 					>
-						<Choice value="" label={ __( 'Default', 'harlow' ) } />
-						<Choice value="row" label={ __( 'Row →', 'harlow' ) } />
+						<Choice
+							value=""
+							label={ __( 'Default', 'harlow' ) }
+							icon={ alignNone }
+						/>
+						<Choice
+							value="row"
+							label={ __( 'Row →', 'harlow' ) }
+							icon={ arrowRight }
+						/>
 						<Choice
 							value="column"
 							label={ __( 'Column ↓', 'harlow' ) }
+							icon={ arrowDown }
 						/>
 						<Choice
 							value="row-reverse"
 							label={ __( 'Row ←', 'harlow' ) }
+							icon={ arrowLeft }
 						/>
 						<Choice
 							value="column-reverse"
 							label={ __( 'Column ↑', 'harlow' ) }
+							icon={ arrowUp }
 						/>
 					</Choices>
-					<Words
+					{ /* Elementor's icons: how the items share the row, and where they sit across it. */ }
+					<Choices
 						label={ __( 'Justify content', 'harlow' ) }
-						value={ layout.justify }
-						words={ WORDS.justify }
-						names={ {
-							'flex-start': __( 'Start', 'harlow' ),
-							center: __( 'Centre', 'harlow' ),
-							'flex-end': __( 'End', 'harlow' ),
-							'space-between': __( 'Space between', 'harlow' ),
-							'space-around': __( 'Space around', 'harlow' ),
-							'space-evenly': __( 'Space evenly', 'harlow' ),
-						} }
+						value={ layout.justify || '' }
 						onChange={ ( v ) => set( { justify: v } ) }
-					/>
-					<Words
+					>
+						<Choice
+							value=""
+							label={ __( 'Default', 'harlow' ) }
+							icon={ alignNone }
+						/>
+						<Choice
+							value="flex-start"
+							label={ __( 'Start', 'harlow' ) }
+							icon={ justifyLeft }
+						/>
+						<Choice
+							value="center"
+							label={ __( 'Centre', 'harlow' ) }
+							icon={ justifyCenter }
+						/>
+						<Choice
+							value="flex-end"
+							label={ __( 'End', 'harlow' ) }
+							icon={ justifyRight }
+						/>
+						<Choice
+							value="space-between"
+							label={ __( 'Space between', 'harlow' ) }
+							icon={ justifySpaceBetween }
+						/>
+						<Choice
+							value="space-around"
+							label={ __( 'Space around', 'harlow' ) }
+							icon={ justifySpaceAround }
+						/>
+						<Choice
+							value="space-evenly"
+							label={ __( 'Space evenly', 'harlow' ) }
+							icon={ justifySpaceEvenly }
+						/>
+					</Choices>
+					<Choices
 						label={ __( 'Align items', 'harlow' ) }
-						value={ layout.align }
-						words={ [
-							'stretch',
-							'flex-start',
-							'center',
-							'flex-end',
-						] }
-						names={ {
-							stretch: __( 'Stretch', 'harlow' ),
-							'flex-start': __( 'Start', 'harlow' ),
-							center: __( 'Centre', 'harlow' ),
-							'flex-end': __( 'End', 'harlow' ),
-						} }
+						value={ layout.align || '' }
 						onChange={ ( v ) => set( { align: v } ) }
-					/>
+					>
+						<Choice
+							value=""
+							label={ __( 'Default', 'harlow' ) }
+							icon={ alignNone }
+						/>
+						<Choice
+							value="flex-start"
+							label={ __( 'Start', 'harlow' ) }
+							icon={ justifyTop }
+						/>
+						<Choice
+							value="center"
+							label={ __( 'Centre', 'harlow' ) }
+							icon={ justifyCenterVertical }
+						/>
+						<Choice
+							value="flex-end"
+							label={ __( 'End', 'harlow' ) }
+							icon={ justifyBottom }
+						/>
+						<Choice
+							value="stretch"
+							label={ __( 'Stretch', 'harlow' ) }
+							icon={ justifyStretchVertical }
+						/>
+					</Choices>
 					<Choices
 						label={ __( 'Wrap', 'harlow' ) }
 						value={ layout.wrap || '' }
@@ -1920,7 +2203,7 @@ function LayoutPanel( {
 					/>
 				</>
 			) }
-		</PanelBody>
+		</Group>
 	);
 }
 
@@ -2045,11 +2328,12 @@ function PositionControls( { item, setIn } ) {
  * corners' rounding, all at once or each.
  *
  * @param {Object}   props
- * @param {Object}   props.border This device's border.
- * @param {Function} props.setIn  Set a group of this device's style.
- * @param {string}   props.prefix Words before each label (a part's name).
+ * @param {Object}   props.border  This device's border.
+ * @param {Function} props.setIn   Set a group of this device's style.
+ * @param {string}   props.prefix  Words before each label (a part's name).
+ * @param {boolean}  props.corners Its corners too (a line between rows has none).
  */
-function BorderControls( { border, setIn, prefix = '' } ) {
+function BorderControls( { border, setIn, prefix = '', corners = true } ) {
 	const [ which, setWhich ] = useState( 'all' );
 	const [ corner, setCorner ] = useState( 'all' );
 	const one = which === 'all' ? border : border[ which ] || {};
@@ -2087,34 +2371,62 @@ function BorderControls( { border, setIn, prefix = '' } ) {
 				names={ lineNames }
 				onChange={ ( v ) => setOne( { style: v } ) }
 			/>
-			<Length
-				label={ named( prefix, __( 'Thickness', 'harlow' ) ) }
-				value={ one.width }
-				unit="px"
-				onChange={ ( v ) => setOne( { width: v } ) }
-			/>
-			<Colour
-				label={ named( prefix, __( 'Border colour', 'harlow' ) ) }
-				value={ one.color || '' }
-				onChange={ ( v ) => setOne( { color: v } ) }
-			/>
-			<Choices
-				label={ named( prefix, __( 'Corner', 'harlow' ) ) }
-				value={ corner }
-				onChange={ setCorner }
-			>
-				<Choice value="all" label={ __( 'All', 'harlow' ) } />
-				<Choice value="topLeft" label={ __( '↖', 'harlow' ) } />
-				<Choice value="topRight" label={ __( '↗', 'harlow' ) } />
-				<Choice value="bottomRight" label={ __( '↘', 'harlow' ) } />
-				<Choice value="bottomLeft" label={ __( '↙', 'harlow' ) } />
-			</Choices>
-			<Length
-				label={ named( prefix, __( 'Rounded corners', 'harlow' ) ) }
-				value={ border[ cornerKey ] }
-				unit="px"
-				onChange={ ( v ) => setIn( 'border', { [ cornerKey ]: v } ) }
-			/>
+			{ /* As Elementor's: a thickness and a colour once there is a line (or one is set). */ }
+			{ ( ( one.style && one.style !== 'none' ) ||
+				one.width ||
+				one.color ) && (
+				<>
+					<Length
+						label={ named( prefix, __( 'Thickness', 'harlow' ) ) }
+						value={ one.width }
+						unit="px"
+						onChange={ ( v ) => setOne( { width: v } ) }
+					/>
+					<Colour
+						label={ named(
+							prefix,
+							__( 'Border colour', 'harlow' )
+						) }
+						value={ one.color || '' }
+						onChange={ ( v ) => setOne( { color: v } ) }
+					/>
+				</>
+			) }
+			{ corners && (
+				<>
+					<Choices
+						label={ named( prefix, __( 'Corner', 'harlow' ) ) }
+						value={ corner }
+						onChange={ setCorner }
+					>
+						<Choice value="all" label={ __( 'All', 'harlow' ) } />
+						<Choice value="topLeft" label={ __( '↖', 'harlow' ) } />
+						<Choice
+							value="topRight"
+							label={ __( '↗', 'harlow' ) }
+						/>
+						<Choice
+							value="bottomRight"
+							label={ __( '↘', 'harlow' ) }
+						/>
+						<Choice
+							value="bottomLeft"
+							label={ __( '↙', 'harlow' ) }
+						/>
+					</Choices>
+					<Length
+						label={ named(
+							prefix,
+							__( 'Rounded corners', 'harlow' )
+						) }
+						value={ border[ cornerKey ] }
+						unit="px"
+						onChange={ ( v ) =>
+							setIn( 'border', { [ cornerKey ]: v } )
+						}
+					/>
+				</>
+			) }
 		</>
 	);
 }
@@ -2133,7 +2445,7 @@ function ShadowControls( { label, value, box = false, onChange } ) {
 	const set = ( patch ) => onChange( { ...s, ...patch } );
 	return (
 		<div className="harlow-style__shadow">
-			<p className="harlow-style__group">{ label }</p>
+			<p className="harlow-style__group">{ rowLabel( label ) }</p>
 			<Colour
 				label={ named( label, __( 'colour', 'harlow' ) ) }
 				value={ s.color || '' }
@@ -2160,7 +2472,9 @@ function ShadowControls( { label, value, box = false, onChange } ) {
 							key={ k }
 							__next40pxDefaultSize
 							__nextHasNoMarginBottom
-							label={ named( label, l.toLowerCase() ) }
+							label={ rowLabel(
+								named( label, l.toLowerCase() )
+							) }
 							value={
 								s[ k ] === undefined ? 0 : Number( s[ k ] )
 							}
@@ -2347,14 +2661,15 @@ const effectLabels = {
  * @param {Object}   props.value    The typography.
  * @param {Function} props.onChange Called with a patch.
  * @param {string}   props.prefix   Words before each label (a part's name).
+ * @param {boolean}  props.stroke   With the words' outline (not on a first letter).
  */
-function TypographyControls( { value, onChange, prefix = '' } ) {
+function TypographyControls( { value, onChange, prefix = '', stroke = true } ) {
 	return (
 		<>
 			<SelectControl
 				__next40pxDefaultSize
 				__nextHasNoMarginBottom
-				label={ named( prefix, __( 'Font', 'harlow' ) ) }
+				label={ rowLabel( named( prefix, __( 'Font', 'harlow' ) ) ) }
 				value={ value.font || '' }
 				options={ FONTS }
 				onChange={ ( v ) => onChange( { font: v } ) }
@@ -2455,26 +2770,37 @@ function TypographyControls( { value, onChange, prefix = '' } ) {
 					} )
 				}
 			/>
-			<Length
-				label={ named( prefix, __( 'Text stroke (px)', 'harlow' ) ) }
-				value={ value.stroke?.width }
-				unit="px"
-				units={ [ { value: 'px', label: 'px' } ] }
-				onChange={ ( v ) =>
-					onChange( {
-						stroke: { ...( value.stroke || {} ), width: v },
-					} )
-				}
-			/>
-			<Colour
-				label={ named( prefix, __( 'Text stroke colour', 'harlow' ) ) }
-				value={ value.stroke?.color || '' }
-				onChange={ ( v ) =>
-					onChange( {
-						stroke: { ...( value.stroke || {} ), color: v },
-					} )
-				}
-			/>
+			{ /* A first letter (a drop cap) takes no stroke: browsers draw none there. */ }
+			{ stroke && (
+				<>
+					<Length
+						label={ named(
+							prefix,
+							__( 'Text stroke (px)', 'harlow' )
+						) }
+						value={ value.stroke?.width }
+						unit="px"
+						units={ [ { value: 'px', label: 'px' } ] }
+						onChange={ ( v ) =>
+							onChange( {
+								stroke: { ...( value.stroke || {} ), width: v },
+							} )
+						}
+					/>
+					<Colour
+						label={ named(
+							prefix,
+							__( 'Text stroke colour', 'harlow' )
+						) }
+						value={ value.stroke?.color || '' }
+						onChange={ ( v ) =>
+							onChange( {
+								stroke: { ...( value.stroke || {} ), color: v },
+							} )
+						}
+					/>
+				</>
+			) }
 		</>
 	);
 }
@@ -2519,7 +2845,9 @@ function GradientControls( { value, onChange, prefix = '' } ) {
 			<RangeControl
 				__next40pxDefaultSize
 				__nextHasNoMarginBottom
-				label={ named( prefix, __( 'From: position (%)', 'harlow' ) ) }
+				label={ rowLabel(
+					named( prefix, __( 'From: position (%)', 'harlow' ) )
+				) }
 				value={ value.stop ?? 0 }
 				min={ 0 }
 				max={ 100 }
@@ -2533,7 +2861,9 @@ function GradientControls( { value, onChange, prefix = '' } ) {
 			<RangeControl
 				__next40pxDefaultSize
 				__nextHasNoMarginBottom
-				label={ named( prefix, __( 'To: position (%)', 'harlow' ) ) }
+				label={ rowLabel(
+					named( prefix, __( 'To: position (%)', 'harlow' ) )
+				) }
 				value={ value.stop2 ?? 100 }
 				min={ 0 }
 				max={ 100 }
@@ -2558,7 +2888,9 @@ function GradientControls( { value, onChange, prefix = '' } ) {
 				<RangeControl
 					__next40pxDefaultSize
 					__nextHasNoMarginBottom
-					label={ named( prefix, __( 'Angle', 'harlow' ) ) }
+					label={ rowLabel(
+						named( prefix, __( 'Angle', 'harlow' ) )
+					) }
 					value={ value.angle ?? 180 }
 					min={ 0 }
 					max={ 360 }
@@ -2713,11 +3045,12 @@ function SlideshowControls( { value, onChange } ) {
 						allowedTypes={ [ 'image' ] }
 						multiple
 						value={ slides }
-						onSelect={ ( picked ) =>
+						onSelect={ ( picked ) => {
+							notePicked( picked );
 							onChange( {
 								slides: picked.map( ( pic ) => pic.id ),
-							} )
-						}
+							} );
+						} }
 						render={ ( { open } ) => (
 							<Button variant="secondary" onClick={ open }>
 								{ slides.length
@@ -3593,14 +3926,18 @@ function PartPanel( { part, value, onChange } ) {
 		set( { [ box ]: next } );
 	};
 	return (
-		<PanelBody
+		<Group
 			title={ part.label }
-			initialOpen={ false }
-			className="harlow-style"
+			icon={ partIcon( part ) }
+			changed={ ! isEmpty( value ) }
+			onReset={ () => onChange( {} ) }
 		>
 			{ Object.keys( states ).length > 0 && (
 				<Choices
-					label={ named( part.label, __( 'state', 'harlow' ) ) }
+					label={ named(
+						`${ part.label }:`,
+						__( 'State', 'harlow' )
+					) }
 					value={ state }
 					onChange={ setState }
 				>
@@ -3613,7 +3950,9 @@ function PartPanel( { part, value, onChange } ) {
 			{ has( 'dropCap' ) && (
 				<ToggleControl
 					__nextHasNoMarginBottom
-					label={ named( prefix, __( 'Drop cap', 'harlow' ) ) }
+					label={ rowLabel(
+						named( prefix, __( 'Drop cap', 'harlow' ) )
+					) }
 					checked={ !! one.dropCap }
 					onChange={ ( v ) => set( { dropCap: v } ) }
 				/>
@@ -3625,7 +3964,9 @@ function PartPanel( { part, value, onChange } ) {
 					type="number"
 					min={ 1 }
 					max={ 12 }
-					label={ named( prefix, __( 'Columns', 'harlow' ) ) }
+					label={ rowLabel(
+						named( prefix, __( 'Columns', 'harlow' ) )
+					) }
 					value={ one.columns ?? '' }
 					onChange={ ( v ) => set( { columns: v } ) }
 				/>
@@ -3638,7 +3979,9 @@ function PartPanel( { part, value, onChange } ) {
 						type="number"
 						min={ 1 }
 						max={ 10 }
-						label={ named( prefix, __( 'Columns', 'harlow' ) ) }
+						label={ rowLabel(
+							named( prefix, __( 'Columns', 'harlow' ) )
+						) }
 						value={ one.textColumns ?? '' }
 						onChange={ ( v ) => set( { textColumns: v } ) }
 					/>
@@ -3664,6 +4007,7 @@ function PartPanel( { part, value, onChange } ) {
 					value={ one.typography || {} }
 					onChange={ ( patch ) => setIn( 'typography', patch ) }
 					prefix={ prefix }
+					stroke={ ! part.selector.includes( '::first-letter' ) }
 				/>
 			) }
 			{ has( 'icon' ) && (
@@ -3711,6 +4055,29 @@ function PartPanel( { part, value, onChange } ) {
 					onChange={ ( v, u ) => set( { gap: v, gapUnit: u } ) }
 				/>
 			) }
+			{ has( 'divider' ) && (
+				<>
+					<Colour
+						label={ named( prefix, __( 'Colour', 'harlow' ) ) }
+						value={ one.divider?.color || '' }
+						onChange={ ( v ) => setIn( 'divider', { color: v } ) }
+					/>
+					<Length
+						label={ named( prefix, __( 'Weight', 'harlow' ) ) }
+						value={ one.divider?.weight }
+						unit="px"
+						onChange={ ( v ) => setIn( 'divider', { weight: v } ) }
+					/>
+					<Length
+						label={ named( prefix, __( 'Width', 'harlow' ) ) }
+						value={ one.size?.width }
+						unit={ one.size?.widthUnit || 'px' }
+						onChange={ ( v, u ) =>
+							setIn( 'size', { width: v, widthUnit: u } )
+						}
+					/>
+				</>
+			) }
 			{ has( 'size' ) && (
 				<>
 					<Length
@@ -3735,34 +4102,44 @@ function PartPanel( { part, value, onChange } ) {
 				</>
 			) }
 			{ has( 'padding' ) && (
-				<BoxControl
-					__next40pxDefaultSize
-					label={ named(
-						prefix,
-						__( 'Padding (inside)', 'harlow' )
-					) }
-					values={ sides( 'padding' ) }
-					units={ UNITS }
-					onChange={ setSides( 'padding' ) }
-				/>
+				<div className="harlow-style__box">
+					<BoxControl
+						__next40pxDefaultSize
+						label={ rowLabel(
+							named( prefix, __( 'Padding (inside)', 'harlow' ) )
+						) }
+						values={ sides( 'padding' ) }
+						units={ UNITS }
+						onChange={ setSides( 'padding' ) }
+					/>
+				</div>
 			) }
 			{ has( 'margin' ) && (
-				<BoxControl
-					__next40pxDefaultSize
-					label={ named(
-						prefix,
-						__( 'Margin (outside)', 'harlow' )
-					) }
-					values={ sides( 'margin' ) }
-					units={ UNITS }
-					onChange={ setSides( 'margin' ) }
-				/>
+				<div className="harlow-style__box">
+					<BoxControl
+						__next40pxDefaultSize
+						label={ rowLabel(
+							named( prefix, __( 'Margin (outside)', 'harlow' ) )
+						) }
+						values={ sides( 'margin' ) }
+						units={ UNITS }
+						onChange={ setSides( 'margin' ) }
+					/>
+				</div>
 			) }
 			{ has( 'border' ) && (
 				<BorderControls
 					border={ one.border || {} }
 					setIn={ setIn }
 					prefix={ prefix }
+				/>
+			) }
+			{ has( 'line' ) && (
+				<BorderControls
+					border={ one.border || {} }
+					setIn={ setIn }
+					prefix={ prefix }
+					corners={ false }
 				/>
 			) }
 			{ has( 'shadow' ) && (
@@ -3784,7 +4161,9 @@ function PartPanel( { part, value, onChange } ) {
 				<RangeControl
 					__next40pxDefaultSize
 					__nextHasNoMarginBottom
-					label={ named( prefix, __( 'Opacity', 'harlow' ) ) }
+					label={ rowLabel(
+						named( prefix, __( 'Opacity', 'harlow' ) )
+					) }
 					value={
 						one.opacity === undefined || one.opacity === ''
 							? 1
@@ -3802,7 +4181,7 @@ function PartPanel( { part, value, onChange } ) {
 					onChange={ ( patch ) => setIn( 'transform', patch ) }
 				/>
 			) }
-		</PanelBody>
+		</Group>
 	);
 }
 
@@ -3816,6 +4195,92 @@ function PartPanel( { part, value, onChange } ) {
  * @param {Object}   props.attributes    The block's attributes (classes, tag, settings).
  * @param {Function} props.setAttributes The block's setter.
  */
+/**
+ * A part's icon in its group's title, by what it styles: words, a picture, an icon, a box.
+ *
+ * @param {Object} part The part (parts.json).
+ * @return {Object} The icon.
+ */
+function partIcon( part ) {
+	const c = part.controls || [];
+	if ( c.includes( 'typography' ) ) {
+		return typographyIcon;
+	}
+	if ( c.includes( 'icon' ) || c.includes( 'size' ) || c.includes( 'gap' ) ) {
+		return stylesIcon;
+	}
+	if ( c.includes( 'border' ) || c.includes( 'line' ) ) {
+		return borderIcon;
+	}
+	return backgroundIcon;
+}
+
+/** The tab of the Styles tab last chosen (Style or Advanced), kept from element to element. */
+let lastTab = 'style';
+
+/** Each breakpoint's icon in the device switch. */
+const DEVICE_ICONS = {
+	desktop,
+	widescreen: desktop,
+	laptop: desktop,
+	tabletExtra: tablet,
+	tablet,
+	mobileExtra: mobile,
+	mobile,
+};
+
+/**
+ * One group of the Styles tab, closed until opened: its icon, a dot once it holds a value
+ * of its own on this device, and a reset of the group at its foot.
+ *
+ * @param {Object}   props
+ * @param {string}   props.title       The group's title.
+ * @param {Object}   props.icon        Its icon.
+ * @param {boolean}  props.changed     Whether it holds a value on this device.
+ * @param {Function} props.onReset     Called to take its values off (none: no reset).
+ * @param {Object}   props.children    Its rows.
+ * @param {boolean}  props.initialOpen Open from the start (a container's Layout).
+ */
+function Group( {
+	title,
+	icon,
+	changed,
+	onReset,
+	children,
+	initialOpen = false,
+} ) {
+	return (
+		<PanelBody
+			title={
+				<>
+					{ title }
+					{ changed && <span className="harlow-group__dot" /> }
+				</>
+			}
+			icon={ icon }
+			initialOpen={ initialOpen }
+			className={ `harlow-style${ changed ? ' is-changed' : '' }` }
+		>
+			{ children }
+			{ changed && onReset && (
+				<Button
+					className="harlow-group__reset"
+					variant="tertiary"
+					size="small"
+					icon={ resetIcon }
+					onClick={ onReset }
+				>
+					{ sprintf(
+						/* translators: %s: a group of the Styles tab (Typography, Border…) */
+						__( 'Reset %s', 'harlow' ),
+						title
+					) }
+				</Button>
+			) }
+		</PanelBody>
+	);
+}
+
 function StylePanel( { kind, style, setStyle, attributes, setAttributes } ) {
 	const device = useSelect(
 		( select ) => select( 'core/editor' )?.getDeviceType?.() || 'Desktop',
@@ -3823,6 +4288,11 @@ function StylePanel( { kind, style, setStyle, attributes, setAttributes } ) {
 	);
 	const { setDeviceType } = useDispatch( 'core/editor' );
 	const [ picked, setPicked ] = useState( null );
+	const [ tab, setTab ] = useState( lastTab );
+	const pickTab = ( t ) => {
+		lastTab = t;
+		setTab( t );
+	};
 	// The breakpoint chosen, while the preview is still the one it is shown in; else the
 	// preview's own.
 	const key =
@@ -3842,7 +4312,27 @@ function StylePanel( { kind, style, setStyle, attributes, setAttributes } ) {
 	const hasText =
 		kind !== 'container' &&
 		! PICTURES.includes( kind ) &&
-		kind !== 'divider';
+		! [
+			'divider',
+			'social-icons',
+			'icon',
+			'spacer',
+			'menu-anchor',
+			'google-maps',
+			'video',
+			'lottie',
+		].includes( kind );
+	// A group with a value of its own on this device shows a dot; its reset takes them off.
+	const changed = ( ...keys ) => keys.some( ( k ) => ! isEmpty( one[ k ] ) );
+	const clear =
+		( ...keys ) =>
+		() =>
+			set( Object.fromEntries( keys.map( ( k ) => [ k, undefined ] ) ) );
+	// Hover's filters are Effects', its overlay the overlay's; the rest is Transform and hover's.
+	const hoverOwn = Object.entries( one.hover || {} ).some(
+		( [ k, v ] ) =>
+			! [ 'filters', 'overlay' ].includes( k ) && ! isEmpty( v )
+	);
 	const bg = one.background || {};
 	const type = one.typography || {};
 	const img = one.image || {};
@@ -3872,49 +4362,67 @@ function StylePanel( { kind, style, setStyle, attributes, setAttributes } ) {
 		}
 		set( { [ box ]: next } );
 	};
-	return (
+	// A part that is there only for some of the element's settings (parts.json `when`: an
+	// attribute and the values it is there for, as Elementor's conditions: a typing cursor
+	// for the typing and clip animations; "*" for any value (0 is none: a picture's id); `{ "has": [ … ] }` for a list
+	// holding one of the values: a countdown's message among its expiry actions; `{ "any":
+	// { … } }` for a list with a line that fits: an author shown with their picture) shows
+	// only then.
+	const fits = ( value, wanted ) => {
+		if ( wanted === '*' ) {
+			return Array.isArray( value )
+				? value.length > 0
+				: ! [ undefined, null, '', false, 0 ].includes( value );
+		}
+		if ( wanted?.has ) {
+			return (
+				Array.isArray( value ) &&
+				value.some( ( item ) => wanted.has.includes( item ) )
+			);
+		}
+		return wanted.includes( value );
+	};
+	const meets = ( when ) =>
+		Object.entries( when || {} ).every( ( [ name, wanted ] ) =>
+			wanted?.any
+				? ( attributes?.[ name ] || [] ).some( ( line ) =>
+						Object.entries( wanted.any ).every( ( [ field, w ] ) =>
+							fits( line?.[ field ], w )
+						)
+					)
+				: fits( attributes?.[ name ], wanted )
+		);
+	// `when` as a list: any one of them (a hotspot's box with a label or an icon).
+	const parts = ( PARTS[ kind ] || [] ).filter( ( part ) =>
+		Array.isArray( part.when )
+			? part.when.some( meets )
+			: meets( part.when )
+	);
+	// What the element's own parts already style (blocks/<name>/parts.json): a widget whose
+	// parts are its words has no general Typography; the site's own kinds (a heading, a
+	// text, a button) keep theirs, their parts being something else (a link).
+	// (Every part of the kind, shown or not: a general group does not stand in for a part
+	// hidden for its settings, it would draw nothing either: a button's icon with no icon.)
+	const partsHave = ( control ) =>
+		( PARTS[ kind ] || [] ).some( ( part ) =>
+			( part.controls || [] ).includes( control )
+		);
+	// A part that styles the very words the general Typography would (a title widget's
+	// Title, an icon list's Text) takes its place.
+	const partsHaveWords = ( PARTS[ kind ] || [] ).some(
+		( part ) =>
+			( part.controls || [] ).includes( 'typography' ) &&
+			part.selector.trim() === ( TEXT_PART[ kind ] || '' ).trim()
+	);
+	// As Elementor's Style and Advanced tabs: the element's own groups first, then the box
+	// around it (a section's box is the section: its background comes first).
+	const backgroundPanels = (
 		<>
-			<PanelBody
-				title={ __( 'Style', 'harlow' ) }
-				className="harlow-style"
-			>
-				<Choices
-					label={ __( 'Device', 'harlow' ) }
-					value={ key }
-					onChange={ ( v ) => {
-						setPicked( v );
-						setDeviceType( PREVIEW[ v ] || 'Desktop' );
-					} }
-				>
-					{ DEVICE_LIST.map( ( [ k ] ) => (
-						<Choice
-							key={ k }
-							value={ k }
-							label={ DEVICE_LABELS[ k ] }
-						/>
-					) ) }
-				</Choices>
-				<datalist id="harlow-type-sizes">
-					{ SIZES.map( ( s ) => (
-						<option key={ s.size } value={ s.size } />
-					) ) }
-				</datalist>
-				{ Object.keys( style || {} ).length > 0 && (
-					<Button
-						variant="link"
-						isDestructive
-						className="harlow-style__reset-all"
-						onClick={ () => setStyle( {} ) }
-					>
-						{ __( 'Reset every device to the design', 'harlow' ) }
-					</Button>
-				) }
-			</PanelBody>
-
-			<PanelBody
+			<Group
 				title={ __( 'Background', 'harlow' ) }
-				initialOpen={ false }
-				className="harlow-style"
+				icon={ backgroundIcon }
+				changed={ changed( 'background' ) }
+				onReset={ clear( 'background' ) }
 			>
 				<BackgroundControls
 					label={ __( 'Background type', 'harlow' ) }
@@ -3933,13 +4441,31 @@ function StylePanel( { kind, style, setStyle, attributes, setAttributes } ) {
 					}
 					tint
 				/>
-			</PanelBody>
+				{ kind === 'container' && ! bg.type && (
+					// The design's own background (its picture and video), replaced in place.
+					<DesignBackground
+						attributes={ attributes }
+						setAttributes={ setAttributes }
+					/>
+				) }
+			</Group>
 
 			{ kind === 'container' && (
-				<PanelBody
+				<Group
 					title={ __( 'Background overlay', 'harlow' ) }
-					initialOpen={ false }
-					className="harlow-style"
+					icon={ backgroundIcon }
+					changed={
+						changed( 'overlay' ) || ! isEmpty( one.hover?.overlay )
+					}
+					onReset={ () =>
+						set( {
+							overlay: undefined,
+							hover: {
+								...( one.hover || {} ),
+								overlay: undefined,
+							},
+						} )
+					}
 				>
 					<BackgroundControls
 						label={ __( 'Overlay type', 'harlow' ) }
@@ -3948,51 +4474,66 @@ function StylePanel( { kind, style, setStyle, attributes, setAttributes } ) {
 						types={ [ 'color', 'gradient', 'image' ] }
 						prefix={ __( 'Overlay:', 'harlow' ) }
 					/>
-					<RangeControl
-						__next40pxDefaultSize
-						__nextHasNoMarginBottom
-						label={ __( 'Overlay opacity', 'harlow' ) }
-						value={
-							one.overlay?.opacity === undefined ||
-							one.overlay?.opacity === ''
-								? 1
-								: Number( one.overlay.opacity )
-						}
-						min={ 0 }
-						max={ 1 }
-						step={ 0.05 }
-						onChange={ ( v ) =>
-							setIn( 'overlay', { opacity: v === 1 ? '' : v } )
-						}
-					/>
-					<Words
-						label={ __( 'Overlay blend mode', 'harlow' ) }
-						value={ one.overlay?.blend }
-						words={ BLENDS }
-						names={ BLEND_NAMES }
-						onChange={ ( v ) => setIn( 'overlay', { blend: v } ) }
-					/>
-					<FilterControls
-						value={ one.overlay?.filters }
-						suffix={ __( '(overlay)', 'harlow' ) }
-						onChange={ ( patch ) =>
-							setIn( 'overlay', {
-								filters: {
-									...( one.overlay?.filters || {} ),
-									...patch,
-								},
-							} )
-						}
-					/>
-					<Length
-						label={ __( 'Overlay transition (ms)', 'harlow' ) }
-						value={ one.overlay?.transition }
-						unit="ms"
-						units={ [ { value: 'ms', label: 'ms' } ] }
-						onChange={ ( v ) =>
-							setIn( 'overlay', { transition: v } )
-						}
-					/>
+					{ /* As Elementor's: the overlay's opacity, blend and filters once it has a type. */ }
+					{ ( ( one.overlay?.type && one.overlay.type !== 'none' ) ||
+						one.overlay?.opacity ||
+						one.overlay?.blend ||
+						one.overlay?.transition ) && (
+						<>
+							<RangeControl
+								__next40pxDefaultSize
+								__nextHasNoMarginBottom
+								label={ __( 'Overlay opacity', 'harlow' ) }
+								value={
+									one.overlay?.opacity === undefined ||
+									one.overlay?.opacity === ''
+										? 1
+										: Number( one.overlay.opacity )
+								}
+								min={ 0 }
+								max={ 1 }
+								step={ 0.05 }
+								onChange={ ( v ) =>
+									setIn( 'overlay', {
+										opacity: v === 1 ? '' : v,
+									} )
+								}
+							/>
+							<Words
+								label={ __( 'Overlay blend mode', 'harlow' ) }
+								value={ one.overlay?.blend }
+								words={ BLENDS }
+								names={ BLEND_NAMES }
+								onChange={ ( v ) =>
+									setIn( 'overlay', { blend: v } )
+								}
+							/>
+							<FilterControls
+								value={ one.overlay?.filters }
+								suffix={ __( '(overlay)', 'harlow' ) }
+								onChange={ ( patch ) =>
+									setIn( 'overlay', {
+										filters: {
+											...( one.overlay?.filters || {} ),
+											...patch,
+										},
+									} )
+								}
+							/>
+							<Length
+								label={ __(
+									'Overlay transition (ms)',
+									'harlow'
+								) }
+								value={ one.overlay?.transition }
+								unit="ms"
+								units={ [ { value: 'ms', label: 'ms' } ] }
+								onChange={ ( v ) =>
+									setIn( 'overlay', { transition: v } )
+								}
+							/>
+						</>
+					) }
 					<p className="harlow-style__group">
 						{ __( 'On hover', 'harlow' ) }
 					</p>
@@ -4033,391 +4574,69 @@ function StylePanel( { kind, style, setStyle, attributes, setAttributes } ) {
 							} )
 						}
 					/>
-				</PanelBody>
+				</Group>
 			) }
 
 			{ kind === 'container' && (
-				<PanelBody
+				<Group
 					title={ __( 'Shape dividers', 'harlow' ) }
-					initialOpen={ false }
-					className="harlow-style"
+					icon={ fullscreen }
+					changed={ ! isEmpty( style?.shapes ) }
+					onReset={ () => setTop( 'shapes', undefined ) }
 				>
 					<ShapeControls
 						shapes={ style?.shapes || {} }
 						onChange={ ( v ) => setTop( 'shapes', v ) }
 					/>
-				</PanelBody>
+				</Group>
 			) }
-
-			{ hasText && (
-				<PanelBody
-					title={ __( 'Typography', 'harlow' ) }
-					initialOpen={ false }
-					className="harlow-style"
-				>
-					<Colour
-						label={ __( 'Text colour', 'harlow' ) }
-						value={ one.color || '' }
-						onChange={ ( v ) => set( { color: v } ) }
-					/>
-					<TypographyControls
-						value={ type }
-						onChange={ ( patch ) => setIn( 'typography', patch ) }
-					/>
-					<Words
-						label={ __( 'Text blend mode', 'harlow' ) }
-						value={ one.textBlend }
-						words={ BLENDS }
-						names={ BLEND_NAMES }
-						onChange={ ( v ) => set( { textBlend: v } ) }
-					/>
-				</PanelBody>
-			) }
-
-			<PanelBody
-				title={ __( 'Alignment', 'harlow' ) }
-				initialOpen={ false }
-				className="harlow-style"
-			>
-				<Choices
-					label={ __( 'Align', 'harlow' ) }
-					value={ one.align || '' }
-					onChange={ ( v ) => set( { align: v } ) }
-				>
-					<Choice value="" label={ __( 'Default', 'harlow' ) } />
-					<Choice value="left" label={ __( 'Left', 'harlow' ) } />
-					<Choice value="center" label={ __( 'Centre', 'harlow' ) } />
-					<Choice value="right" label={ __( 'Right', 'harlow' ) } />
-					{ hasText && (
-						<Choice
-							value="justify"
-							label={ __( 'Justify', 'harlow' ) }
+		</>
+	);
+	const ownPanels = (
+		<>
+			{ hasText &&
+				! (
+					partsHave( 'typography' ) &&
+					( ! TEXT_PART[ kind ] || partsHaveWords )
+				) && (
+					<Group
+						title={ __( 'Typography', 'harlow' ) }
+						icon={ typographyIcon }
+						changed={ changed(
+							'color',
+							'typography',
+							'textBlend'
+						) }
+						onReset={ clear( 'color', 'typography', 'textBlend' ) }
+					>
+						<Colour
+							label={ __( 'Text colour', 'harlow' ) }
+							value={ one.color || '' }
+							onChange={ ( v ) => set( { color: v } ) }
 						/>
-					) }
-				</Choices>
-			</PanelBody>
-
-			<PanelBody
-				title={ __( 'Spacing', 'harlow' ) }
-				initialOpen={ false }
-				className="harlow-style"
-			>
-				<BoxControl
-					__next40pxDefaultSize
-					label={ __( 'Padding (inside)', 'harlow' ) }
-					values={ sides( 'padding' ) }
-					units={ UNITS }
-					onChange={ setSides( 'padding' ) }
-					resetValues={ {
-						top: undefined,
-						right: undefined,
-						bottom: undefined,
-						left: undefined,
-					} }
-				/>
-				<BoxControl
-					__next40pxDefaultSize
-					label={ __( 'Margin (outside)', 'harlow' ) }
-					values={ sides( 'margin' ) }
-					units={ UNITS }
-					allowReset
-					onChange={ setSides( 'margin' ) }
-					resetValues={ {
-						top: undefined,
-						right: undefined,
-						bottom: undefined,
-						left: undefined,
-					} }
-				/>
-			</PanelBody>
-
-			<PanelBody
-				title={ __( 'Size', 'harlow' ) }
-				initialOpen={ false }
-				className="harlow-style"
-			>
-				<Length
-					label={
-						kind === 'container'
-							? __( 'Content width', 'harlow' )
-							: __( 'Width', 'harlow' )
-					}
-					value={ one.size?.width }
-					unit={ one.size?.widthUnit || 'px' }
-					onChange={ ( v, u ) =>
-						setIn( 'size', { width: v, widthUnit: u } )
-					}
-				/>
-				<Length
-					label={ __( 'Minimum height', 'harlow' ) }
-					value={ one.size?.height }
-					unit={ one.size?.heightUnit || 'px' }
-					onChange={ ( v, u ) =>
-						setIn( 'size', { height: v, heightUnit: u } )
-					}
-				/>
-				{ PICTURES.includes( kind ) && (
-					<>
-						<Length
-							label={ __( 'Picture width', 'harlow' ) }
-							value={ img.width }
-							unit={ img.widthUnit || '%' }
-							onChange={ ( v, u ) =>
-								setIn( 'image', { width: v, widthUnit: u } )
-							}
-						/>
-						<Length
-							label={ __( 'Picture height', 'harlow' ) }
-							value={ img.height }
-							unit={ img.heightUnit || 'px' }
-							onChange={ ( v, u ) =>
-								setIn( 'image', { height: v, heightUnit: u } )
-							}
-						/>
-						<Words
-							label={ __( 'Fit', 'harlow' ) }
-							value={ img.fit }
-							words={ WORDS.fit }
-							names={ {
-								cover: __( 'Cover the box', 'harlow' ),
-								contain: __( 'Fit inside', 'harlow' ),
-								fill: __( 'Stretch', 'harlow' ),
-								none: __( 'As is', 'harlow' ),
-							} }
-							onChange={ ( v ) => setIn( 'image', { fit: v } ) }
-						/>
-						<Length
-							label={ __( 'Rounded corners', 'harlow' ) }
-							value={ img.radius }
-							unit="px"
-							onChange={ ( v ) =>
-								setIn( 'image', { radius: v } )
-							}
-						/>
-					</>
-				) }
-			</PanelBody>
-
-			{ kind === 'container' && (
-				<LayoutPanel
-					attributes={ attributes }
-					setAttributes={ setAttributes }
-					layout={ one.layout || {} }
-					setIn={ setIn }
-					setDesktopLayout={ ( patch ) =>
-						setStyle(
-							cleanStyle( {
-								...style,
-								desktop: {
-									...( style?.desktop || {} ),
-									layout: {
-										...( style?.desktop?.layout || {} ),
-										...patch,
-									},
-								},
-							} )
-						)
-					}
-				/>
-			) }
-
-			<PanelBody
-				title={ __( 'Position', 'harlow' ) }
-				initialOpen={ false }
-				className="harlow-style"
-			>
-				<PositionControls item={ one.item || {} } setIn={ setIn } />
-			</PanelBody>
-
-			<PanelBody
-				title={ __( 'Border', 'harlow' ) }
-				initialOpen={ false }
-				className="harlow-style"
-			>
-				<BorderControls border={ border } setIn={ setIn } />
-			</PanelBody>
-
-			<PanelBody
-				title={ __( 'Effects', 'harlow' ) }
-				initialOpen={ false }
-				className="harlow-style"
-			>
-				<ShadowControls
-					label={ __( 'Box shadow', 'harlow' ) }
-					value={ one.shadow }
-					box
-					onChange={ ( v ) => set( { shadow: v } ) }
-				/>
-				{ hasText && (
-					<ShadowControls
-						label={ __( 'Text shadow', 'harlow' ) }
-						value={ one.textShadow }
-						onChange={ ( v ) => set( { textShadow: v } ) }
-					/>
-				) }
-				<RangeControl
-					__next40pxDefaultSize
-					__nextHasNoMarginBottom
-					label={ __( 'Opacity', 'harlow' ) }
-					value={
-						one.opacity === undefined || one.opacity === ''
-							? 1
-							: Number( one.opacity )
-					}
-					min={ 0 }
-					max={ 1 }
-					step={ 0.05 }
-					onChange={ ( v ) => set( { opacity: v === 1 ? '' : v } ) }
-				/>
-				<Words
-					label={ __( 'Blend mode', 'harlow' ) }
-					value={ one.blend }
-					words={ BLENDS }
-					names={ BLEND_NAMES }
-					onChange={ ( v ) => set( { blend: v } ) }
-				/>
-				{ PICTURES.includes( kind ) && (
-					<>
-						<p className="harlow-style__group">
-							{ __( 'CSS filters', 'harlow' ) }
-						</p>
-						<FilterControls
-							value={ one.filters }
-							onChange={ ( patch ) => setIn( 'filters', patch ) }
-						/>
-						<p className="harlow-style__group">
-							{ __( 'CSS filters on hover', 'harlow' ) }
-						</p>
-						<FilterControls
-							value={ one.hover?.filters }
-							suffix={ __( 'on hover', 'harlow' ) }
+						<TypographyControls
+							value={ type }
 							onChange={ ( patch ) =>
-								setIn( 'hover', {
-									filters: {
-										...( one.hover?.filters || {} ),
-										...patch,
-									},
-								} )
+								setIn( 'typography', patch )
 							}
 						/>
-					</>
+						{ /* Where the words are the element itself, Effects' blend mode is theirs. */ }
+						{ TEXT_PART[ kind ] &&
+							! TEXT_PART[ kind ].startsWith( '|' ) && (
+								<Words
+									label={ __( 'Text blend mode', 'harlow' ) }
+									value={ one.textBlend }
+									words={ BLENDS }
+									names={ BLEND_NAMES }
+									onChange={ ( v ) =>
+										set( { textBlend: v } )
+									}
+								/>
+							) }
+					</Group>
 				) }
-			</PanelBody>
 
-			<PanelBody
-				title={ __( 'Transform and hover', 'harlow' ) }
-				initialOpen={ false }
-				className="harlow-style"
-			>
-				<p className="harlow-style__group">
-					{ __( 'Normal', 'harlow' ) }
-				</p>
-				<TransformControls
-					value={ one.transform || {} }
-					onChange={ ( patch ) => setIn( 'transform', patch ) }
-					full
-				/>
-				<p className="harlow-style__group">
-					{ __( 'On hover', 'harlow' ) }
-				</p>
-				{ hasText && (
-					<Colour
-						label={ __( 'Text colour on hover', 'harlow' ) }
-						value={ one.hover?.color || '' }
-						onChange={ ( v ) => setIn( 'hover', { color: v } ) }
-					/>
-				) }
-				<Colour
-					label={
-						kind === 'button'
-							? __( 'Button colour on hover', 'harlow' )
-							: __( 'Background colour on hover', 'harlow' )
-					}
-					value={ one.hover?.background || '' }
-					onChange={ ( v ) => setIn( 'hover', { background: v } ) }
-				/>
-				<BackgroundControls
-					label={ __( 'Background type on hover', 'harlow' ) }
-					value={ one.hover?.bg || {} }
-					onChange={ ( patch ) =>
-						setIn( 'hover', {
-							bg: { ...( one.hover?.bg || {} ), ...patch },
-						} )
-					}
-					types={ [ 'gradient', 'image' ] }
-					prefix={ __( 'On hover:', 'harlow' ) }
-				/>
-				<Colour
-					label={ __( 'Border colour on hover', 'harlow' ) }
-					value={ one.hover?.borderColor || '' }
-					onChange={ ( v ) => setIn( 'hover', { borderColor: v } ) }
-				/>
-				<Words
-					label={ __( 'Border line on hover', 'harlow' ) }
-					value={ one.hover?.borderStyle }
-					words={ WORDS.borderStyle }
-					onChange={ ( v ) => setIn( 'hover', { borderStyle: v } ) }
-				/>
-				<Length
-					label={ __( 'Border thickness on hover', 'harlow' ) }
-					value={ one.hover?.borderWidth }
-					unit="px"
-					units={ [ { value: 'px', label: 'px' } ] }
-					onChange={ ( v ) => setIn( 'hover', { borderWidth: v } ) }
-				/>
-				<Length
-					label={ __( 'Rounded corners on hover', 'harlow' ) }
-					value={ one.hover?.radius }
-					unit="px"
-					units={ [ { value: 'px', label: 'px' } ] }
-					onChange={ ( v ) => setIn( 'hover', { radius: v } ) }
-				/>
-				<RangeControl
-					__next40pxDefaultSize
-					__nextHasNoMarginBottom
-					label={ __( 'Opacity on hover', 'harlow' ) }
-					value={
-						one.hover?.opacity === undefined ||
-						one.hover?.opacity === ''
-							? undefined
-							: Number( one.hover.opacity )
-					}
-					min={ 0 }
-					max={ 1 }
-					step={ 0.05 }
-					allowReset
-					onChange={ ( v ) =>
-						setIn( 'hover', { opacity: v === undefined ? '' : v } )
-					}
-				/>
-				<TransformControls
-					hover
-					value={ one.hover?.transform || {} }
-					onChange={ ( patch ) =>
-						setIn( 'hover', {
-							transform: {
-								...( one.hover?.transform || {} ),
-								...patch,
-							},
-						} )
-					}
-				/>
-				<ShadowControls
-					label={ __( 'Box shadow on hover', 'harlow' ) }
-					value={ one.hover?.shadow }
-					box
-					onChange={ ( v ) => setIn( 'hover', { shadow: v } ) }
-				/>
-				<Length
-					label={ __( 'Transition (ms)', 'harlow' ) }
-					value={ one.transition }
-					unit="ms"
-					units={ [ { value: 'ms', label: 'ms' } ] }
-					onChange={ ( v ) => set( { transition: v } ) }
-				/>
-			</PanelBody>
-
-			{ ( PARTS[ kind ] || [] ).map( ( part ) => (
+			{ parts.map( ( part ) => (
 				<PartPanel
 					key={ part.key }
 					part={ part }
@@ -4433,11 +4652,12 @@ function StylePanel( { kind, style, setStyle, attributes, setAttributes } ) {
 				/>
 			) ) }
 
-			{ ICON_PARTS[ kind ] && (
-				<PanelBody
+			{ ICON_PARTS[ kind ] && ! partsHave( 'icon' ) && (
+				<Group
 					title={ __( 'Icon', 'harlow' ) }
-					initialOpen={ false }
-					className="harlow-style"
+					icon={ stylesIcon }
+					changed={ changed( 'icon' ) }
+					onReset={ clear( 'icon' ) }
 				>
 					<Colour
 						label={ __( 'Icon colour', 'harlow' ) }
@@ -4459,19 +4679,39 @@ function StylePanel( { kind, style, setStyle, attributes, setAttributes } ) {
 							}
 						/>
 					) }
-				</PanelBody>
+				</Group>
 			) }
 
 			{ kind === 'button' && (
-				<PanelBody
+				<Group
 					title={ __( 'Button', 'harlow' ) }
-					initialOpen={ false }
-					className="harlow-style"
+					icon={ stylesIcon }
+					changed={ changed(
+						'buttonColor',
+						'buttonHoverColor',
+						'radius',
+						'buttonPadding'
+					) }
+					onReset={ clear(
+						'buttonColor',
+						'buttonHoverColor',
+						'radius',
+						'buttonPadding'
+					) }
 				>
 					<Colour
 						label={ __( 'Button colour', 'harlow' ) }
 						value={ one.buttonColor || '' }
 						onChange={ ( v ) => set( { buttonColor: v } ) }
+					/>
+					<Colour
+						label={ __( 'Button colour on hover', 'harlow' ) }
+						value={ one.buttonHoverColor || '' }
+						onChange={ ( v ) => set( { buttonHoverColor: v } ) }
+					/>
+					<DesignPicture
+						attributes={ attributes }
+						setAttributes={ setAttributes }
 					/>
 					<Length
 						label={ __( 'Button corners', 'harlow' ) }
@@ -4479,122 +4719,674 @@ function StylePanel( { kind, style, setStyle, attributes, setAttributes } ) {
 						unit="px"
 						onChange={ ( v ) => set( { radius: v } ) }
 					/>
-					<BoxControl
-						__next40pxDefaultSize
-						label={ __( 'Button padding', 'harlow' ) }
-						values={ sides( 'buttonPadding' ) }
-						units={ UNITS }
-						onChange={ setSides( 'buttonPadding' ) }
-					/>
-				</PanelBody>
+					<div className="harlow-style__box">
+						<BoxControl
+							__next40pxDefaultSize
+							label={ __( 'Button padding', 'harlow' ) }
+							values={ sides( 'buttonPadding' ) }
+							units={ UNITS }
+							onChange={ setSides( 'buttonPadding' ) }
+						/>
+					</div>
+				</Group>
 			) }
+		</>
+	);
+	return (
+		<>
+			<div className="harlow-props__head">
+				<div
+					className="harlow-props__tabs"
+					role="tablist"
+					aria-label={ __( 'Style or advanced', 'harlow' ) }
+				>
+					{ [
+						[ 'style', __( 'Style', 'harlow' ), stylesIcon ],
+						[ 'advanced', __( 'Advanced', 'harlow' ), tool ],
+					].map( ( [ k, words, icon ] ) => (
+						<Button
+							key={ k }
+							role="tab"
+							aria-selected={ tab === k }
+							className="harlow-props__tab"
+							icon={ icon }
+							onClick={ () => pickTab( k ) }
+						>
+							{ words }
+						</Button>
+					) ) }
+				</div>
+				<div className="harlow-props__bar">
+					<Choices
+						label={ __( 'Device', 'harlow' ) }
+						value={ key }
+						onChange={ ( v ) => {
+							setPicked( v );
+							setDeviceType( PREVIEW[ v ] || 'Desktop' );
+						} }
+					>
+						{ DEVICE_LIST.map( ( [ k ] ) => (
+							<Choice
+								key={ k }
+								value={ k }
+								label={ DEVICE_LABELS[ k ] }
+								icon={ DEVICE_ICONS[ k ] || desktop }
+							/>
+						) ) }
+					</Choices>
+					{ Object.keys( style || {} ).length > 0 && (
+						<Button
+							className="harlow-props__reset"
+							icon={ resetIcon }
+							size="compact"
+							label={ __(
+								'Reset every device to the design',
+								'harlow'
+							) }
+							showTooltip
+							onClick={ () => setStyle( {} ) }
+						>
+							<VisuallyHidden as="span">
+								{ __(
+									'Reset every device to the design',
+									'harlow'
+								) }
+							</VisuallyHidden>
+						</Button>
+					) }
+				</div>
+				<datalist id="harlow-type-sizes">
+					{ SIZES.map( ( s ) => (
+						<option key={ s.size } value={ s.size } />
+					) ) }
+				</datalist>
+			</div>
 
-			<PanelBody
-				title={ __( 'Motion', 'harlow' ) }
-				initialOpen={ false }
-				className="harlow-style"
-			>
-				<MotionControls
-					kind={ kind }
-					deviceKey={ key }
+			{ /* A container's Layout first, as Elementor's Layout tab. */ }
+			{ tab === 'style' && kind === 'container' && (
+				<LayoutPanel
 					attributes={ attributes }
 					setAttributes={ setAttributes }
-					duration={ one.animationDuration }
-					setDuration={ ( v ) => set( { animationDuration: v } ) }
+					layout={ one.layout || {} }
+					setIn={ setIn }
+					setDesktopLayout={ ( patch ) =>
+						setStyle(
+							cleanStyle( {
+								...style,
+								desktop: {
+									...( style?.desktop || {} ),
+									layout: {
+										...( style?.desktop?.layout || {} ),
+										...patch,
+									},
+								},
+							} )
+						)
+					}
 				/>
-				<SelectControl
-					__next40pxDefaultSize
-					__nextHasNoMarginBottom
-					label={ __( 'Hover animation', 'harlow' ) }
-					value={ style?.hoverAnimation || '' }
-					options={ [
-						{ value: '', label: __( 'None', 'harlow' ) },
-						...Object.entries( HOVER_ANIMATIONS ).map(
-							( [ value, [ label ] ] ) => ( { value, label } )
-						),
-					] }
-					onChange={ ( v ) => setTop( 'hoverAnimation', v ) }
-				/>
-				<MotionEffects
-					motion={ style?.motion || {} }
-					onChange={ ( v ) => setTop( 'motion', v ) }
-				/>
-			</PanelBody>
+			) }
+			{ tab === 'style' && ownPanels }
+			{ tab === 'style' && kind === 'container' && backgroundPanels }
 
-			<PanelBody
-				title={ __( 'Advanced', 'harlow' ) }
-				initialOpen={ false }
-				className="harlow-style"
-			>
-				<TextControl
-					__next40pxDefaultSize
-					__nextHasNoMarginBottom
-					label={ __( 'CSS ID', 'harlow' ) }
-					value={ attributes.htmlId || '' }
-					onChange={ ( v ) =>
-						setAttributes( {
-							htmlId: v.replace( /[^A-Za-z0-9_-]/g, '' ),
+			{ tab === 'style' && ! partsHave( 'align' ) && (
+				<Group
+					title={ __( 'Alignment', 'harlow' ) }
+					icon={ alignLeft }
+					changed={ changed( 'align' ) }
+					onReset={ clear( 'align' ) }
+				>
+					<Choices
+						label={ __( 'Align', 'harlow' ) }
+						value={ one.align || '' }
+						onChange={ ( v ) => set( { align: v } ) }
+					>
+						<Choice
+							value=""
+							label={ __( 'Default', 'harlow' ) }
+							icon={ alignNone }
+						/>
+						<Choice
+							value="left"
+							label={ __( 'Left', 'harlow' ) }
+							icon={ alignLeft }
+						/>
+						<Choice
+							value="center"
+							label={ __( 'Centre', 'harlow' ) }
+							icon={ alignCenter }
+						/>
+						<Choice
+							value="right"
+							label={ __( 'Right', 'harlow' ) }
+							icon={ alignRight }
+						/>
+						{ hasText && (
+							<Choice
+								value="justify"
+								label={ __( 'Justify', 'harlow' ) }
+								icon={ alignJustify }
+							/>
+						) }
+					</Choices>
+				</Group>
+			) }
+
+			{ tab === 'style' && kind !== 'container' && (
+				<p className="harlow-style__box-heading">
+					{ __( 'The box around the element', 'harlow' ) }
+				</p>
+			) }
+			{ tab === 'style' &&
+				kind !== 'container' &&
+				! OWN_BACKGROUND.includes( kind ) &&
+				backgroundPanels }
+
+			{ tab === 'style' && (
+				<Group
+					title={ __( 'Spacing', 'harlow' ) }
+					icon={ sidesAll }
+					changed={ changed( 'padding', 'margin' ) }
+					onReset={ clear( 'padding', 'margin' ) }
+				>
+					<div className="harlow-style__box">
+						<BoxControl
+							__next40pxDefaultSize
+							label={ __( 'Padding (inside)', 'harlow' ) }
+							values={ sides( 'padding' ) }
+							units={ UNITS }
+							onChange={ setSides( 'padding' ) }
+							resetValues={ {
+								top: undefined,
+								right: undefined,
+								bottom: undefined,
+								left: undefined,
+							} }
+						/>
+					</div>
+					<div className="harlow-style__box">
+						<BoxControl
+							__next40pxDefaultSize
+							label={ __( 'Margin (outside)', 'harlow' ) }
+							values={ sides( 'margin' ) }
+							units={ UNITS }
+							allowReset
+							onChange={ setSides( 'margin' ) }
+							resetValues={ {
+								top: undefined,
+								right: undefined,
+								bottom: undefined,
+								left: undefined,
+							} }
+						/>
+					</div>
+				</Group>
+			) }
+
+			{ tab === 'style' && (
+				<Group
+					title={ __( 'Size', 'harlow' ) }
+					icon={ fullscreen }
+					changed={ changed( 'size', 'image' ) }
+					onReset={ clear( 'size', 'image' ) }
+				>
+					<Length
+						label={
+							kind === 'container'
+								? __( 'Content width', 'harlow' )
+								: __( 'Width', 'harlow' )
+						}
+						value={ one.size?.width }
+						unit={ one.size?.widthUnit || 'px' }
+						onChange={ ( v, u ) =>
+							setIn( 'size', { width: v, widthUnit: u } )
+						}
+					/>
+					<Length
+						label={ __( 'Minimum height', 'harlow' ) }
+						value={ one.size?.height }
+						unit={ one.size?.heightUnit || 'px' }
+						onChange={ ( v, u ) =>
+							setIn( 'size', { height: v, heightUnit: u } )
+						}
+					/>
+					{ PICTURES.includes( kind ) && (
+						<>
+							<Length
+								label={ __( 'Picture width', 'harlow' ) }
+								value={ img.width }
+								unit={ img.widthUnit || '%' }
+								onChange={ ( v, u ) =>
+									setIn( 'image', { width: v, widthUnit: u } )
+								}
+							/>
+							<Length
+								label={ __( 'Picture height', 'harlow' ) }
+								value={ img.height }
+								unit={ img.heightUnit || 'px' }
+								onChange={ ( v, u ) =>
+									setIn( 'image', {
+										height: v,
+										heightUnit: u,
+									} )
+								}
+							/>
+							{ /* As Elementor's: how a picture fills its box once it has a height. */ }
+							{ ( img.height || img.fit ) && (
+								<Words
+									label={ __( 'Fit', 'harlow' ) }
+									value={ img.fit }
+									words={ WORDS.fit }
+									names={ {
+										cover: __( 'Cover the box', 'harlow' ),
+										contain: __( 'Fit inside', 'harlow' ),
+										fill: __( 'Stretch', 'harlow' ),
+										none: __( 'As is', 'harlow' ),
+									} }
+									onChange={ ( v ) =>
+										setIn( 'image', { fit: v } )
+									}
+								/>
+							) }
+							{ /* The picture's own group has its corners, with its border. */ }
+							{ ( ! partsHave( 'border' ) || img.radius ) && (
+								<Length
+									label={ __( 'Rounded corners', 'harlow' ) }
+									value={ img.radius }
+									unit="px"
+									onChange={ ( v ) =>
+										setIn( 'image', { radius: v } )
+									}
+								/>
+							) }
+						</>
+					) }
+				</Group>
+			) }
+
+			{ tab === 'style' && (
+				<Group
+					title={ __( 'Border', 'harlow' ) }
+					icon={ borderIcon }
+					changed={ changed( 'border' ) }
+					onReset={ clear( 'border' ) }
+				>
+					<BorderControls border={ border } setIn={ setIn } />
+				</Group>
+			) }
+
+			{ tab === 'style' && (
+				<Group
+					title={ __( 'Effects', 'harlow' ) }
+					icon={ shadowIcon }
+					changed={
+						changed(
+							'shadow',
+							'textShadow',
+							'opacity',
+							'blend',
+							'filters'
+						) || ! isEmpty( one.hover?.filters )
+					}
+					onReset={ () =>
+						set( {
+							shadow: undefined,
+							textShadow: undefined,
+							opacity: undefined,
+							blend: undefined,
+							filters: undefined,
+							hover: {
+								...( one.hover || {} ),
+								filters: undefined,
+							},
 						} )
 					}
-				/>
-				<TextControl
-					__next40pxDefaultSize
-					__nextHasNoMarginBottom
-					label={ __( 'CSS classes', 'harlow' ) }
-					value={ style?.classes || '' }
-					onChange={ ( v ) =>
-						setStyle( cleanStyle( { ...style, classes: v } ) )
-					}
-				/>
-				<TextareaControl
-					__nextHasNoMarginBottom
-					label={ __( 'Custom attributes', 'harlow' ) }
-					help={ __(
-						'One per line, as key|value (data-*, aria-*, title, rel, target, …), as in Elementor.',
-						'harlow'
+				>
+					<ShadowControls
+						label={ __( 'Box shadow', 'harlow' ) }
+						value={ one.shadow }
+						box
+						onChange={ ( v ) => set( { shadow: v } ) }
+					/>
+					{ hasText && ! partsHave( 'textShadow' ) && (
+						<ShadowControls
+							label={ __( 'Text shadow', 'harlow' ) }
+							value={ one.textShadow }
+							onChange={ ( v ) => set( { textShadow: v } ) }
+						/>
 					) }
-					value={ style?.attributes || '' }
-					rows={ 3 }
-					onChange={ ( v ) =>
-						setStyle( cleanStyle( { ...style, attributes: v } ) )
-					}
-				/>
-				<ToggleControl
-					__nextHasNoMarginBottom
-					label={ __( 'Hide on this device', 'harlow' ) }
-					checked={ !! one.hide }
-					onChange={ ( v ) => set( { hide: v } ) }
-				/>
-			</PanelBody>
-
-			<PanelBody
-				title={ __( 'Display conditions', 'harlow' ) }
-				initialOpen={ false }
-				className="harlow-style"
-			>
-				<ConditionsControls
-					value={ style?.conditions || {} }
-					onChange={ ( v ) => setTop( 'conditions', v ) }
-				/>
-			</PanelBody>
-
-			<PanelBody
-				title={ __( 'Custom CSS', 'harlow' ) }
-				initialOpen={ false }
-				className="harlow-style"
-			>
-				<TextareaControl
-					__nextHasNoMarginBottom
-					label={ __( 'CSS for this element', 'harlow' ) }
-					help={ __(
-						'"selector" stands for this element, as in Elementor: selector { color: red; } selector .elementor-heading-title { … }. Plain declarations apply to the element.',
-						'harlow'
+					<RangeControl
+						__next40pxDefaultSize
+						__nextHasNoMarginBottom
+						label={ __( 'Opacity', 'harlow' ) }
+						value={
+							one.opacity === undefined || one.opacity === ''
+								? 1
+								: Number( one.opacity )
+						}
+						min={ 0 }
+						max={ 1 }
+						step={ 0.05 }
+						onChange={ ( v ) =>
+							set( { opacity: v === 1 ? '' : v } )
+						}
+					/>
+					<Words
+						label={ __( 'Blend mode', 'harlow' ) }
+						value={ one.blend }
+						words={ BLENDS }
+						names={ BLEND_NAMES }
+						onChange={ ( v ) => set( { blend: v } ) }
+					/>
+					{ PICTURES.includes( kind ) && (
+						<>
+							<p className="harlow-style__group">
+								{ __( 'CSS filters', 'harlow' ) }
+							</p>
+							<FilterControls
+								value={ one.filters }
+								onChange={ ( patch ) =>
+									setIn( 'filters', patch )
+								}
+							/>
+							<p className="harlow-style__group">
+								{ __( 'CSS filters on hover', 'harlow' ) }
+							</p>
+							<FilterControls
+								value={ one.hover?.filters }
+								suffix={ __( 'on hover', 'harlow' ) }
+								onChange={ ( patch ) =>
+									setIn( 'hover', {
+										filters: {
+											...( one.hover?.filters || {} ),
+											...patch,
+										},
+									} )
+								}
+							/>
+						</>
 					) }
-					value={ one.css || '' }
-					rows={ 6 }
-					onChange={ ( v ) => set( { css: v } ) }
-				/>
-			</PanelBody>
+				</Group>
+			) }
+
+			{ tab === 'advanced' && (
+				<Group
+					title={ __( 'Position', 'harlow' ) }
+					icon={ positionCenter }
+					changed={ changed( 'item' ) }
+					onReset={ clear( 'item' ) }
+				>
+					<PositionControls item={ one.item || {} } setIn={ setIn } />
+				</Group>
+			) }
+
+			{ tab === 'advanced' && (
+				<Group
+					title={ __( 'Transform and hover', 'harlow' ) }
+					icon={ rotateRight }
+					changed={ changed( 'transform', 'transition' ) || hoverOwn }
+					onReset={ () =>
+						set( {
+							transform: undefined,
+							transition: undefined,
+							hover: {
+								filters: one.hover?.filters,
+								overlay: one.hover?.overlay,
+							},
+						} )
+					}
+				>
+					<p className="harlow-style__group">
+						{ __( 'Normal', 'harlow' ) }
+					</p>
+					<TransformControls
+						value={ one.transform || {} }
+						onChange={ ( patch ) => setIn( 'transform', patch ) }
+						full
+					/>
+					<p className="harlow-style__group">
+						{ __( 'On hover', 'harlow' ) }
+					</p>
+					{ hasText && (
+						<Colour
+							label={ __( 'Text colour on hover', 'harlow' ) }
+							value={ one.hover?.color || '' }
+							onChange={ ( v ) => setIn( 'hover', { color: v } ) }
+						/>
+					) }
+					<Colour
+						label={
+							kind === 'button'
+								? __( 'Button colour on hover', 'harlow' )
+								: __( 'Background colour on hover', 'harlow' )
+						}
+						value={ one.hover?.background || '' }
+						onChange={ ( v ) =>
+							setIn( 'hover', { background: v } )
+						}
+					/>
+					<BackgroundControls
+						label={ __( 'Background type on hover', 'harlow' ) }
+						value={ one.hover?.bg || {} }
+						onChange={ ( patch ) =>
+							setIn( 'hover', {
+								bg: { ...( one.hover?.bg || {} ), ...patch },
+							} )
+						}
+						types={ [ 'gradient', 'image' ] }
+						prefix={ __( 'On hover:', 'harlow' ) }
+					/>
+					<Colour
+						label={ __( 'Border colour on hover', 'harlow' ) }
+						value={ one.hover?.borderColor || '' }
+						onChange={ ( v ) =>
+							setIn( 'hover', { borderColor: v } )
+						}
+					/>
+					<Words
+						label={ __( 'Border line on hover', 'harlow' ) }
+						value={ one.hover?.borderStyle }
+						words={ WORDS.borderStyle }
+						onChange={ ( v ) =>
+							setIn( 'hover', { borderStyle: v } )
+						}
+					/>
+					<Length
+						label={ __( 'Border thickness on hover', 'harlow' ) }
+						value={ one.hover?.borderWidth }
+						unit="px"
+						units={ [ { value: 'px', label: 'px' } ] }
+						onChange={ ( v ) =>
+							setIn( 'hover', { borderWidth: v } )
+						}
+					/>
+					<Length
+						label={ __( 'Rounded corners on hover', 'harlow' ) }
+						value={ one.hover?.radius }
+						unit="px"
+						units={ [ { value: 'px', label: 'px' } ] }
+						onChange={ ( v ) => setIn( 'hover', { radius: v } ) }
+					/>
+					<RangeControl
+						__next40pxDefaultSize
+						__nextHasNoMarginBottom
+						label={ __( 'Opacity on hover', 'harlow' ) }
+						value={
+							one.hover?.opacity === undefined ||
+							one.hover?.opacity === ''
+								? undefined
+								: Number( one.hover.opacity )
+						}
+						min={ 0 }
+						max={ 1 }
+						step={ 0.05 }
+						allowReset
+						onChange={ ( v ) =>
+							setIn( 'hover', {
+								opacity: v === undefined ? '' : v,
+							} )
+						}
+					/>
+					<TransformControls
+						hover
+						value={ one.hover?.transform || {} }
+						onChange={ ( patch ) =>
+							setIn( 'hover', {
+								transform: {
+									...( one.hover?.transform || {} ),
+									...patch,
+								},
+							} )
+						}
+					/>
+					<ShadowControls
+						label={ __( 'Box shadow on hover', 'harlow' ) }
+						value={ one.hover?.shadow }
+						box
+						onChange={ ( v ) => setIn( 'hover', { shadow: v } ) }
+					/>
+					<Length
+						label={ __( 'Transition (ms)', 'harlow' ) }
+						value={ one.transition }
+						unit="ms"
+						units={ [ { value: 'ms', label: 'ms' } ] }
+						onChange={ ( v ) => set( { transition: v } ) }
+					/>
+				</Group>
+			) }
+
+			{ tab === 'advanced' && (
+				<Group
+					title={ __( 'Motion', 'harlow' ) }
+					icon={ seen }
+					changed={
+						changed( 'animationDuration' ) ||
+						!! style?.hoverAnimation ||
+						! isEmpty( style?.motion )
+					}
+				>
+					<MotionControls
+						kind={ kind }
+						deviceKey={ key }
+						attributes={ attributes }
+						setAttributes={ setAttributes }
+						duration={ one.animationDuration }
+						setDuration={ ( v ) => set( { animationDuration: v } ) }
+					/>
+					<SelectControl
+						__next40pxDefaultSize
+						__nextHasNoMarginBottom
+						label={ __( 'Hover animation', 'harlow' ) }
+						value={ style?.hoverAnimation || '' }
+						options={ [
+							{ value: '', label: __( 'None', 'harlow' ) },
+							...Object.entries( HOVER_ANIMATIONS ).map(
+								( [ value, [ label ] ] ) => ( {
+									value,
+									label,
+								} )
+							),
+						] }
+						onChange={ ( v ) => setTop( 'hoverAnimation', v ) }
+					/>
+					<MotionEffects
+						motion={ style?.motion || {} }
+						onChange={ ( v ) => setTop( 'motion', v ) }
+					/>
+				</Group>
+			) }
+
+			{ tab === 'advanced' && (
+				<Group
+					title={ __( 'ID, classes and attributes', 'harlow' ) }
+					icon={ code }
+					changed={
+						!! attributes.htmlId ||
+						!! style?.classes ||
+						!! style?.attributes ||
+						changed( 'hide' )
+					}
+				>
+					{ /* Only where the block keeps an id (every element does): one it does not keep is refused by the server. */ }
+					{ getBlockType( `harlow/${ kind }` )?.attributes
+						?.htmlId && (
+						<TextControl
+							__next40pxDefaultSize
+							__nextHasNoMarginBottom
+							label={ __( 'CSS ID', 'harlow' ) }
+							value={ attributes.htmlId || '' }
+							onChange={ ( v ) =>
+								setAttributes( {
+									htmlId: v.replace( /[^A-Za-z0-9_-]/g, '' ),
+								} )
+							}
+						/>
+					) }
+					<TextControl
+						__next40pxDefaultSize
+						__nextHasNoMarginBottom
+						label={ __( 'CSS classes', 'harlow' ) }
+						value={ style?.classes || '' }
+						onChange={ ( v ) =>
+							setStyle( cleanStyle( { ...style, classes: v } ) )
+						}
+					/>
+					<TextareaControl
+						__nextHasNoMarginBottom
+						label={ __( 'Custom attributes', 'harlow' ) }
+						help={ __(
+							'One per line, as key|value (data-*, aria-*, title, rel, target, …), as in Elementor.',
+							'harlow'
+						) }
+						value={ style?.attributes || '' }
+						rows={ 3 }
+						onChange={ ( v ) =>
+							setStyle(
+								cleanStyle( { ...style, attributes: v } )
+							)
+						}
+					/>
+					<ToggleControl
+						__nextHasNoMarginBottom
+						label={ __( 'Hide on this device', 'harlow' ) }
+						checked={ !! one.hide }
+						onChange={ ( v ) => set( { hide: v } ) }
+					/>
+				</Group>
+			) }
+
+			{ tab === 'advanced' && (
+				<Group
+					title={ __( 'Display conditions', 'harlow' ) }
+					icon={ seen }
+					changed={ ! isEmpty( style?.conditions ) }
+				>
+					<ConditionsControls
+						value={ style?.conditions || {} }
+						onChange={ ( v ) => setTop( 'conditions', v ) }
+					/>
+				</Group>
+			) }
+
+			{ tab === 'advanced' && (
+				<Group
+					title={ __( 'Custom CSS', 'harlow' ) }
+					icon={ code }
+					changed={ changed( 'css' ) }
+					onReset={ clear( 'css' ) }
+				>
+					<TextareaControl
+						__nextHasNoMarginBottom
+						label={ __( 'CSS for this element', 'harlow' ) }
+						help={ __(
+							'"selector" stands for this element, as in Elementor: selector { color: red; } selector .elementor-heading-title { … }. Plain declarations apply to the element.',
+							'harlow'
+						) }
+						value={ one.css || '' }
+						rows={ 6 }
+						onChange={ ( v ) => set( { css: v } ) }
+					/>
+				</Group>
+			) }
 		</>
 	);
 }
@@ -4607,15 +5399,23 @@ addFilter(
 			const { name, attributes, setAttributes, isSelected, clientId } =
 				props;
 			const element = attributes.element || attributes.widget;
-			if (
-				! name.startsWith( 'harlow/' ) ||
-				! element ||
-				! ( 'style' in attributes )
-			) {
+			const styled =
+				name.startsWith( 'harlow/' ) &&
+				!! element &&
+				'style' in attributes;
+			const kind = name.replace( 'harlow/', '' );
+			// Called on every render, styled or not: a new element gets its id after its first
+			// render, and a hook called only from then on breaks React's order of hooks.
+			useCanvasStyle(
+				clientId,
+				styled ? element : '',
+				styled ? attributes.style : undefined,
+				kind,
+				attributes.classes
+			);
+			if ( ! styled ) {
 				return <BlockEdit { ...props } />;
 			}
-			const kind = name.replace( 'harlow/', '' );
-			useCanvasStyle( clientId, element, attributes.style, kind );
 			// Appearance → Editing and maintenance: a role with the words and pictures only.
 			if ( ! isSelected || site.contentOnly ) {
 				return <BlockEdit { ...props } />;

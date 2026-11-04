@@ -50,7 +50,7 @@ function harlow_element_attributes( $attributes, $kind, $widget = '' ) {
 		. ' data-element_type="' . esc_attr( $kind ) . '" data-e-type="' . esc_attr( $kind ) . '"';
 	if ( $style ) {
 		$block_kind = '' !== $widget ? harlow_widget_kind( $widget ) : $kind;
-		harlow_collected_styles( harlow_element_css( $attributes['element'], $style, $block_kind ) );
+		harlow_collected_styles( harlow_element_css( $attributes['element'], $style, $block_kind, $attributes['classes'] ) );
 	}
 	if ( '' !== $attributes['settings'] ) {
 		$out .= ' data-settings="' . esc_attr( $attributes['settings'] ) . '"';
@@ -466,6 +466,61 @@ function harlow_document_id() {
 	$document = (int) get_post_meta( get_the_ID(), '_harlow_document', true );
 	return $document ? $document : (int) get_the_ID();
 }
+
+/**
+ * Whether a post's text is being printed further up (the_content), so that a block printing
+ * a post's text (an item's text, a list's whole texts) never prints it inside itself, which
+ * would never end: a single template holding the item's text, read on its own screen or by
+ * the REST API; a page whose sections hold its own text; a post listed with its whole text
+ * in a list it holds. Elementor's Post content widget guards the same way.
+ *
+ * @param int $post_id The post.
+ * @return bool
+ */
+function harlow_text_printing( $post_id ) {
+	return in_array( (int) $post_id, harlow_text_stack(), true );
+}
+
+/**
+ * The posts whose text is being printed, innermost last; `the_content` adds and takes off.
+ *
+ * @param int|null $push A post to add, or null.
+ * @param bool     $pop  Take the innermost off.
+ * @return array<int,int>
+ */
+function harlow_text_stack( $push = null, $pop = false ) {
+	static $stack = array();
+	if ( null !== $push ) {
+		$stack[] = (int) $push;
+	} elseif ( $pop ) {
+		array_pop( $stack );
+	}
+	return $stack;
+}
+
+/**
+ * A post's text starts to print: its id joins the stack.
+ *
+ * @param string $content The text.
+ * @return string
+ */
+function harlow_text_starts( $content ) {
+	harlow_text_stack( (int) get_the_ID() );
+	return $content;
+}
+add_filter( 'the_content', 'harlow_text_starts', 0 );
+
+/**
+ * A post's text is printed: its id leaves the stack.
+ *
+ * @param string $content The text.
+ * @return string
+ */
+function harlow_text_ends( $content ) {
+	harlow_text_stack( null, true );
+	return $content;
+}
+add_filter( 'the_content', 'harlow_text_ends', PHP_INT_MAX );
 
 /**
  * The page's sections inside Elementor's document element, as live prints them.

@@ -16,6 +16,13 @@
 					"label": "Hover",
 					"selector": " .elementor-swiper-button:hover"
 				}
+			},
+			"when": {
+				"navigation": [
+					"both",
+					"arrows"
+				],
+				"pictures": "*"
 			}
 		},
 		{
@@ -34,6 +41,13 @@
 					"label": "Active",
 					"selector": " .swiper-pagination-bullet.swiper-pagination-bullet-active"
 				}
+			},
+			"when": {
+				"navigation": [
+					"both",
+					"dots"
+				],
+				"pictures": "*"
 			}
 		},
 		{
@@ -43,7 +57,14 @@
 			"controls": [
 				"align",
 				"margin"
-			]
+			],
+			"when": {
+				"navigation": [
+					"both",
+					"dots"
+				],
+				"pictures": "*"
+			}
 		},
 		{
 			"key": "image",
@@ -53,7 +74,10 @@
 				"border",
 				"shadow",
 				"opacity"
-			]
+			],
+			"when": {
+				"pictures": "*"
+			}
 		},
 		{
 			"key": "caption",
@@ -67,7 +91,15 @@
 				"background",
 				"padding",
 				"margin"
-			]
+			],
+			"when": {
+				"pictures": "*",
+				"captionType": [
+					"caption",
+					"title",
+					"description"
+				]
+			}
 		}
 	]
 }

@@ -166,6 +166,17 @@ async def read_pages(names):
     return seen
 
 
+def save_fields(rest, base, post_id, meta):
+    """An item's own fields, saved as its edit screen saves them: in the block editor, the
+    sidebar's item panel through the REST API with the item (editor/item-details.js); on a
+    classic screen (gallery items), the box of fields."""
+    screen = rest.s.get(f"{WP}/wp-admin/post.php?post={post_id}&action=edit", timeout=120).text
+    if "harlow_fields_nonce" in screen:
+        save_boxes(rest, post_id, meta)
+    else:
+        rest("POST", f"/{base}/{post_id}", {"meta": meta})
+
+
 def save_boxes(rest, post_id, meta):
     """The fields of an item's boxes, saved as its edit screen saves them: the boxes' form,
     as the screen printed it, posted back with the fields changed (the block editor posts it
@@ -255,7 +266,7 @@ def part_blocks(rows, problems):
             meta = item["data"].pop("meta")
             rest("POST", f"/{item['base']}/{pid}", item["data"])
             if meta:
-                save_boxes(rest, pid, meta)
+                save_fields(rest, item["base"], pid, meta)
             by_name[item["name"]] = int(pid)
         names = [p["name"] for p in pages()]
         seen = asyncio.run(read_pages(set(names)))
@@ -690,7 +701,7 @@ STYLE_TRIES = [
     ("heading", "text:HARLOW GROUP", "Desktop", [("panel", "Motion"), ("select", "Entrance animation", "zoomIn")],
      "@data-settings", "", "zoomIn",
      [("panel", "Motion"), ("select", "Entrance animation", "Default")]),
-    ("heading", "text:HARLOW GROUP", "Desktop", [("panel", "Advanced"), ("number", "CSS classes", "owner-class"),
+    ("heading", "text:HARLOW GROUP", "Desktop", [("panel", "ID, classes and attributes"), ("number", "CSS classes", "owner-class"),
                                                  ("text", "Custom attributes", "data-owner|yes")],
      "@data-owner", "", "yes"),
     # A radial gradient, a container's overlay layer, its shape divider, a slideshow.
@@ -817,7 +828,9 @@ FIND = r"""
 """
 
 # The block sidebar is there (its Settings and Styles tabs drawn).
-SIDEBAR = "() => !!document.querySelector('.block-editor-block-inspector__tabs [role=tab]')"
+# (a block whose Settings hold only Advanced, a container, has no tabs: its groups are shown)
+SIDEBAR = ("() => !!document.querySelector('.block-editor-block-inspector__tabs [role=tab]')"
+           " || !!document.querySelector('.block-editor-block-inspector .harlow-style')")
 
 # One action in the Styles tab, done as a click or typing does it (React's own events).
 ACT = r"""
@@ -842,7 +855,13 @@ async ([kind, label, value]) => {
     return l && l.textContent.trim().toLowerCase() === label.toLowerCase();
   });
   if (kind === 'panel') {
-    const b = [...side.querySelectorAll('.components-panel__body-title button')].find((x) => x.textContent.trim() === label);
+    // in the Styles tab's own tabs (Style, Advanced): the group's
+    const head = () => [...side.querySelectorAll('.components-panel__body-title button')].find((x) => x.textContent.trim() === label);
+    let b = head();
+    for (const t of side.querySelectorAll('.harlow-props__tab')) {
+      if (b) break;
+      if (t.getAttribute('aria-selected') !== 'true') { t.click(); await wait(500); b = head(); }
+    }
     if (!b) return { error: 'no panel ' + label };
     if (b.getAttribute('aria-expanded') !== 'true') { b.click(); await wait(500); }
   } else if (kind === 'choice') {

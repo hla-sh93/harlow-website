@@ -3,21 +3,16 @@
  * blocks inside it (in its inner box when it is boxed). A background video (a file, or a
  * YouTube or Vimeo address) is sized as assets/js/background-video.js sizes it on the page;
  * its first slideshow picture and its shape dividers are drawn as the page draws them. Its
- * background picture and video, with the video's options, are chosen in the sidebar.
+ * design's background picture and video, with the video's options, are replaced in the
+ * Styles tab's Background panel (DesignBackground).
  */
 import {
-	InspectorControls,
 	MediaUpload,
 	MediaUploadCheck,
 	useBlockProps,
 	useInnerBlocksProps,
 } from '@wordpress/block-editor';
-import {
-	Button,
-	PanelBody,
-	TextControl,
-	ToggleControl,
-} from '@wordpress/components';
+import { Button, TextControl, ToggleControl } from '@wordpress/components';
 import { useLayoutEffect, useRef } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 
@@ -66,104 +61,89 @@ function useCoverVideo( box, src ) {
 }
 
 /**
- * The sidebar: the background picture (the design's own until one is chosen) and video.
+ * The design's own background of the container, its picture and video, replaced in place
+ * (the Styles tab's Background panel draws these while its type is the design's: one
+ * place for a background).
  *
  * @param {Object}   props
  * @param {Object}   props.attributes    The block's attributes.
  * @param {Function} props.setAttributes The block's setter.
  */
-function Background( { attributes, setAttributes } ) {
+export function DesignBackground( { attributes, setAttributes } ) {
 	const { picture, video } = attributes;
 	return (
-		<InspectorControls>
-			<PanelBody
-				title={ __( 'Background', 'harlow' ) }
-				initialOpen={ false }
-			>
-				<PicturePicker
-					label={ __( 'Background picture', 'harlow' ) }
-					value={ picture }
-					onChange={ ( id ) => setAttributes( { picture: id } ) }
-					none={ __( 'Default', 'harlow' ) }
+		<>
+			<PicturePicker
+				label={ __( 'Background picture', 'harlow' ) }
+				value={ picture }
+				onChange={ ( id ) => setAttributes( { picture: id } ) }
+				none={ __( 'Default', 'harlow' ) }
+			/>
+			<TextControl
+				__next40pxDefaultSize
+				__nextHasNoMarginBottom
+				label={ __( 'Background video (its address)', 'harlow' ) }
+				value={ video }
+				onChange={ ( value ) => setAttributes( { video: value } ) }
+			/>
+			<MediaUploadCheck>
+				<MediaUpload
+					allowedTypes={ [ 'video' ] }
+					onSelect={ ( picked ) =>
+						setAttributes( { video: picked.url } )
+					}
+					render={ ( { open } ) => (
+						<Button variant="secondary" onClick={ open }>
+							{ __( 'Choose a video', 'harlow' ) }
+						</Button>
+					) }
 				/>
-				<TextControl
-					__next40pxDefaultSize
-					__nextHasNoMarginBottom
-					label={ __( 'Background video (its address)', 'harlow' ) }
-					value={ video }
-					onChange={ ( value ) => setAttributes( { video: value } ) }
-				/>
-				<MediaUploadCheck>
-					<MediaUpload
-						allowedTypes={ [ 'video' ] }
-						onSelect={ ( picked ) =>
-							setAttributes( { video: picked.url } )
-						}
-						render={ ( { open } ) => (
-							<Button variant="secondary" onClick={ open }>
-								{ __( 'Choose a video', 'harlow' ) }
-							</Button>
-						) }
+			</MediaUploadCheck>
+			{ video && (
+				<>
+					<TextControl
+						__next40pxDefaultSize
+						__nextHasNoMarginBottom
+						type="number"
+						min={ 0 }
+						label={ __( 'Video starts at (seconds)', 'harlow' ) }
+						value={ attributes.videoStart }
+						onChange={ ( v ) => setAttributes( { videoStart: v } ) }
 					/>
-				</MediaUploadCheck>
-				{ video && (
-					<>
-						<TextControl
-							__next40pxDefaultSize
-							__nextHasNoMarginBottom
-							type="number"
-							min={ 0 }
-							label={ __(
-								'Video starts at (seconds)',
-								'harlow'
-							) }
-							value={ attributes.videoStart }
-							onChange={ ( v ) =>
-								setAttributes( { videoStart: v } )
-							}
-						/>
-						<TextControl
-							__next40pxDefaultSize
-							__nextHasNoMarginBottom
-							type="number"
-							min={ 0 }
-							label={ __( 'Video ends at (seconds)', 'harlow' ) }
-							value={ attributes.videoEnd }
-							onChange={ ( v ) =>
-								setAttributes( { videoEnd: v } )
-							}
-						/>
-						<ToggleControl
-							__nextHasNoMarginBottom
-							label={ __( 'Play once', 'harlow' ) }
-							checked={ !! attributes.videoOnce }
-							onChange={ ( v ) =>
-								setAttributes( { videoOnce: v } )
-							}
-						/>
-						<ToggleControl
-							__nextHasNoMarginBottom
-							label={ __( 'Play on phones', 'harlow' ) }
-							checked={ attributes.videoMobile !== false }
-							onChange={ ( v ) =>
-								setAttributes( { videoMobile: v } )
-							}
-						/>
-						<PicturePicker
-							label={ __(
-								'Fallback picture (phones)',
-								'harlow'
-							) }
-							value={ attributes.videoFallback }
-							onChange={ ( id ) =>
-								setAttributes( { videoFallback: id } )
-							}
-							none={ __( 'None', 'harlow' ) }
-						/>
-					</>
-				) }
-			</PanelBody>
-		</InspectorControls>
+					<TextControl
+						__next40pxDefaultSize
+						__nextHasNoMarginBottom
+						type="number"
+						min={ 0 }
+						label={ __( 'Video ends at (seconds)', 'harlow' ) }
+						value={ attributes.videoEnd }
+						onChange={ ( v ) => setAttributes( { videoEnd: v } ) }
+					/>
+					<ToggleControl
+						__nextHasNoMarginBottom
+						label={ __( 'Play once', 'harlow' ) }
+						checked={ !! attributes.videoOnce }
+						onChange={ ( v ) => setAttributes( { videoOnce: v } ) }
+					/>
+					<ToggleControl
+						__nextHasNoMarginBottom
+						label={ __( 'Play on phones', 'harlow' ) }
+						checked={ attributes.videoMobile !== false }
+						onChange={ ( v ) =>
+							setAttributes( { videoMobile: v } )
+						}
+					/>
+					<PicturePicker
+						label={ __( 'Fallback picture (phones)', 'harlow' ) }
+						value={ attributes.videoFallback }
+						onChange={ ( id ) =>
+							setAttributes( { videoFallback: id } )
+						}
+						none={ __( 'None', 'harlow' ) }
+					/>
+				</>
+			) }
+		</>
 	);
 }
 
@@ -217,7 +197,7 @@ function Slideshow( { bg } ) {
 	);
 }
 
-export default function Edit( { attributes, setAttributes } ) {
+export default function Edit( { attributes } ) {
 	const { boxed, video, picture, tag } = attributes;
 	const style = attributes.style || {};
 	// Its HTML tag, as container.php prints it (a link is drawn as a box: a click in the
@@ -239,9 +219,6 @@ export default function Edit( { attributes, setAttributes } ) {
 		...elementProps( attributes, 'container' ),
 		style: pictureStyle( usePictureUrl( picture ) ),
 	} );
-	const sidebar = (
-		<Background attributes={ attributes } setAttributes={ setAttributes } />
-	);
 	const innerBlocksProps = useInnerBlocksProps(
 		boxed ? { className: 'e-con-inner' } : blockProps,
 		{ templateLock: false, allowedBlocks: inContainer() }
@@ -297,26 +274,20 @@ export default function Edit( { attributes, setAttributes } ) {
 	);
 	if ( boxed ) {
 		return (
-			<>
-				{ sidebar }
-				<Tag { ...blockProps }>
-					{ backgroundVideo }
-					{ extra }
-					{ '\n' }
-					<div { ...innerBlocksProps } />
-					{ '\n' }
-				</Tag>
-			</>
+			<Tag { ...blockProps }>
+				{ backgroundVideo }
+				{ extra }
+				{ '\n' }
+				<div { ...innerBlocksProps } />
+				{ '\n' }
+			</Tag>
 		);
 	}
 	return (
-		<>
-			{ sidebar }
-			<Tag { ...innerBlocksProps }>
-				{ backgroundVideo }
-				{ extra }
-				{ innerBlocksProps.children }
-			</Tag>
-		</>
+		<Tag { ...innerBlocksProps }>
+			{ backgroundVideo }
+			{ extra }
+			{ innerBlocksProps.children }
+		</Tag>
 	);
 }

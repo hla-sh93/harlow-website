@@ -3,6 +3,7 @@
 	"apiVersion": 3,
 	"name": "harlow/template",
 	"title": "Shared section",
+	"icon": "layout",
 	"category": "layout",
 	"description": "A section used on many pages, edited once (a synced pattern), or the site header or footer.",
 	"textdomain": "harlow",
@@ -31,7 +32,8 @@
 	"supports": {
 		"html": false,
 		"className": false,
-		"customClassName": false
+		"customClassName": false,
+		"customCSS": false
 	},
 	"render": "file:../../includes/sections/template.php"
 }

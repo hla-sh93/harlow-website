@@ -66,6 +66,22 @@ if ( $attributes['minimizeBox'] ) {
 }
 $harlow_spinner = '<svg aria-hidden="true" class="elementor-toc__spinner eicon-animation-spin e-font-icon-svg e-eicon-loading" viewBox="0 0 1000 1000" xmlns="http://www.w3.org/2000/svg"><path d="M500 975V858C696 858 858 696 858 500S696 142 500 142 142 304 142 500H25C25 237 238 25 500 25S975 237 975 500 763 975 500 975Z"></path></svg>';
 
+// The list is built from the page's headings by the page's script (table-of-contents.js),
+// which does not run in the editor: there the list is a sample in the script's markup, so
+// its text, markers and indent can be seen and styled.
+$harlow_inside = '<div class="elementor-toc__spinner-container">' . "\n" . $harlow_spinner . "\n" . '</div>';
+if ( wp_is_serving_rest_request() ) {
+	$harlow_list   = 'bullets' === $attributes['markerView'] ? 'ul' : 'ol';
+	$harlow_marker = 'bullets' === $attributes['markerView'] ? harlow_icon( $attributes['icon'] ) : '';
+	$harlow_item   = static function ( $text, $top, $inner = '' ) use ( $harlow_marker ) {
+		return '<li class="elementor-toc__list-item"><div class="elementor-toc__list-item-text-wrapper">' . $harlow_marker
+			. '<a href="#" class="elementor-toc__list-item-text' . ( $top ? ' elementor-toc__top-level' : '' ) . '">' . esc_html( $text ) . '</a></div>' . $inner . '</li>';
+	};
+	$harlow_inside = '<' . $harlow_list . ' class="elementor-toc__list-wrapper">'
+		. $harlow_item( __( 'A heading of the page', 'harlow' ), true, '<' . $harlow_list . ' class="elementor-toc__list-wrapper">' . $harlow_item( __( 'A heading under it', 'harlow' ), false ) . '</' . $harlow_list . '>' )
+		. $harlow_item( __( 'Another heading', 'harlow' ), true )
+		. '</' . $harlow_list . '>';
+}
 $harlow_html = '<div' . harlow_element_attributes( $harlow_element, 'widget', 'table-of-contents.default' ) . '>' . "\n"
 	. '<div class="elementor-widget-container">' . "\n"
 	. '<div class="elementor-toc__header" aria-controls="' . esc_attr( $harlow_id ) . '">' . "\n"
@@ -73,7 +89,7 @@ $harlow_html = '<div' . harlow_element_attributes( $harlow_element, 'widget', 't
 	. $harlow_buttons . "\n"
 	. '</div>' . "\n"
 	. '<div id="' . esc_attr( $harlow_id ) . '" class="' . esc_attr( $harlow_body ) . '">' . "\n"
-	. '<div class="elementor-toc__spinner-container">' . "\n" . $harlow_spinner . "\n" . '</div>' . "\n"
+	. $harlow_inside . "\n"
 	. '</div>' . "\n"
 	. '</div>' . "\n"
 	. '</div>';

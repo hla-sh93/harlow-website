@@ -3,6 +3,7 @@
 	"apiVersion": 3,
 	"name": "harlow/post-info",
 	"title": "Post Info",
+	"icon": "info-outline",
 	"category": "theme",
 	"description": "The item's author, date, time, comments, terms or words of your own, each with its icon and link (Elementor Pro's post info widget).",
 	"textdomain": "harlow",
@@ -68,7 +69,8 @@
 	"supports": {
 		"html": false,
 		"className": false,
-		"customClassName": false
+		"customClassName": false,
+		"customCSS": false
 	},
 	"example": {
 		"attributes": {

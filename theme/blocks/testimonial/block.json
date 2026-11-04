@@ -3,6 +3,7 @@
 	"apiVersion": 3,
 	"name": "harlow/testimonial",
 	"title": "Testimonial",
+	"icon": "testimonial",
 	"category": "text",
 	"description": "What someone said, with their picture, name and title.",
 	"textdomain": "harlow",
@@ -71,7 +72,8 @@
 	"supports": {
 		"html": false,
 		"className": false,
-		"customClassName": false
+		"customClassName": false,
+		"customCSS": false
 	},
 	"example": {
 		"attributes": {

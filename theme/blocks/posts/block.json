@@ -3,6 +3,7 @@
 	"apiVersion": 3,
 	"name": "harlow/posts",
 	"title": "Posts",
+	"icon": "admin-post",
 	"category": "widgets",
 	"description": "Posts, news, projects, gallery items, jobs or pages as cards in columns, with a pager and a filter bar (Elementor Pro's posts widget).",
 	"textdomain": "harlow",
@@ -252,7 +253,8 @@
 	"supports": {
 		"html": false,
 		"className": false,
-		"customClassName": false
+		"customClassName": false,
+		"customCSS": false
 	},
 	"example": {
 		"attributes": {

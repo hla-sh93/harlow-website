@@ -3,6 +3,7 @@
 	"apiVersion": 3,
 	"name": "harlow/social-icons",
 	"title": "Social icons",
+	"icon": "share-alt",
 	"category": "widgets",
 	"description": "Icons that link to the site's social networks.",
 	"textdomain": "harlow",
@@ -35,7 +36,8 @@
 	"supports": {
 		"html": false,
 		"className": false,
-		"customClassName": false
+		"customClassName": false,
+		"customCSS": false
 	},
 	"render": "file:../../includes/sections/social-icons.php"
 }

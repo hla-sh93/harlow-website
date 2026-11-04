@@ -77,7 +77,15 @@ async ([names, pictures]) => {
 """
 
 PANELS = r"""
-async ([id, labels]) => {
+async ([id, parts]) => {
+  // a group there only for some settings (parts.json `when`) is expected only when they are the block's
+  const a = wp.data.select('core/block-editor').getBlockAttributes(id) || {};
+  const fits = (value, wanted) => (wanted === '*' ? (Array.isArray(value) ? value.length > 0 : ![undefined, null, '', false, 0].includes(value))
+    : wanted && wanted.has ? Array.isArray(value) && value.some((v) => wanted.has.includes(v)) : wanted.includes(value));
+  const meets = (when) => Object.entries(when || {}).every(([name, wanted]) => (wanted && wanted.any
+    ? (a[name] || []).some((line) => Object.entries(wanted.any).every(([k, w]) => fits(line && line[k], w)))
+    : fits(a[name], wanted)));
+  const labels = parts.filter((p) => (Array.isArray(p.when) ? p.when.some(meets) : meets(p.when))).map((p) => p.label);
   wp.data.dispatch('core/block-editor').selectBlock(id);
   // the block's sidebar, whatever an earlier visit left open (the page's settings)
   wp.data.dispatch('core/interface').enableComplementaryArea('core', 'edit-post/block');
@@ -92,11 +100,13 @@ async ([id, labels]) => {
   let missing = labels;
   for (let i = 0; i < 20 && missing.length; i++) {
     await new Promise((r) => setTimeout(r, 500));
+    const st = document.querySelector('.interface-complementary-area .harlow-props__tab');
+    if (st && st.getAttribute('aria-selected') !== 'true') st.click();
     const titles = [...document.querySelectorAll('.interface-complementary-area .components-panel__body-title')]
       .map((b) => b.textContent.trim());
     missing = labels.filter((l) => !titles.includes(l));
   }
-  return missing;
+  return { missing, expected: labels.length };
 }
 """
 
@@ -185,7 +195,7 @@ def main(only, keep=False):
     names = sorted(p.name for p in blocks.iterdir() if (p / "block.json").exists() and p.name not in OWN)
     if only:
         names = [n for n in names if n in only]
-    parts = {n: [p["label"] for p in json.loads((blocks / n / "parts.json").read_text(encoding="utf-8"))["parts"]]
+    parts = {n: [{"label": p["label"], "when": p.get("when")} for p in json.loads((blocks / n / "parts.json").read_text(encoding="utf-8"))["parts"]]
              for n in names if (blocks / n / "parts.json").exists()}
     rest = Rest()
     made = rest("POST", "/pages", {"title": "Widgets check", "status": "draft",
@@ -206,8 +216,9 @@ def main(only, keep=False):
                 elif not got.get("element"):
                     problems.append(f"{n}: no element id given in the editor")
                 if n in parts and got.get("clientId"):
-                    missing = await page.evaluate(PANELS, [got["clientId"], parts[n]])
-                    rows[n]["panels"] = f"{len(parts[n]) - len(missing)} of {len(parts[n])}"
+                    seen = await page.evaluate(PANELS, [got["clientId"], parts[n]])
+                    missing = seen["missing"]
+                    rows[n]["panels"] = f"{seen['expected'] - len(missing)} of {seen['expected']} for its settings ({len(parts[n])} in all)"
                     if missing:
                         problems.append(f"{n}: Styles tab without its groups {missing}")
             saved = await page.evaluate(PUBLISH, "Widgets check")

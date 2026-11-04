@@ -823,3 +823,49 @@ e-page-transition .e-page-transition--preloader {
 @keyframes harlow-preloader-spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
 @keyframes harlow-preloader-pulse { 50% { transform: scale(0.85); opacity: 0.6; } }
 @keyframes harlow-preloader-bounce { 50% { transform: translateY(-20px); } }
+
+/*
+ * An element the owner adds (editor/new-element.js gives it this class) starts in the
+ * brand's colours and fonts: Elementor's kit kept its own defaults (a light blue for
+ * headings, a green for buttons) that no element of the design shows. Site settings'
+ * global colours and fonts, once set, are printed for these elements too.
+ */
+.harlow-brand {
+  --e-global-color-primary: var(--hl-color-dark);
+  --e-global-color-secondary: var(--hl-color-primary);
+  --e-global-color-text: var(--hl-color-text);
+  --e-global-color-accent: var(--hl-color-primary);
+  --e-global-typography-secondary-font-family: "Plus Jakarta Sans";
+  --e-global-typography-text-font-family: "Plus Jakarta Sans";
+  --e-global-typography-accent-font-family: "Plus Jakarta Sans";
+}
+
+/* A new divider as Elementor makes one: a line, with its gap above and below. */
+.harlow-brand.elementor-widget-divider .elementor-divider {
+  padding-block: 15px;
+}
+
+/* A loop carousel's dots (the block's Dots; carousel.js): Swiper's, under the slides, as
+   Elementor's loop carousel draws them. The design's carousels have none. */
+.elementor-widget-loop-carousel .swiper-pagination {
+	position: static;
+	margin-top: var(--swiper-pagination-spacing, 10px);
+	text-align: center;
+	line-height: 0;
+}
+
+.elementor-widget-loop-carousel .swiper-pagination-bullet {
+	display: inline-block;
+	width: var(--swiper-pagination-bullet-size, 6px);
+	height: var(--swiper-pagination-bullet-size, 6px);
+	margin: 0 var(--swiper-pagination-bullet-horizontal-gap, 6px);
+	border-radius: 50%;
+	background: var(--swiper-pagination-bullet-inactive-color, #000);
+	opacity: var(--swiper-pagination-bullet-inactive-opacity, 0.2);
+	cursor: pointer;
+}
+
+.elementor-widget-loop-carousel .swiper-pagination-bullet-active {
+	background: var(--swiper-pagination-color, var(--hl-color-primary, #0165a1));
+	opacity: 1;
+}

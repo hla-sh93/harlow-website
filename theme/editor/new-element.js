@@ -6,11 +6,16 @@
  * blocks the page opened with keep theirs, and so do the blocks of a synced pattern.
  */
 import { createHigherOrderComponent } from '@wordpress/compose';
-import { select, useSelect } from '@wordpress/data';
+import { select, subscribe, useSelect } from '@wordpress/data';
 import { useEffect } from '@wordpress/element';
 import { addFilter } from '@wordpress/hooks';
 
+import icons from './icons.json';
 import { WIDGET_TYPES } from './widget-types';
+
+/** Font Awesome's check, the icon of a new icon list's lines (Elementor's). */
+const CHECK =
+	'<svg aria-hidden="true" class="e-font-icon-svg e-fas-check" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><path d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"></path></svg>';
 
 /** Blocks that are not elements of their own. */
 const NOT_ELEMENTS = [ 'harlow/document', 'harlow/site-part' ];
@@ -41,15 +46,30 @@ function everyBlock() {
 	const out = [];
 	const walk = ( ids ) =>
 		ids.forEach( ( id ) => {
-			out.push( [ id, store.getBlockAttributes( id )?.element || '' ] );
+			const attrs = store.getBlockAttributes( id ) || {};
+			out.push( [ id, attrs.element || attrs.widget || '' ] );
 			walk( store.getBlockOrder( id ) );
 		} );
 	walk( store.getBlockOrder() );
 	return out;
 }
 
-/** The blocks the page opened with (their ids are the page's, never changed here). */
+/**
+ * The blocks the page opened with (their ids are the page's, never changed here), noted
+ * when the editor is ready: on a page that opened empty, the first element put in is new
+ * (noted at the first element drawn instead, it was taken for one the page opened with and
+ * got no id, so no Styles tab).
+ */
 let opened = null;
+const stopWatching = subscribe( () => {
+	const editor = select( 'core/editor' );
+	if ( opened === null && editor?.__unstableIsEditorReady?.() ) {
+		opened = new Set( everyBlock().map( ( [ id ] ) => id ) );
+	}
+	if ( opened !== null ) {
+		stopWatching();
+	}
+} );
 
 /**
  * The classes Elementor gives an element of this kind.
@@ -75,10 +95,12 @@ addFilter(
 	createHigherOrderComponent(
 		( BlockEdit ) => ( props ) => {
 			const { name, attributes, setAttributes, clientId } = props;
+			// The element's id: `element`, or `widget` for a list (harlow/loop).
+			const idKey = 'element' in attributes ? 'element' : 'widget';
 			const isElement =
 				name.startsWith( 'harlow/' ) &&
 				! NOT_ELEMENTS.includes( name ) &&
-				'element' in attributes;
+				idKey in attributes;
 			const inParent = useSelect(
 				( s ) =>
 					isElement &&
@@ -110,8 +132,8 @@ addFilter(
 				// Its own id already, no other block has it: nothing to do.
 				const others = blocks.filter( ( [ id ] ) => id !== clientId );
 				if (
-					attributes.element &&
-					! others.some( ( [ , el ] ) => el === attributes.element )
+					attributes[ idKey ] &&
+					! others.some( ( [ , el ] ) => el === attributes[ idKey ] )
 				) {
 					return;
 				}
@@ -120,20 +142,80 @@ addFilter(
 						blocks.map( ( [ , el ] ) => el ).filter( Boolean )
 					)
 				);
-				if ( ! attributes.element ) {
+				if ( ! attributes[ idKey ] ) {
+					// A new element from the inserter starts in the brand's colours and fonts
+					// (modules.css), not Elementor's defaults; one from the section library
+					// comes with the design's own classes.
 					const patch = {
-						element: id,
+						[ idKey ]: id,
 						classes:
 							attributes.classes ||
-							elementClasses( name, inParent ),
+							`${ elementClasses( name, inParent ) } harlow-brand`,
 					};
+					// A new list is Elementor's new loop grid: three columns, two on tablets,
+					// one on phones.
+					if ( name === 'harlow/loop' && ! attributes.classes ) {
+						patch.classes = `elementor-element elementor-grid-3 elementor-grid-tablet-2 elementor-grid-mobile-1 elementor-widget elementor-widget-loop-${
+							attributes.layout === 'carousel'
+								? 'carousel'
+								: 'grid'
+						} harlow-brand`;
+					}
 					if ( name === 'harlow/container' && ! attributes.classes ) {
 						patch.boxed = true;
+					}
+					// A new divider is a line, as Elementor's is (its default style is none).
+					if ( name === 'harlow/divider' && ! attributes.lineStyle ) {
+						patch.lineStyle = 'solid';
+					}
+					// New social icons come with the site's networks, as Elementor's come with
+					// three (the addresses to fill in).
+					if (
+						name === 'harlow/social-icons' &&
+						! ( attributes.items || [] ).length
+					) {
+						patch.items = [
+							[ 'facebook', 'Facebook' ],
+							[ 'instagram', 'Instagram' ],
+							[ 'linkedin', 'Linkedin' ],
+							[ 'x-twitter', 'X-twitter' ],
+						].map( ( [ network, label ] ) => ( {
+							label,
+							link: '',
+							icon:
+								icons.find( ( svg ) =>
+									svg.includes( `e-fab-${ network } ` )
+								) ||
+								icons.find( ( svg ) =>
+									svg.includes( `e-fab-${ network }"` )
+								) ||
+								'',
+							linkClass: `elementor-icon elementor-social-icon elementor-social-icon-${ network }`,
+						} ) );
+					}
+					// A new icon list has Elementor's three lines with a check, to write over.
+					if (
+						name === 'harlow/icon-list' &&
+						! ( attributes.items || [] ).length
+					) {
+						patch.items = [ 1, 2, 3 ].map( ( n ) => ( {
+							text: `List Item #${ n }`,
+							icon: CHECK,
+						} ) );
+					}
+					// A new menu is Elementor's new menu: the site's main menu, across, an underline
+					// under the link pointed at, a burger and a dropdown on tablets and phones.
+					if ( name === 'harlow/nav-menu' && ! attributes.classes ) {
+						patch.menu = attributes.menu || 'primary';
+						patch.classes =
+							'elementor-element elementor-nav-menu--dropdown-tablet elementor-nav-menu__text-align-aside elementor-nav-menu--toggle elementor-nav-menu--burger elementor-widget elementor-widget-nav-menu harlow-brand';
+						patch.navClass =
+							'elementor-nav-menu--main elementor-nav-menu__container elementor-nav-menu--layout-horizontal e--pointer-underline e--animation-fade';
 					}
 					setAttributes( patch );
 				} else {
 					// A copy of another element: a new id, the same classes.
-					setAttributes( { element: id } );
+					setAttributes( { [ idKey ]: id } );
 				}
 				// eslint-disable-next-line react-hooks/exhaustive-deps
 			}, [ clientId, isElement ] );

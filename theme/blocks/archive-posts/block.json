@@ -3,6 +3,7 @@
 	"apiVersion": 3,
 	"name": "harlow/archive-posts",
 	"title": "Archive Posts",
+	"icon": "grid-view",
 	"category": "theme",
 	"description": "The posts of the category, tag, author, date or search being shown, as cards in columns, with the list's pager (Elementor Pro's archive posts widget).",
 	"textdomain": "harlow",
@@ -208,7 +209,8 @@
 	"supports": {
 		"html": false,
 		"className": false,
-		"customClassName": false
+		"customClassName": false,
+		"customCSS": false
 	},
 	"example": {
 		"attributes": {

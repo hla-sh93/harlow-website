@@ -3,6 +3,7 @@
 	"apiVersion": 3,
 	"name": "harlow/reviews",
 	"title": "Reviews",
+	"icon": "star-half",
 	"category": "widgets",
 	"description": "Slides of reviews: who wrote them, their rating, the network they came from and what they said.",
 	"textdomain": "harlow",
@@ -161,7 +162,8 @@
 	"supports": {
 		"html": false,
 		"className": false,
-		"customClassName": false
+		"customClassName": false,
+		"customCSS": false
 	},
 	"example": {
 		"attributes": {

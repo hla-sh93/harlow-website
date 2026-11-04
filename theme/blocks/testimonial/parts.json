@@ -19,7 +19,10 @@
 				"size",
 				"border",
 				"shadow"
-			]
+			],
+			"when": {
+				"image": "*"
+			}
 		},
 		{
 			"key": "name",

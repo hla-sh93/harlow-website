@@ -3,6 +3,7 @@
 	"apiVersion": 3,
 	"name": "harlow/slides",
 	"title": "Slides",
+	"icon": "slides",
 	"category": "media",
 	"description": "Full-width slides, each with a background, a heading, words and a button, that move by themselves.",
 	"textdomain": "harlow",
@@ -144,7 +145,8 @@
 	"supports": {
 		"html": false,
 		"className": false,
-		"customClassName": false
+		"customClassName": false,
+		"customCSS": false
 	},
 	"example": {
 		"attributes": {

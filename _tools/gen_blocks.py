@@ -16,7 +16,8 @@ Writes, for the installer:
   theme/pages/<name>.html          each page's blocks (the page's "original")
   theme/pages/_major-clients.html  the synced pattern's blocks
 and the section library and page starters:
-  theme/patterns/section-<n>.php   one section of every shape the pages have
+  theme/patterns/section-<n>.php   every section of every page (a page is made from blank of its
+                                   own sections; Hla, 2026-11-02: new pages from any template or blank)
   theme/patterns/starter-<kind>.php one page of every kind (K1-K6), every section in it
 and live's four single templates (_tools/singles.py), the item's parts showing the item:
   theme/singles/<name>.html        single-post, single-project, single-gallery-item, single-job
@@ -853,6 +854,7 @@ def main(only_names):
     OUT_PAGES.mkdir(parents=True, exist_ok=True)
     OUT_PATTERNS.mkdir(parents=True, exist_ok=True)
     counts, problems, written, sections, starters = {}, [], 0, OrderedDict(), OrderedDict()
+    section_pages = OrderedDict()
     kind_data = OrderedDict()
     clients = None
     for page in site["pages"]:
@@ -880,7 +882,9 @@ def main(only_names):
                 count(i)
         for b in blocks:
             count(b)
-            sections.setdefault(shape(b), (name, b))
+            sections[(name, len(sections))] = (name, b)
+            if b[1].get("element"):
+                section_pages[b[1]["element"]] = name
         content = joined(blocks, between)
         page_block = ("document", OrderedDict(docType="wp-page", docId=int(holder.get("data-elementor-id")),
                                               postType="page"), blocks, None, between)
@@ -898,7 +902,7 @@ def main(only_names):
             title = f"{heading_text[:48].title()} ({name})"
             (OUT_PATTERNS / f"section-{n:02d}.php").write_text(
                 pattern_file(f"section-{n:02d}", title, "harlow-sections",
-                             f"A section shaped like this one of the {name} page.", serialize(block)),
+                             f"A section of the {name} page.", serialize(block)),
                 encoding="utf-8", newline="\n")
         by_name = {p["name"]: p for p in site["pages"]}
         for kind, (name, content) in sorted(starters.items()):
@@ -931,7 +935,11 @@ def main(only_names):
             print(f"single template {tid} ({', '.join(info['types'])}) from {source} -> theme/singles/{info['name']}.html")
 
     if not only_names:
-        OUT_KINDS.write_text(json.dumps(OrderedDict(pages=kind_data, singles=single_documents), ensure_ascii=False,
+        # Which page each section is from, and each page's documents: a page made of a page's
+        # sections (from blank, from a pattern of it) loads that page's rules (kinds.php).
+        page_documents = OrderedDict((p["name"], p["documents"]) for p in site["pages"])
+        OUT_KINDS.write_text(json.dumps(OrderedDict(pages=kind_data, singles=single_documents, sections=section_pages,
+                                                    documents=page_documents), ensure_ascii=False,
                                         indent="\t") + "\n", encoding="utf-8", newline="\n")
         print(f"kinds: {len(kind_data)} kinds of page, {len(single_documents)} single templates -> theme/kinds.json")
 
@@ -956,7 +964,7 @@ def main(only_names):
         print("  STOP", p)
     print(f"{written} pages written to theme/pages/, {len(problems)} stopped; blocks: "
           + ", ".join(f"{k} {v}" for k, v in sorted(counts.items(), key=lambda x: -x[1])))
-    print(f"section library: {len(sections)} shapes -> theme/patterns/section-*.php; "
+    print(f"section library: {len(sections)} sections of {len(set(n for n, _ in sections.values()))} pages -> theme/patterns/section-*.php; "
           f"starters: {len(starters)} kinds -> theme/patterns/starter-*.php")
     return 1 if problems else 0
 

@@ -3,6 +3,7 @@
 	"apiVersion": 3,
 	"name": "harlow/lottie",
 	"title": "Lottie",
+	"icon": "controls-play",
 	"category": "media",
 	"description": "A Lottie animation (a JSON file from the Media Library or an address), played on scroll, click, hover or by itself.",
 	"textdomain": "harlow",
@@ -127,7 +128,8 @@
 	"supports": {
 		"html": false,
 		"className": false,
-		"customClassName": false
+		"customClassName": false,
+		"customCSS": false
 	},
 	"example": {
 		"attributes": {

@@ -2,10 +2,9 @@
 	"parts": [
 		{
 			"key": "box",
-			"label": "Box",
+			"label": "Box (border, size)",
 			"selector": " > .elementor-widget-container",
 			"controls": [
-				"background",
 				"border",
 				"shadow",
 				"size"

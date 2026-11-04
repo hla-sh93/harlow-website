@@ -31,8 +31,7 @@
 			"selector": " .elementor-tab-title",
 			"controls": [
 				"background",
-				"padding",
-				"border"
+				"padding"
 			],
 			"states": {
 				"hover": {

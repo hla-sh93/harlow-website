@@ -3,6 +3,7 @@
 	"apiVersion": 3,
 	"name": "harlow/call-to-action",
 	"title": "Call to Action",
+	"icon": "megaphone",
 	"category": "design",
 	"description": "A picture with a title, words and a button, beside it or over it, with a ribbon and hover effects.",
 	"textdomain": "harlow",
@@ -135,7 +136,8 @@
 	"supports": {
 		"html": false,
 		"className": false,
-		"customClassName": false
+		"customClassName": false,
+		"customCSS": false
 	},
 	"example": {
 		"attributes": {

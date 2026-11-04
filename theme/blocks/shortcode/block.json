@@ -3,6 +3,7 @@
 	"apiVersion": 3,
 	"name": "harlow/shortcode",
 	"title": "Shortcode output",
+	"icon": "shortcode",
 	"category": "widgets",
 	"description": "A shortcode (a form) printed by its plugin, or what a plugin printed on live (the group chart).",
 	"textdomain": "harlow",
@@ -39,7 +40,8 @@
 	"supports": {
 		"html": false,
 		"className": false,
-		"customClassName": false
+		"customClassName": false,
+		"customCSS": false
 	},
 	"render": "file:../../includes/sections/shortcode.php"
 }

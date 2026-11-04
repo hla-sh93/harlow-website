@@ -19,6 +19,7 @@
  *                      readable links, the section library's categories
  *   loops.php          the list block (blocks/loop) and what its cards print
  *   singles.php        the item pages: live's single templates
+ *   item-screen.php    an item's edit screen: what it is, where its cards and page are designed
  *   forms.php          Contact Form 7's forms
  *   archives.php       search, categories, dates and authors as live answers them
  *   kinds.php          the kinds of page as page templates, the rules each page loads
@@ -58,6 +59,7 @@ require_once __DIR__ . '/functions/content-types.php';
 require_once __DIR__ . '/functions/blocks.php';
 require_once __DIR__ . '/functions/loops.php';
 require_once __DIR__ . '/functions/singles.php';
+require_once __DIR__ . '/functions/item-screen.php';
 require_once __DIR__ . '/functions/forms.php';
 require_once __DIR__ . '/functions/archives.php';
 require_once __DIR__ . '/functions/kinds.php';
@@ -68,6 +70,7 @@ require_once __DIR__ . '/functions/site-pages.php';
 require_once __DIR__ . '/functions/theme-builder.php';
 require_once __DIR__ . '/functions/dynamic-tags.php';
 require_once __DIR__ . '/functions/site-tools.php';
+require_once __DIR__ . '/functions/security.php';
 
 // What a widget needs on the server, one file per widget (docs/widgets.md).
 foreach ( glob( __DIR__ . '/functions/widgets/*.php' ) as $harlow_widget_file ) {

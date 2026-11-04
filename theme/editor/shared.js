@@ -481,6 +481,25 @@ export function SourceNote( { attributes, widget } ) {
 }
 
 /**
+ * The addresses of pictures picked in this editor, by id: a picture draws as soon as it is
+ * picked, before its record arrives from the REST API (a few seconds).
+ */
+export const PICKED = {};
+
+/**
+ * Note pictures picked from the Media Library (what MediaUpload's onSelect gives).
+ *
+ * @param {Object|Object[]} picked The picture or pictures.
+ */
+export function notePicked( picked ) {
+	for ( const p of [].concat( picked || [] ) ) {
+		if ( p?.id && p.url ) {
+			PICKED[ p.id ] = p.url;
+		}
+	}
+}
+
+/**
  * A picture of the Media Library, by its id: its address, or '' (none chosen, or not
  * loaded yet).
  *
@@ -499,7 +518,9 @@ export function usePictureUrl( id ) {
 						)?.source_url
 					: '',
 			[ id ]
-		) || ''
+		) ||
+		( id && PICKED[ id ] ) ||
+		''
 	);
 }
 
@@ -541,7 +562,10 @@ export function PicturePicker( { label, value, onChange, none } ) {
 				<MediaUpload
 					allowedTypes={ [ 'image' ] }
 					value={ value || undefined }
-					onSelect={ ( picked ) => onChange( picked.id ) }
+					onSelect={ ( picked ) => {
+						notePicked( picked );
+						onChange( picked.id );
+					} }
 					render={ ( { open } ) => (
 						<Button variant="secondary" onClick={ open }>
 							{ value
@@ -666,6 +690,9 @@ export function LinkPanel( { attributes, setAttributes } ) {
 	);
 }
 
+/** The parts of an element's style that print in its markup (harlow_element_attributes()). */
+const MARKUP_STYLE = [ 'classes', 'attributes', 'motion', 'conditions' ];
+
 /**
  * The server's markup of a block, shown as the block's own element: the block's props on
  * its element, so the canvas has the same elements as the page. Markup of several
@@ -685,7 +712,15 @@ export function ServerMarkup( { name, attributes, onMarkup } ) {
 		[]
 	);
 	const [ html, setHtml ] = useState( null );
-	const key = JSON.stringify( attributes );
+	// The server's markup follows the style only where it prints attributes (classes, custom
+	// attributes, motion, conditions: harlow_element_attributes()); the rest of the style is
+	// CSS the canvas draws itself (styles.js), so a colour or a size changed asks nothing of
+	// the server.
+	const style = attributes.style || {};
+	const key = JSON.stringify( {
+		...attributes,
+		style: MARKUP_STYLE.map( ( part ) => style[ part ] ),
+	} );
 	useEffect( () => {
 		let live = true;
 		apiFetch( {

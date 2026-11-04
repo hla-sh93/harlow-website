@@ -5,7 +5,6 @@
 			"label": "Alert",
 			"selector": " .elementor-alert",
 			"controls": [
-				"background",
 				"border",
 				"padding",
 				"shadow"
@@ -45,6 +44,11 @@
 					"label": "Hover",
 					"selector": " .elementor-alert-dismiss:hover"
 				}
+			},
+			"when": {
+				"showDismiss": [
+					true
+				]
 			}
 		}
 	]

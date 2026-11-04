@@ -3,6 +3,7 @@
 	"apiVersion": 3,
 	"name": "harlow/facebook-comments",
 	"title": "Facebook Comments",
+	"icon": "facebook-alt",
 	"category": "embed",
 	"description": "Facebook’s comments box, for this page or another address.",
 	"textdomain": "harlow",
@@ -51,7 +52,8 @@
 	"supports": {
 		"html": false,
 		"className": false,
-		"customClassName": false
+		"customClassName": false,
+		"customCSS": false
 	},
 	"example": {
 		"attributes": {

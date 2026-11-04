@@ -14,7 +14,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 $harlow_inside = '' !== $attributes['shortcode'] ? do_shortcode( $attributes['shortcode'] ) : harlow_resolve_links( $attributes['html'] );
-$harlow_html   = '<div' . harlow_element_attributes( $attributes, 'widget', 'shortcode.default' ) . '>' . "\n"
+// In the editor a shortcode not written yet shows where it goes, so it can be found and styled.
+if ( '' === trim( $harlow_inside ) && wp_is_serving_rest_request() ) {
+	$harlow_inside = '<p class="harlow-source-note">' . esc_html__( '[A shortcode: write it in the sidebar]', 'harlow' ) . '</p>';
+}
+$harlow_html = '<div' . harlow_element_attributes( $attributes, 'widget', 'shortcode.default' ) . '>' . "\n"
 	. '<div class="elementor-widget-container">' . "\n"
 	. '<div class="elementor-shortcode">' . $harlow_inside . '</div>' . "\n"
 	. '</div>' . "\n"

@@ -24,6 +24,11 @@
 					"label": "Hover",
 					"selector": " .elementor-post__read-more:hover"
 				}
+			},
+			"when": {
+				"readMore": [
+					true
+				]
 			}
 		}
 	]

@@ -3,6 +3,7 @@
 	"apiVersion": 3,
 	"name": "harlow/site-logo",
 	"title": "Site Logo",
+	"icon": "admin-site",
 	"category": "theme",
 	"description": "The site's logo, the one the header shows, linked to the home page (Elementor Pro's site logo widget).",
 	"textdomain": "harlow",
@@ -81,7 +82,8 @@
 	"supports": {
 		"html": false,
 		"className": false,
-		"customClassName": false
+		"customClassName": false,
+		"customCSS": false
 	},
 	"example": {
 		"attributes": {

@@ -5,7 +5,6 @@
 			"label": "Image",
 			"selector": " img",
 			"controls": [
-				"size",
 				"border",
 				"shadow",
 				"opacity",
@@ -30,7 +29,13 @@
 				"padding",
 				"margin",
 				"align"
-			]
+			],
+			"when": {
+				"captionSource": [
+					"attachment",
+					"custom"
+				]
+			}
 		}
 	]
 }

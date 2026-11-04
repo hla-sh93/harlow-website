@@ -3,6 +3,7 @@
 	"apiVersion": 3,
 	"name": "harlow/image-box",
 	"title": "Image Box",
+	"icon": "id",
 	"category": "media",
 	"description": "A picture with a title and words, above them or beside them, with a link if wanted.",
 	"textdomain": "harlow",
@@ -71,7 +72,8 @@
 	"supports": {
 		"html": false,
 		"className": false,
-		"customClassName": false
+		"customClassName": false,
+		"customCSS": false
 	},
 	"example": {
 		"attributes": {

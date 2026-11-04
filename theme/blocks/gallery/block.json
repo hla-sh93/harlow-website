@@ -3,6 +3,7 @@
 	"apiVersion": 3,
 	"name": "harlow/gallery",
 	"title": "Gallery",
+	"icon": "format-gallery",
 	"category": "media",
 	"description": "Pictures in a grid that open in the lightbox: chosen here, or the pictures of the item the page shows.",
 	"textdomain": "harlow",
@@ -46,7 +47,8 @@
 	"supports": {
 		"html": false,
 		"className": false,
-		"customClassName": false
+		"customClassName": false,
+		"customCSS": false
 	},
 	"render": "file:../../includes/sections/gallery.php"
 }

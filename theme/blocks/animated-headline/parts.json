@@ -28,24 +28,46 @@
 			"controls": [
 				"color",
 				"opacity"
-			]
+			],
+			"when": {
+				"headlineStyle": [
+					"highlight"
+				]
+			}
 		},
 		{
 			"key": "selected",
-			"label": "Typing: selected text",
+			"label": "While typing: selected words",
 			"selector": " .elementor-headline-typing-selected| .elementor-headline-typing-selected .elementor-headline-dynamic-text",
 			"controls": [
 				"color",
 				"background"
-			]
+			],
+			"when": {
+				"headlineStyle": [
+					"rotate"
+				],
+				"animationType": [
+					"typing"
+				]
+			}
 		},
 		{
 			"key": "cursor",
-			"label": "Typing and clip: cursor",
+			"label": "Cursor (typing and clip)",
 			"selector": " .elementor-headline-dynamic-wrapper:after",
 			"controls": [
 				"background"
-			]
+			],
+			"when": {
+				"headlineStyle": [
+					"rotate"
+				],
+				"animationType": [
+					"typing",
+					"clip"
+				]
+			}
 		}
 	]
 }

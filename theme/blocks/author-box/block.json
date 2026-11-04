@@ -3,6 +3,7 @@
 	"apiVersion": 3,
 	"name": "harlow/author-box",
 	"title": "Author Box",
+	"icon": "admin-users",
 	"category": "theme",
 	"description": "The picture, name, biography and posts of the author of the item the page shows, or of an author you type in (Elementor Pro's author box widget).",
 	"textdomain": "harlow",
@@ -112,7 +113,8 @@
 	"supports": {
 		"html": false,
 		"className": false,
-		"customClassName": false
+		"customClassName": false,
+		"customCSS": false
 	},
 	"example": {
 		"attributes": {

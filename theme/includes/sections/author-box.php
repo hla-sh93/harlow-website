@@ -36,6 +36,10 @@ if ( $attributes['name'] && '' !== $harlow_author['name'] ) {
 		. '<' . $harlow_name . ' class="elementor-author-box__name">' . esc_html( $harlow_author['name'] ) . '</' . $harlow_name . '>' . "\n"
 		. '</' . $harlow_tag . '>' . "\n";
 }
+// In the editor an author with no biography yet shows where it goes, so it can be styled.
+if ( $attributes['bio'] && '' === trim( $harlow_author['bio'] ) && wp_is_serving_rest_request() ) {
+	$harlow_author['bio'] = esc_html__( 'The author’s biography (Users → Profile → Biographical Info).', 'harlow' );
+}
 if ( $attributes['bio'] && '' !== trim( $harlow_author['bio'] ) ) {
 	$harlow_box .= '<div class="elementor-author-box__bio">' . "\n" . wp_kses_post( $harlow_author['bio'] ) . "\n" . '</div>' . "\n";
 }

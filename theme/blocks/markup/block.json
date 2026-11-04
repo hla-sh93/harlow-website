@@ -3,6 +3,7 @@
 	"apiVersion": 3,
 	"name": "harlow/markup",
 	"title": "HTML",
+	"icon": "editor-code",
 	"category": "text",
 	"description": "One element of a text written as HTML, as the text of an older page has it (words beside a form button, a spacer).",
 	"textdomain": "harlow",
@@ -15,7 +16,8 @@
 	"supports": {
 		"html": false,
 		"className": false,
-		"customClassName": false
+		"customClassName": false,
+		"customCSS": false
 	},
 	"render": "file:../../includes/sections/markup.php"
 }

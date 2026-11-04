@@ -3,6 +3,7 @@
 	"apiVersion": 3,
 	"name": "harlow/alert",
 	"title": "Alert",
+	"icon": "warning",
 	"category": "text",
 	"description": "A coloured notice (info, success, warning, danger) with a title, words and a button that closes it.",
 	"textdomain": "harlow",
@@ -51,7 +52,8 @@
 	"supports": {
 		"html": false,
 		"className": false,
-		"customClassName": false
+		"customClassName": false,
+		"customCSS": false
 	},
 	"example": {
 		"attributes": {

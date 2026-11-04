@@ -350,6 +350,8 @@ function harlow_editor_assets() {
 				),
 				// The roles a display condition may name.
 				'roles'         => array_map( 'translate_user_role', wp_roles()->get_names() ),
+				// An item's screen: where its cards and its page are designed (item-screen.php).
+				'item'          => harlow_item_screen( $post ),
 			)
 		) . ';',
 		'before'

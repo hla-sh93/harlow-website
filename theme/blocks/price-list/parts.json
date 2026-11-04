@@ -54,7 +54,14 @@
 				"size",
 				"border",
 				"shadow"
-			]
+			],
+			"when": {
+				"items": {
+					"any": {
+						"image": "*"
+					}
+				}
+			}
 		},
 		{
 			"key": "imageSpacing",
@@ -63,7 +70,14 @@
 			"controls": [
 				"padding",
 				"size"
-			]
+			],
+			"when": {
+				"items": {
+					"any": {
+						"image": "*"
+					}
+				}
+			}
 		},
 		{
 			"key": "item",

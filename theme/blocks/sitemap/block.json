@@ -3,6 +3,7 @@
 	"apiVersion": 3,
 	"name": "harlow/sitemap",
 	"title": "Sitemap",
+	"icon": "networking",
 	"category": "widgets",
 	"description": "Lists of the site's pages, posts, items and categories, in columns (Elementor Pro's sitemap widget).",
 	"textdomain": "harlow",
@@ -94,7 +95,8 @@
 	"supports": {
 		"html": false,
 		"className": false,
-		"customClassName": false
+		"customClassName": false,
+		"customCSS": false
 	},
 	"example": {
 		"attributes": {

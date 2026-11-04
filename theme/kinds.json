@@ -119,5 +119,243 @@
 				"post-1066"
 			]
 		}
+	},
+	"sections": {
+		"8742a8a": "index",
+		"ef72c36": "al-khairat-thermal-power-plant-iraq",
+		"46b4cf6": "al-khairat-thermal-power-plant-iraq",
+		"f883846": "al-khairat-thermal-power-plant-iraq",
+		"b0f3f15": "al-khairat-thermal-power-plant-iraq",
+		"58deba3": "al-khairat-thermal-power-plant-iraq",
+		"59f8844": "al-khairat-thermal-power-plant-iraq",
+		"096c81e": "al-khairat-thermal-power-plant-iraq",
+		"8ff66f2": "al-khairat-thermal-power-plant-iraq",
+		"9fa45f5": "construction-iraq",
+		"8fa4027": "construction-iraq",
+		"d515d82": "construction-iraq",
+		"d8ed4c3": "construction-iraq",
+		"79287a1": "consultancy-iraq",
+		"ef76821": "consultancy-iraq",
+		"4bbeb06": "consultancy-iraq",
+		"38db2e1": "consultancy-iraq",
+		"9e0846b": "consultancy-iraq",
+		"a9e3c3b": "consultancy-iraq",
+		"79afee5": "drc-cement-plant-iraq",
+		"4eb5d11": "drc-cement-plant-iraq",
+		"424ec8e": "drc-cement-plant-iraq",
+		"b003f23": "drc-cement-plant-iraq",
+		"57758c5": "drc-cement-plant-iraq",
+		"25f214b": "security-services-iraq",
+		"68c2515": "security-services-iraq",
+		"3de632f": "security-services-iraq",
+		"8fbc04c": "security-services-iraq",
+		"c5c26a4": "security-services-iraq",
+		"bebd5cc": "smart-metering-iraq",
+		"dcfb7b9": "smart-metering-iraq",
+		"542d993": "smart-metering-iraq",
+		"3552a04": "smart-metering-iraq",
+		"5b30cf5": "smart-metering-iraq",
+		"e2e5c9e": "smart-metering-iraq",
+		"667af29": "smart-metering-iraq",
+		"1e1170a": "about-us",
+		"7f478c9": "about-us",
+		"16ecae7": "about-us",
+		"7ad0296": "about-us",
+		"bba882e": "about-us",
+		"4b0d7d7": "about-us",
+		"57aefe3": "about-us",
+		"d646266": "about-us",
+		"89e0403": "about-us",
+		"08a85ff": "energy-and-smart-solutions",
+		"13f4729": "energy-and-smart-solutions",
+		"4df944c": "energy-and-smart-solutions",
+		"d889869": "energy-and-smart-solutions",
+		"060f7eb": "industrial",
+		"7004fcd": "industrial",
+		"1acada5": "industrial",
+		"25c75be": "security-services",
+		"e923730": "security-services",
+		"92d8ca9": "security-services",
+		"c59a373": "security-services",
+		"410f9ef": "blog",
+		"1607f84": "blog",
+		"bbf6caa": "blog",
+		"f9191cf": "harlows-people",
+		"43925d2": "harlows-people",
+		"15e2ee3": "harlows-people",
+		"40b6e7af": "latest-news",
+		"5ad438c3": "latest-news",
+		"25ebe677": "latest-news",
+		"d097b82": "photo-gallery",
+		"830a6fe": "photo-gallery",
+		"58f41a7": "photo-gallery",
+		"4409182": "work-with-us",
+		"75a2911": "work-with-us",
+		"6cb3f48": "work-with-us",
+		"71ec7c2": "work-with-us",
+		"fb17ec1": "application-process",
+		"d023cd8": "application-process",
+		"29bd949": "application-process",
+		"b8c713e": "contact-us",
+		"83c6b87": "contact-us",
+		"23236ba": "contact-us",
+		"df4b3b1": "contact-us",
+		"dbfdb2f": "corporate-policies",
+		"15591b5": "corporate-policies",
+		"a190c33": "corporate-policies",
+		"54766a8": "corporate-policies",
+		"d9e606d": "corporate-policies",
+		"5dc7d5e": "faq",
+		"829b882": "faq",
+		"34a6de3": "faq",
+		"8097490": "policy",
+		"f7c7e59": "policy",
+		"ce87254": "policy",
+		"35684d6": "sitemap",
+		"052aff0": "sitemap",
+		"62f519c": "sitemap"
+	},
+	"documents": {
+		"index": [
+			"post-17",
+			"loop-1092",
+			"loop-1073",
+			"post-1179",
+			"post-5532",
+			"post-1066"
+		],
+		"al-khairat-thermal-power-plant-iraq": [
+			"post-2962",
+			"post-1179",
+			"post-5532",
+			"post-1066"
+		],
+		"construction-iraq": [
+			"post-2966",
+			"post-1179",
+			"loop-4279",
+			"post-5532",
+			"post-1066"
+		],
+		"consultancy-iraq": [
+			"post-2974",
+			"post-1179",
+			"post-5532",
+			"post-1066"
+		],
+		"drc-cement-plant-iraq": [
+			"post-2970",
+			"post-1179",
+			"post-5532",
+			"post-1066"
+		],
+		"security-services-iraq": [
+			"post-2968",
+			"post-1179",
+			"post-5532",
+			"post-1066"
+		],
+		"smart-metering-iraq": [
+			"post-2964",
+			"post-1179",
+			"post-5532",
+			"post-1066"
+		],
+		"about-us": [
+			"post-1224",
+			"post-1179",
+			"loop-2279",
+			"post-5532",
+			"post-1066"
+		],
+		"energy-and-smart-solutions": [
+			"post-5043",
+			"post-1179",
+			"post-5532",
+			"post-1066"
+		],
+		"industrial": [
+			"post-5106",
+			"post-1179",
+			"post-5532",
+			"post-1066"
+		],
+		"security-services": [
+			"post-5092",
+			"post-1179",
+			"post-5532",
+			"post-1066"
+		],
+		"blog": [
+			"post-1491",
+			"post-1179",
+			"loop-1073",
+			"post-5532",
+			"post-1066"
+		],
+		"harlows-people": [
+			"post-2847",
+			"post-1179",
+			"loop-4002",
+			"post-5532",
+			"post-1066"
+		],
+		"latest-news": [
+			"post-9063",
+			"post-1179",
+			"loop-1073",
+			"post-5532",
+			"post-1066"
+		],
+		"photo-gallery": [
+			"post-1489",
+			"post-1179",
+			"loop-2552",
+			"post-5532",
+			"post-1066"
+		],
+		"work-with-us": [
+			"post-2849",
+			"post-1179",
+			"loop-4058",
+			"post-5532",
+			"post-1066"
+		],
+		"application-process": [
+			"post-2851",
+			"post-1179",
+			"post-5532",
+			"post-1066"
+		],
+		"contact-us": [
+			"post-1212",
+			"post-1179",
+			"post-5532",
+			"post-1066"
+		],
+		"corporate-policies": [
+			"post-4955",
+			"post-1179",
+			"post-5532",
+			"post-1066"
+		],
+		"faq": [
+			"post-1208",
+			"post-1179",
+			"post-5532",
+			"post-1066"
+		],
+		"policy": [
+			"post-5584",
+			"post-1179",
+			"post-5532",
+			"post-1066"
+		],
+		"sitemap": [
+			"post-6254",
+			"post-1179",
+			"post-5532",
+			"post-1066"
+		]
 	}
 }

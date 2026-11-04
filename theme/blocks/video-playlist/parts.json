@@ -81,7 +81,12 @@
 			"controls": [
 				"color",
 				"typography"
-			]
+			],
+			"when": {
+				"showDuration": [
+					true
+				]
+			}
 		},
 		{
 			"key": "thumbnail",
@@ -91,7 +96,12 @@
 				"size",
 				"border",
 				"opacity"
-			]
+			],
+			"when": {
+				"showThumbnails": [
+					true
+				]
+			}
 		},
 		{
 			"key": "section",

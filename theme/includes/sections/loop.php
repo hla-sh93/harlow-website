@@ -63,7 +63,7 @@ if ( $harlow_plain ) {
 	return;
 }
 ?>
-<div class="<?php echo esc_attr( $attributes['classes'] ); ?>" data-id="<?php echo esc_attr( $attributes['widget'] ); ?>" data-element_type="widget" data-e-type="widget" data-settings="<?php echo esc_attr( $attributes['settings'] ); ?>" data-widget_type="<?php echo $harlow_carousel ? 'loop-carousel.post' : 'loop-grid.post'; ?>">
+<div<?php echo '' !== $attributes['htmlId'] ? ' id="' . esc_attr( $attributes['htmlId'] ) . '"' : ''; ?> class="<?php echo esc_attr( $attributes['classes'] ); ?>" data-id="<?php echo esc_attr( $attributes['widget'] ); ?>" data-element_type="widget" data-e-type="widget" data-settings="<?php echo esc_attr( $attributes['settings'] ); ?>" data-widget_type="<?php echo $harlow_carousel ? 'loop-carousel.post' : 'loop-grid.post'; ?>">
 	<div class="elementor-widget-container">
 		<?php if ( $harlow_carousel ) : ?>
 		<div class="swiper elementor-loop-container elementor-grid" role="list" dir="ltr">
@@ -92,6 +92,13 @@ if ( $harlow_plain ) {
 			<?php echo '' !== $attributes['iconNext'] ? harlow_icon( $attributes['iconNext'] ) : '<svg aria-hidden="true" class="e-font-icon-svg e-fas-arrow-right" viewBox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><path d="M190.5 66.9l22.2-22.2c9.4-9.4 24.6-9.4 33.9 0L441 239c9.4 9.4 9.4 24.6 0 33.9L246.6 467.3c-9.4 9.4-24.6 9.4-33.9 0l-22.2-22.2c-9.5-9.5-9.3-25 .4-34.3L311.4 296H24c-13.3 0-24-10.7-24-24v-32c0-13.3 10.7-24 24-24h287.4L190.9 101.2c-9.8-9.3-10-24.8-.4-34.3z"></path></svg>'; ?>
 
 		</div>
+			<?php if ( ! empty( $attributes['dots'] ) && $harlow_items->post_count > 1 ) : ?>
+		<div class="swiper-pagination swiper-pagination-clickable swiper-pagination-bullets swiper-pagination-horizontal">
+				<?php for ( $harlow_dot = 0; $harlow_dot < $harlow_items->post_count; $harlow_dot++ ) : ?>
+			<span class="swiper-pagination-bullet<?php echo 0 === $harlow_dot ? ' swiper-pagination-bullet-active' : ''; ?>" tabindex="0" role="button" aria-label="<?php /* translators: %d: a slide's number */ echo esc_attr( sprintf( __( 'Go to slide %d', 'harlow' ), $harlow_dot + 1 ) ); ?>"></span>
+				<?php endfor; ?>
+		</div>
+			<?php endif; ?>
 		<?php endif; ?>
 		<?php if ( 'numbers' === $attributes['pagination'] && $harlow_pages > 1 ) : ?>
 		<div class="e-load-more-anchor" data-page="<?php echo esc_attr( (string) $harlow_page ); ?>" data-max-page="<?php echo esc_attr( (string) $harlow_pages ); ?>" data-next-page="<?php echo esc_url( $harlow_permalink . ( $harlow_page + 1 ) . '/' ); /* the next page even on the last, as Elementor writes it */ ?>"></div>

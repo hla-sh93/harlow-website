@@ -3,6 +3,7 @@
 	"apiVersion": 3,
 	"name": "harlow/google-maps",
 	"title": "Google Maps",
+	"icon": "location-alt",
 	"category": "embed",
 	"description": "A place on Google's map, found by its address.",
 	"textdomain": "harlow",
@@ -56,7 +57,8 @@
 	"supports": {
 		"html": false,
 		"className": false,
-		"customClassName": false
+		"customClassName": false,
+		"customCSS": false
 	},
 	"example": {
 		"attributes": {

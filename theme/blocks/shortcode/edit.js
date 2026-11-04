@@ -73,7 +73,14 @@ function Markup( { attributes, setAttributes } ) {
 					<div
 						className="elementor-shortcode"
 						dangerouslySetInnerHTML={ {
-							__html: resolveLinks( attributes.html ),
+							// A shortcode not written yet shows where it goes, as the server's
+							// markup does in the editor.
+							__html: attributes.html
+								? resolveLinks( attributes.html )
+								: `<p class="harlow-source-note">${ __(
+										'[A shortcode: write it in the sidebar]',
+										'harlow'
+									) }</p>`,
 						} }
 					/>
 					{ '\n' }

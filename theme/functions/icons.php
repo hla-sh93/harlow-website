@@ -66,3 +66,37 @@ function harlow_icons_clean_upload( $file ) {
 	return $file;
 }
 add_filter( 'wp_handle_upload_prefilter', 'harlow_icons_clean_upload' );
+// The REST API's uploads (the editor's, the Media Library's drag and drop) are sideloads.
+add_filter( 'wp_handle_sideload_prefilter', 'harlow_icons_clean_upload' );
+
+/**
+ * An SVG's size in its attachment's data, from its width and height or its viewBox:
+ * WordPress takes an SVG for a picture and reads its size there (the REST API warned on
+ * every upload without it), and the Media Library shows it.
+ *
+ * @param array<string,mixed> $metadata      The attachment's data.
+ * @param int                 $attachment_id The attachment.
+ * @return array<string,mixed>
+ */
+function harlow_icons_metadata( $metadata, $attachment_id ) {
+	if ( 'image/svg+xml' !== get_post_mime_type( $attachment_id ) ) {
+		return $metadata;
+	}
+	$file   = get_attached_file( $attachment_id );
+	$svg    = $file && is_readable( $file ) ? (string) file_get_contents( $file ) : ''; // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents -- the uploaded file, on this server.
+	$open   = preg_match( '/<svg\b[^>]*>/i', $svg, $m ) ? $m[0] : '';
+	$size   = static function ( $name ) use ( $open ) {
+		return preg_match( '/\s' . $name . '\s*=\s*["\']\s*([\d.]+)\s*(px)?\s*["\']/i', $open, $m ) ? (float) $m[1] : 0;
+	};
+	$width  = $size( 'width' );
+	$height = $size( 'height' );
+	if ( ( ! $width || ! $height ) && preg_match( '/\sviewBox\s*=\s*["\']\s*[-\d.]+[\s,]+[-\d.]+[\s,]+([\d.]+)[\s,]+([\d.]+)/i', $open, $m ) ) {
+		$width  = (float) $m[1];
+		$height = (float) $m[2];
+	}
+	$metadata           = is_array( $metadata ) ? $metadata : array();
+	$metadata['width']  = (int) round( $width );
+	$metadata['height'] = (int) round( $height );
+	return $metadata;
+}
+add_filter( 'wp_generate_attachment_metadata', 'harlow_icons_metadata', 10, 2 );

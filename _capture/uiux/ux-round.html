@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Editor UX round</title>
+<style>
+  :root { --ink: #14171a; --muted: #5b6470; --line: #e3e6ea; --bg: #ffffff; --soft: #f6f7f9; --accent: #0165a1; }
+  body { margin: 0; font: 15px/1.6 "Segoe UI", Tahoma, sans-serif; color: var(--ink); background: var(--bg); }
+  main { max-width: 1180px; margin: 0 auto; padding: 32px 16px 64px; }
+  h1 { font-size: 26px; margin: 0 0 4px; }
+  h2 { font-size: 19px; margin: 40px 0 12px; padding-top: 16px; border-top: 1px solid var(--line); }
+  h3 { font-size: 15px; margin: 18px 0 6px; }
+  .muted { color: var(--muted); }
+  .pair { display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); align-items: start; }
+  figure { margin: 0; border: 1px solid var(--line); border-radius: 12px; overflow: hidden; background: var(--soft); }
+  figure img { display: block; width: 100%; height: auto; }
+  figure.narrow img { max-width: 300px; margin: 0 auto; }
+  figcaption { padding: 10px 12px; font-size: 13px; color: var(--muted); background: #fff; border-top: 1px solid var(--line); }
+  .tag { display: inline-block; font-size: 12px; padding: 1px 8px; border-radius: 8px; border: 1px solid var(--line); color: var(--muted); }
+  .before { color: #b42318; border-color: #f3c3bd; }
+  .after { color: #067647; border-color: #b7e4c7; }
+  .ltr { direction: ltr; unicode-bidi: isolate; }
+  ol, ul { padding-inline-start: 20px; }
+  li { margin-bottom: 4px; }
+</style>
+</head>
+<body>
+<main>
+  <h1>المحرّر بعد جولة الـ UX</h1>
+  <p class="muted">الشريط الجانبي، إضافة مشروع أو خبر جديد، تصميم الكروت، والروابط. كل الصور من المحرّر الحقيقي عندنا.</p>
+
+  <h2>١. الشريط الجانبي (Styles) صار Property panel</h2>
+  <div class="pair">
+    <figure><img src="issue3-styles-open.png" alt=""><figcaption><span class="tag before">قبل</span> أسماء طويلة بأحرف كبيرة، حقول بعرض كامل، والأزرار كلمات.</figcaption></figure>
+    <figure class="narrow"><img src="gate2-v5-edited.png" alt=""><figcaption><span class="tag after">بعد</span> العنوان: Style وAdvanced فوق وبيضلّوا ظاهرين، الأجهزة أيقونات، كل خاصية بسطر، نقطة زرقا وReset للمجموعة المعدّلة.</figcaption></figure>
+    <figure class="narrow"><img src="roll-container-side.png" alt=""><figcaption><span class="tag after">بعد</span> الـ Container: الـ Layout أول شي ومفتوح، الاتجاه والـ Justify والـ Align أيقونات متل Elementor.</figcaption></figure>
+  </div>
+  <ul>
+    <li><b>Advanced</b> فيه: Position، Transform and hover، Motion، ID والـ classes، Display conditions، Custom CSS. التبويب يلي بتختاريه بيضل لما تنتقلي لعنصر تاني.</li>
+    <li>اسم الجزء ما عاد يتكرر بكل سطر ("Title: Size" صار "Size" تحت مجموعة Title).</li>
+    <li>القيم والـ CSS يلي بتطلع على الصفحة ما تغيّروا، فكل تعديل قديم بيضل متل ما هو.</li>
+  </ul>
+
+  <h2>٢. مشروع أو خبر جديد</h2>
+  <div class="pair">
+    <figure><img src="issue1-new-project.png" alt=""><figcaption><span class="tag before">قبل</span> صفحة فاضية "Type / to choose a block"، والحقول تحت بـ Meta Boxes.</figcaption></figure>
+    <figure><img src="item-v1-new-project.png" alt=""><figcaption><span class="tag after">بعد</span> "Project name" بمكان العنوان، والنص بيشرح شو بينكتب ووين بيطلع، وملاحظة فوق بتقول وين الحقول.</figcaption></figure>
+    <figure class="narrow"><img src="item-v5-project-side.png" alt=""><figcaption><span class="tag after">بعد</span> لوحة Project details: شو هو المشروع ووين بيطلع، الوصف القصير والسنة والصور، وتحت: Page design وCards on: الصفحة يلي فيها كروته، وNew card design.</figcaption></figure>
+  </div>
+  <p>نفس الشي للأخبار والمقالات والوظائف والـ Business models والأشخاص والـ Testimonials، كل نوع بكلامه وحقوله.</p>
+
+  <h2>٣. تصميم الكروت</h2>
+  <div class="pair">
+    <figure class="narrow"><img src="roll-loop2-side.png" alt=""><figcaption><span class="tag after">جديد</span> بتحدّدي الـ List بالصفحة، وتحت Styles: Card، Card: picture، Card: title، Card: text، Card: button، وكل وحدة فيها Normal وHover.</figcaption></figure>
+  </div>
+  <ul>
+    <li>التعديل بيمشي على كل كروت هالـ List مرة وحدة.</li>
+    <li>إذا بدك ترتيب كرت مختلف كلياً: New card design بيفتح Theme Builder على "List card"، وبعدين بتختاريه من إعدادات الـ List (Card).</li>
+    <li>والـ Carousel صار فيه Dots (Settings → Carousel → Dots).</li>
+  </ul>
+
+  <h2>٤. الروابط</h2>
+  <div class="pair">
+    <figure><img src="issue2-link-search.png" alt=""><figcaption><span class="tag before">قبل</span> مربع بحث صغير بس.</figcaption></figure>
+    <figure><img src="link-v3-picked.png" alt=""><figcaption><span class="tag after">بعد</span> بتحدّدي الكلام وبتضغطي Ctrl+K أو Link: Page of the site (قائمة بكل الصفحات والمشاريع والأخبار مع بحث)، Part of the page، Or an address، Open in a new tab، وApply.</figcaption></figure>
+  </div>
+  <p>الرابط لصفحة من الموقع بينحفظ باسمها، فإذا تغيّر عنوان الصفحة بعدين الرابط بيلحقها.</p>
+
+  <h2>٥. مشاكل لقيتها وصلّحتها بالطريق</h2>
+  <ul>
+    <li>حقول المشروع والـ Business model والـ Testimonial ما كانت توصل للمحرّر الجديد أبداً (WordPress ما كان يبعتها)، صارت توصل وتنحفظ.</li>
+    <li>الـ Carousel تبع الـ List كان فيه مجموعة Dots ما بتعمل شي لأنو ما في Dots أصلاً، هلّق في.</li>
+    <li>الـ Gallery كانت ما تبيّن بالمحرّر (ارتفاعها صفر)، والـ Table of contents والـ Shortcode الفاضيين كمان، هلّق بيبيّنوا.</li>
+    <li>Rank Math كان يرجّع نافذة الرابط القديمة فوق الجديدة، انحلّت.</li>
+    <li>إذا كتبتي CSS ID للـ List، كانت تختفي بالمحرّر (السيرفر يرفض الطلب). صار إلها CSS ID متل كل العناصر، وحقل الـ CSS ID ما بيطلع إلا للعنصر يلي بيقبله.</li>
+    <li>مجموعات الصورة (بالـ Testimonial والـ Reviews والـ Price list) كانت تطلع قبل ما تختاري صورة، وما تعمل شي. هلّق بتطلع لما يكون في صورة.</li>
+    <li>خيارات ما إلها أثر (Text stroke على الحرف الأول الكبير) انشالت، متل ما طلبتي: ولا خيار ما بيعمل شي.</li>
+  </ul>
+</main>
+</body>
+</html>

@@ -76,22 +76,25 @@ function Empty( { attributes, onSelect } ) {
 	);
 	return (
 		<div { ...blockProps }>
-			<MediaPlaceholder
-				icon="format-gallery"
-				labels={ {
-					title: __( 'Basic Gallery', 'harlow' ),
-					instructions: __(
-						'Choose the pictures of the gallery, or upload them.',
-						'harlow'
-					),
-				} }
-				allowedTypes={ [ 'image' ] }
-				multiple
-				gallery
-				onSelect={ ( items ) =>
-					onSelect( items.map( ( item ) => item.id ) )
-				}
-			/>
+			{ /* In the widget's box, as Elementor's element: its spacing and border show. */ }
+			<div className="elementor-widget-container">
+				<MediaPlaceholder
+					icon="format-gallery"
+					labels={ {
+						title: __( 'Basic Gallery', 'harlow' ),
+						instructions: __(
+							'Choose the pictures of the gallery, or upload them.',
+							'harlow'
+						),
+					} }
+					allowedTypes={ [ 'image' ] }
+					multiple
+					gallery
+					onSelect={ ( items ) =>
+						onSelect( items.map( ( item ) => item.id ) )
+					}
+				/>
+			</div>
 		</div>
 	);
 }

@@ -3,6 +3,7 @@
 	"apiVersion": 3,
 	"name": "harlow/post-featured-image",
 	"title": "Featured Image",
+	"icon": "format-image",
 	"category": "theme",
 	"description": "The featured picture of the item the page shows, with its link and caption (Elementor Pro's featured image widget).",
 	"textdomain": "harlow",
@@ -86,7 +87,8 @@
 	"supports": {
 		"html": false,
 		"className": false,
-		"customClassName": false
+		"customClassName": false,
+		"customCSS": false
 	},
 	"example": {
 		"attributes": {

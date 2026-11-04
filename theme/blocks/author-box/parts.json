@@ -19,7 +19,12 @@
 				"size",
 				"border",
 				"shadow"
-			]
+			],
+			"when": {
+				"avatar": [
+					true
+				]
+			}
 		},
 		{
 			"key": "gap",
@@ -27,7 +32,12 @@
 			"selector": " .elementor-author-box__avatar",
 			"controls": [
 				"margin"
-			]
+			],
+			"when": {
+				"avatar": [
+					true
+				]
+			}
 		},
 		{
 			"key": "name",
@@ -38,7 +48,12 @@
 				"typography",
 				"textShadow",
 				"margin"
-			]
+			],
+			"when": {
+				"name": [
+					true
+				]
+			}
 		},
 		{
 			"key": "bio",
@@ -49,7 +64,12 @@
 				"typography",
 				"textShadow",
 				"margin"
-			]
+			],
+			"when": {
+				"bio": [
+					true
+				]
+			}
 		},
 		{
 			"key": "button",
@@ -69,6 +89,11 @@
 					"label": "Hover",
 					"selector": " .elementor-author-box__button:hover"
 				}
+			},
+			"when": {
+				"button": [
+					true
+				]
 			}
 		}
 	]

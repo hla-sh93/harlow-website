@@ -3,6 +3,7 @@
 	"apiVersion": 3,
 	"name": "harlow/spacer",
 	"title": "Spacer",
+	"icon": "image-flip-vertical",
 	"category": "design",
 	"description": "Empty space between elements, as tall as it is set for each device.",
 	"textdomain": "harlow",
@@ -55,7 +56,8 @@
 	"supports": {
 		"html": false,
 		"className": false,
-		"customClassName": false
+		"customClassName": false,
+		"customCSS": false
 	},
 	"example": {
 		"attributes": {

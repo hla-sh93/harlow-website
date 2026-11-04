@@ -3,6 +3,7 @@
 	"apiVersion": 3,
 	"name": "harlow/facebook-page",
 	"title": "Facebook Page",
+	"icon": "facebook-alt",
 	"category": "embed",
 	"description": "A Facebook page: its timeline, events or messages.",
 	"textdomain": "harlow",
@@ -61,7 +62,8 @@
 	"supports": {
 		"html": false,
 		"className": false,
-		"customClassName": false
+		"customClassName": false,
+		"customCSS": false
 	},
 	"example": {
 		"attributes": {

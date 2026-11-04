@@ -17,13 +17,12 @@
 		},
 		{
 			"key": "content",
-			"label": "Content (alignment, padding, height, background)",
+			"label": "Content (alignment, padding, height)",
 			"selector": " .elementor-cta__content",
 			"controls": [
 				"align",
 				"padding",
-				"size",
-				"background"
+				"size"
 			],
 			"states": {
 				"hover": {
@@ -38,7 +37,12 @@
 			"selector": " .elementor-cta__bg-wrapper",
 			"controls": [
 				"size"
-			]
+			],
+			"when": {
+				"hasImage": [
+					true
+				]
+			}
 		},
 		{
 			"key": "graphicImage",
@@ -49,7 +53,12 @@
 				"border",
 				"shadow",
 				"opacity"
-			]
+			],
+			"when": {
+				"graphic": [
+					"image"
+				]
+			}
 		},
 		{
 			"key": "graphicSpacing",
@@ -57,7 +66,13 @@
 			"selector": " .elementor-cta__image| .elementor-cta__icon",
 			"controls": [
 				"margin"
-			]
+			],
+			"when": {
+				"graphic": [
+					"image",
+					"icon"
+				]
+			}
 		},
 		{
 			"key": "icon",
@@ -75,6 +90,11 @@
 					"label": "Hover",
 					"selector": " .elementor-cta:hover .elementor-cta__icon .elementor-icon"
 				}
+			},
+			"when": {
+				"graphic": [
+					"icon"
+				]
 			}
 		},
 		{
@@ -139,7 +159,10 @@
 				"typography",
 				"background",
 				"shadow"
-			]
+			],
+			"when": {
+				"ribbonTitle": "*"
+			}
 		},
 		{
 			"key": "overlay",

@@ -10,7 +10,12 @@
 				"textShadow",
 				"padding",
 				"margin"
-			]
+			],
+			"when": {
+				"showLabels": [
+					true
+				]
+			}
 		},
 		{
 			"key": "mark",
@@ -18,7 +23,12 @@
 			"selector": " .elementor-mark-required .elementor-field-label::after",
 			"controls": [
 				"color"
-			]
+			],
+			"when": {
+				"markRequired": [
+					true
+				]
+			}
 		},
 		{
 			"key": "field",
@@ -50,7 +60,16 @@
 				"background",
 				"border",
 				"padding"
-			]
+			],
+			"when": {
+				"fields": {
+					"any": {
+						"type": [
+							"upload"
+						]
+					}
+				}
+			}
 		},
 		{
 			"key": "html",
@@ -60,7 +79,16 @@
 				"color",
 				"typography",
 				"padding"
-			]
+			],
+			"when": {
+				"fields": {
+					"any": {
+						"type": [
+							"html"
+						]
+					}
+				}
+			}
 		},
 		{
 			"key": "button",
@@ -102,6 +130,15 @@
 					"label": "Hover",
 					"selector": " .e-form__buttons__wrapper__button-previous:hover"
 				}
+			},
+			"when": {
+				"fields": {
+					"any": {
+						"type": [
+							"step"
+						]
+					}
+				}
 			}
 		},
 		{
@@ -117,11 +154,14 @@
 					"label": "Hover",
 					"selector": " .elementor-button:hover .elementor-button-icon"
 				}
+			},
+			"when": {
+				"buttonIcon": "*"
 			}
 		},
 		{
 			"key": "messages",
-			"label": "Messages",
+			"label": "Messages (shown when the form is sent)",
 			"selector": " .elementor-message",
 			"controls": [
 				"typography",
@@ -130,7 +170,7 @@
 		},
 		{
 			"key": "success",
-			"label": "Success message",
+			"label": "Success message (shown when the form is sent)",
 			"selector": " .elementor-message.elementor-message-success",
 			"controls": [
 				"color"
@@ -138,7 +178,7 @@
 		},
 		{
 			"key": "error",
-			"label": "Error message",
+			"label": "Error message (shown when the form is sent)",
 			"selector": " .elementor-message.elementor-message-danger",
 			"controls": [
 				"color"
@@ -146,7 +186,7 @@
 		},
 		{
 			"key": "inline",
-			"label": "Inline message",
+			"label": "Inline message (shown when the form is sent)",
 			"selector": " .elementor-message.elementor-help-inline",
 			"controls": [
 				"color",
@@ -161,7 +201,16 @@
 				"typography",
 				"margin",
 				"gap"
-			]
+			],
+			"when": {
+				"fields": {
+					"any": {
+						"type": [
+							"step"
+						]
+					}
+				}
+			}
 		},
 		{
 			"key": "step",
@@ -179,6 +228,15 @@
 				"completed": {
 					"label": "Completed",
 					"selector": " .e-form__indicators__indicator--state-completed| .e-form__indicators__indicator--state-completed .e-form__indicators__indicator__label"
+				}
+			},
+			"when": {
+				"fields": {
+					"any": {
+						"type": [
+							"step"
+						]
+					}
 				}
 			}
 		},
@@ -202,6 +260,15 @@
 					"label": "Completed",
 					"selector": " .e-form__indicators__indicator--state-completed .e-form__indicators__indicator__icon| .e-form__indicators__indicator--state-completed .e-form__indicators__indicator__number"
 				}
+			},
+			"when": {
+				"fields": {
+					"any": {
+						"type": [
+							"step"
+						]
+					}
+				}
 			}
 		},
 		{
@@ -212,7 +279,16 @@
 				"background",
 				"size",
 				"margin"
-			]
+			],
+			"when": {
+				"fields": {
+					"any": {
+						"type": [
+							"step"
+						]
+					}
+				}
+			}
 		},
 		{
 			"key": "progress",
@@ -222,7 +298,19 @@
 				"background",
 				"border",
 				"size"
-			]
+			],
+			"when": {
+				"fields": {
+					"any": {
+						"type": [
+							"step"
+						]
+					}
+				},
+				"stepType": [
+					"progress_bar"
+				]
+			}
 		},
 		{
 			"key": "meter",
@@ -234,7 +322,19 @@
 				"background",
 				"padding",
 				"size"
-			]
+			],
+			"when": {
+				"fields": {
+					"any": {
+						"type": [
+							"step"
+						]
+					}
+				},
+				"stepType": [
+					"progress_bar"
+				]
+			}
 		}
 	]
 }

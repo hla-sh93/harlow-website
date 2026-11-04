@@ -125,30 +125,6 @@
 }
 
 /* The Style tab (styles.js). */
-.harlow-style__colour-row {
-	display: flex;
-	align-items: center;
-	gap: 8px;
-}
-
-.harlow-style__swatch.components-button {
-	width: 32px;
-	min-width: 32px;
-	height: 32px;
-	padding: 0;
-	border-radius: 50%;
-	box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.2);
-}
-
-.harlow-style__value {
-	flex: 1;
-	font-size: 12px;
-	color: #757575;
-	overflow: hidden;
-	text-overflow: ellipsis;
-	white-space: nowrap;
-}
-
 .harlow-style__picker {
 	padding: 12px;
 	width: 280px;
@@ -161,26 +137,8 @@
 	margin-bottom: 8px;
 }
 
-.harlow-style .components-base-control,
 .harlow-style .components-unit-control-wrapper {
-	margin-bottom: 12px;
-}
-
-.harlow-style__reset-all {
-	margin-top: 8px;
-}
-
-.harlow-style__choices {
-	display: flex;
-	flex-wrap: wrap;
-	gap: 4px;
-}
-
-.harlow-style__length {
-	display: grid;
-	grid-template-columns: 1fr 72px;
-	gap: 8px;
-	align-items: end;
+	margin-bottom: 8px;
 }
 
 .harlow-style__group {
@@ -231,4 +189,486 @@
 	max-height: 320px;
 	overflow-y: auto;
 	width: 100%;
+}
+
+/* Styles tab: the heading over the groups of the box around an element. */
+.harlow-style__box-heading {
+	border-top: 1px solid #e0e0e0;
+	color: #757575;
+	font-size: 11px;
+	font-weight: 600;
+	margin: 0;
+	padding: 16px 16px 8px;
+	text-transform: uppercase;
+}
+
+/*
+ * The Styles tab as a property panel (Figma's, Webflow's, Elementor's): a head that stays
+ * on top (Style and Advanced, the device, a reset of everything), groups with an icon and
+ * a dot once they hold a value, and rows with the label on the left and the control on the
+ * right, 32px high. Colours are WordPress's own (the admin's theme colour for what is on).
+ */
+.harlow-props__head {
+	position: sticky;
+	top: 47px; /* under the sidebar's own head (Page, Block), which stays on top too */
+	z-index: 3;
+	padding: 12px 16px 10px;
+	background: #fff;
+	border-bottom: 1px solid #e0e0e0;
+}
+
+.harlow-props__tabs {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 2px;
+	margin-bottom: 10px;
+	padding: 2px;
+	background: #f0f0f0;
+	border-radius: 4px;
+}
+
+.harlow-props__tab.components-button {
+	justify-content: center;
+	gap: 4px;
+	height: 32px;
+	border-radius: 3px;
+	color: #1e1e1e;
+	font-size: 13px;
+	box-shadow: none;
+}
+
+.harlow-props__tab.components-button svg {
+	width: 20px;
+	height: 20px;
+}
+
+.harlow-props__tab.components-button[aria-selected="true"] {
+	background: #fff;
+	color: var(--wp-admin-theme-color, #3858e9);
+	font-weight: 500;
+	box-shadow: 0 1px 2px rgba(0, 0, 0, 0.12);
+}
+
+.harlow-props__bar {
+	display: flex;
+	align-items: center;
+	gap: 4px;
+}
+
+.harlow-props__bar .harlow-row.components-base-control {
+	flex: 1;
+	margin: 0;
+}
+
+.harlow-props__reset.components-button {
+	flex: none;
+	color: #757575;
+}
+
+/* The rows: the label on the left, the control on the right. */
+.harlow-style,
+.harlow-props__head {
+	--hl-label: 96px;
+}
+
+.harlow-style .components-base-control,
+.harlow-style .harlow-style__length {
+	margin-bottom: 8px;
+}
+
+/* (WordPress's own label styles are written with their class three times: these win by
+   !important, as few as needed.) */
+.harlow-style .components-base-control__label,
+.harlow-style .components-input-base .components-input-control__label,
+.harlow-style legend,
+.harlow-props__head .components-base-control__label {
+	margin: 0;
+	color: #1e1e1e;
+	font-size: 12px !important;
+	font-weight: 400 !important;
+	line-height: 16px;
+	text-transform: none !important;
+}
+
+.harlow-row__name {
+	display: inline-block;
+}
+
+.harlow-row__name::first-letter {
+	text-transform: uppercase;
+}
+
+.harlow-row > .components-base-control__field,
+.harlow-style .components-base-control__field:has(> input.components-text-control__input) {
+	display: grid;
+	grid-template-columns: var(--hl-label) minmax(0, 1fr);
+	align-items: center;
+	column-gap: 8px;
+}
+
+/* A row of words to choose from, or of many icons: the label over the choices, the
+   choices across. */
+.harlow-row--choices:not(.is-icons) > .components-base-control__field,
+.harlow-row--choices.is-icons:has(.harlow-seg > :nth-child(6)) > .components-base-control__field {
+	grid-template-columns: minmax(0, 1fr);
+	row-gap: 6px;
+}
+
+/* Selects: the label beside the field (WordPress puts it over it). */
+.harlow-style .components-input-base {
+	--wp-components-flex-direction: row !important;
+	--wp-components-flex-align: center !important;
+}
+
+.harlow-style .components-input-base > .components-flex-item {
+	flex: 0 0 var(--hl-label);
+	min-width: 0;
+	margin: 0;
+}
+
+.harlow-style .components-input-base > .components-input-control__container {
+	flex: 1;
+	min-width: 0;
+}
+
+.harlow-style .components-input-control__label {
+	white-space: normal;
+}
+
+/* Fields 32px high, as Figma's and Elementor's. */
+.harlow-style input.components-text-control__input,
+.harlow-style select.components-select-control__input {
+	height: 32px !important;
+	min-height: 32px !important;
+	padding-top: 0;
+	padding-bottom: 0;
+	font-size: 13px;
+}
+
+.harlow-style input.components-text-control__input {
+	padding-right: 4px;
+	padding-left: 8px;
+}
+
+/* A number with its unit: one field. */
+.harlow-style__length.harlow-row {
+	display: grid;
+	grid-template-columns: calc(var(--hl-label) + 8px) minmax(0, 1fr) 52px;
+	align-items: center;
+}
+
+.harlow-style__length > .components-base-control:first-child,
+.harlow-style__length > .components-base-control:first-child > .components-base-control__field {
+	display: contents;
+}
+
+.harlow-style__length > .components-base-control:first-child label {
+	margin-right: 8px;
+}
+
+.harlow-style__length input.components-text-control__input {
+	border-radius: 2px 0 0 2px;
+}
+
+.harlow-style__length > .components-select-control {
+	margin: 0 0 0 -1px;
+}
+
+.harlow-style__length > .components-select-control .components-input-control__backdrop {
+	border-radius: 0 2px 2px 0;
+}
+
+.harlow-style__length > .components-select-control select.components-select-control__input {
+	padding-right: 20px;
+	padding-left: 6px;
+	color: #757575;
+}
+
+.harlow-style__length.is-one-unit > .components-select-control {
+	pointer-events: none;
+}
+
+.harlow-style__length.is-one-unit .components-input-control__suffix {
+	display: none;
+}
+
+.harlow-style__length.is-one-unit select.components-select-control__input {
+	padding-right: 6px;
+	background: #f0f0f0;
+}
+
+/* A segmented control: the choice on, raised on a grey strip. */
+.harlow-seg {
+	display: flex;
+	gap: 2px;
+	padding: 2px;
+	background: #f0f0f0;
+	border-radius: 4px;
+}
+
+.harlow-seg__item.components-button {
+	flex: 1 1 0;
+	justify-content: center;
+	min-width: 0;
+	height: 28px;
+	padding: 0 6px;
+	border-radius: 3px;
+	background: transparent;
+	color: #1e1e1e;
+	font-size: 12px;
+	box-shadow: none;
+	white-space: nowrap;
+}
+
+.harlow-seg .harlow-seg__item.components-button.is-compact.has-icon {
+	width: auto;
+	min-width: 0;
+	padding: 0;
+}
+
+.harlow-seg__item.components-button svg {
+	width: 20px;
+	height: 20px;
+}
+
+.harlow-seg__item.components-button:hover:not(.is-pressed) {
+	background: rgba(0, 0, 0, 0.05);
+	color: #1e1e1e;
+}
+
+.harlow-seg__item.components-button.is-pressed,
+.harlow-seg__item.components-button.is-pressed:hover {
+	background: #fff;
+	color: var(--wp-admin-theme-color, #3858e9);
+	box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
+}
+
+/* A colour: one field with its swatch and its name; a reset beside it. */
+.harlow-style__colour-row {
+	position: relative;
+	min-width: 0;
+}
+
+.harlow-style__colour-dropdown {
+	display: block;
+	min-width: 0;
+}
+
+.harlow-style__field {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	width: 100%;
+	height: 32px;
+	padding: 0 30px 0 8px;
+	border: 1px solid #949494;
+	border-radius: 2px;
+	background: #fff;
+	color: #1e1e1e;
+	font: inherit;
+	font-size: 13px;
+	text-align: left;
+	cursor: pointer;
+}
+
+.harlow-style__field:hover {
+	border-color: #1e1e1e;
+}
+
+.harlow-style__field:focus-visible {
+	outline: 2px solid var(--wp-admin-theme-color, #3858e9);
+	outline-offset: -1px;
+}
+
+.harlow-style__swatch {
+	flex: none;
+	width: 18px;
+	height: 18px;
+	border-radius: 3px;
+	box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.2);
+}
+
+/* No colour of its own: a white square crossed, as Figma's "none". */
+.harlow-style__swatch.is-none {
+	background-color: #fff !important;
+	background-image: linear-gradient(to top right, transparent calc(50% - 0.75px), #cc1818 calc(50% - 0.75px), #cc1818 calc(50% + 0.75px), transparent calc(50% + 0.75px)) !important;
+}
+
+.harlow-style__value {
+	flex: 1;
+	min-width: 0;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.harlow-style__value.is-default {
+	color: #757575;
+}
+
+.harlow-style__reset.components-button {
+	position: absolute;
+	top: 4px;
+	right: 4px;
+	width: 24px;
+	min-width: 24px;
+	height: 24px;
+	padding: 0;
+	color: #757575;
+}
+
+/* The groups: the icon before the title, a dot once the group holds a value. */
+.harlow-style.components-panel__body > .components-panel__body-title > .components-panel__body-toggle {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	font-weight: 500;
+}
+
+.harlow-style.components-panel__body > .components-panel__body-title .components-panel__icon {
+	order: -1;
+	flex: none;
+	width: 20px;
+	height: 20px;
+	margin: 0;
+	color: #757575;
+	fill: currentColor;
+}
+
+.harlow-style.is-changed > .components-panel__body-title .components-panel__icon {
+	color: var(--wp-admin-theme-color, #3858e9);
+}
+
+.harlow-group__dot {
+	flex: none;
+	width: 6px;
+	height: 6px;
+	border-radius: 50%;
+	background: var(--wp-admin-theme-color, #3858e9);
+}
+
+.harlow-group__reset.components-button {
+	margin-top: 4px;
+	color: #757575;
+}
+
+/* An item's panel (item-details.js): what it is, its fields, where it is designed. */
+.harlow-item .components-base-control {
+	margin-bottom: 16px;
+}
+
+.harlow-item__about {
+	margin: 0 0 16px;
+	color: #757575;
+}
+
+.harlow-item__label {
+	margin: 0 0 8px;
+	font-size: 11px;
+	font-weight: 500;
+	text-transform: uppercase;
+}
+
+.harlow-item__help {
+	margin: 4px 0 12px;
+	color: #757575;
+	font-size: 12px;
+}
+
+.harlow-item__pictures {
+	margin-bottom: 16px;
+}
+
+.harlow-item__thumbs {
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+	gap: 4px;
+	margin-bottom: 8px;
+}
+
+.harlow-item__thumb {
+	display: block;
+	width: 100%;
+	aspect-ratio: 1;
+	object-fit: cover;
+	border-radius: 2px;
+	background: #f0f0f0;
+}
+
+.harlow-item__remove.components-button {
+	margin-left: 8px;
+}
+
+.harlow-item__design {
+	padding-top: 16px;
+	border-top: 1px solid #e0e0e0;
+}
+
+.harlow-item__button.components-button {
+	justify-content: flex-start;
+	width: 100%;
+	margin-bottom: 4px;
+}
+
+/* The link window on words (link-format.js): the sidebar's link fields under the words. */
+.harlow-link .components-popover__content {
+	width: 320px;
+	max-height: min(600px, calc(100vh - 140px));
+	overflow-y: auto;
+}
+
+.harlow-link .components-base-control__label,
+.harlow-link .components-input-control__label,
+.harlow-link .components-form-token-field__label {
+	margin-bottom: 4px;
+	color: #1e1e1e;
+	font-size: 12px !important;
+	font-weight: 500 !important;
+	text-transform: none !important;
+}
+
+.harlow-link .components-base-control__help {
+	margin-top: 4px;
+	font-size: 12px;
+}
+
+.harlow-link__body {
+	padding: 16px;
+}
+
+.harlow-link__body .components-base-control {
+	margin-bottom: 12px;
+}
+
+.harlow-link__title {
+	margin: 0 0 12px;
+	font-size: 13px;
+	font-weight: 600;
+}
+
+.harlow-link__actions {
+	display: flex;
+	justify-content: flex-end;
+	gap: 8px;
+	margin-top: 4px;
+}
+
+.harlow-link__actions .components-button.is-destructive {
+	margin-right: auto;
+}
+
+/* The item panel's buttons: their words wrap rather than run out of the sidebar. */
+.harlow-item__button.components-button {
+	height: auto;
+	min-height: 36px;
+	white-space: normal;
+	text-align: left;
+}
+
+/* A picture chosen in the Styles tab (a button's arrow): its label as the rows'. */
+.harlow-style .harlow-picture-picker__label {
+	color: #1e1e1e;
+	font-size: 12px;
+	font-weight: 400;
+	text-transform: none;
 }

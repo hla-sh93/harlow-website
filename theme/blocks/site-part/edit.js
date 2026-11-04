@@ -57,7 +57,20 @@ export default function Edit( { attributes } ) {
 					<p>
 						<ExternalLink href="customize.php">
 							{ __(
-								'Edit it in Appearance → Customize',
+								'Its logo, words and colours: Appearance → Customize',
+								'harlow'
+							) }
+						</ExternalLink>
+					</p>
+					<p>
+						<ExternalLink href="nav-menus.php">
+							{ __( 'Its menus: Appearance → Menus', 'harlow' ) }
+						</ExternalLink>
+					</p>
+					<p>
+						<ExternalLink href="edit.php?post_type=harlow_template">
+							{ __(
+								'One of your own, made of blocks: Appearance → Theme Builder',
 								'harlow'
 							) }
 						</ExternalLink>

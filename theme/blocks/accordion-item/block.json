@@ -3,6 +3,7 @@
 	"apiVersion": 3,
 	"name": "harlow/accordion-item",
 	"title": "Question",
+	"icon": "arrow-down-alt2",
 	"category": "text",
 	"description": "A question of an accordion and its answer.",
 	"textdomain": "harlow",
@@ -46,7 +47,8 @@
 	"supports": {
 		"html": false,
 		"className": false,
-		"customClassName": false
+		"customClassName": false,
+		"customCSS": false
 	},
 	"render": "file:../../includes/sections/accordion-item.php"
 }

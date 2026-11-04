@@ -227,6 +227,21 @@ export default function Edit( { attributes, setAttributes, clientId } ) {
 				};
 			} )
 			.filter( ( heading ) => heading.text );
+		// A page with no headings yet shows a sample list (as the server's markup does in the
+		// editor), so the list's words, markers and indent can be seen and styled.
+		if ( ! headings.length ) {
+			[
+				[ 2, __( 'A heading of the page', 'harlow' ) ],
+				[ 3, __( 'A heading under it', 'harlow' ) ],
+				[ 2, __( 'Another heading', 'harlow' ) ],
+			].forEach( ( [ level, text ], index ) =>
+				headings.push( {
+					level,
+					text,
+					anchor: `elementor-toc__heading-anchor-${ index }`,
+				} )
+			);
+		}
 		return tree( headings, hierarchical );
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [ found, tags.join(), hierarchical ] );

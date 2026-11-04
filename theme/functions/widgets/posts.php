@@ -268,7 +268,7 @@ function harlow_posts_card( $attributes, $skin, $thumbnail, $filter ) {
 	}
 	if ( 'full_content' === $skin ) {
 		// The item's whole text; never the page's own (it holds this list).
-		$content = get_the_ID() === get_queried_object_id()
+		$content = get_the_ID() === get_queried_object_id() || harlow_text_printing( (int) get_the_ID() )
 			? '<p>' . esc_html( harlow_card_text( 55, '…' ) ) . '</p>'
 			: apply_filters( 'the_content', get_the_content() ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- WordPress's own filter.
 		return $article . $picture

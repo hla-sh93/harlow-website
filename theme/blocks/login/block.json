@@ -3,6 +3,7 @@
 	"apiVersion": 3,
 	"name": "harlow/login",
 	"title": "Login",
+	"icon": "lock",
 	"category": "widgets",
 	"description": "A form to log in to the site, or a message to whoever is logged in.",
 	"textdomain": "harlow",
@@ -99,7 +100,8 @@
 	"supports": {
 		"html": false,
 		"className": false,
-		"customClassName": false
+		"customClassName": false,
+		"customCSS": false
 	},
 	"example": {
 		"attributes": {

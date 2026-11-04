@@ -3,6 +3,7 @@
 	"apiVersion": 3,
 	"name": "harlow/image-carousel",
 	"title": "Image Carousel",
+	"icon": "images-alt2",
 	"category": "media",
 	"description": "Pictures that slide by, with arrows and dots, a link or the lightbox, and a caption.",
 	"textdomain": "harlow",
@@ -170,7 +171,8 @@
 	"supports": {
 		"html": false,
 		"className": false,
-		"customClassName": false
+		"customClassName": false,
+		"customCSS": false
 	},
 	"example": {
 		"attributes": {

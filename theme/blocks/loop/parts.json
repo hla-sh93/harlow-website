@@ -1,6 +1,86 @@
 {
 	"parts": [
 		{
+			"key": "card",
+			"label": "Card",
+			"selector": " .e-loop-item",
+			"controls": [
+				"background",
+				"border",
+				"shadow",
+				"padding",
+				"opacity"
+			],
+			"states": {
+				"hover": {
+					"label": "Hover",
+					"selector": " .e-loop-item:hover"
+				}
+			}
+		},
+		{
+			"key": "cardPicture",
+			"label": "Card: picture",
+			"selector": " .e-loop-item .elementor-widget-image img| .e-loop-item .elementor-widget-theme-post-featured-image img",
+			"controls": [
+				"border",
+				"shadow",
+				"opacity",
+				"size"
+			],
+			"states": {
+				"hover": {
+					"label": "Hover",
+					"selector": " .e-loop-item:hover .elementor-widget-image img| .e-loop-item:hover .elementor-widget-theme-post-featured-image img"
+				}
+			}
+		},
+		{
+			"key": "cardTitle",
+			"label": "Card: title",
+			"selector": " .e-loop-item .elementor-heading-title",
+			"controls": [
+				"color",
+				"typography",
+				"textShadow",
+				"margin"
+			],
+			"states": {
+				"hover": {
+					"label": "Hover",
+					"selector": " .e-loop-item:hover .elementor-heading-title"
+				}
+			}
+		},
+		{
+			"key": "cardText",
+			"label": "Card: text",
+			"selector": " .e-loop-item .elementor-widget-text-editor| .e-loop-item .elementor-widget-theme-post-excerpt",
+			"controls": [
+				"color",
+				"typography",
+				"margin"
+			]
+		},
+		{
+			"key": "cardButton",
+			"label": "Card: button",
+			"selector": " .e-loop-item .elementor-button",
+			"controls": [
+				"color",
+				"typography",
+				"background",
+				"border",
+				"padding"
+			],
+			"states": {
+				"hover": {
+					"label": "Hover",
+					"selector": " .e-loop-item .elementor-button:hover"
+				}
+			}
+		},
+		{
 			"key": "grid",
 			"label": "Grid",
 			"selector": " .elementor-loop-container",
@@ -24,6 +104,11 @@
 					"label": "Hover",
 					"selector": " .elementor-swiper-button:hover"
 				}
+			},
+			"when": {
+				"layout": [
+					"carousel"
+				]
 			}
 		},
 		{
@@ -40,6 +125,14 @@
 					"label": "Active",
 					"selector": " .swiper-pagination-bullet-active"
 				}
+			},
+			"when": {
+				"layout": [
+					"carousel"
+				],
+				"dots": [
+					true
+				]
 			}
 		},
 		{
@@ -58,6 +151,11 @@
 					"label": "Current",
 					"selector": " .elementor-pagination .page-numbers.current"
 				}
+			},
+			"when": {
+				"pagination": [
+					"numbers"
+				]
 			}
 		}
 	]

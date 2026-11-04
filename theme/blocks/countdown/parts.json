@@ -38,11 +38,16 @@
 				"color",
 				"typography",
 				"textShadow"
-			]
+			],
+			"when": {
+				"showLabels": [
+					true
+				]
+			}
 		},
 		{
 			"key": "message",
-			"label": "Message",
+			"label": "Message (shown when the time is up)",
 			"selector": " .elementor-countdown-expire--message",
 			"controls": [
 				"align",
@@ -51,7 +56,14 @@
 				"textShadow",
 				"background",
 				"padding"
-			]
+			],
+			"when": {
+				"expireActions": {
+					"has": [
+						"message"
+					]
+				}
+			}
 		}
 	]
 }

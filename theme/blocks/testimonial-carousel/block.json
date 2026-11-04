@@ -3,6 +3,7 @@
 	"apiVersion": 3,
 	"name": "harlow/testimonial-carousel",
 	"title": "Testimonial Carousel",
+	"icon": "format-quote",
 	"category": "widgets",
 	"description": "Slides of what people said, with their pictures, names and titles.",
 	"textdomain": "harlow",
@@ -146,7 +147,8 @@
 	"supports": {
 		"html": false,
 		"className": false,
-		"customClassName": false
+		"customClassName": false,
+		"customCSS": false
 	},
 	"example": {
 		"attributes": {

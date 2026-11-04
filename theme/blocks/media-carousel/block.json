@@ -3,6 +3,7 @@
 	"apiVersion": 3,
 	"name": "harlow/media-carousel",
 	"title": "Media Carousel",
+	"icon": "images-alt",
 	"category": "media",
 	"description": "Pictures and videos in a carousel, a slideshow with thumbnails or a coverflow, opened in the lightbox.",
 	"textdomain": "harlow",
@@ -192,7 +193,8 @@
 	"supports": {
 		"html": false,
 		"className": false,
-		"customClassName": false
+		"customClassName": false,
+		"customCSS": false
 	},
 	"example": {
 		"attributes": {

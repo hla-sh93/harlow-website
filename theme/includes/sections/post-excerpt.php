@@ -16,6 +16,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 $harlow_post = harlow_theme_builder_post();
 $harlow_text = $harlow_post ? harlow_post_excerpt_text( $harlow_post, (int) $attributes['length'], (bool) $attributes['fromContent'] ) : '';
+// In the editor an empty excerpt shows where it will be, so it can be seen and styled.
+if ( '' === trim( wp_strip_all_tags( $harlow_text ) ) && wp_is_serving_rest_request() ) {
+	$harlow_text = esc_html__( 'The item’s excerpt', 'harlow' );
+}
 if ( $harlow_post && $attributes['readMore'] && '' !== $attributes['readMoreText'] ) {
 	$harlow_text .= ' <a class="elementor-post__read-more" href="' . esc_url( get_permalink( $harlow_post ) ) . '">' . esc_html( $attributes['readMoreText'] ) . '</a>';
 }

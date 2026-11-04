@@ -3,6 +3,7 @@
 	"apiVersion": 3,
 	"name": "harlow/facebook-embed",
 	"title": "Facebook Embed",
+	"icon": "facebook",
 	"category": "embed",
 	"description": "A post, a video or a comment from Facebook.",
 	"textdomain": "harlow",
@@ -67,7 +68,8 @@
 	"supports": {
 		"html": false,
 		"className": false,
-		"customClassName": false
+		"customClassName": false,
+		"customCSS": false
 	},
 	"example": {
 		"attributes": {

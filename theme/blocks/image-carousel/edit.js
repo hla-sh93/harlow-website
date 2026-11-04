@@ -159,22 +159,25 @@ function Empty( { attributes, onSelect } ) {
 	);
 	return (
 		<div { ...blockProps }>
-			<MediaPlaceholder
-				icon="images-alt2"
-				labels={ {
-					title: __( 'Image Carousel', 'harlow' ),
-					instructions: __(
-						'Choose the pictures of the carousel, or upload them.',
-						'harlow'
-					),
-				} }
-				allowedTypes={ [ 'image' ] }
-				multiple
-				gallery
-				onSelect={ ( items ) =>
-					onSelect( items.map( ( item ) => item.id ) )
-				}
-			/>
+			{ /* In the widget's box, as Elementor's element: its spacing and border show. */ }
+			<div className="elementor-widget-container">
+				<MediaPlaceholder
+					icon="images-alt2"
+					labels={ {
+						title: __( 'Image Carousel', 'harlow' ),
+						instructions: __(
+							'Choose the pictures of the carousel, or upload them.',
+							'harlow'
+						),
+					} }
+					allowedTypes={ [ 'image' ] }
+					multiple
+					gallery
+					onSelect={ ( items ) =>
+						onSelect( items.map( ( item ) => item.id ) )
+					}
+				/>
+			</div>
 		</div>
 	);
 }

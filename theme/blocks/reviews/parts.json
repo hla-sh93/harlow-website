@@ -30,7 +30,14 @@
 				"size",
 				"margin",
 				"border"
-			]
+			],
+			"when": {
+				"slides": {
+					"any": {
+						"image": "*"
+					}
+				}
+			}
 		},
 		{
 			"key": "name",
@@ -110,6 +117,11 @@
 					"label": "Hover",
 					"selector": " .elementor-swiper-button:hover"
 				}
+			},
+			"when": {
+				"showArrows": [
+					true
+				]
 			}
 		},
 		{
@@ -127,6 +139,11 @@
 					"label": "Active",
 					"selector": " .swiper-pagination-bullet.swiper-pagination-bullet-active"
 				}
+			},
+			"when": {
+				"pagination": [
+					"bullets"
+				]
 			}
 		},
 		{
@@ -137,7 +154,13 @@
 				"color",
 				"typography",
 				"background"
-			]
+			],
+			"when": {
+				"pagination": [
+					"fraction",
+					"progressbar"
+				]
+			}
 		}
 	]
 }

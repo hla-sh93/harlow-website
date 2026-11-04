@@ -3,6 +3,7 @@
 	"apiVersion": 3,
 	"name": "harlow/icon",
 	"title": "Icon",
+	"icon": "star-filled",
 	"category": "design",
 	"description": "An icon from the site's icon set.",
 	"textdomain": "harlow",
@@ -47,7 +48,8 @@
 	"supports": {
 		"html": false,
 		"className": false,
-		"customClassName": false
+		"customClassName": false,
+		"customCSS": false
 	},
 	"render": "file:../../includes/sections/icon.php"
 }

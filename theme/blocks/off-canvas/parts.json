@@ -5,7 +5,6 @@
 			"label": "Box",
 			"selector": " .e-off-canvas__main",
 			"controls": [
-				"background",
 				"size",
 				"padding",
 				"border",
@@ -19,7 +18,12 @@
 			"controls": [
 				"background",
 				"opacity"
-			]
+			],
+			"when": {
+				"overlay": [
+					true
+				]
+			}
 		},
 		{
 			"key": "close",
@@ -37,6 +41,11 @@
 					"label": "Hover",
 					"selector": " .e-off-canvas__close:hover"
 				}
+			},
+			"when": {
+				"closeButton": [
+					true
+				]
 			}
 		}
 	]

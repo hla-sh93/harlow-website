@@ -3,6 +3,7 @@
 	"apiVersion": 3,
 	"name": "harlow/star-rating",
 	"title": "Star Rating",
+	"icon": "star-filled",
 	"category": "widgets",
 	"description": "A rating out of 5 or 10 as stars, a part of a star for a decimal, with a title.",
 	"textdomain": "harlow",
@@ -63,7 +64,8 @@
 	"supports": {
 		"html": false,
 		"className": false,
-		"customClassName": false
+		"customClassName": false,
+		"customCSS": false
 	},
 	"example": {
 		"attributes": {

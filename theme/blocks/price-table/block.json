@@ -3,6 +3,7 @@
 	"apiVersion": 3,
 	"name": "harlow/price-table",
 	"title": "Price Table",
+	"icon": "money-alt",
 	"category": "widgets",
 	"description": "A plan with its price, features, a button and a ribbon.",
 	"textdomain": "harlow",
@@ -138,7 +139,8 @@
 	"supports": {
 		"html": false,
 		"className": false,
-		"customClassName": false
+		"customClassName": false,
+		"customCSS": false
 	},
 	"example": {
 		"attributes": {

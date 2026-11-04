@@ -3,6 +3,7 @@
 	"apiVersion": 3,
 	"name": "harlow/code-highlight",
 	"title": "Code Highlight",
+	"icon": "editor-code",
 	"category": "text",
 	"description": "Code in a box, coloured by its language, with line numbers and a copy button.",
 	"textdomain": "harlow",
@@ -91,7 +92,8 @@
 	"supports": {
 		"html": false,
 		"className": false,
-		"customClassName": false
+		"customClassName": false,
+		"customCSS": false
 	},
 	"example": {
 		"attributes": {

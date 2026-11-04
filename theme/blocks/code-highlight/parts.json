@@ -5,7 +5,6 @@
 			"label": "Box",
 			"selector": " pre[class*=\"language-\"]",
 			"controls": [
-				"background",
 				"padding",
 				"border",
 				"shadow",
@@ -28,7 +27,12 @@
 			"controls": [
 				"color",
 				"border"
-			]
+			],
+			"when": {
+				"lineNumbers": [
+					true
+				]
+			}
 		},
 		{
 			"key": "copyButton",

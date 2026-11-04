@@ -14,6 +14,11 @@
 					"label": "Hover",
 					"selector": " .elementor-post-navigation__link a:hover .post-navigation__prev--label| .elementor-post-navigation__link a:hover .post-navigation__next--label"
 				}
+			},
+			"when": {
+				"showLabel": [
+					true
+				]
 			}
 		},
 		{
@@ -30,6 +35,11 @@
 					"label": "Hover",
 					"selector": " .elementor-post-navigation__link a:hover .post-navigation__prev--title| .elementor-post-navigation__link a:hover .post-navigation__next--title"
 				}
+			},
+			"when": {
+				"showTitle": [
+					true
+				]
 			}
 		},
 		{
@@ -45,6 +55,11 @@
 					"label": "Hover",
 					"selector": " .elementor-post-navigation__link a:hover .post-navigation__arrow-wrapper"
 				}
+			},
+			"when": {
+				"showArrow": [
+					true
+				]
 			}
 		},
 		{
@@ -55,7 +70,12 @@
 				"border",
 				"padding",
 				"background"
-			]
+			],
+			"when": {
+				"showBorders": [
+					true
+				]
+			}
 		},
 		{
 			"key": "separator",

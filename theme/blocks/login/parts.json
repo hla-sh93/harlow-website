@@ -31,7 +31,12 @@
 				"color",
 				"typography",
 				"padding"
-			]
+			],
+			"when": {
+				"showLabels": [
+					true
+				]
+			}
 		},
 		{
 			"key": "fields",
@@ -73,13 +78,18 @@
 		},
 		{
 			"key": "message",
-			"label": "Logged in message",
+			"label": "Logged in message (shown when a logged-in visitor sees the page)",
 			"selector": " .elementor-login__logged-in-message",
 			"controls": [
 				"color",
 				"typography",
 				"align"
-			]
+			],
+			"when": {
+				"showLoggedInMessage": [
+					true
+				]
+			}
 		}
 	]
 }

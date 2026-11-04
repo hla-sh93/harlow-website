@@ -48,6 +48,11 @@
 					"label": "Hover",
 					"selector": " .elementor-blockquote__tweet-button:hover"
 				}
+			},
+			"when": {
+				"tweetButton": [
+					true
+				]
 			}
 		},
 		{

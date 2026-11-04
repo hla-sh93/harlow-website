@@ -14,7 +14,7 @@
 		{
 			"key": "title",
 			"label": "Widget titles",
-			"selector": " .widget-title",
+			"selector": " .widget-title| .widget h1| .widget h2| .widget h3| .widget h4| .widget h5| .widget h6",
 			"controls": [
 				"color",
 				"typography",

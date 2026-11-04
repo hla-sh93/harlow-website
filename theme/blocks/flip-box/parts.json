@@ -28,7 +28,13 @@
 				"size",
 				"border",
 				"opacity"
-			]
+			],
+			"when": {
+				"graphic": [
+					"image"
+				],
+				"image": "*"
+			}
 		},
 		{
 			"key": "frontGraphicSpacing",
@@ -36,7 +42,13 @@
 			"selector": " .elementor-flip-box__image| .elementor-flip-box__front .elementor-icon-wrapper",
 			"controls": [
 				"margin"
-			]
+			],
+			"when": {
+				"graphic": [
+					"image",
+					"icon"
+				]
+			}
 		},
 		{
 			"key": "frontIcon",
@@ -48,7 +60,12 @@
 				"padding",
 				"border",
 				"transform"
-			]
+			],
+			"when": {
+				"graphic": [
+					"icon"
+				]
+			}
 		},
 		{
 			"key": "frontTitle",

@@ -12,6 +12,10 @@
 			"type": "string",
 			"default": ""
 		},
+		"htmlId": {
+			"type": "string",
+			"default": ""
+		},
 		"classes": {
 			"type": "string",
 			"default": ""
@@ -62,6 +66,10 @@
 			],
 			"default": "DESC"
 		},
+		"dots": {
+			"type": "boolean",
+			"default": false
+		},
 		"pagination": {
 			"type": "string",
 			"enum": [
@@ -103,7 +111,8 @@
 	"supports": {
 		"html": false,
 		"className": false,
-		"customClassName": false
+		"customClassName": false,
+		"customCSS": false
 	},
 	"render": "file:../../includes/sections/loop.php"
 }

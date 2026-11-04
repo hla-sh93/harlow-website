@@ -18,10 +18,9 @@
 		},
 		{
 			"key": "field",
-			"label": "Input box",
+			"label": "Input box (border, size)",
 			"selector": " .elementor-search-form__container",
 			"controls": [
-				"background",
 				"border",
 				"shadow",
 				"size"
@@ -51,6 +50,11 @@
 					"label": "Hover",
 					"selector": " .elementor-search-form__submit:hover"
 				}
+			},
+			"when": {
+				"skin": [
+					"classic"
+				]
 			}
 		},
 		{
@@ -66,6 +70,11 @@
 					"label": "Focus",
 					"selector": " .elementor-search-form--focus .elementor-search-form__icon"
 				}
+			},
+			"when": {
+				"skin": [
+					"minimal"
+				]
 			}
 		},
 		{
@@ -83,26 +92,41 @@
 					"label": "Hover",
 					"selector": " .elementor-search-form__toggle:hover .e-font-icon-svg-container"
 				}
+			},
+			"when": {
+				"skin": [
+					"full_screen"
+				]
 			}
 		},
 		{
 			"key": "overlay",
-			"label": "Full screen overlay",
+			"label": "Full screen overlay (shown when opened)",
 			"selector": " .elementor-search-form__container.elementor-search-form--full-screen",
 			"controls": [
 				"background",
 				"padding"
-			]
+			],
+			"when": {
+				"skin": [
+					"full_screen"
+				]
+			}
 		},
 		{
 			"key": "overlayInput",
-			"label": "Full screen input",
+			"label": "Full screen input (shown when opened)",
 			"selector": " .elementor-search-form--full-screen .elementor-search-form__input",
 			"controls": [
 				"color",
 				"typography",
 				"border"
-			]
+			],
+			"when": {
+				"skin": [
+					"full_screen"
+				]
+			}
 		},
 		{
 			"key": "close",
@@ -116,6 +140,11 @@
 					"label": "Hover",
 					"selector": " .dialog-close-button:hover"
 				}
+			},
+			"when": {
+				"skin": [
+					"full_screen"
+				]
 			}
 		}
 	]

@@ -27,16 +27,32 @@ const HARLOW_DEVICES = array(
 );
 
 /**
+ * Widgets whose own box fills the widget and paints over it (an alert's coloured box): the
+ * box's background is that box's too, so the colour chosen is the one seen (styles.js COVERS).
+ */
+const HARLOW_STYLE_COVERS = array(
+	'alert'            => ' .elementor-alert',
+	'off-canvas'       => ' .e-off-canvas__main',
+	// The classic skin's content fills the box beside its picture (the cover skin's lies over it).
+	'call-to-action'   => '.elementor-cta--skin-classic .elementor-cta__content',
+	'code-highlight'   => ' pre[class*="language-"]',
+	'progress-tracker' => ' .elementor-scrolling-tracker-horizontal',
+	// The search box (never the full screen skin's overlay, which covers the page).
+	'search-form'      => ' .elementor-search-form__container:not(.elementor-search-form--full-screen)',
+);
+
+/**
  * The CSS declarations of one device's style, as `[ selector suffix => [ property => value ] ]`:
  * '' for the element itself, ' .elementor-heading-title' and the like for a part of it.
  * Every value is checked here, once, for the page and the editor alike: a colour, a
  * length, a word from a list, or a picture's address.
  *
- * @param array<string,mixed> $style One device's style.
- * @param string              $kind  The block's kind (heading, text, image, container, button...).
+ * @param array<string,mixed> $style   One device's style.
+ * @param string              $kind    The block's kind (heading, text, image, container, button...).
+ * @param string              $classes The element's classes (where its design paints it).
  * @return array<string,array<string,string>>
  */
-function harlow_style_rules( $style, $kind ) {
+function harlow_style_rules( $style, $kind, $classes = '' ) {
 	$rules = array();
 	$self  = '';
 	// Where words live inside each kind of element: the owner styles "the text" and the rule
@@ -80,9 +96,16 @@ function harlow_style_rules( $style, $kind ) {
 	}
 
 	// Background: none, a colour, a gradient, a picture (a slideshow is markup: container.php).
+	// A widget's box is its element and the widget container inside it, where Elementor
+	// draws a widget's background and the design paints some (a button's, the social icons'
+	// bar): both take it, so no colour of the design is left showing around it.
+	$box = in_array( $kind, array( 'container', 'part' ), true ) ? $self : '| > .elementor-widget-container';
+	if ( array_key_exists( $kind, HARLOW_STYLE_COVERS ) ) {
+		$box .= '|' . HARLOW_STYLE_COVERS[ $kind ];
+	}
 	$bg = isset( $style['background'] ) && is_array( $style['background'] ) ? $style['background'] : array();
 	foreach ( harlow_style_background( $bg ) as $prop => $value ) {
-		$add( $self, $prop, $value );
+		$add( $box, $prop, $value );
 	}
 
 	// The overlay over a container's background: Elementor's own layer (`::before`, which
@@ -142,8 +165,22 @@ function harlow_style_rules( $style, $kind ) {
 		$add( $self, 'text-align', harlow_style_word( isset( $style['align'] ) ? $style['align'] : '', array( 'left', 'center', 'right', 'justify' ) ) );
 	}
 	if ( 'button' === $kind ) {
-		$add( $text, 'background-color', harlow_style_colour( isset( $style['buttonColor'] ) ? $style['buttonColor'] : '' ) );
-		$add( $text, 'border-radius', harlow_style_length( isset( $style['radius'] ) ? $style['radius'] : null, 'px' ) );
+		// The button as one piece: where the design paints it on its box (Elementor's widget
+		// container: its colour, and its arrow as a picture), the owner's colour goes there and
+		// the button in front turns clear, so the arrow stays; otherwise on the button itself.
+		$colour = harlow_style_colour( isset( $style['buttonColor'] ) ? $style['buttonColor'] : '' );
+		$hover  = harlow_style_colour( isset( $style['buttonHoverColor'] ) ? $style['buttonHoverColor'] : '' );
+		$radius = harlow_style_length( isset( $style['radius'] ) ? $style['radius'] : null, 'px' );
+		if ( preg_match( '/(^|\s)hl-bg[ci]-\S*--wc(\s|$)/', (string) $classes ) ) {
+			$add( ' .elementor-widget-container', 'background-color', $colour );
+			$add( ':hover .elementor-widget-container', 'background-color', $hover );
+			$add( $text, 'background-color', '' !== $colour || '' !== $hover ? 'transparent' : '' );
+			$add( ' .elementor-widget-container', 'border-radius', $radius );
+		} else {
+			$add( $text, 'background-color', $colour );
+			$add( ' .elementor-button:hover', 'background-color', $hover );
+		}
+		$add( $text, 'border-radius', $radius );
 	}
 
 	// Spacing: four sides, one unit.
@@ -189,6 +226,12 @@ function harlow_style_rules( $style, $kind ) {
 		$add( ' img', 'border-radius', harlow_style_length( isset( $img['radius'] ) ? $img['radius'] : null, 'px' ) );
 		$add( $self, 'text-align', harlow_style_word( isset( $style['align'] ) ? $style['align'] : '', array( 'left', 'center', 'right' ) ) );
 	}
+
+	// A divider's line (Elementor's Colour and Weight): the custom properties its line is
+	// drawn with.
+	$line = is_array( $get( $style, 'divider' ) ) ? $style['divider'] : array();
+	$add( $self, '--divider-color', harlow_style_colour( $get( $line, 'color' ) ) );
+	$add( $self, '--divider-border-width', harlow_style_length( $get( $line, 'weight' ), 'px' ) );
 
 	// Border and shadow, on the element.
 	// Every side at once, then each side of its own (its line, thickness and colour), then the
@@ -293,8 +336,12 @@ function harlow_style_rules( $style, $kind ) {
 	if ( 'button' === $kind ) {
 		$add( ' .elementor-button:hover', 'background-color', harlow_style_colour( $get( $hover, 'background' ) ) );
 	} elseif ( harlow_style_colour( $get( $hover, 'background' ) ) ) {
-		$add( ':hover', 'background-color', harlow_style_colour( $get( $hover, 'background' ) ) );
-		$add( ':hover', 'background-image', 'none' );
+		$on_box = in_array( $kind, array( 'container', 'part' ), true ) ? ':hover' : ':hover|:hover > .elementor-widget-container';
+		if ( array_key_exists( $kind, HARLOW_STYLE_COVERS ) ) {
+			$on_box .= '|:hover' . HARLOW_STYLE_COVERS[ $kind ];
+		}
+		$add( $on_box, 'background-color', harlow_style_colour( $get( $hover, 'background' ) ) );
+		$add( $on_box, 'background-image', 'none' );
 	}
 	// A gradient or a picture on hover (a button's own box, or the element's).
 	foreach ( harlow_style_background( is_array( $get( $hover, 'bg' ) ) ? $hover['bg'] : array() ) as $prop => $value ) {
@@ -478,7 +525,15 @@ function harlow_style_attributes( $style ) {
 			|| in_array( $name, array( 'style', 'class', 'id', 'data-id', 'data-settings', 'data-element_type', 'data-e-type', 'data-widget_type' ), true ) ) {
 			continue;
 		}
-		$out .= ' ' . $name . '="' . esc_attr( isset( $parts[1] ) ? trim( $parts[1] ) : '' ) . '"';
+		$value = isset( $parts[1] ) ? trim( $parts[1] ) : '';
+		// An attribute that holds an address keeps a safe one only (no javascript:, data:).
+		if ( in_array( $name, array( 'href', 'src', 'srcset', 'action', 'formaction', 'xlink:href', 'data', 'poster', 'background', 'cite', 'longdesc', 'ping', 'manifest', 'codebase', 'srcdoc' ), true ) ) {
+			$value = 'srcdoc' === $name ? '' : esc_url( $value );
+			if ( '' === $value ) {
+				continue;
+			}
+		}
+		$out .= ' ' . $name . '="' . esc_attr( $value ) . '"';
 	}
 	return $out;
 }
@@ -991,9 +1046,10 @@ function harlow_background_slideshow( $style ) {
  * @param string              $element The element's id (data-id).
  * @param array<string,mixed> $style   Its `style` attribute, decoded.
  * @param string              $kind    The block's kind.
+ * @param string              $classes Its classes (where its design paints it).
  * @return string
  */
-function harlow_element_css( $element, $style, $kind ) {
+function harlow_element_css( $element, $style, $kind, $classes = '' ) {
 	$base = harlow_element_selector( $element );
 	$out  = '';
 	foreach ( harlow_devices() as $device => $media ) {
@@ -1001,7 +1057,7 @@ function harlow_element_css( $element, $style, $kind ) {
 			continue;
 		}
 		$css = '';
-		foreach ( harlow_style_rules( $style[ $device ], $kind ) as $part => $decls ) {
+		foreach ( harlow_style_rules( $style[ $device ], $kind, $classes ) as $part => $decls ) {
 			$body = '';
 			foreach ( $decls as $prop => $value ) {
 				// The owner asked for this value: it wins over every rule of the design, whatever

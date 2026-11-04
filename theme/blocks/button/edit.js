@@ -20,6 +20,28 @@ import {
 	usePictureUrl,
 } from '../../editor/shared';
 
+/**
+ * The picture the design draws on the button's box (the arrow of READ MORE), replaced in
+ * place: the Styles tab's Button panel draws it beside the button's colour.
+ *
+ * @param {Object}   props
+ * @param {Object}   props.attributes    The block's attributes.
+ * @param {Function} props.setAttributes The block's setter.
+ */
+export function DesignPicture( { attributes, setAttributes } ) {
+	return (
+		<PicturePicker
+			label={ __(
+				'Picture on the button (the design’s arrow)',
+				'harlow'
+			) }
+			value={ attributes.picture }
+			onChange={ ( id ) => setAttributes( { picture: id } ) }
+			none={ __( 'Default', 'harlow' ) }
+		/>
+	);
+}
+
 export default function Edit( { attributes, setAttributes } ) {
 	const {
 		text,
@@ -92,17 +114,6 @@ export default function Edit( { attributes, setAttributes } ) {
 						onChange={ ( value ) =>
 							setAttributes( { iconAfter: value } )
 						}
-					/>
-				</PanelBody>
-				<PanelBody
-					title={ __( 'Background', 'harlow' ) }
-					initialOpen={ false }
-				>
-					<PicturePicker
-						label={ __( 'Background picture', 'harlow' ) }
-						value={ picture }
-						onChange={ ( id ) => setAttributes( { picture: id } ) }
-						none={ __( 'Default', 'harlow' ) }
 					/>
 				</PanelBody>
 			</InspectorControls>

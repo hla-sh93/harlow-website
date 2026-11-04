@@ -3,6 +3,7 @@
 	"apiVersion": 3,
 	"name": "harlow/container",
 	"title": "Container",
+	"icon": "layout",
 	"category": "layout",
 	"description": "A box that holds other blocks: a section, a column, a row of cards.",
 	"textdomain": "harlow",
@@ -75,7 +76,8 @@
 	"supports": {
 		"html": false,
 		"className": false,
-		"customClassName": false
+		"customClassName": false,
+		"customCSS": false
 	},
 	"render": "file:../../includes/sections/container.php"
 }

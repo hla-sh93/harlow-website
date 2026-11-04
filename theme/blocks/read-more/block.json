@@ -3,6 +3,7 @@
 	"apiVersion": 3,
 	"name": "harlow/read-more",
 	"title": "Read More",
+	"icon": "arrow-right-alt",
 	"category": "text",
 	"description": "Where a post is cut when it is listed: the rest is behind a “Continue reading” link to the post.",
 	"textdomain": "harlow",
@@ -35,7 +36,8 @@
 	"supports": {
 		"html": false,
 		"className": false,
-		"customClassName": false
+		"customClassName": false,
+		"customCSS": false
 	},
 	"example": {
 		"attributes": {

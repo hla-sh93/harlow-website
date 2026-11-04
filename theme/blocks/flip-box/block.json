@@ -3,6 +3,7 @@
 	"apiVersion": 3,
 	"name": "harlow/flip-box",
 	"title": "Flip Box",
+	"icon": "image-flip-horizontal",
 	"category": "design",
 	"description": "A box with a front and a back: hovered or tapped, it flips, slides, pushes, zooms or fades to its back.",
 	"textdomain": "harlow",
@@ -163,7 +164,8 @@
 	"supports": {
 		"html": false,
 		"className": false,
-		"customClassName": false
+		"customClassName": false,
+		"customCSS": false
 	},
 	"example": {
 		"attributes": {

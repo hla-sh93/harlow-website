@@ -3,6 +3,7 @@
 	"apiVersion": 3,
 	"name": "harlow/search-form",
 	"title": "Search Form",
+	"icon": "search",
 	"category": "widgets",
 	"description": "The site's search: a field with its button, a field with an icon, or an icon that opens the search over the whole screen (Elementor Pro's search form widget).",
 	"textdomain": "harlow",
@@ -72,7 +73,8 @@
 	"supports": {
 		"html": false,
 		"className": false,
-		"customClassName": false
+		"customClassName": false,
+		"customCSS": false
 	},
 	"example": {
 		"attributes": {

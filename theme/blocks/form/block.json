@@ -3,6 +3,7 @@
 	"apiVersion": 3,
 	"name": "harlow/form",
 	"title": "Form",
+	"icon": "feedback",
 	"category": "widgets",
 	"description": "A form of your own: its fields, its button, and what happens when it is sent (emails, a redirect, a webhook, the submissions kept).",
 	"textdomain": "harlow",
@@ -225,7 +226,8 @@
 	"supports": {
 		"html": false,
 		"className": false,
-		"customClassName": false
+		"customClassName": false,
+		"customCSS": false
 	},
 	"render": "file:../../includes/sections/form.php",
 	"example": {

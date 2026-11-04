@@ -3,6 +3,7 @@
 	"apiVersion": 3,
 	"name": "harlow/share-buttons",
 	"title": "Share Buttons",
+	"icon": "share",
 	"category": "widgets",
 	"description": "Buttons that share the page on social networks, by e-mail or print it.",
 	"textdomain": "harlow",
@@ -108,7 +109,8 @@
 	"supports": {
 		"html": false,
 		"className": false,
-		"customClassName": false
+		"customClassName": false,
+		"customCSS": false
 	},
 	"example": {
 		"attributes": {

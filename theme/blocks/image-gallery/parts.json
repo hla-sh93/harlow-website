@@ -6,7 +6,10 @@
 			"selector": " .gallery-item",
 			"controls": [
 				"padding"
-			]
+			],
+			"when": {
+				"pictures": "*"
+			}
 		},
 		{
 			"key": "images",
@@ -22,6 +25,9 @@
 					"label": "Hover",
 					"selector": " .gallery-item:hover img"
 				}
+			},
+			"when": {
+				"pictures": "*"
 			}
 		},
 		{
@@ -35,7 +41,14 @@
 				"textShadow",
 				"margin",
 				"padding"
-			]
+			],
+			"when": {
+				"pictures": "*",
+				"caption": [
+					"",
+					"attachment"
+				]
+			}
 		}
 	]
 }

@@ -3,6 +3,7 @@
 	"apiVersion": 3,
 	"name": "harlow/countdown",
 	"title": "Countdown",
+	"icon": "clock",
 	"category": "widgets",
 	"description": "Days, hours, minutes and seconds counting down to a date, or for each visitor.",
 	"textdomain": "harlow",
@@ -103,7 +104,8 @@
 	"supports": {
 		"html": false,
 		"className": false,
-		"customClassName": false
+		"customClassName": false,
+		"customCSS": false
 	},
 	"example": {
 		"attributes": {

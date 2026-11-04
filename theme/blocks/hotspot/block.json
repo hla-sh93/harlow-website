@@ -3,6 +3,7 @@
 	"apiVersion": 3,
 	"name": "harlow/hotspot",
 	"title": "Hotspot",
+	"icon": "location",
 	"category": "media",
 	"description": "A picture with spots on it that show a tooltip or lead to a link.",
 	"textdomain": "harlow",
@@ -104,7 +105,8 @@
 	"supports": {
 		"html": false,
 		"className": false,
-		"customClassName": false
+		"customClassName": false,
+		"customCSS": false
 	},
 	"example": {
 		"attributes": {

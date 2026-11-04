@@ -8,7 +8,8 @@ import {
 	useInnerBlocksProps,
 } from '@wordpress/block-editor';
 import { PanelBody } from '@wordpress/components';
-import { __ } from '@wordpress/i18n';
+import { useMemo } from '@wordpress/element';
+import { __, sprintf } from '@wordpress/i18n';
 
 import { elementProps, IconPicker } from '../../editor/shared';
 
@@ -16,6 +17,27 @@ export default function Edit( { attributes, setAttributes } ) {
 	const blockProps = useBlockProps(
 		elementProps( attributes, 'widget', 'accordion.default' )
 	);
+	// A new accordion comes with two questions to write over, as Elementor's does (an empty
+	// one draws nothing); an accordion that has its questions keeps them.
+	const template = useMemo( () => {
+		const base = 1000 + Math.floor( Math.random() * 8000 );
+		return [ 1, 2 ].map( ( n ) => [
+			'harlow/accordion-item',
+			{
+				tab: n,
+				itemId: base + n,
+				/* translators: %d: the question's number. */
+				title: sprintf( __( 'Accordion #%d', 'harlow' ), n ),
+				expanded: n === 1 ? 'true' : 'false',
+			},
+			[
+				[
+					'core/paragraph',
+					{ content: __( 'The answer, to write over.', 'harlow' ) },
+				],
+			],
+		] );
+	}, [] );
 	const innerBlocksProps = useInnerBlocksProps(
 		{ className: 'elementor-accordion' },
 		{
@@ -23,6 +45,7 @@ export default function Edit( { attributes, setAttributes } ) {
 			allowedBlocks: [ 'harlow/accordion-item' ],
 			defaultBlock: { name: 'harlow/accordion-item' },
 			directInsert: true,
+			template,
 		}
 	);
 	return (

@@ -3,6 +3,7 @@
 	"apiVersion": 3,
 	"name": "harlow/off-canvas",
 	"title": "Off-Canvas",
+	"icon": "menu-alt",
 	"category": "design",
 	"description": "A panel that slides in from a side of the screen when a link to it is clicked, holding any blocks.",
 	"textdomain": "harlow",
@@ -83,7 +84,8 @@
 	"supports": {
 		"html": false,
 		"className": false,
-		"customClassName": false
+		"customClassName": false,
+		"customCSS": false
 	},
 	"example": {
 		"attributes": {

@@ -3,6 +3,7 @@
 	"apiVersion": 3,
 	"name": "harlow/progress-tracker",
 	"title": "Progress Tracker",
+	"icon": "arrow-down-alt",
 	"category": "widgets",
 	"description": "A bar or a circle that fills as the visitor scrolls through the page or a part of it.",
 	"textdomain": "harlow",
@@ -59,7 +60,8 @@
 	"supports": {
 		"html": false,
 		"className": false,
-		"customClassName": false
+		"customClassName": false,
+		"customCSS": false
 	},
 	"example": {
 		"attributes": {

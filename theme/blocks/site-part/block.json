@@ -3,6 +3,7 @@
 	"apiVersion": 3,
 	"name": "harlow/site-part",
 	"title": "Site header or footer",
+	"icon": "admin-appearance",
 	"category": "layout",
 	"description": "The site's header or footer, inside a page that builds its own (the home page).",
 	"textdomain": "harlow",
@@ -23,7 +24,8 @@
 	"supports": {
 		"html": false,
 		"className": false,
-		"customClassName": false
+		"customClassName": false,
+		"customCSS": false
 	},
 	"render": "file:../../includes/sections/site-part.php"
 }

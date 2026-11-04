@@ -32,8 +32,10 @@ function harlow_kinds() {
 		$file  = get_theme_file_path( 'kinds.json' );
 		$data  = file_exists( $file ) ? json_decode( (string) file_get_contents( $file ), true ) : null; // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents -- a file inside the theme, not a URL.
 		$kinds = array(
-			'pages'   => isset( $data['pages'] ) ? $data['pages'] : array(),
-			'singles' => isset( $data['singles'] ) ? $data['singles'] : array(),
+			'pages'     => isset( $data['pages'] ) ? $data['pages'] : array(),
+			'singles'   => isset( $data['singles'] ) ? $data['singles'] : array(),
+			'sections'  => isset( $data['sections'] ) ? $data['sections'] : array(),
+			'documents' => isset( $data['documents'] ) ? $data['documents'] : array(),
 		);
 	}
 	return $kinds;
@@ -88,6 +90,11 @@ function harlow_is_canvas( $post_id ) {
 function harlow_post_documents( $post_id ) {
 	$documents = get_post_meta( $post_id, '_harlow_documents', true );
 	if ( ! is_array( $documents ) || ! $documents ) {
+		// A page made of a page's sections (from blank, from a pattern of it) loads that page's
+		// rules; else its kind's.
+		$documents = harlow_section_documents( (string) get_post_field( 'post_content', $post_id ) );
+	}
+	if ( ! is_array( $documents ) || ! $documents ) {
 		$kinds = harlow_kinds();
 		$type  = get_post_type( $post_id );
 		if ( 'page' === $type ) {
@@ -120,6 +127,45 @@ function harlow_post_documents( $post_id ) {
 		array_splice( $documents, $at, 0, array( $held ) );
 	}
 	return array_values( array_filter( $documents, 'harlow_is_document' ) );
+}
+
+/**
+ * The documents of the pages whose sections a page's blocks hold (kinds.json: each section
+ * of the library by its element id, and each page's documents), the first page's in its
+ * order, another page's own ones before the major clients' and the footer's.
+ *
+ * @param string $content The page's blocks.
+ * @return string[] Empty when it holds no section of a page.
+ */
+function harlow_section_documents( $content ) {
+	$kinds = harlow_kinds();
+	// Elementor's element ids: seven or eight characters (40b6e7af).
+	if ( empty( $kinds['sections'] ) || ! preg_match_all( '/"element":"([a-z0-9]{6,12})"/', $content, $found ) ) {
+		return array();
+	}
+	$pages = array();
+	foreach ( $found[1] as $element ) {
+		if ( isset( $kinds['sections'][ $element ] ) && ! in_array( $kinds['sections'][ $element ], $pages, true ) ) {
+			$pages[] = $kinds['sections'][ $element ];
+		}
+	}
+	$documents = array();
+	foreach ( $pages as $page ) {
+		foreach ( isset( $kinds['documents'][ $page ] ) ? (array) $kinds['documents'][ $page ] : array() as $document ) {
+			if ( in_array( $document, $documents, true ) ) {
+				continue;
+			}
+			$at = count( $documents );
+			foreach ( array( 'post-5532', 'post-1066' ) as $next ) {
+				$found_at = array_search( $next, $documents, true );
+				if ( false !== $found_at && ! in_array( $document, array( 'post-5532', 'post-1066' ), true ) ) {
+					$at = min( $at, (int) $found_at );
+				}
+			}
+			array_splice( $documents, $at, 0, array( $document ) );
+		}
+	}
+	return $documents;
 }
 
 /**

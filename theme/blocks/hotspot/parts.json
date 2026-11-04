@@ -36,7 +36,23 @@
 					"label": "Hover",
 					"selector": " .e-hotspot:not(.e-hotspot--circle) .e-hotspot__button:hover"
 				}
-			}
+			},
+			"when": [
+				{
+					"hotspots": {
+						"any": {
+							"label": "*"
+						}
+					}
+				},
+				{
+					"hotspots": {
+						"any": {
+							"icon": "*"
+						}
+					}
+				}
+			]
 		},
 		{
 			"key": "label",
@@ -44,7 +60,14 @@
 			"selector": " .e-hotspot__label",
 			"controls": [
 				"typography"
-			]
+			],
+			"when": {
+				"hotspots": {
+					"any": {
+						"label": "*"
+					}
+				}
+			}
 		},
 		{
 			"key": "tooltip",

@@ -5,8 +5,7 @@
 			"label": "Line",
 			"selector": " .elementor-divider-separator",
 			"controls": [
-				"border",
-				"size"
+				"divider"
 			]
 		},
 		{

@@ -1109,8 +1109,9 @@ function harlow_form_validate( $request, $fields, $messages ) {
 		$value = $raw;
 		switch ( $type ) {
 			case 'email':
-				$value = sanitize_email( (string) $raw );
-				if ( ! is_email( $value ) ) {
+				// Refused as typed, never quietly cleaned: a line break would carry a mail header.
+				$value = trim( (string) $raw );
+				if ( preg_match( '/[\r\n]/', $value ) || ! is_email( $value ) ) {
 					$error = __( 'Invalid email address.', 'harlow' );
 				}
 				break;

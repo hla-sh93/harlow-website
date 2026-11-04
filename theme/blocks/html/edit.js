@@ -47,7 +47,13 @@ export default function Edit( { attributes, setAttributes } ) {
 				<div
 					className="elementor-widget-container"
 					dangerouslySetInnerHTML={ {
-						__html: resolveLinks( attributes.html ),
+						// An HTML widget with nothing written yet shows where it is.
+						__html: ( attributes.html || '' ).trim()
+							? resolveLinks( attributes.html )
+							: `<p class="harlow-source-note">${ __(
+									'[HTML: write it in the sidebar]',
+									'harlow'
+								) }</p>`,
 					} }
 				/>
 				{ '\n' }

@@ -60,22 +60,71 @@ function harlow_content_only_editor() {
 add_action( 'enqueue_block_editor_assets', 'harlow_content_only_editor', 20 );
 
 /**
+ * Whether maintenance mode keeps this visitor out: it is on, its page is published, and the
+ * visitor is not one it lets through.
+ *
+ * @return WP_Post|null The page they see instead, or null.
+ */
+function harlow_maintenance_page() {
+	$tools = harlow_site_tools();
+	if ( '' === $tools['mode'] || ! $tools['page'] ) {
+		return null;
+	}
+	if ( is_user_logged_in() && ( 'logged_in' === $tools['who'] || array_intersect( (array) wp_get_current_user()->roles, (array) $tools['roles'] ) || current_user_can( 'manage_options' ) ) ) {
+		return null;
+	}
+	$page = get_post( (int) $tools['page'] );
+	return $page && 'publish' === $page->post_status ? $page : null;
+}
+
+/**
+ * In maintenance mode the REST API's content (pages, posts, items, media, the search) is not
+ * read by a visitor kept out either: 503, as the pages. The theme's own routes (a form on
+ * the maintenance page) still answer.
+ *
+ * @param mixed           $result  A response already made, or null.
+ * @param WP_REST_Server  $server  The server.
+ * @param WP_REST_Request $request The request.
+ * @return mixed
+ */
+function harlow_maintenance_rest( $result, $server, $request ) {
+	if ( null !== $result || 0 !== strpos( $request->get_route(), '/wp/v2/' ) || 'GET' !== $request->get_method() || ! harlow_maintenance_page() ) {
+		return $result;
+	}
+	return new WP_Error( 'harlow_maintenance', __( 'The site is being worked on.', 'harlow' ), array( 'status' => 503 ) );
+}
+add_filter( 'rest_pre_dispatch', 'harlow_maintenance_rest', 10, 3 );
+
+/**
+ * In maintenance mode a sitemap (Rank Math answers it before the page is chosen) is not read
+ * by a visitor kept out either.
+ *
+ * @param WP $wp The request.
+ */
+function harlow_maintenance_sitemap( $wp ) {
+	if ( preg_match( '/sitemap[^\/]*\.(xml|xsl)$/', (string) $wp->request ) && harlow_maintenance_page() ) {
+		status_header( 503 );
+		header( 'Retry-After: 3600' );
+		nocache_headers();
+		exit;
+	}
+}
+add_action( 'parse_request', 'harlow_maintenance_sitemap', 0 );
+
+/**
  * Maintenance mode: a visitor not let through sees the chosen page alone.
  */
 function harlow_maintenance() {
 	$tools = harlow_site_tools();
-	if ( '' === $tools['mode'] || ! $tools['page'] || is_admin() || wp_doing_ajax() || ( defined( 'REST_REQUEST' ) && REST_REQUEST ) || wp_doing_cron() ) {
+	if ( is_admin() || wp_doing_ajax() || ( defined( 'REST_REQUEST' ) && REST_REQUEST ) || wp_doing_cron() ) {
 		return;
 	}
 	$pagenow = isset( $GLOBALS['pagenow'] ) ? $GLOBALS['pagenow'] : '';
 	if ( 'wp-login.php' === $pagenow ) {
 		return;
 	}
-	if ( is_user_logged_in() && ( 'logged_in' === $tools['who'] || array_intersect( (array) wp_get_current_user()->roles, (array) $tools['roles'] ) || current_user_can( 'manage_options' ) ) ) {
-		return;
-	}
-	$page = get_post( (int) $tools['page'] );
-	if ( ! $page || 'publish' !== $page->post_status ) {
+	$page = harlow_maintenance_page();
+	if ( ! $page ) {
 		return;
 	}
 	if ( 'maintenance' === $tools['mode'] ) {

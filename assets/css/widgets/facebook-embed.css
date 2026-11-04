@@ -29,7 +29,8 @@
   padding: 10px 14px;
   border: 1px dashed #c5cdd6;
   border-radius: 4px;
-  background-color: #f5f6f8;
+  /* see-through: the element's own background shows around the note */
+  background-color: transparent;
   color: #1c1e21;
   font-size: 13px;
   line-height: 1.4;

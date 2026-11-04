@@ -3,6 +3,7 @@
 	"apiVersion": 3,
 	"name": "harlow/document",
 	"title": "Elementor document",
+	"icon": "media-document",
 	"category": "layout",
 	"description": "The box around a page's sections, or a shared section's blocks.",
 	"textdomain": "harlow",
@@ -27,7 +28,8 @@
 	"supports": {
 		"html": false,
 		"className": false,
-		"customClassName": false
+		"customClassName": false,
+		"customCSS": false
 	},
 	"render": "file:../../includes/sections/document.php"
 }

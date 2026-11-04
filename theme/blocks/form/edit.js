@@ -69,9 +69,10 @@ const MESSAGES = {
  *
  * @param {Object}   props
  * @param {Object}   props.value    The block's formStyle attribute.
+ * @param {boolean}  props.html     The form has an HTML field (its spacing is offered).
  * @param {Function} props.onChange Called with the new formStyle, or undefined.
  */
-function FormStylePanel( { value, onChange } ) {
+function FormStylePanel( { value, html, onChange } ) {
 	const preview = useSelect(
 		( select ) => select( 'core/editor' )?.getDeviceType?.() || 'Desktop',
 		[]
@@ -131,12 +132,13 @@ function FormStylePanel( { value, onChange } ) {
 			{ range( 'columnGap', __( 'Columns Gap', 'harlow' ), 60, 10 ) }
 			{ range( 'rowGap', __( 'Rows Gap', 'harlow' ), 60, 10 ) }
 			{ range( 'labelSpacing', __( 'Label Spacing', 'harlow' ), 60, 0 ) }
-			{ range(
-				'htmlSpacing',
-				__( 'HTML Field Spacing', 'harlow' ),
-				100,
-				0
-			) }
+			{ html &&
+				range(
+					'htmlSpacing',
+					__( 'HTML Field Spacing', 'harlow' ),
+					100,
+					0
+				) }
 		</PanelBody>
 	);
 }
@@ -449,6 +451,7 @@ export default function Edit( { attributes, setAttributes } ) {
 			<InspectorControls group="styles">
 				<FormStylePanel
 					value={ attributes.formStyle }
+					html={ fields.some( ( f ) => f.type === 'html' ) }
 					onChange={ ( formStyle ) => setAttributes( { formStyle } ) }
 				/>
 			</InspectorControls>

@@ -3,6 +3,7 @@
 	"apiVersion": 3,
 	"name": "harlow/toggle",
 	"title": "Toggle",
+	"icon": "arrow-down-alt2",
 	"category": "text",
 	"description": "Titles that each open and close their own content; several can be open at once.",
 	"textdomain": "harlow",
@@ -64,7 +65,8 @@
 	"supports": {
 		"html": false,
 		"className": false,
-		"customClassName": false
+		"customClassName": false,
+		"customCSS": false
 	},
 	"example": {
 		"attributes": {
