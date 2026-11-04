@@ -104,8 +104,14 @@ function harlow_style_rules( $style, $kind, $classes = '' ) {
 		$box .= '|' . HARLOW_STYLE_COVERS[ $kind ];
 	}
 	$bg = isset( $style['background'] ) && is_array( $style['background'] ) ? $style['background'] : array();
+	// A button whose design draws its arrow as a picture on that box: the arrow is the
+	// button's, not a background, so a colour (or none) changes the colour and keeps it.
+	$arrow = 'button' === $kind && preg_match( '/(^|\s)hl-bgi-\S*--wc(\s|$)/', (string) $classes )
+		&& in_array( $get( $bg, 'type' ), array( 'color', 'none' ), true );
 	foreach ( harlow_style_background( $bg ) as $prop => $value ) {
-		$add( $box, $prop, $value );
+		if ( ! ( $arrow && 'background-image' === $prop ) ) {
+			$add( $box, $prop, $value );
+		}
 	}
 
 	// The overlay over a container's background: Elementor's own layer (`::before`, which

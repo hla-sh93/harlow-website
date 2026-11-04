@@ -458,10 +458,18 @@ export function styleRules( style, kind, urls = {}, classes = '' ) {
 			? self
 			: '| > .elementor-widget-container' ) +
 		( COVERS[ kind ] ? `|${ COVERS[ kind ] }` : '' );
+	// A button whose design draws its arrow as a picture on that box: a colour (or none)
+	// changes the colour and keeps the arrow (harlow_style_rules()).
+	const arrow =
+		kind === 'button' &&
+		/(^|\s)hl-bgi-\S*--wc(\s|$)/.test( classes || '' ) &&
+		[ 'color', 'none' ].includes( style.background?.type );
 	for ( const [ prop, value ] of Object.entries(
 		background( style.background || {}, urls )
 	) ) {
-		add( bgBox, prop, value );
+		if ( ! ( arrow && prop === 'background-image' ) ) {
+			add( bgBox, prop, value );
+		}
 	}
 	// The overlay over a container's background (Elementor's ::before layer).
 	if ( kind === 'container' ) {

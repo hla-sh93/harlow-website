@@ -108,7 +108,8 @@ The 49 English pages marked `yes` in `_inventory/urls.csv` (decisions in
   background picture and video of the design are its Background's Default; a button's
   colour colours the whole button where the design paints it on its box (its arrow kept),
   and a widget's box background reaches its widget container too, where Elementor draws it
-  and the design paints some (23 buttons on 4 pages, the home page's social icons bar), and
+  and the design paints some (23 buttons on 4 pages, the home page's social icons bar; a colour or none there keeps a button's arrow, which
+  the design draws as a picture on that box), and
   a widget's own box that fills it (an alert's, `HARLOW_STYLE_COVERS`). A group that is
   there only for some of a widget's settings shows only then (parts.json `when`: the cards
   skin's card, a typing cursor, the load more button), as Elementor's conditions do.
