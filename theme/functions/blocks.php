@@ -36,9 +36,11 @@ add_action( 'init', 'harlow_register_blocks' );
  * @param array<string,mixed> $attributes The block's attributes.
  * @param string              $kind       'container' or 'widget'.
  * @param string              $widget     The widget type (heading.default, ...), for a widget.
+ * @param string              $block      The block (its folder) when it is not the widget
+ *                                        type's (the history slider, an HTML widget on live).
  * @return string Attributes, each with its leading space.
  */
-function harlow_element_attributes( $attributes, $kind, $widget = '' ) {
+function harlow_element_attributes( $attributes, $kind, $widget = '', $block = '' ) {
 	// The owner's own style of this element (functions/styles.php): its classes join the
 	// element's; its rules go to the page's style element, printed once in the footer.
 	$style   = harlow_block_style( $attributes );
@@ -49,7 +51,7 @@ function harlow_element_attributes( $attributes, $kind, $widget = '' ) {
 	$out = ' class="' . esc_attr( trim( $classes ) ) . '" data-id="' . esc_attr( $attributes['element'] ) . '"'
 		. ' data-element_type="' . esc_attr( $kind ) . '" data-e-type="' . esc_attr( $kind ) . '"';
 	if ( $style ) {
-		$block_kind = '' !== $widget ? harlow_widget_kind( $widget ) : $kind;
+		$block_kind = '' !== $block ? $block : ( '' !== $widget ? harlow_widget_kind( $widget ) : $kind );
 		harlow_collected_styles( harlow_element_css( $attributes['element'], $style, $block_kind, $attributes['classes'] ) );
 	}
 	if ( '' !== $attributes['settings'] ) {

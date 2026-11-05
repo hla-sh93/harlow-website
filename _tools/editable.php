@@ -222,6 +222,19 @@ function vx_attrs( $name, $attrs ) {
 		case 'icon':
 			$attrs['icon'] = vx_icon( $where, 'icon', $attrs['icon'] );
 			break;
+		case 'history':
+			$attrs['label']        = vx_mark( 'word', $where, 'label', $attrs['label'] );
+			$attrs['labelPicture'] = vx_picture( $where, 'labelPicture', isset( $attrs['labelPicture'] ) ? $attrs['labelPicture'] : 0 );
+			foreach ( (array) $attrs['items'] as $n => $one ) {
+				foreach ( array( 'year', 'title', 'highlight', 'text' ) as $field ) {
+					$attrs['items'][ $n ][ $field ] = vx_mark( 'word', $where, "items.$field", isset( $one[ $field ] ) ? $one[ $field ] : '' );
+				}
+				$attrs['items'][ $n ]['picture'] = vx_picture( $where, 'items.picture', isset( $one['picture'] ) ? $one['picture'] : 0 );
+				// The phones' picture shows below 768px only and this part reads pages at 1440:
+				// the same picture (a phone's own picture is looked at 479 apart).
+				$attrs['items'][ $n ]['pictureMobile'] = $attrs['items'][ $n ]['picture'];
+			}
+			break;
 		case 'html':
 		case 'markup':
 			$attrs['html'] = vx_markup( $where, $attrs['html'] );

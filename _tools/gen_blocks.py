@@ -479,6 +479,64 @@ def raw_widget(name):
     return convert
 
 
+HIGHLIGHT = "color: rgb(106, 218, 219)"   # the second colour of a milestone's title, in live's markup
+
+
+def history_markup(a):
+    """The history slider as includes/sections/history.php prints it from its attributes."""
+    esc = lambda s: s.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")  # noqa: E731
+    slides, thumbs = "", ""
+    for n, it in enumerate(a["items"]):
+        on = n == 0
+        slides += (f' <div class="history_slide history_slide_{n}"> <div class="history_slide_content">'
+                   f' <div class="milestone_wrapper{" active-content" if on else ""}">'
+                   f' <img decoding="async" src="{a["labelImage"]}" alt=""> <span>{esc(a["label"])}</span> </div>'
+                   f' <div class="slide_title_wrapper"> <p class="{"active-content" if on else ""}"> {esc(it["title"])}'
+                   f' <span style="{HIGHLIGHT}">{esc(it["highlight"])}</span> </p>'
+                   f' <p class="slide_text{" active-content" if on else ""}">{esc(it["text"])}</p> </div> </div> </div>')
+        mark = " active-thumb" if on else (" active" if n == 1 else "")
+        thumbs += f' <div class="thumb-wrapper{mark}"> <span>{esc(it["year"])}</span> <span class="thumb"></span> </div>'
+    return ('<div id="history-slider">' + slides + ' <div class="navigation-wrapper"> <div class="connector-wrapper">'
+            ' <span class="connector"></span> </div> <div class="slide-nav">' + thumbs + ' </div> </div> </div>')
+
+
+def html_widget(el):
+    """An HTML widget: markup as written (harlow/html), or live's history slider read into
+    its milestones (harlow/history), when the slider block prints that very markup again."""
+    body = widget_body(el)
+    slider = body.find("div[@id='history-slider']")
+    if slider is None:
+        return raw_widget("html")(el)
+    label = where(el) + " history slider"
+    slides = slider.xpath("div[contains(concat(' ', @class, ' '), ' history_slide ')]")
+    years = slider.xpath(".//div[contains(concat(' ', @class, ' '), ' thumb-wrapper ')]/span[1]")
+    if not slides or len(slides) != len(years):
+        raise Unknown(f"{label}: {len(slides)} slides and {len(years)} years")
+    a = wrapper(el)
+    items, marks = [], set()
+    for slide, year in zip(slides, years):
+        img = slide.find(".//div[@class]/img")
+        tag = slide.find(".//div[@class]/span")
+        title = slide.xpath(".//div[contains(@class, 'slide_title_wrapper')]/p")
+        if img is None or tag is None or len(title) != 2 or len(els(title[0])) != 1:
+            raise Unknown(f"{label}: a slide not shaped as the slider block prints it")
+        span = els(title[0])[0]
+        if span.get("style") != HIGHLIGHT:
+            raise Unknown(f"{label}: a title's second colour {span.get('style')!r}")
+        marks.add((img.get("src"), collapse(tag.text)))
+        items.append(OrderedDict(year=collapse(year.text), title=collapse(title[0].text),
+                                 highlight=span.text or "", text=collapse(title[1].text), picture=0, pictureMobile=0))
+    if len(marks) != 1:
+        raise Unknown(f"{label}: slides with different labels {sorted(marks)}")
+    a["labelImage"], a["label"] = marks.pop()
+    a["items"] = items
+    # read back: the block must print what live's markup is (white space at tags' edges aside)
+    tight = lambda s: collapse(re.sub(r"\s*(<|>)\s*", r"\1", s))  # noqa: E731
+    if tight(history_markup(a)) != tight(outer_html(slider)) or collapse(body.text) or collapse(slider.tail):
+        raise Unknown(f"{label}: the slider block would not print live's markup")
+    return ("history", a, [], None, None)
+
+
 def shortcode(el):
     """A shortcode widget: a Contact Form 7 form as its shortcode (printed by the plugin,
     stage 5); anything else as the markup live's plugin printed."""
@@ -556,7 +614,7 @@ WIDGETS = {
     "icon-list.default": icon_list,
     "social-icons.default": social_icons,
     "accordion.default": accordion,
-    "html.default": raw_widget("html"),
+    "html.default": html_widget,
     "shortcode.default": shortcode,
     "nav-menu.default": nav_menu,
     "template.default": template,

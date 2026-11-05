@@ -869,3 +869,18 @@ e-page-transition .e-page-transition--preloader {
 	background: var(--swiper-pagination-color, var(--hl-color-primary, #0165a1));
 	opacity: 1;
 }
+
+/*
+ * The history slider (harlow/history): a milestone's own picture, when the owner chooses
+ * one, on every width over the design's picture for its place; its own picture for phones
+ * where the design changes pictures (components.css, 768px).
+ */
+#history-slider .history_slide[style*="--hl-slide-picture:"] {
+  background-image: var(--hl-slide-picture);
+}
+
+@media screen and (max-width: 768px) {
+  #history-slider .history_slide[style*="--hl-slide-picture-mobile:"] {
+    background-image: var(--hl-slide-picture-mobile);
+  }
+}

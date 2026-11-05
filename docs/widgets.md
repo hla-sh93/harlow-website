@@ -55,6 +55,10 @@ echo '<div' . harlow_element_attributes( $attributes, 'widget', '<type>.default'
 	. '</div></div>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- escaped where it is built.
 ```
 
+A block printing another widget type's markup (the history slider is live's `html.default`)
+passes its folder as a fourth argument, `harlow_element_attributes( $attributes, 'widget',
+'html.default', 'history' )`, so its style groups are its own.
+
 `harlow_element_attributes()` writes the element's classes, data-id, settings, id, the
 owner's custom attributes and motion effects, and collects the owner's styles. Everything
 else is escaped where it is built (`esc_html`, `esc_attr`, `esc_url`, `wp_kses_post` for

@@ -1,0 +1,88 @@
+{
+	"parts": [
+		{
+			"key": "label",
+			"label": "Label",
+			"selector": " .milestone_wrapper span",
+			"controls": [
+				"color",
+				"typography"
+			]
+		},
+		{
+			"key": "labelIcon",
+			"label": "Label icon",
+			"selector": " .milestone_wrapper img",
+			"controls": [
+				"size"
+			]
+		},
+		{
+			"key": "title",
+			"label": "Title",
+			"selector": " .slide_title_wrapper p:not(.slide_text)",
+			"controls": [
+				"color",
+				"typography",
+				"textShadow"
+			]
+		},
+		{
+			"key": "highlight",
+			"label": "Title: second colour",
+			"selector": " .slide_title_wrapper p:not(.slide_text) span",
+			"controls": [
+				"color",
+				"typography"
+			]
+		},
+		{
+			"key": "text",
+			"label": "Text",
+			"selector": " .slide_text",
+			"controls": [
+				"color",
+				"typography"
+			]
+		},
+		{
+			"key": "year",
+			"label": "Years",
+			"selector": " .thumb-wrapper span:first-child",
+			"controls": [
+				"color",
+				"typography"
+			],
+			"states": {
+				"active": {
+					"label": "Shown",
+					"selector": " .active-thumb span:first-child"
+				}
+			}
+		},
+		{
+			"key": "dot",
+			"label": "Timeline dots",
+			"selector": " .thumb",
+			"controls": [
+				"background",
+				"border",
+				"size"
+			],
+			"states": {
+				"active": {
+					"label": "Shown",
+					"selector": " .active-thumb .thumb"
+				}
+			}
+		},
+		{
+			"key": "line",
+			"label": "Timeline line",
+			"selector": " .connector",
+			"controls": [
+				"background"
+			]
+		}
+	]
+}

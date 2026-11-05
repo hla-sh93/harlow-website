@@ -1,9 +1,11 @@
 /*
  * Home page history slider: every 9 seconds (or on a thumbnail click) the next milestone
  * fades in. Same timings as the site's own custom script: slides cross-fade after 1s,
- * the old texts lose .active-content at 0.7s and the new ones gain it 0.3s later.
+ * the old texts lose .active-content at 0.7s and the new ones gain it 0.3s later. The
+ * owner's own time on each milestone, when set (harlow/history), is in data-interval.
  */
 (() => {
+  const every = (parseFloat(document.getElementById('history-slider')?.dataset.interval) || 9) * 1000;
   const thumbs = [...document.querySelectorAll('.thumb-wrapper')];
   const slides = [...document.querySelectorAll('.history_slide')];
   if (!thumbs.length || !slides.length) return;
@@ -25,11 +27,11 @@
 
   let current = 0;
   const next = () => { current = current + 1 < slides.length ? current + 1 : 0; show(current); };
-  let timer = setInterval(next, 9000);
+  let timer = setInterval(next, every);
   thumbs.forEach((thumb, i) => thumb.addEventListener('click', () => {
     current = i;
     clearInterval(timer);
-    timer = setInterval(next, 9000);
+    timer = setInterval(next, every);
     show(i);
   }));
 })();

@@ -1,0 +1,92 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "harlow/history",
+	"title": "History slider",
+	"icon": "backup",
+	"category": "widgets",
+	"description": "Milestones one after another over their pictures, with their years on a timeline (the home page's history).",
+	"keywords": [ "milestones", "timeline", "history", "years" ],
+	"textdomain": "harlow",
+	"harlowWidget": "html",
+	"attributes": {
+		"element": {
+			"type": "string",
+			"default": ""
+		},
+		"classes": {
+			"type": "string",
+			"default": ""
+		},
+		"settings": {
+			"type": "string",
+			"default": ""
+		},
+		"htmlId": {
+			"type": "string",
+			"default": ""
+		},
+		"label": {
+			"type": "string",
+			"default": "Milestone"
+		},
+		"labelImage": {
+			"type": "string",
+			"default": "assets/uploads/2025/01/milestone.png"
+		},
+		"labelPicture": {
+			"type": "integer",
+			"default": 0
+		},
+		"items": {
+			"type": "array",
+			"default": [
+				{
+					"year": "2002",
+					"title": "Group established",
+					"highlight": "with a focus on construction",
+					"text": "Write what happened in this year.",
+					"picture": 0,
+					"pictureMobile": 0
+				},
+				{
+					"year": "2010",
+					"title": "A new project",
+					"highlight": "and what it brought",
+					"text": "Write what happened in this year.",
+					"picture": 0,
+					"pictureMobile": 0
+				},
+				{
+					"year": "2020",
+					"title": "Another milestone",
+					"highlight": "in a second colour",
+					"text": "Write what happened in this year.",
+					"picture": 0,
+					"pictureMobile": 0
+				}
+			]
+		},
+		"interval": {
+			"type": "number",
+			"default": 9
+		},
+		"style": {
+			"type": "object",
+			"default": {}
+		}
+	},
+	"supports": {
+		"html": false,
+		"className": false,
+		"customClassName": false,
+		"customCSS": false
+	},
+	"example": {
+		"attributes": {
+			"element": "a1b2c3d",
+			"classes": "elementor-element elementor-widget elementor-widget-html"
+		}
+	},
+	"render": "file:../../includes/sections/history.php"
+}
