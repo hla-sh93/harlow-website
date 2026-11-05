@@ -300,6 +300,12 @@ def props_changed(before, after, nodes):
             width = PROPS.index("width")
             if PROPS[k].startswith(("padding-", "margin-")) and (a[width] != b[width] or (0 <= p < len(looks_b) and looks_a[p][width] != looks_b[p][width])):
                 continue
+            # a boxed container's inner box is centred by auto margins (layout.css): its left and
+            # right margins follow its own width and the container's border and padding, equal on
+            # both sides; no control sets them
+            if (PROPS[k] in ("margin-left", "margin-right") and before["paths"][i].endswith("e-con-inner")
+                    and b[PROPS.index("margin-left")] == b[PROPS.index("margin-right")]):
+                continue
             # the element itself (its place in the element), not its tag and classes: a menu's own
             # links and its phones' dropdown links wear the same class
             out.add((i, before["paths"][i], k))

@@ -81,9 +81,11 @@ const stopWatching = subscribe( () => {
 export function elementClasses( name, inParent ) {
 	const kind = name.replace( 'harlow/', '' );
 	if ( kind === 'container' ) {
+		// Flexbox, as Elementor writes `--display: flex` for every new container (the
+		// design's own class for it; the Styles tab's Layout can make it a grid).
 		return `elementor-element e-flex e-con-boxed e-con ${
 			inParent ? 'e-child' : 'e-parent'
-		}`;
+		} hl-v-display-flex`;
 	}
 	const type = WIDGET_TYPES[ kind ] || kind;
 	return `elementor-element elementor-widget elementor-widget-${ type }`;

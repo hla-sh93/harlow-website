@@ -66,3 +66,15 @@
 	padding: 8px;
 	outline: 1px dashed currentColor;
 }
+
+/*
+ * A container the owner adds is, while empty, a dashed box to click, drop or paste into, as
+ * Elementor draws one; without it, it is 0px tall and cannot be found. Its height is the
+ * container's own minimum height (`--min-height`), so the Styles tab's Minimum height still
+ * wins. The design's own empty containers keep their size, as on the page.
+ */
+.editor-styles-wrapper .harlow-brand.e-con:not(:has(> .block-editor-block-list__block, > .e-con-inner > .block-editor-block-list__block)) {
+	--min-height: 100px;
+	outline: 1px dashed #949494;
+	outline-offset: -1px;
+}
